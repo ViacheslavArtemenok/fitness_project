@@ -6,15 +6,18 @@ use App\Models\Profile;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\View\View;
+use Illuminate\Http\RedirectResponse;
+use App\Http\Requests\Profiles\EditRequest;
 
 class ProfileController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return View
      */
-    public function index()
+    public function index(): View
     {
         $profiles = Profile::query()->paginate(config('pagination.admin.profiles'));
 
@@ -58,25 +61,35 @@ class ProfileController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param  Profile $profile
+     * @return View
      */
-    public function edit($id)
+    public function edit(Profile $profile): View
     {
-        //
+        return view('admin.profiles.edit', [
+            'profile' => $profile
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param  EditRequest  $request
+     * @param  Profile  $profile
+     * @return RedirectResponse
      */
-    public function update(Request $request, $id)
+    public function update(EditRequest $request, Profile $profile): RedirectResponse
     {
-        //
+        $profile = $profile->fill($request->validated());
+
+        if($profile->save()) {
+            return redirect()->route('admin.profiles.index')
+                ->with('success',  __('messages.admin.profiles.update.success'));
+        }
+
+        return back()->with('error', __('messages.admin.profiles.update.fail'));
     }
+
 
     /**
      * Remove the specified resource from storage.

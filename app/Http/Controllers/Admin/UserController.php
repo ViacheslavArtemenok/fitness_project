@@ -4,17 +4,21 @@ namespace App\Http\Controllers\Admin;
 
 use App\Models\User;
 
+use App\Http\Requests\Users\EditRequest;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\View\View;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return View
      */
-    public function index()
+    public function index(): View
     {
         $users = User::query()->paginate(config('pagination.admin.users'));
 
@@ -58,24 +62,35 @@ class UserController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param  User $user
+     * @return View
      */
-    public function edit($id)
+    public function edit(User $user): View
     {
-        //
+        return view('admin.users.edit', [
+            'user' => $user
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param  EditRequest  $request
+     * @param  User  $user
+     * @return RedirectResponse
      */
-    public function update(Request $request, $id)
+    public function update(EditRequest $request, User $user): RedirectResponse
     {
-        //
+        $user = $user->fill(array_merge($request->validated(),
+            ['password' => Hash::make($request['password'])]
+        ));
+
+        if($user->save()) {
+            return redirect()->route('admin.users.index')
+                ->with('success',  __('messages.admin.users.update.success'));
+        }
+
+        return back()->with('error', __('messages.admin.users.update.fail'));
     }
 
     /**

@@ -12,7 +12,7 @@
             <tr>
                 <th scope="col">#</th>
                 <th scope="col">Расположение</th>
-                <th scope="col">Образоваие</th>
+                <th scope="col">Образование</th>
                 <th scope="col">Опыт</th>
                 <th scope="col">Достижения</th>
                 <th scope="col">Описание</th>
@@ -31,7 +31,7 @@
 
                     <td>
                         <div style="">
-                            <a href="#">Ред.</a>&nbsp;
+                            <a href="{{ route('admin.skills.edit', ['skill' => $skill]) }}">Ред.</a>&nbsp;
                             <a href="#" class="delete" rel="{{ $skill->id }}"
                                style="color: red;">Уд.</a>
                         </div>

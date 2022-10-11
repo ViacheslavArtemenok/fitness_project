@@ -46,7 +46,7 @@
                     <td>{{ $user->created_at }}</td>
                     <td>
                         <div style="">
-                            <a href="#">Ред.</a>&nbsp;
+                            <a href="{{ route('admin.users.edit', ['user' => $user]) }}">Ред.</a>&nbsp;
                             <a href="#" class="delete" rel="{{ $user->id }}"
                                style="color: red;">Уд.</a>
                         </div>

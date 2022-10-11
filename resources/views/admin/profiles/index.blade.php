@@ -33,7 +33,7 @@
 
                     <td>
                         <div style="">
-                            <a href="#">Ред.</a>&nbsp;
+                            <a href="{{ route('admin.profiles.edit', ['profile' => $profile]) }}">Ред.</a>&nbsp;
                             <a href="#" class="delete" rel="{{ $profile->id }}"
                                style="color: red;">Уд.</a>
                         </div>
