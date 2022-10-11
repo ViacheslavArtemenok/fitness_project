@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\VueController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,5 +16,9 @@ use App\Http\Controllers\VueController;
 Route::get('/', function () {
     return view('welcome');
 });
-Route::get('/vue', VueController::class)
-->name('vue.index');
+
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
+
+require __DIR__.'/auth.php';
