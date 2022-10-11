@@ -5,9 +5,10 @@ namespace App\Http\Controllers\Admin;
 use App\Models\User;
 
 use App\Http\Requests\Users\EditRequest;
+use App\Http\Requests\Users\CreateRequest;
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\JsonResponse;
 use Illuminate\View\View;
 use Illuminate\Support\Facades\Hash;
 
@@ -30,22 +31,31 @@ class UserController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return View
      */
-    public function create()
+    public function create(): View
     {
-        //
+        return view('admin.users.create');
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param  CreateRequest  $request
+     * @return RedirectResponse
      */
-    public function store(Request $request)
+    public function store(CreateRequest $request): RedirectResponse
     {
-        //
+        $user = new User(
+            $request->validated()
+        );
+
+        if($user->save()) {
+            return redirect()->route('admin.users.index')
+                ->with('success', __('messages.admin.users.create.success'));
+        }
+
+        return back()->with('error', __('messages.admin.users.create.fail'));
     }
 
     /**
@@ -96,11 +106,22 @@ class UserController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param User $user
+     *
+     * @return JsonResponse
      */
-    public function destroy($id)
+    public function destroy(User $user): JsonResponse
     {
-        //
+        try {
+            $deleted = $user->delete();
+            if ( $deleted === false) {
+                return \response()->json(['status' => 'error'], 400);
+            } else {
+                return \response()->json(['status' => 'ok']);
+            }
+        } catch (\Exception $e) {
+            \Log::error($e->getMessage().' '.$e->getCode());
+            return \response()->json(['status' => 'error'], 400);
+        }
     }
 }

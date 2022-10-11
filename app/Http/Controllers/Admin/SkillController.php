@@ -5,10 +5,11 @@ namespace App\Http\Controllers\Admin;
 use App\Models\Skill;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use Illuminate\View\View;
 use App\Http\Requests\Skills\EditRequest;
+use App\Http\Requests\Skills\CreateRequest;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\JsonResponse;
 
 class SkillController extends Controller
 {
@@ -29,22 +30,31 @@ class SkillController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return View
      */
-    public function create()
+    public function create(): View
     {
-        //
+        return view('admin.skills.create');
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param  CreateRequest  $request
+     * @return RedirectResponse
      */
-    public function store(Request $request)
+    public function store(CreateRequest $request): RedirectResponse
     {
-        //
+        $skill = new Skill(
+            array_merge($request->validated(), ['user_id' => 2])
+        );
+
+        if($skill->save()) {
+            return redirect()->route('admin.skills.index')
+                ->with('success', __('messages.admin.skills.create.success'));
+        }
+
+        return back()->with('error', __('messages.admin.skills.create.fail'));
     }
 
     /**
@@ -90,15 +100,25 @@ class SkillController extends Controller
         return back()->with('error', __('messages.admin.skills.update.fail'));
     }
 
-
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param Skill $skill
+     *
+     * @return JsonResponse
      */
-    public function destroy($id)
+    public function destroy(Skill $skill): JsonResponse
     {
-        //
+        try {
+            $deleted = $skill->delete();
+            if ( $deleted === false) {
+                return \response()->json(['status' => 'error'], 400);
+            } else {
+                return \response()->json(['status' => 'ok']);
+            }
+        } catch (\Exception $e) {
+            \Log::error($e->getMessage().' '.$e->getCode());
+            return \response()->json(['status' => 'error'], 400);
+        }
     }
 }

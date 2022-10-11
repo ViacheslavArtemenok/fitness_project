@@ -4,7 +4,7 @@ namespace App\Http\Requests\Skills;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class EditRequest extends FormRequest
+class CreateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -28,7 +28,7 @@ class EditRequest extends FormRequest
             'education' =>  ['required', 'string', 'min:3', 'max:255'],
             'experience' => ['required', 'numeric', 'min:1'],
             'achievements' =>  ['required', 'string', 'min:3', 'max:255'],
-            'skills_list' =>  ['required', 'string', 'min:3', 'max:255'],
+            'skills_list' => ['required', 'string', 'min:3', 'max:255'],
             'description' =>  ['required', 'string', 'min:3', 'max:255'],
         ];
     }

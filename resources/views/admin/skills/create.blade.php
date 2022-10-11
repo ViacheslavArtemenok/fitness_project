@@ -2,38 +2,37 @@
 @section('content')
     <div class="offset-2 col-8">
         <br>
-        <h2>Редактировать навыки</h2>
+        <h2>Добавить навыки</h2>
 
         @include('inc.message')
 
-        <form method="post" action="{{ route('admin.skills.update', ['skill' => $skill]) }}" enctype="multipart/form-data">
+        <form method="post" action="{{ route('admin.skills.store') }}">
             @csrf
-            @method('put')
             <div class="form-group">
                 <label for="location">Расположение</label>
-                <input type="text" class="form-control" name="location" id="location" value="{{ $skill->location }}">
+                <input type="text" class="form-control" name="location" id="location" value="{{ old('location') }}">
             </div>
             <div class="form-group">
                 <label for="education">Образоваие</label>
-                <input type="text" class="form-control" name="education" id="education" value="{{ $skill->education }}">
+                <input type="text" class="form-control" name="education" id="education" value="{{ old('education') }}">
             </div>
             <div class="form-group">
                 <label for="experience">Опыт</label>
-                <input type="text" class="form-control" name="experience" id="experience" value="{{ $skill->experience }}">
+                <input type="text" class="form-control" name="experience" id="experience" value="{{ old('experience') }}">
             </div>
             <div class="form-group">
                 <label for="achievements">Достижения</label>
-                <input type="text" class="form-control" name="achievements" id="achievements" value="{{ $skill->achievements }}">
+                <input type="text" class="form-control" name="achievements" id="achievements" value="{{ old('achievements') }}">
             </div>
             <div class="form-group">
                 <label for="skillList">Список навыков</label>
-                <input type="text" class="form-control" name="skills_list" id="skillList" value="{{ $skill->skills_list }}">
+                <input type="text" class="form-control" name="skills_list" id="skillList" value="{{ old('skills_list') }}">
             </div>
             <div class="form-group">
                 <label for="desciption">Описание</label>
-                <input type="text" class="form-control" name="description" id="description" value="{{ $skill->description }}">
+                <input type="text" class="form-control" name="description" id="description" value="{{ old('description') }}">
             </div>
-           <br>
+            <br>
             <button class="btn btn-success" type="submit">Сохранить</button>
         </form>
     </div>
