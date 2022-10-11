@@ -3,6 +3,11 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\VueController;
 
+use App\Http\Controllers\Admin\IndexController as AdminController;
+use App\Http\Controllers\Admin\UserController as AdminUserController;
+use App\Http\Controllers\Admin\ProfileController as AdminProfileController;
+use App\Http\Controllers\Admin\SkillController as AdminSkillController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -13,6 +18,17 @@ use App\Http\Controllers\VueController;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+Route::group(['prefix' => 'admin', 'as' => 'admin.'], function() {
+    Route::get('/', AdminController::class)
+        ->name('index');
+
+    Route::resource('users', AdminUserController::class);
+    Route::resource('profiles', AdminProfileController::class);
+    Route::resource('skills', AdminSkillController::class);
+});
+
+
 
 Route::get('/', function () {
     return view('welcome');

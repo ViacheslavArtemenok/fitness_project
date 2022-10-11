@@ -20,6 +20,7 @@ return new class extends Migration
                 User::IS_ADMIN, User::IS_CLIENT, User::IS_TRAINER
             ])->default(User::IS_TRAINER);
             $table->string('name');
+            $table->string('phone',10)->nullable();
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
