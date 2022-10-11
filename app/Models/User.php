@@ -17,9 +17,9 @@ class User extends Authenticatable
 
     protected $dates = ['deleted_at'];
     // define role here
-    public const IS_ADMIN = 0;
-    public const IS_CLIENT = 1;
-    public const IS_TRAINER = 2;
+    public const IS_ADMIN = 'IS_ADMIN';
+    public const IS_CLIENT = 'IS_CLIENT';
+    public const IS_TRAINER = 'IS_TRAINER';
 
 
     /**
