@@ -13,9 +13,9 @@
 
     <div class="col-md-5 col-sm-6">
      <div class="team-thumb">
-          <a href="{{ route('trainers.show', ['id' => $trainer->id]) }}" class="team-image">
+          <div class="team-image">
                <img src="{{ $trainer->profile->image }}" class="img-responsive" alt="img">
-          </a>
+          </div>
           <div class="team-info">
                <h2>Контакты</h2>
                <h3>Телефон: {{$trainer->phone}}</h3>

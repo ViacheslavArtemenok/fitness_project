@@ -474,13 +474,19 @@ http://www.templatemo.com/tm-516-known
   .team-space{
     margin: 60px 0px 0px;
   }
+  .team-change{
+    transition: all 0.3s;
+  }
+  .team-change:hover{
+    box-shadow: 0px 0px 20px #32CD32;
+  }
   .team-thumb {
     background: #ffffff;
     position: relative;
     overflow: hidden;
     text-align: left;
   }
-
+  
   .team-info {
     padding: 20px 30px;
     min-height: 260px;

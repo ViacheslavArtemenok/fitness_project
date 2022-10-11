@@ -12,7 +12,7 @@
                <div class="col-md-3 col-sm-6">
                    <div class="team-thumb team-space">
                         <a href="{{ route('trainers.show', ['id' => $trainer->id]) }}" class="team-image">
-                             <img src="{{ $trainer->profile->image }}" class="img-responsive" alt="img">
+                             <img src="{{ $trainer->profile->image }}" class="img-responsive team-change" alt="img">
                         </a>
                         <div class="team-info">
                              <h5>{{$trainer->profile->first_name}} {{$trainer->profile->last_name}}</h5>
