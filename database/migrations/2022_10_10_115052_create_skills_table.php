@@ -22,7 +22,6 @@ return new class extends Migration
             $table->string('achievements', 150)->nullable();
             $table->string('skills_list', 250);
             $table->text('description');
-
             $table->timestamps();
             $table->softDeletes();
         });

@@ -37,7 +37,7 @@ final class TrainerQueryBuilder
     public function getById(int $id): object
     {
         return $this->model
-            ->with(['category', 'author'])
+            ->with(['profile', 'skill'])
             ->findOrFail($id);
     }
 

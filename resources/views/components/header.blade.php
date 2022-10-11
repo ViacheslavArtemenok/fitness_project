@@ -19,7 +19,6 @@
                   <ul class="nav navbar-nav navbar-nav-first">
                        <li><a href="{{ url('/') }}">Home</a></li>
                        <li><a href="{{ route('trainers.index') }}">Fitness trainers</a></li>
-                       <li><a href="{{ route('trainers.show', ['id' => 1]) }}">About</a></li>
                   </ul>
 
                   <ul class="nav navbar-nav navbar-right">
