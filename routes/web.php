@@ -1,12 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\VueController;
-
-use App\Http\Controllers\Admin\IndexController as AdminController;
-use App\Http\Controllers\Admin\UserController as AdminUserController;
-use App\Http\Controllers\Admin\ProfileController as AdminProfileController;
-use App\Http\Controllers\Admin\SkillController as AdminSkillController;
+use App\Http\Controllers\PageController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,19 +14,11 @@ use App\Http\Controllers\Admin\SkillController as AdminSkillController;
 |
 */
 
-Route::group(['prefix' => 'admin', 'as' => 'admin.'], function() {
-    Route::get('/', AdminController::class)
-        ->name('index');
-
-    Route::resource('users', AdminUserController::class);
-    Route::resource('profiles', AdminProfileController::class);
-    Route::resource('skills', AdminSkillController::class);
-});
-
-
-
 Route::get('/', function () {
-    return view('welcome');
+    return view('info');
 });
-Route::get('/vue', VueController::class)
-->name('vue.index');
+Route::get('/trainers', [PageController::class, 'index'])
+    ->name('trainers.index');
+Route::get('/trainers/{id}', [PageController::class, 'show'])
+    ->where('id', '\d+')
+    ->name('trainers.show');

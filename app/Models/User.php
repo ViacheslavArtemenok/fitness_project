@@ -4,6 +4,7 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -15,7 +16,7 @@ class User extends Authenticatable
     use SoftDeletes;
 
     protected $dates = ['deleted_at'];
-// define role here
+    // define role here
     public const IS_ADMIN = 0;
     public const IS_CLIENT = 1;
     public const IS_TRAINER = 2;
@@ -50,4 +51,12 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+    public function profile(): HasOne
+    {
+        return $this->hasOne(Profile::class);
+    }
+    public function skill(): HasOne
+    {
+        return $this->hasOne(Skill::class);
+    }
 }
