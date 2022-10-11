@@ -35,6 +35,7 @@ class UserSeeder extends Seeder
             $users[] = [
                 'name'        => $faker->userName(),
                 'email'       => $faker->email(),
+                'phone'       => $faker->numerify('##########'),
                 //'role'        => rand(0, 2),
                 'password'    => Hash::make('12345678'),
                 'email_verified_at' => now('Europe/Moscow'),
