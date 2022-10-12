@@ -3,144 +3,35 @@
 @section('content')
 <!-- TEAM -->
 <section id="team">
-
               <div class="col-md-12 col-sm-12 header_space">
                    <div class="section-title">
-                        <h2>Fitness trainers <small>Meet Professional Trainers</small></h2>
+                        <h2>Все специалисты фитнес-индустрии<small>Выбери своего наставника</small></h2>
                    </div>
               </div>
-
-                <div class="col-md-3 col-sm-6">
-                   <div class="team-thumb">
-                        <a href="{{ route('trainers.show', ['id' => 1]) }}" class="team-image">
-                             <img src="assets/images/author-image1.jpg" class="img-responsive" alt="">
+               @forelse($trainersList as $key => $trainer) 
+               <div class="col-md-3 col-sm-6">
+                   <div class="team-thumb team-space">
+                        <a href="{{ route('trainers.show', ['id' => $trainer->id]) }}" class="team-image">
+                             <img src="{{ $trainer->profile->image }}" class="img-responsive team-change" alt="img">
                         </a>
                         <div class="team-info">
-                             <h3>Mark Wilson</h3>
-                             <span>I love Teaching</span>
-                                                   </div>
+                             <h5>{{$trainer->profile->first_name}} {{$trainer->profile->last_name}}</h5>
+                             <h6>Возраст: {{$trainer->profile->age}} лет</h6>
+                             <h6>Опыт: {{$trainer->skill->experience}} лет</h6>
+                             <h6>Город: {{$trainer->skill->location}}</h6>
+                             <span>{{$trainer->skill->skills_list}}</span>
+                         </div>
                         <ul class="social-icon">
                              <li><a href="#" class="fa fa-facebook-square" attr="facebook icon"></a></li>
                              <li><a href="#" class="fa fa-twitter"></a></li>
                              <li><a href="#" class="fa fa-instagram"></a></li>
                         </ul>
                    </div>
-                </div>
+               </div>
+               @empty
+    <h2>Записей нет</h2>
+    @endforelse  
               
-                <div class="col-md-3 col-sm-6">
-                   <div class="team-thumb">
-                        <div class="team-image">
-                             <img src="assets/images/author-image2.jpg" class="img-responsive" alt="">
-                        </div>
-                        <div class="team-info">
-                             <h3>Catherine</h3>
-                             <span>Education is the key!</span>
-                        </div>
-                        <ul class="social-icon">
-                             <li><a href="#" class="fa fa-google"></a></li>
-                             <li><a href="#" class="fa fa-instagram"></a></li>
-                        </ul>
-                   </div>
-              </div>
-              
-              <div class="col-md-3 col-sm-6">
-                   <div class="team-thumb">
-                        <div class="team-image">
-                             <img src="assets/images/author-image3.jpg" class="img-responsive" alt="">
-                        </div>
-                        <div class="team-info">
-                             <h3>Jessie Ca</h3>
-                             <span>I like Online Courses</span>
-                        </div>
-                        <ul class="social-icon">
-                             <li><a href="#" class="fa fa-twitter"></a></li>
-                             <li><a href="#" class="fa fa-envelope-o"></a></li>
-                             <li><a href="#" class="fa fa-linkedin"></a></li>
-                        </ul>
-                   </div>
-              </div>
-
-              <div class="col-md-3 col-sm-6">
-                   <div class="team-thumb">
-                        <div class="team-image">
-                             <img src="assets/images/author-image4.jpg" class="img-responsive" alt="">
-                        </div>
-                        <div class="team-info">
-                             <h3>Andrew Berti</h3>
-                             <span>Learning is fun</span>
-                        </div>
-                        <ul class="social-icon">
-                             <li><a href="#" class="fa fa-twitter"></a></li>
-                             <li><a href="#" class="fa fa-google"></a></li>
-                             <li><a href="#" class="fa fa-behance"></a></li>
-                        </ul>
-                   </div>
-              </div>
-              <div class="col-md-3 col-sm-6">
-                <div class="team-thumb">
-                     <div class="team-image">
-                          <img src="assets/images/author-image1.jpg" class="img-responsive" alt="">
-                     </div>
-                     <div class="team-info">
-                          <h3>Mark Wilson</h3>
-                          <span>I love Teaching</span>
-                                                </div>
-                     <ul class="social-icon">
-                          <li><a href="#" class="fa fa-facebook-square" attr="facebook icon"></a></li>
-                          <li><a href="#" class="fa fa-twitter"></a></li>
-                          <li><a href="#" class="fa fa-instagram"></a></li>
-                     </ul>
-                </div>
-             </div>
-           
-             <div class="col-md-3 col-sm-6">
-                <div class="team-thumb">
-                     <div class="team-image">
-                          <img src="assets/images/author-image2.jpg" class="img-responsive" alt="">
-                     </div>
-                     <div class="team-info">
-                          <h3>Catherine</h3>
-                          <span>Education is the key!</span>
-                     </div>
-                     <ul class="social-icon">
-                          <li><a href="#" class="fa fa-google"></a></li>
-                          <li><a href="#" class="fa fa-instagram"></a></li>
-                     </ul>
-                </div>
-           </div>
-           
-           <div class="col-md-3 col-sm-6">
-                <div class="team-thumb">
-                     <div class="team-image">
-                          <img src="assets/images/author-image3.jpg" class="img-responsive" alt="">
-                     </div>
-                     <div class="team-info">
-                          <h3>Jessie Ca</h3>
-                          <span>I like Online Courses</span>
-                     </div>
-                     <ul class="social-icon">
-                          <li><a href="#" class="fa fa-twitter"></a></li>
-                          <li><a href="#" class="fa fa-envelope-o"></a></li>
-                          <li><a href="#" class="fa fa-linkedin"></a></li>
-                     </ul>
-                </div>
-           </div>
-
-           <div class="col-md-3 col-sm-6">
-                <div class="team-thumb">
-                     <div class="team-image">
-                          <img src="assets/images/author-image4.jpg" class="img-responsive" alt="">
-                     </div>
-                     <div class="team-info">
-                          <h3>Andrew Berti</h3>
-                          <span>Learning is fun</span>
-                     </div>
-                     <ul class="social-icon">
-                          <li><a href="#" class="fa fa-twitter"></a></li>
-                          <li><a href="#" class="fa fa-google"></a></li>
-                          <li><a href="#" class="fa fa-behance"></a></li>
-                     </ul>
-                </div>
-           </div>
+    {{ $trainersList->links() }}              
        </section>
 @endsection

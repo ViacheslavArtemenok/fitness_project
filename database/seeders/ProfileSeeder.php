@@ -37,12 +37,11 @@ class ProfileSeeder extends Seeder
                 'father_name'    => $faker->firstNameMale(),
                 'age'            => rand(25, 45),
                 'gender'         => 'male',
-                'image'          => $faker->url(),
+                'image'          => "https://avatars.mds.yandex.net/i?id=d524a6cf993410e0bb1da07a8cf2276c-5222395-images-thumbs&n=13",
                 'created_at'     => now('Europe/Moscow')
             ];
         }
 
         return $profiles;
     }
-
 }
