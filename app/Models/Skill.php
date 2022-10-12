@@ -20,10 +20,12 @@ class Skill extends Model
      * @var array<int, string>
      */
     protected $fillable = [
+        'user_id',
         'location',
         'education',
         'experience',
         'achievements',
+        'skills_list',
         'description'
     ];
     public function news(): BelongsTo
