@@ -10,7 +10,7 @@
                 <div class="p-6 bg-white border-b border-gray-200">
                     <h>Здравствуйте, {{ Auth::user()->name }}!</h>
                     <br>
-                    @if(Auth::user()->role === '0')
+                    @if(Auth::user()->role === 'IS_ADMIN')
                         <a href="">В админку</a>
                     @endif
                 </div>
