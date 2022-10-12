@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PageController;
+use App\Http\Controllers\Account\IndexController as AccountIndexController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,6 +18,15 @@ use App\Http\Controllers\PageController;
 Route::get('/', function () {
     return view('info');
 });
+
+Route::get('/account', AccountIndexController::class)
+    ->name('account');
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
+
+require __DIR__.'/auth.php';
+
 Route::get('/trainers', [PageController::class, 'index'])
     ->name('trainers.index');
 Route::get('/trainers/{id}', [PageController::class, 'show'])
