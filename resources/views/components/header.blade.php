@@ -11,14 +11,14 @@
                   </button>
 
                   <!-- lOGO TEXT HERE -->
-                  <a href="/" class="navbar-brand">Known</a>
+                  <a href="#" class="navbar-brand">Known</a>
              </div>
 
              <!-- MENU LINKS -->
              <div class="collapse navbar-collapse">
                   <ul class="nav navbar-nav navbar-nav-first">
-                       <li><a href="{{ url('/') }}">Главная</a></li>
-                       <li><a href="{{ route('trainers.index') }}">Тренеры</a></li>
+                       <li><a href="{{ url('/') }}">Home</a></li>
+                       <li><a href="{{ route('trainers.index') }}">Fitness trainers</a></li>
                   </ul>
 
                   <ul class="nav navbar-nav navbar-right">
@@ -27,9 +27,7 @@
 
                  <!-- Right Side Of Navbar -->
                  <ul class="nav navbar-nav">
-                    @if (Auth::user())
                      <li><a href="{{ route('account') }}">Личный кабинет</a></li>
-                     @endif
                      <!-- Authentication Links -->
                      @guest
                          @if (Route::has('login'))

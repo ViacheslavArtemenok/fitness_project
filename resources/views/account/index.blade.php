@@ -1,36 +1,26 @@
 @extends('layouts.account')
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        @include('inc.message')
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Личный кабинет') }}</div>
 
-                <div class="card-body">
-                    @if (session('status'))
-                    <div class="alert alert-success" role="alert">
-                        {{ session('status') }}
-                    </div>
-                    @endif
+<x-app-layout>
+
+    <div class="py-12">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                @if(Auth::user())
+                <div class="p-6 bg-white border-b border-gray-200">
+                    <h>Здравствуйте, {{ Auth::user()->name }}!</h>
                     <br>
-                    <p>Имя: {{ Auth::user()->name }}</p>
-                    <p>Телефон: {{ Auth::user()->phone }}</p>
-                    <p>Email: {{ Auth::user()->email }}</p>
-                    <p>Дата регистрации: {{ Auth::user()->created_at->format('d.m.Y') }}</p>
-                    <p>Последняя авторизация:
-                        @if(Auth::user()->last_login_at)
-                        {{ Auth::user()->last_login_at->format('H:i d.m.Y') }}
-                        @else{{ Auth::user()->created_at->format('H:i d.m.Y') }}
-                        @endif
-                    </p>
+                    @if(Auth::user()->role === 'IS_ADMIN')
+                        <a href="">В админку</a>
+                    @endif
                 </div>
+                @endif
             </div>
-            <br>
-
         </div>
     </div>
-</div>
+
+</x-app-layout>
+
 @endsection
 
 {{--{{ route('admin.index') }}--}}
