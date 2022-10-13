@@ -3,7 +3,10 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\Account\IndexController as AccountIndexController;
-
+use App\Http\Controllers\Admin\IndexController as AdminIndexController;
+use App\Http\Controllers\Admin\ProfileController as AdminProfileController;
+use App\Http\Controllers\Admin\SkillController as AdminSkillController;
+use App\Http\Controllers\Admin\UserController as AdminUserController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -25,10 +28,20 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
 
 Route::get('/trainers', [PageController::class, 'index'])
     ->name('trainers.index');
 Route::get('/trainers/{id}', [PageController::class, 'show'])
     ->where('id', '\d+')
     ->name('trainers.show');
+
+Route::middleware('auth')->group(function () {
+    Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'is_admin'], function () {
+        Route::get('/', AdminIndexController::class)
+            ->name('index');
+        Route::resource('profiles', AdminProfileController::class);
+        Route::resource('skills', AdminSkillController::class);
+        Route::resource('users', AdminUserController::class);
+    });
+});

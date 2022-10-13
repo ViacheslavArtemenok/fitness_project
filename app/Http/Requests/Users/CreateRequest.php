@@ -29,7 +29,7 @@ class CreateRequest extends FormRequest
             'phone' => ['required', 'numeric', 'digits:10'],
             'password' => ['required_with:confirmPassword', 'string', 'same:confirmPassword', 'min:8'],
             'confirmPassword' => ['required', 'string', 'min:8'],
-            'role' => ['required', 'integer', 'digits_between:0,10']
+            'role' => ['required', 'string']
         ];
     }
 

@@ -8,10 +8,10 @@
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 @if(Auth::user())
                 <div class="p-6 bg-white border-b border-gray-200">
-                    <h>Здравствуйте, {{ Auth::user()->name }}!</h>
+                    <p>Здравствуйте, {{ Auth::user()->name }}!</p>
                     <br>
                     @if(Auth::user()->role === 'IS_ADMIN')
-                        <a href="">В админку</a>
+                        <a class="btn btn-primary" href="{{ route('admin.index') }}">Администрировать</a>
                     @endif
                 </div>
                 @endif
