@@ -28,7 +28,8 @@ class Profile extends Model
         'gender',
         'image'
     ];
-    public function news(): BelongsTo
+
+    public function profile(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }
