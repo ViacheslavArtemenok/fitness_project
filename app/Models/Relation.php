@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Relation extends Model
@@ -17,4 +18,14 @@ class Relation extends Model
         'user_id',
         'tag_id'
     ];
+
+    public function tag(): HasOne
+    {
+        return $this->hasOne(Tag::class);
+    }
+
+    public function user(): HasOne
+    {
+        return $this->hasOne(User::class);
+    }
 }
