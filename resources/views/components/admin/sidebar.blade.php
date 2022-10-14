@@ -2,7 +2,13 @@
     <div class="position-sticky pt-3 sidebar-sticky">
         <ul class="nav flex-column">
             <li class="nav-item nav-link">
-                <h4>Здравствуйте, XXX!</h4>
+                <h4>Здравствуйте, {{ Auth::user()->name }}!</h4>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link @if(request()->routeIs('account')) active @endif" aria-current="page" href="{{ route('account') }}">
+                    <span data-feather="home" class="align-text-bottom"></span>
+                    Личный кабинет
+                </a>
             </li>
             <li class="nav-item">
                 <a class="nav-link @if(request()->routeIs('admin.index')) active @endif" aria-current="page" href="{{ route('admin.index') }}">
