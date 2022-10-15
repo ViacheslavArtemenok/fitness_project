@@ -59,27 +59,22 @@
 </svg>
 <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block sidebar collapse d-flex flex-column flex-shrink-0 p-3 text-bg-dark">
         <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
-            <svg class="bi pe-none me-2" width="40" height="32"><use xlink:href="#bootstrap"/></svg>
-            <span class="fs-4">Sidebar</span>
+            <svg class="bi pe-none me-2" width="40" height="32"><use xlink:href="#speedometer"/></svg>
+            <span class="fs-4">Личный кабинет</span>
         </a>
         <hr>
         <ul class="nav nav-pills flex-column mb-auto">
             <li class="nav-item">
-                <a href="#" class="nav-link active" aria-current="page">
+                <a class="nav-link text-white @if(request()->routeIs('account.index'))active @endif" aria-current="page" href="/">
+                    <span data-feather="home"></span>
                     <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#home"/></svg>
                     Домой
                 </a>
             </li>
             <li>
-                <a href="#" class="nav-link text-white">
+                <a href="{{ route('account.users', ['user'=>Auth::user()]) }}" class="nav-link text-white">
                     <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#people-circle"/></svg>
                     Профиль
-                </a>
-            </li>
-            <li>
-                <a href="#" class="nav-link text-white">
-                    <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#speedometer2"/></svg>
-                    Панель управления
                 </a>
             </li>
             <li>
@@ -89,7 +84,7 @@
                 </a>
             </li>
             <li>
-                <a href="#" class="nav-link text-white">
+                <a href="#" class="nav-link text-white @if(request()->routeIs('account.index'))active @endif">
                     <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#grid"/></svg>
                     Products
                 </a>
@@ -98,7 +93,10 @@
         </ul>
 </nav>
 
-
+<a class="nav-link @if(request()->routeIs('admin.index'))active @endif" aria-current="page" href="{{ route('admin.index') }}">
+    <span data-feather="home"></span>
+    Панель управления
+</a>
 
 
 {{--<div class="position-sticky pt-3 sidebar-sticky">--}}
