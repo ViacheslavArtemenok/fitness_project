@@ -28,7 +28,7 @@ class Skill extends Model
         'skills_list',
         'description'
     ];
-    public function news(): BelongsTo
+    public function skill(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }
