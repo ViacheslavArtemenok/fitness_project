@@ -10,7 +10,19 @@
             @csrf
             @method('put')
             <div class="form-group">
-                <label for="name">Имя</label>
+                <label for="last_name">Фамилия</label>
+                <input type="text" class="form-control" readonly name="last_name" id="last_name" value="{{ $user->profile->last_name }}">
+            </div>
+            <div class="form-group">
+                <label for="first_name">Имя</label>
+                <input type="text" class="form-control" readonly name="first_name" id="first_name" value="{{ $user->profile->first_name }}">
+            </div>
+            <div class="form-group">
+                <label for="father_name">Отчество</label>
+                <input type="text" class="form-control" readonly name="father_name" id="father_name" value="{{ $user->profile->father_name }}">
+            </div>
+            <div class="form-group">
+                <label for="name">Ник</label>
                 <input type="text" class="form-control" name="name" id="name" value="{{ $user->name }}">
             </div>
             <div class="form-group">
@@ -24,9 +36,9 @@
             <div class="form-group">
                 <label for="role">Роль</label>
                 <select class="form-control" name="role" id="role">
-                    <option @if((int)$user->role === \App\Models\User::IS_ADMIN) selected @endif value="{{ \App\Models\User::IS_ADMIN }}">Админ</option>
-                    <option @if((int)$user->role === \App\Models\User::IS_CLIENT) selected @endif value="{{ \App\Models\User::IS_CLIENT }}">Клиент</option>
-                    <option @if((int)$user->role === \App\Models\User::IS_TRAINER) selected @endif value="{{ \App\Models\User::IS_TRAINER }}">Тренер</option>
+                    <option @if($user->role === \App\Models\User::IS_ADMIN) selected @endif value="{{ \App\Models\User::IS_ADMIN }}">Админ</option>
+                    <option @if($user->role === \App\Models\User::IS_CLIENT) selected @endif value="{{ \App\Models\User::IS_CLIENT }}">Клиент</option>
+                    <option @if($user->role === \App\Models\User::IS_TRAINER) selected @endif value="{{ \App\Models\User::IS_TRAINER }}">Тренер</option>
                 </select>
             </div>
             <div class="form-group">

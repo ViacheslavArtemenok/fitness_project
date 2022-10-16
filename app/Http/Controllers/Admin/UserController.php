@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\User;
-
 use App\Http\Requests\Users\EditRequest;
 use App\Http\Requests\Users\CreateRequest;
 use App\Http\Controllers\Controller;
@@ -21,7 +20,7 @@ class UserController extends Controller
      */
     public function index(): View
     {
-        $users = User::query()->paginate(config('pagination.admin.users'));
+        $users = User::query()->with('profile')->paginate(config('pagination.admin.users'));
 
         return view('admin.users.index', [
             'users' => $users

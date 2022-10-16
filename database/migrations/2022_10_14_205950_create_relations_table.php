@@ -16,13 +16,11 @@ return new class extends Migration
         Schema::create('relations', function (Blueprint $table) {
             $table->id();
 
-            $table->foreignId('user_id')
-                ->constrained('users')
-                ->onDelete('cascade');
+            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('tag_id');
 
-            $table->foreignId('tag_id')
-                ->constrained('tags')
-                ->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('tag_id')->references('id')->on('tags');
 
             $table->timestamps();
             $table->softDeletes();
