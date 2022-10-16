@@ -11,7 +11,10 @@
             <thead>
             <tr>
                 <th scope="col">#</th>
+                <th scope="col">Фамилия</th>
                 <th scope="col">Имя</th>
+                <th scope="col">Отчество</th>
+                <th scope="col">Ник</th>
                 <th scope="col">Элект почта</th>
                 <th scope="col">Телефон</th>
                 <th scope="col">Роль</th>
@@ -38,6 +41,9 @@
 
                 <tr id="row-{{ $user->id }}">
                     <td>{{ $user->id }}</td>
+                    <td>{{ $user->profile->last_name }}</td>
+                    <td>{{ $user->profile->first_name }}</td>
+                    <td>{{ $user->profile->father_name }}</td>
                     <td>{{ $user->name }}</td>
                     <td>{{ $user->email }}</td>
                     <td>{{ $user->phone }}</td>
@@ -54,7 +60,7 @@
                 </tr>
             @empty
                 <tr>
-                    <td colspan="8">Записей не найдено</td>
+                    <td colspan="11">Записей не найдено</td>
                 </tr>
             @endforelse
             </tbody>

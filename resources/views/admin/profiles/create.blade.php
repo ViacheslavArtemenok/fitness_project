@@ -9,12 +9,12 @@
         <form method="post" action="{{ route('admin.profiles.store') }}">
             @csrf
             <div class="form-group">
-                <label for="firstName">Имя</label>
-                <input type="text" class="form-control" name="first_name" id="firstName" value="{{ old('first_name') }}">
-            </div>
-            <div class="form-group">
                 <label for="lastName">Фамилия</label>
                 <input type="text" class="form-control" name="last_name" id="lastName" value="{{ old('last_name') }}">
+            </div>
+            <div class="form-group">
+                <label for="firstName">Имя</label>
+                <input type="text" class="form-control" name="first_name" id="firstName" value="{{ old('first_name') }}">
             </div>
             <div class="form-group">
                 <label for="fatherName">Отчество</label>

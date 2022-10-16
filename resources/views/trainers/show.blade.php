@@ -22,7 +22,7 @@
                         {{ $trainerBuilder->getUnitCase($trainer->profile->age) }}</p>
                     <p class="lead">Опыт: {{ $trainer->skill->experience }}
                         {{ $trainerBuilder->getUnitCase($trainer->skill->experience) }}</p>
-                    @forelse($trainer->tag as $key => $tagItem)
+                    @forelse($trainer->tags as $key => $tagItem)
                         <h5 class="btn btn-secondary"><a href="{{ route('trainers.index', ['tag_id' => $tagItem->id]) }}">
                                 {{ $tagItem->tag }}
                             </a></h5>

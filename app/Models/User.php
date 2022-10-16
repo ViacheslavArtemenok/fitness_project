@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
@@ -57,7 +56,7 @@ class User extends Authenticatable
 
     public function profile(): HasOne
     {
-        return $this->hasOne(Profile::class);
+        return $this->hasOne(Profile::class, 'user_id', 'id');
     }
 
     public function skill(): HasOne
@@ -65,8 +64,8 @@ class User extends Authenticatable
         return $this->hasOne(Skill::class);
     }
 
-    public function tag(): BelongsToMany
+    public function tags(): BelongsToMany
     {
-        return $this->belongsToMany(Tag::class, 'relations', 'user_id', 'tag_id')->withTimestamps();
+        return $this->belongsToMany(Tag::class, 'relations')->withTimestamps();
     }
 }
