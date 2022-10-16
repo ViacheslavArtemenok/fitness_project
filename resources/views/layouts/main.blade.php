@@ -17,18 +17,18 @@
 
 <body class="body_back" id="top" data-spy="scroll" data-target=".navbar-collapse" data-offset="50">
 
-    <x-header></x-header>
-    <main class="main_back">
-        @yield('content')
-    </main>
+<x-header></x-header>
+<main class="main_back">
+    @yield('content')
+</main>
 
-    <x-footer></x-footer>
-    <script src="{{ asset('assets/bootstrap.bundle.min.js') }}"></script>
-    <!-- SCRIPTS -->
-    <script src="{{ asset('assets/js/jquery.js') }}"></script>
-    <script src="{{ asset('assets/js/bootstrap.min.js') }}"></script>
-    <script src="{{ asset('assets/js/smoothscroll.js') }}"></script>
-    <script src="{{ asset('assets/js/custom.js') }}"></script>
+<x-footer></x-footer>
+<script src="{{ asset('assets/bootstrap.bundle.min.js') }}"></script>
+<!-- SCRIPTS -->
+<script src="{{ asset('assets/js/jquery.js') }}"></script>
+<script src="{{ asset('assets/js/bootstrap.min.js') }}"></script>
+<script src="{{ asset('assets/js/smoothscroll.js') }}"></script>
+<script src="{{ asset('assets/js/custom.js') }}"></script>
 </body>
 
 </html>

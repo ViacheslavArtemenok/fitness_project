@@ -1,6 +1,6 @@
 @extends('layouts.main') @section('title')
     Главная @parent
-    @endsection @section('content')
+@endsection @section('content')
     <!-- HOME -->
     <!-- PRE LOADER -->
     <section class="preloader">
@@ -13,7 +13,7 @@
     <div id="myCarousel" class="carousel slide" data-bs-ride="carousel">
         <div class="carousel-indicators promo_info">
             <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="0" class="active" aria-current="true"
-                aria-label="Slide 1"></button>
+                    aria-label="Slide 1"></button>
             <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
             <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
         </div>
@@ -24,7 +24,7 @@
                         <img src="/assets/images/slider-image{{ $key + 1 }}.jpg" alt="img" class="promo_image">
                     </div>
                     <svg class="bd-placeholder-img" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"
-                        preserveAspectRatio="xMidYMid slice" focusable="false">
+                         preserveAspectRatio="xMidYMid slice" focusable="false">
                         <rect fill="#777" />
                     </svg>
 
@@ -33,7 +33,7 @@
                             <h1>{{ $promoItem['title'] }}</h1>
                             <p>{{ $promoItem['description'] }}</p>
                             <p><a class="btn btn-lg btn-outline-success"
-                                    href="{{ route('trainers.index', ['tag_id' => 0]) }}">Подробнее</a>
+                                  href="{{ route('trainers.index', ['tag_id' => 0]) }}">Подробнее</a>
                             </p>
                         </div>
                     </div>
