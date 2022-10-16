@@ -27,7 +27,7 @@
 
                  <!-- Right Side Of Navbar -->
                  <ul class="nav navbar-nav">
-                    @auth 
+                    @auth
                     <li><a href="{{ route('account') }}">Личный кабинет</a></li>
                     @endauth
                      <!-- Authentication Links -->

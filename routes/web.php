@@ -24,12 +24,13 @@ Route::get('/', function () {
 });
 
 Route::middleware('auth')->group(function () {
-    Route::group(['prefix' => 'account', 'as'=> 'account.'], function () {
-        Route::get('/account', AccountIndexController::class)
-            ->name('account');
+    Route::get('/account', AccountIndexController::class)
+        ->name('account');
+    Route::group(['prefix' => 'account', 'as' => 'account.'], function () {
+
         Route::resource('users', AccountUserController::class);
     });
-    });
+});
 
 Route::get('/dashboard', function () {
     return view('dashboard');

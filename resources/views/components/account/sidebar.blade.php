@@ -58,7 +58,7 @@
     </symbol>
 </svg>
 <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block sidebar collapse d-flex flex-column flex-shrink-0 p-3 text-bg-dark">
-        <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+        <a href="#" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
             <svg class="bi pe-none me-2" width="40" height="32"><use xlink:href="#speedometer"/></svg>
             <span class="fs-4">Личный кабинет</span>
         </a>
@@ -72,8 +72,14 @@
                 </a>
             </li>
             <li>
-                <a href="{{ route('account.users', ['user'=>Auth::user()]) }}" class="nav-link text-white">
+                <a href="{{ route('account.users.edit', ['user'=>Auth::user()]) }}" class="nav-link text-white">
                     <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#people-circle"/></svg>
+                    Аккаунт
+                </a>
+            </li>
+            <li>
+                <a href="{{ route('account.users.edit', ['user'=>Auth::user()]) }}" class="nav-link text-white">
+                    <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#chevron-right"/></svg>
                     Профиль
                 </a>
             </li>

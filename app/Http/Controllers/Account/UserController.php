@@ -3,11 +3,15 @@
 namespace App\Http\Controllers\Account;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Users\EditRequest;
 use App\Models\User;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
+use \Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -61,7 +65,7 @@ class UserController extends Controller
      */
     public function edit(User $user): \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
     {
-        return view('account.edit', [
+        return view('account.users.edit', [
             'user'=> $user,
         ]);
     }
@@ -69,13 +73,20 @@ class UserController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param EditRequest $request
+     * @param User $user
+     * @return RedirectResponse
      */
-    public function update(Request $request, $id)
+    public function update(EditRequest $request, User $user): RedirectResponse
     {
-        //
+        $user = $user->fill(array_merge($request->validated(),
+            ['password' => Hash::make($request['password'])]
+        ));
+        if ($user->save()){
+            return redirect()->route('account.account')
+                ->with('success', __('messages.account.users.update.success'));
+        }
+        return back('error', __('messages.account.users.update.fail'));
     }
 
     /**
