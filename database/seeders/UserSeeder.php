@@ -36,7 +36,7 @@ class UserSeeder extends Seeder
         $users[] = [
             'name'        => 'admin',
             'email'       => 'admin@mail.ru',
-            'phone'       => $faker->numerify('###########'),
+            'phone'       => '+7 (999) 999-99-99',
             'role'        => User::IS_ADMIN,
             'password'    => Hash::make('12345678'),
             'email_verified_at' => now('Europe/Moscow'),
@@ -48,7 +48,7 @@ class UserSeeder extends Seeder
             $users[] = [
                 'name'        => $faker->userName(),
                 'email'       => $faker->email(),
-                'phone'       => $faker->numerify('##########'),
+                'phone'       => '+7 ' . '(9' . rand(10, 99) . ') ' . rand(100, 999) . '-' . rand(10, 99) . '-' . rand(10, 99),
                 'role'        => User::IS_TRAINER,
                 'password'    => Hash::make('12345678'),
                 'email_verified_at' => now('Europe/Moscow'),
