@@ -1,37 +1,41 @@
 @extends('layouts.main')
-@section('title') Список тренеров @parent @endsection
+@section('title')
+    Список тренеров @parent
+@endsection
 @section('content')
-<!-- TEAM -->
-<section id="team">
-              <div class="col-md-12 col-sm-12 header_space">
-                   <div class="section-title">
-                        <h2>Все специалисты фитнес-индустрии<small>Выбери своего наставника</small></h2>
-                   </div>
-              </div>
-               @forelse($trainersList as $key => $trainer) 
-               <div class="col-md-3 col-sm-6">
-                   <div class="team-thumb team-space">
-                        <a href="{{ route('trainers.show', ['id' => $trainer->id]) }}" class="team-image">
-                             <img src="{{ $trainer->profile->image }}" class="img-responsive team-change" alt="img">
-                        </a>
-                        <div class="team-info">
-                             <h5>{{$trainer->profile->first_name}} {{$trainer->profile->last_name}}</h5>
-                             <h6>Возраст: {{$trainer->profile->age}} лет</h6>
-                             <h6>Опыт: {{$trainer->skill->experience}} лет</h6>
-                             <h6>Город: {{$trainer->skill->location}}</h6>
-                             <span>{{$trainer->skill->skills_list}}</span>
-                         </div>
-                        <ul class="social-icon">
-                             <li><a href="#" class="fa fa-facebook-square" attr="facebook icon"></a></li>
-                             <li><a href="#" class="fa fa-twitter"></a></li>
-                             <li><a href="#" class="fa fa-instagram"></a></li>
-                        </ul>
-                   </div>
-               </div>
-               @empty
-    <h2>Записей нет</h2>
-    @endforelse  
-              
-    {{ $trainersList->links() }}              
-       </section>
+    <div class="container marketing">
+        <div class="row featurette">
+            <div class="col-md-7">
+                <h2 class="featurette-heading fw-normal lh-1">Список фитнес-тренеров</h2>
+                <p class="lead">Здесь можно ознакомиться с анкетами, получить подробную информацию и контактные данные
+                    о
+                    каждом фитнес-тренере</p>
+            </div>
+        </div>
+        <hr class="featurette-divider">
+        <!-- Three columns of text below the carousel -->
+        <div class="trainers_box">
+            @forelse($trainersList as $key => $trainer)
+                <div class="item_box">
+                    <a href="{{ route('trainers.show', ['id' => $trainer->id]) }}"><img src="{{ $trainer->profile->image }}"
+                            class="bd-placeholder-img trainers_image" alt="img">
+                    </a>
+                    <h2 class="fw-normal trainers_name">{{ $trainer->profile->first_name }}
+                        {{ $trainer->profile->last_name }}</h2>
+                    <p>Возраст: {{ $trainer->profile->age }} {{ $trainerBuilder->getUnitCase($trainer->profile->age) }}</p>
+                    <p>Опыт: {{ $trainer->skill->experience }}
+                        {{ $trainerBuilder->getUnitCase($trainer->skill->experience) }}</p>
+                    <p>Город: {{ $trainer->skill->location }}</p>
+                    <p class="trainers_text">Навыки: {{ $trainer->skill->skills_list }}</p>
+                    <p><a class="btn btn-outline-secondary"
+                            href="{{ route('trainers.show', ['id' => $trainer->id]) }}">Подробнее &raquo;</a></p>
+                </div>
+                <!-- /.col-lg-4 -->
+            @empty
+                <h2>Записей нет</h2>
+            @endforelse
+        </div><!-- /.row -->
+        {{ $trainersList->links() }}
+        <hr class="featurette-divider">
+    </div>
 @endsection
