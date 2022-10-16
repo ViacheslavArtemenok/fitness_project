@@ -7,6 +7,9 @@ use App\Http\Controllers\Admin\IndexController as AdminIndexController;
 use App\Http\Controllers\Admin\ProfileController as AdminProfileController;
 use App\Http\Controllers\Admin\SkillController as AdminSkillController;
 use App\Http\Controllers\Admin\UserController as AdminUserController;
+use App\Http\Controllers\Admin\TagController as AdminTagController;
+use App\Http\Controllers\Admin\RelationController as AdminRelationController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -43,5 +46,7 @@ Route::middleware('auth')->group(function () {
         Route::resource('profiles', AdminProfileController::class);
         Route::resource('skills', AdminSkillController::class);
         Route::resource('users', AdminUserController::class);
+        Route::resource('tags', AdminTagController::class);
+        Route::resource('relations', AdminRelationController::class);
     });
 });

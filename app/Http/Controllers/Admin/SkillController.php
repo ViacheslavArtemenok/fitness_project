@@ -20,7 +20,7 @@ class SkillController extends Controller
      */
     public function index(): View
     {
-        $skills = Skill::query()->paginate(config('pagination.admin.skills'));
+        $skills = Skill::query()->with('profile')->paginate(config('pagination.admin.skills'));
 
         return view('admin.skills.index', [
             'skills' => $skills
