@@ -13,8 +13,8 @@
                             href="{{ route('info') }}">Главная</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link @if (request()->routeIs('trainers.*')) active @endif"
-                            href="{{ route('trainers.index') }}">Тренеры</a>
+                        <a class="nav-link @if (request()->routeIs('trainers.index')) active @endif"
+                            href="{{ route('trainers.index', ['tag_id' => 0]) }}">Тренеры</a>
                     </li>
                     @auth
                         <li class="nav-item">

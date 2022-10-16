@@ -30,9 +30,10 @@ Route::get('/dashboard', function () {
 
 require __DIR__ . '/auth.php';
 
-Route::get('/trainers', [PageController::class, 'index'])
+Route::get('/trainers/{tag_id}', [PageController::class, 'index'])
+    ->where('id', '\d+')
     ->name('trainers.index');
-Route::get('/trainers/{id}', [PageController::class, 'show'])
+Route::get('/trainer/{id}', [PageController::class, 'show'])
     ->where('id', '\d+')
     ->name('trainers.show');
 

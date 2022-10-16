@@ -219,3 +219,7 @@ margin: 0px 6px 36px;
 .trainers_text{
   align-self: flex-start;
 }
+.tags_box{
+  width: 100vw;
+  box-shadow: -5px 0px 5px #000000;
+}

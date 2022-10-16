@@ -9,7 +9,7 @@
                     <ul class="nav flex-column">
                         <li class="nav-item mb-2"><a href="{{ route('info') }}" class="nav-link p-0 text-muted">Главная</a>
                         </li>
-                        <li class="nav-item mb-2"><a href="{{ route('trainers.index') }}"
+                        <li class="nav-item mb-2"><a href="{{ route('trainers.index', ['tag_id' => 0]) }}"
                                 class="nav-link p-0 text-muted">Тренеры</a></li>
                         <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">О нас</a></li>
                         <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Контакты</a></li>
@@ -35,20 +35,6 @@
 
             <div class="d-flex flex-column flex-sm-row justify-content-between py-4 my-4 border-top">
                 <p>&copy; {{ date('Y') }} AggFitness, частное приложение. Все права защищены</p>
-                <ul class="list-unstyled d-flex">
-                    <li class="ms-3"><a class="link-dark" href="#"><svg class="bi" width="24"
-                                height="24">
-                                <use xlink:href="#twitter" />
-                            </svg></a></li>
-                    <li class="ms-3"><a class="link-dark" href="#"><svg class="bi" width="24"
-                                height="24">
-                                <use xlink:href="#instagram" />
-                            </svg></a></li>
-                    <li class="ms-3"><a class="link-dark" href="#"><svg class="bi" width="24"
-                                height="24">
-                                <use xlink:href="#facebook" />
-                            </svg></a></li>
-                </ul>
             </div>
         </footer>
     </div>
