@@ -11,20 +11,35 @@ class PageController extends Controller
     {
         $this->trainerBuilder = new TrainerQueryBuilder;
     }
-    public function index()
+    public function index(int $tag_id)
     {
-        return view('trainers.index', [
-            'trainersList' => $this->trainerBuilder->getAllPaginate(),
-            'trainerBuilder' => $this->trainerBuilder
-        ]);
+        if ($tag_id === 0) {
+            return view('trainers.index', [
+                'trainersList' => $this->trainerBuilder->getAllPaginate(),
+                'trainerBuilder' => $this->trainerBuilder,
+                'tags' => $this->trainerBuilder->getAllTags()
+            ]);
+        } else {
+            return view('trainers.index', [
+                'trainersList' => $this->trainerBuilder->getAllByTagPaginate($tag_id),
+                'trainerBuilder' => $this->trainerBuilder,
+                'tags' => $this->trainerBuilder->getAllTags()
+            ]);
+        }
     }
 
     public function show(int $id)
     {
         $trainer = $this->trainerBuilder->getById($id);
-        return view('trainers.show', [
-            'trainer' => $this->trainerBuilder->getById($id),
-            'trainerBuilder' => $this->trainerBuilder
-        ]);
+        if ($trainer->role === 'IS_TRAINER') {
+            return view('trainers.show', [
+                'trainer' => $trainer,
+                'trainerBuilder' => $this->trainerBuilder
+            ]);
+        } else {
+            return view('trainers.show', [
+                'trainer' => null
+            ]);
+        }
     }
 }

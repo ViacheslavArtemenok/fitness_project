@@ -3,6 +3,31 @@
     Список тренеров @parent
 @endsection
 @section('content')
+    <div class="dropdown body_back p-3 d-flex justify-content-center">
+        <button class="btn btn-outline-success dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Категории тренировок
+        </button>
+
+
+        <div class="tags_box body_back dropdown-menu">
+            <div class="container">
+                <div class="body_back p-4">
+                    @if (!request()->is('*/0'))
+                        <a href="{{ route('trainers.index', ['tag_id' => 0]) }}">
+                            <p class="btn btn-outline-success">
+                                Все категории</p>
+                        </a>
+                    @endif
+                    @foreach ($tags as $tag)
+                        <a href="{{ route('trainers.index', ['tag_id' => $tag->id]) }}">
+                            <p class="btn btn-outline-secondary @if (request()->is("*/$tag->id")) active @endif">
+                                {{ $tag->tag }}</p>
+                        </a>
+                    @endforeach
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="container marketing">
         <div class="row featurette">
             <div class="col-md-7">
@@ -32,7 +57,7 @@
                 </div>
                 <!-- /.col-lg-4 -->
             @empty
-                <h2>Записей нет</h2>
+                <h2>Список пуст</h2>
             @endforelse
         </div><!-- /.row -->
         {{ $trainersList->links() }}

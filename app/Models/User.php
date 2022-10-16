@@ -4,6 +4,7 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -64,13 +65,8 @@ class User extends Authenticatable
         return $this->hasOne(Skill::class);
     }
 
-    public function tag(): HasOne
+    public function tag(): BelongsToMany
     {
-        return $this->hasOne(Tag::class);
-    }
-
-    public function relation(): HasOne
-    {
-        return $this->hasOne(Relation::class);
+        return $this->belongsToMany(Tag::class, 'relations', 'user_id', 'tag_id');
     }
 }

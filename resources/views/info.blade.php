@@ -2,8 +2,15 @@
     Главная @parent
     @endsection @section('content')
     <!-- HOME -->
-    <div id="myCarousel" class="carousel slide" data-bs-ride="carousel">
+    <!-- PRE LOADER -->
+    <section class="preloader">
+        <div class="spinner">
 
+            <span class="spinner-rotate"></span>
+
+        </div>
+    </section>
+    <div id="myCarousel" class="carousel slide" data-bs-ride="carousel">
         <div class="carousel-indicators promo_info">
             <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="0" class="active" aria-current="true"
                 aria-label="Slide 1"></button>
@@ -25,7 +32,8 @@
                         <div class="carousel-caption text-start">
                             <h1>{{ $promoItem['title'] }}</h1>
                             <p>{{ $promoItem['description'] }}</p>
-                            <p><a class="btn btn-lg btn-outline-success" href="{{ route('trainers.index') }}">Подробнее</a>
+                            <p><a class="btn btn-lg btn-outline-success"
+                                    href="{{ route('trainers.index', ['tag_id' => 0]) }}">Подробнее</a>
                             </p>
                         </div>
                     </div>
