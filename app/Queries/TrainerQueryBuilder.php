@@ -14,7 +14,7 @@ use Illuminate\Support\Collection;
 final class TrainerQueryBuilder
 {
     private Builder $model;
-    private $sizePaginate = 16;
+
 
     public function __construct()
     {
@@ -24,14 +24,16 @@ final class TrainerQueryBuilder
     public function getAll(): Collection
     {
         return $this->model->get()
+            ->where('role', 'IS_TRAINER')
             ->with(['profile', 'skill']);
     }
 
     public function getAllPaginate(): LengthAwarePaginator
     {
         return $this->model
+            ->where('role', 'IS_TRAINER')
             ->with(['profile', 'skill'])
-            ->paginate($this->sizePaginate);
+            ->paginate(config('trainers.users'));
     }
 
     public function getById(int $id): object
@@ -60,5 +62,26 @@ final class TrainerQueryBuilder
     public function delete(object $obj): bool
     {
         return $obj->delete();
+    }
+    public function getUnitCase($value)
+    {
+        $unit1 = 'год';
+        $unit2 = 'года';
+        $unit3 = 'лет';
+        $value = abs((int)$value);
+        if (($value % 100 >= 11) && ($value % 100 <= 19)) {
+            return $unit3;
+        } else {
+            switch ($value % 10) {
+                case 1:
+                    return $unit1;
+                case 2:
+                case 3:
+                case 4:
+                    return $unit2;
+                default:
+                    return $unit3;
+            }
+        }
     }
 }
