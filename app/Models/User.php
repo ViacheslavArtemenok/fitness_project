@@ -67,6 +67,6 @@ class User extends Authenticatable
 
     public function tag(): BelongsToMany
     {
-        return $this->belongsToMany(Tag::class, 'relations', 'user_id', 'tag_id');
+        return $this->belongsToMany(Tag::class, 'relations', 'user_id', 'tag_id')->withTimestamps();
     }
 }

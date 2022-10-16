@@ -20,6 +20,6 @@ class Tag extends Model
 
     public function tag(): BelongsToMany
     {
-        return $this->belongsToMany(User::class, 'relations', 'tag_id', 'user_id');
+        return $this->belongsToMany(User::class, 'relations', 'tag_id', 'user_id')->withTimestamps();
     }
 }
