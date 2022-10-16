@@ -6,7 +6,9 @@ namespace App\Queries;
 
 use App\Models\User;
 use App\Models\Profile;
+use App\Models\Relation;
 use App\Models\Skill;
+use App\Models\Tag;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection;
@@ -19,27 +21,47 @@ final class TrainerQueryBuilder
     public function __construct()
     {
         $this->model = User::query();
+        $this->relationModel = Relation::query();
+        $this->tagModel = Tag::query();
     }
 
     public function getAll(): Collection
     {
         return $this->model->get()
             ->where('role', 'IS_TRAINER')
-            ->with(['profile', 'skill']);
+            ->with(['profile', 'skill', 'tag']);
+    }
+    public function getAllTags(): Collection
+    {
+        return $this->tagModel->get();
     }
 
     public function getAllPaginate(): LengthAwarePaginator
     {
         return $this->model
             ->where('role', 'IS_TRAINER')
-            ->with(['profile', 'skill'])
+            ->with(['profile', 'skill', 'tag'])
+            ->paginate(config('trainers.users'));
+    }
+    public function getAllByTagPaginate(int $tag_id): LengthAwarePaginator
+    {
+        $arr = [];
+        $users = $this->relationModel->get()
+            ->where('tag_id', $tag_id);
+        foreach ($users as $item) {
+            $arr[] = $item->user_id;
+        }
+        return  $this->model
+            ->where('role', 'IS_TRAINER')
+            ->whereIn('id', $arr)
+            ->with(['profile', 'skill', 'tag'])
             ->paginate(config('trainers.users'));
     }
 
     public function getById(int $id): object
     {
         return $this->model
-            ->with(['profile', 'skill'])
+            ->with(['profile', 'skill', 'tag'])
             ->findOrFail($id);
     }
 

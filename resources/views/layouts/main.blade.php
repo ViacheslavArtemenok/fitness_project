@@ -17,15 +17,6 @@
 
 <body class="body_back" id="top" data-spy="scroll" data-target=".navbar-collapse" data-offset="50">
 
-    <!-- PRE LOADER -->
-    <section class="preloader">
-        <div class="spinner">
-
-            <span class="spinner-rotate"></span>
-
-        </div>
-    </section>
-
     <x-header></x-header>
     <main class="main_back">
         @yield('content')
