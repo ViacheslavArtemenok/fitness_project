@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\IndexController as AdminIndexController;
 use App\Http\Controllers\Admin\ProfileController as AdminProfileController;
 use App\Http\Controllers\Admin\SkillController as AdminSkillController;
 use App\Http\Controllers\Admin\UserController as AdminUserController;
+use App\Http\Controllers\InfoController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -18,9 +19,8 @@ use App\Http\Controllers\Admin\UserController as AdminUserController;
 |
 */
 
-Route::get('/', function () {
-    return view('info');
-});
+Route::get('/', InfoController::class)
+    ->name('info');
 
 Route::get('/account', AccountIndexController::class)
     ->name('account');

@@ -1,51 +1,41 @@
 @extends('layouts.main')
-@section('title') Список тренеров @parent @endsection
+@section('title')
+    Тренер: {{ $trainer->profile->first_name }} {{ $trainer->profile->father_name }} {{ $trainer->profile->last_name }}
+    @parent
+@endsection
 @section('content')
-<!-- TEAM -->
-<section id="team">
-
-    <div class="col-md-12 col-sm-12 header_space">
-        <div class="section-title">
-             <h2>{{$trainer->profile->first_name}} {{$trainer->profile->father_name}} {{$trainer->profile->last_name}} 
-               <small>Город: {{$trainer->skill->location}}</small></h2>
+    <!-- TEAM -->
+    <div class="container marketing">
+        <hr class="featurette-divider">
+        <div class="row featurette">
+            <div class="col-md-7 order-md-2">
+                <h2 class="featurette-heading fw-normal lh-1">{{ $trainer->profile->first_name }}
+                    {{ $trainer->profile->father_name }}
+                    {{ $trainer->profile->last_name }}</h2>
+                <p class="lead">Город: {{ $trainer->skill->location }}</p>
+                <p class="lead">Телефон: {{ $trainer->phone }}</p>
+                <p class="lead">Email: {{ $trainer->email }}</p>
+                <p class="lead">Возраст: {{ $trainer->profile->age }}
+                    {{ $trainerBuilder->getUnitCase($trainer->profile->age) }}</p>
+                <p class="lead">Опыт: {{ $trainer->skill->experience }}
+                    {{ $trainerBuilder->getUnitCase($trainer->skill->experience) }}</p>
+            </div>
+            <div class="col-md-5">
+                <img class="market_image" src="{{ $trainer->profile->image }}" alt="img">
+            </div>
         </div>
-    </div>          
 
-    <div class="col-md-5 col-sm-6">
-     <div class="team-thumb">
-          <div class="team-image">
-               <img src="{{ $trainer->profile->image }}" class="img-responsive" alt="img">
-          </div>
-          <div class="team-info">
-               <h2>Контакты</h2>
-               <h3>Телефон: {{$trainer->phone}}</h3>
-               <h3>Email: {{$trainer->email}}</h3>
-           </div>
-          <ul class="social-icon">
-               <li><a href="#" class="fa fa-facebook-square" attr="facebook icon"></a></li>
-               <li><a href="#" class="fa fa-twitter"></a></li>
-               <li><a href="#" class="fa fa-instagram"></a></li>
-          </ul>
-     </div>
-     </div>            
-     <div class="col-md-5 col-sm-6">
-          <div class="team-thumb">
-          <div class="team-info">
-          <h3>Возраст</h3>
-          <p>{{$trainer->profile->age}} лет</p>
-          <h3>Опыт</h3>
-          <p>{{$trainer->skill->experience}} лет</p>
-          <h3>Навыки</h3>
-          <p>{{$trainer->skill->skills_list}}</p>
-          <h3>Образование</h3>
-          <p>{{$trainer->skill->education}}</p>
-          <h3>Достижения</h3>
-          <p>{{$trainer->skill->achievements}}</p>
-          <h3>О себе</h3>
-          <p>{{$trainer->skill->description}}</p>
-          </div>
-      </div>
-     </div>      
-        
-</section>
+        <div class="row featurette">
+            <hr class="featurette-divider">
+            <h3>Образование</h3>
+            <p>{{ $trainer->skill->education }}</p>
+            <h3>Навыки</h3>
+            <p>{{ $trainer->skill->skills_list }}</p>
+            <h3>Достижения</h3>
+            <p>{{ $trainer->skill->achievements }}</p>
+            <h3>О себе</h3>
+            <p>{{ $trainer->skill->description }}</p>
+        </div>
+        <hr class="featurette-divider">
+    </div>
 @endsection
