@@ -10,12 +10,12 @@
             @csrf
             @method('put')
             <div class="form-group">
-                <label for="firstName">Имя</label>
-                <input type="text" class="form-control" name="first_name" id="firstName" value="{{ $profile->first_name }}">
-            </div>
-            <div class="form-group">
                 <label for="lastName">Фамилия</label>
                 <input type="text" class="form-control" name="last_name" id="lastName" value="{{ $profile->last_name }}">
+            </div>
+            <div class="form-group">
+                <label for="firstName">Имя</label>
+                <input type="text" class="form-control" name="first_name" id="firstName" value="{{ $profile->first_name }}">
             </div>
             <div class="form-group">
                 <label for="fatherName">Отчество</label>

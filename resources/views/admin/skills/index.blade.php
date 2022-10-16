@@ -11,6 +11,9 @@
             <thead>
             <tr>
                 <th scope="col">#</th>
+                <th scope="col">Фамилия</th>
+                <th scope="col">Имя</th>
+                <th scope="col">Отчество</th>
                 <th scope="col">Расположение</th>
                 <th scope="col">Образование</th>
                 <th scope="col">Опыт</th>
@@ -24,6 +27,9 @@
             @forelse($skills as $skill)
                 <tr id="row-{{ $skill->id }}">
                     <td>{{ $skill->id }}</td>
+                    <td>{{ $skill->profile->last_name }}</td>
+                    <td>{{ $skill->profile->first_name }}</td>
+                    <td>{{ $skill->profile->father_name }}</td>
                     <td>{{ $skill->location }}</td>
                     <td>{{ $skill->education }}</td>
                     <td>{{ $skill->experience }}</td>
@@ -41,7 +47,7 @@
                 </tr>
             @empty
                 <tr>
-                    <td colspan="8">Записей не найдено</td>
+                    <td colspan="11">Записей не найдено</td>
                 </tr>
             @endforelse
             </tbody>

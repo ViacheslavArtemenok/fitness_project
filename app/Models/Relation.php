@@ -18,4 +18,14 @@ class Relation extends Model
         'user_id',
         'tag_id'
     ];
+
+    public function tag(): HasOne
+    {
+        return $this->hasOne(Tag::class);
+    }
+
+    public function user(): HasOne
+    {
+        return $this->hasOne(User::class);
+    }
 }

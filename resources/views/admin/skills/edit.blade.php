@@ -10,6 +10,18 @@
             @csrf
             @method('put')
             <div class="form-group">
+                <label for="last_name">Фамилия</label>
+                <input type="text" class="form-control" readonly name="last_name" id="last_name" value="{{ $skill->profile->last_name }}">
+            </div>
+            <div class="form-group">
+                <label for="first_name">Имя</label>
+                <input type="text" class="form-control" readonly name="first_name" id="first_name" value="{{ $skill->profile->first_name }}">
+            </div>
+            <div class="form-group">
+                <label for="father_name">Отчество</label>
+                <input type="text" class="form-control" readonly name="father_name" id="father_name" value="{{ $skill->profile->father_name }}">
+            </div>
+            <div class="form-group">
                 <label for="location">Расположение</label>
                 <input type="text" class="form-control" name="location" id="location" value="{{ $skill->location }}">
             </div>
