@@ -2,8 +2,8 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -17,9 +17,9 @@ class User extends Authenticatable
 
     protected $dates = ['deleted_at'];
     // define role here
-    public const IS_ADMIN = 0;
-    public const IS_CLIENT = 1;
-    public const IS_TRAINER = 2;
+    public const IS_ADMIN = 'IS_ADMIN';
+    public const IS_CLIENT = 'IS_CLIENT';
+    public const IS_TRAINER = 'IS_TRAINER';
 
 
     /**
@@ -31,6 +31,8 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'phone',
+        'role'
     ];
 
     /**
@@ -51,12 +53,19 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
     public function profile(): HasOne
     {
-        return $this->hasOne(Profile::class);
+        return $this->hasOne(Profile::class, 'user_id', 'id');
     }
+
     public function skill(): HasOne
     {
         return $this->hasOne(Skill::class);
+    }
+
+    public function tags(): BelongsToMany
+    {
+        return $this->belongsToMany(Tag::class, 'relations')->withTimestamps();
     }
 }

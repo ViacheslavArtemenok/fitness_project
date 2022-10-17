@@ -20,6 +20,7 @@ class Profile extends Model
      * @var array<int, string>
      */
     protected $fillable = [
+        'user_id',
         'first_name',
         'last_name',
         'father_name',
@@ -27,8 +28,14 @@ class Profile extends Model
         'gender',
         'image'
     ];
-    public function news(): BelongsTo
+
+    public function user(): BelongsTo
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'user_id', 'id');
+    }
+
+    public function skill(): BelongsTo
+    {
+        return $this->belongsTo(Skill::class, 'user_id', 'id');
     }
 }

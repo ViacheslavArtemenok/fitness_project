@@ -25,7 +25,6 @@ return new class extends Migration
                 'male', 'female'
             ])->default('male');
             $table->string('image', 255)->nullable();
-
             $table->timestamps();
             $table->softDeletes();
         });
