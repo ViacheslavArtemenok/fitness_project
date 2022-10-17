@@ -23,13 +23,13 @@
                     <p class="lead">Опыт: {{ $trainer->skill->experience }}
                         {{ $trainerBuilder->getUnitCase($trainer->skill->experience) }}</p>
                     @forelse($trainer->tags as $key => $tagItem)
-                        <h5 class="btn btn-secondary"><a href="{{ route('trainers.index', ['tag_id' => $tagItem->id]) }}">
-                                {{ $tagItem->tag }}
-                            </a></h5>
+                        <a class="btn btn-secondary" href="{{ route('trainers.index', ['tag_id' => $tagItem->id]) }}">
+                            {{ $tagItem->tag }}
+                        </a>
                     @empty
-                        <h5 class="btn btn-secondary"><a href="{{ route('trainers.index', ['tag_id' => 0]) }}">
-                                Профиль тренировок не указан
-                            </a></h5>
+                        <a class="btn btn-secondary" href="{{ route('trainers.index', ['tag_id' => 0]) }}">
+                            Профиль тренировок не указан
+                        </a>
                     @endforelse
                 </div>
                 <div class="col-md-5">
