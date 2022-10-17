@@ -32,9 +32,10 @@
                         <div class="carousel-caption text-start">
                             <h1>{{ $promoItem['title'] }}</h1>
                             <p>{{ $promoItem['description'] }}</p>
-                            <p><a class="btn btn-lg btn-outline-success"
-                                    href="{{ route('trainers.index', ['tag_id' => 0]) }}">Подробнее</a>
-                            </p>
+                            <a class="btn btn-lg btn-outline-success"
+                                @if ($key === 2) href="#phone_mask" 
+                                @else 
+                                href="{{ route('trainers.index', ['tag_id' => 0]) }}" @endif>Подробнее</a>
                         </div>
                     </div>
                 </div>
@@ -59,10 +60,12 @@
                 <div class="col-md-7 @if ($key % 2 === 0) order-md-2 @endif">
                     <h2 class="featurette-heading fw-normal lh-1">{{ $marketItem['title'] }}</h2>
                     <p class="lead">{{ $marketItem['description'] }}</p>
+                    <a class="btn btn-lg btn-outline-secondary" href="{{ $marketItem['url'] }}"
+                        target="_blank">Подробнее</a>
                 </div>
-                <a href="{{ $marketItem['url'] }}" target="_blank" class="col-md-5">
+                <div class="col-md-5">
                     <img class="market_image" src="/assets/images/market_{{ $key + 1 }}.jpg" alt="img">
-                </a>
+                </div>
             </div>
             <hr class="featurette-divider">
         @empty

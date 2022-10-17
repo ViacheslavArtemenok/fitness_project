@@ -17,7 +17,7 @@ class PageController extends Controller
             return view('trainers.index', [
                 'trainersList' => $this->trainerBuilder->getAllPaginate(),
                 'trainerBuilder' => $this->trainerBuilder,
-                'tags' => $this->trainerBuilder->getAllTags()
+                'tags' => $this->trainerBuilder->getAllTags(),
             ]);
         } else {
             return view('trainers.index', [

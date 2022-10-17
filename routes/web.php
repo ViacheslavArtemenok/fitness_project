@@ -13,6 +13,8 @@ use App\Http\Controllers\Admin\TagController as AdminTagController;
 use App\Http\Controllers\Admin\RelationController as AdminRelationController;
 
 use App\Http\Controllers\InfoController;
+use App\Http\Controllers\SubscriptionController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -48,6 +50,7 @@ Route::get('/trainers/{tag_id}', [PageController::class, 'index'])
 Route::get('/trainer/{id}', [PageController::class, 'show'])
     ->where('id', '\d+')
     ->name('trainers.show');
+Route::resource('subscriptions', SubscriptionController::class);
 
 Route::middleware('auth')->group(function () {
     Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'is_admin'], function () {

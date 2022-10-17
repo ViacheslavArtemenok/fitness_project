@@ -29,7 +29,7 @@ final class TrainerQueryBuilder
     {
         return $this->model->get()
             ->where('role', 'IS_TRAINER')
-            ->with(['profile', 'skill', 'tag']);
+            ->with(['profile', 'skill', 'tags']);
     }
     public function getAllTags(): Collection
     {
@@ -40,7 +40,7 @@ final class TrainerQueryBuilder
     {
         return $this->model
             ->where('role', 'IS_TRAINER')
-            ->with(['profile', 'skill', 'tag'])
+            ->with(['profile', 'skill', 'tags'])
             ->paginate(config('trainers.users'));
     }
     public function getAllByTagPaginate(int $tag_id): LengthAwarePaginator
@@ -54,14 +54,14 @@ final class TrainerQueryBuilder
         return  $this->model
             ->where('role', 'IS_TRAINER')
             ->whereIn('id', $arr)
-            ->with(['profile', 'skill', 'tag'])
+            ->with(['profile', 'skill', 'tags'])
             ->paginate(config('trainers.users'));
     }
 
     public function getById(int $id): object
     {
         return $this->model
-            ->with(['profile', 'skill', 'tag'])
+            ->with(['profile', 'skill', 'tags'])
             ->findOrFail($id);
     }
 
