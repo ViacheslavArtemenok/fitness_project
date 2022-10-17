@@ -25,7 +25,8 @@ use App\Http\Controllers\InfoController;
 
 Route::get('/', InfoController::class)
     ->name('info');
-
+Route::get('/account', AccountIndexController::class)
+    ->name('account');
 Route::middleware('auth')->group(function () {
     Route::get('/account', AccountIndexController::class)
         ->name('account');

@@ -1,4 +1,3 @@
-
 <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
     <symbol id="bootstrap" viewBox="0 0 118 94">
         <title>Bootstrap</title>
@@ -58,81 +57,54 @@
     </symbol>
 </svg>
 <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block sidebar collapse d-flex flex-column flex-shrink-0 p-3 text-bg-dark">
-        <a href="#" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
-            <svg class="bi pe-none me-2" width="40" height="32"><use xlink:href="#speedometer"/></svg>
-            <span class="fs-4">Личный кабинет</span>
+        <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+            <svg class="bi pe-none me-2" width="40" height="32"><use xlink:href="#home"/></svg>
+            <span class="fs-4">Домой</span>
         </a>
         <hr>
-        <ul class="nav nav-pills flex-column mb-auto">
+    <ul class="list-unstyled ps-0">
             <li class="nav-item">
-                <a class="nav-link text-white @if(request()->routeIs('account.index'))active @endif" aria-current="page" href="/">
+                <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed text-white @if(request()->routeIs('account.index'))active @endif" aria-current="page" href="{{ route('account') }}">
                     <span data-feather="home"></span>
-                    <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#home"/></svg>
-                    Домой
-                </a>
+                    <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#calendar3"/></svg>
+                    Личный кабинет
+                </button>
             </li>
             <li>
-                <a href="{{ route('account.users.edit', ['user'=>Auth::user()]) }}" class="nav-link text-white">
+                <button href="{{ route('account.users.edit', ['user'=>Auth::user()]) }}" class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed text-white">
                     <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#people-circle"/></svg>
                     Аккаунт
-                </a>
+                </button>
             </li>
-            <li>
-                <a href="{{ route('account.users.edit', ['user'=>Auth::user()]) }}" class="nav-link text-white">
+
+
+            <li class="mb-1">
+                <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed text-white" data-bs-toggle="collapse" data-bs-target="#dashboard-collapse" aria-expanded="false">
                     <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#chevron-right"/></svg>
                     Профиль
-                </a>
+                </button>
+                <div class="collapse" id="dashboard-collapse">
+                    <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 ">
+                        <li><a href="{{ route('account.users.edit', ['user'=>Auth::user()]) }}" class="nav-link d-inline-flex text-decoration-none rounded text-white">Просмотр</a></li>
+                        <li><a href="{{ route('account.users.edit', ['user'=>Auth::user()]) }}" class="nav-link d-inline-flex text-decoration-none rounded text-white">Создание</a></li>
+                        <li><a href="{{ route('account.users.edit', ['user'=>Auth::user()]) }}" class="nav-link d-inline-flex text-decoration-none rounded text-white">Редактирование</a></li>
+                    </ul>
+                </div>
             </li>
+
             <li>
-                <a href="#" class="nav-link text-white">
+                <button href="#" class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed text-white">
                     <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#table"/></svg>
                     Навыки и умения
-                </a>
+                </button>
             </li>
             <li>
-                <a href="#" class="nav-link text-white @if(request()->routeIs('account.index'))active @endif">
+                <button href="#" class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed text-white @if(request()->routeIs('account.index'))active @endif">
                     <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#grid"/></svg>
                     Products
-                </a>
+                </button>
             </li>
-
-        </ul>
+    </ul>
 </nav>
 
-<a class="nav-link @if(request()->routeIs('admin.index'))active @endif" aria-current="page" href="{{ route('admin.index') }}">
-    <span data-feather="home"></span>
-    Панель управления
-</a>
 
-
-{{--<div class="position-sticky pt-3 sidebar-sticky">--}}
-{{--    <ul class="nav flex-column">--}}
-{{--        <li class="nav-item">--}}
-{{--            <a class="nav-link" aria-current="page" href="{{ url('/') }}">--}}
-{{--                <span data-feather="home" class="align-text-bottom"></span>--}}
-{{--                Домой--}}
-{{--            </a>--}}
-{{--        </li>--}}
-
-{{--        <li class="nav-item">--}}
-{{--            <a class="nav-link @if(request()->routeIs('admin.index')) active @endif" aria-current="page" href="">--}}
-{{--                <span data-feather="home" class="align-text-bottom"></span>--}}
-{{--                Панель управления--}}
-{{--            </a>--}}
-{{--        </li>--}}
-
-{{--        <li class="nav-item">--}}
-{{--            <a class="nav-link @if(request()->routeIs('admin.users.*')) active @endif" href="">--}}
-{{--                <span data-feather="folder" class="align-text-bottom"></span>--}}
-{{--                Профиль--}}
-{{--            </a>--}}
-{{--        </li>--}}
-
-{{--        <li class="nav-item">--}}
-{{--            <a class="nav-link @if(request()->routeIs('admin.skills.*')) active @endif" href="">--}}
-{{--                <span data-feather="file" class="align-text-bottom"></span>--}}
-{{--                Навыки и умения--}}
-{{--            </a>--}}
-{{--        </li>--}}
-{{--    </ul>--}}
-{{--</div>--}}

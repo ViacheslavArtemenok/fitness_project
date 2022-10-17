@@ -83,7 +83,7 @@ class UserController extends Controller
             ['password' => Hash::make($request['password'])]
         ));
         if ($user->save()){
-            return redirect()->route('account.account')
+            return redirect()->route('account')
                 ->with('success', __('messages.account.users.update.success'));
         }
         return back('error', __('messages.account.users.update.fail'));
