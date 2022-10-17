@@ -28,10 +28,22 @@
             </div>
 
             <!-- Phone -->
-            <div>
+            <div class="mt-4">
                 <x-input-label for="phone" :value="__('Телефон')" />
 
-                <x-text-input id="phone" class="block mt-1 w-full" type="tel" name="phone" :value="old('phone')" required autofocus />
+                <x-text-input id="phone"
+                              class="mask-phone block mt-1 w-full"
+                              data-format="+7 (ddd) ddd-dd-dd"
+                              type="tel" name="phone" :value="old('phone')" required autofocus />
+
+                    <script src="{{ asset('assets/js/jquery.min.js') }}" type="text/javascript"></script>
+                    <script src="{{ asset('assets/js/jquery.maskedinput.min.js') }}" type="text/javascript"></script>
+                    <script>
+                        jQuery(function($){
+                            $('.mask-phone').mask('+7 (999) 999-99-99');
+                        });
+                    </script>
+
 
                 <x-input-error :messages="$errors->get('phone')" class="mt-2" />
             </div>
@@ -71,3 +83,7 @@
         </form>
     </x-auth-card>
 </x-guest-layout>
+
+
+
+

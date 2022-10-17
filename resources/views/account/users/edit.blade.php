@@ -46,7 +46,7 @@
             <br>
             <div class="form-group">
                 <label for="phone">Телефон</label>
-                <input type="tel" class="mask-phone form-control" name="phone" data-format="+7 (ddd) ddd-dd-dd" value = "{{ $user->phone }}">
+                <input type="tel" name="phone" class="mask-phone form-control" data-format="+7 (ddd) ddd-dd-dd" value = "{{ $user->phone }}">
                 @error('phone') <span style="color: red">{{ $message }}</span> @enderror
             </div>
             <br>

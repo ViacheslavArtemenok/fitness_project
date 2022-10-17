@@ -64,17 +64,17 @@
         <hr>
     <ul class="list-unstyled ps-0">
             <li class="nav-item">
-                <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed text-white @if(request()->routeIs('account.index'))active @endif" aria-current="page" href="{{ route('account') }}">
+                <a class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed text-white @if(request()->routeIs('account.index'))active @endif" aria-current="page" href="{{ route('account') }}">
                     <span data-feather="home"></span>
                     <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#calendar3"/></svg>
                     Личный кабинет
-                </button>
+                </a>
             </li>
             <li>
-                <button href="{{ route('account.users.edit', ['user'=>Auth::user()]) }}" class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed text-white">
+                <a href="{{ route('account.users.edit', ['user'=>Auth::user()]) }}" class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed text-white">
                     <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#people-circle"/></svg>
                     Аккаунт
-                </button>
+                </a>
             </li>
 
 
@@ -85,8 +85,8 @@
                 </button>
                 <div class="collapse" id="dashboard-collapse">
                     <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 ">
-                        <li><a href="{{ route('account.users.edit', ['user'=>Auth::user()]) }}" class="nav-link d-inline-flex text-decoration-none rounded text-white">Просмотр</a></li>
-                        <li><a href="{{ route('account.users.edit', ['user'=>Auth::user()]) }}" class="nav-link d-inline-flex text-decoration-none rounded text-white">Создание</a></li>
+                        <li><a href="{{ route('account.profiles.index', ['user_id'=>Auth::user()->id]) }}" class="nav-link d-inline-flex text-decoration-none rounded text-white">Просмотр</a></li>
+                        <li><a href="{{ route('account.profiles.create', ['user_id'=>Auth::user()->id]) }}" class="nav-link d-inline-flex text-decoration-none rounded text-white">Создание</a></li>
                         <li><a href="{{ route('account.users.edit', ['user'=>Auth::user()]) }}" class="nav-link d-inline-flex text-decoration-none rounded text-white">Редактирование</a></li>
                     </ul>
                 </div>
