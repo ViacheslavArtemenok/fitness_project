@@ -41,9 +41,21 @@
 
                 <tr id="row-{{ $user->id }}">
                     <td>{{ $user->id }}</td>
-                    <td>{{ $user->profile->last_name }}</td>
-                    <td>{{ $user->profile->first_name }}</td>
-                    <td>{{ $user->profile->father_name }}</td>
+                    <td>
+                        @if(isset($user->profile->last_name))
+                            {{ $user->profile->last_name }}
+                        @endif
+                    </td>
+                    <td>
+                        @if(isset($user->profile->first_name))
+                            {{ $user->profile->first_name }}
+                        @endif
+                    </td>
+                    <td>
+                        @if(isset($user->profile->father_name))
+                            {{ $user->profile->father_name }}
+                        @endif
+                    </td>
                     <td>{{ $user->name }}</td>
                     <td>{{ $user->email }}</td>
                     <td>{{ $user->phone }}</td>

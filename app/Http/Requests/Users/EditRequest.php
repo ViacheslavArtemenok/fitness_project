@@ -26,7 +26,7 @@ class EditRequest extends FormRequest
         return [
             'name' => ['required', 'string', 'min:3', 'max:255'],
             'email' => ['required', 'email', 'min:5', 'max:255'],
-            'phone' => ['required', 'numeric', 'digits:10'],
+            'phone' => ['required', 'regex:/\+7\s?[\(]{0,1}9[0-9]{2}[\)]{0,1}\s?\d{3}[-]{0,1}\d{2}[-]{0,1}\d{2}/','min:18'],
             'password' => ['required_with:confirmPassword', 'string', 'same:confirmPassword', 'min:8'],
             'confirmPassword' => ['required', 'string', 'min:8'],
             'role' => ['required', 'string']
