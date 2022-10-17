@@ -43,8 +43,9 @@
                                 {{ Auth::user()->name }}
                             </a>
 
-                            <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item btn btn-outline-danger" href="{{ route('logout') }}"
+                            <div class="dropdown-menu dropdown-menu-end btn btn-outline-secondary"
+                                aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="{{ route('logout') }}"
                                     onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
                                     {{ __('Выйти') }}
@@ -65,3 +66,4 @@
         </div>
     </nav>
 </header>
+@include('inc.message')

@@ -7,21 +7,18 @@
         <button class="btn btn-outline-success dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
             Категории тренировок
         </button>
-
-
         <div class="tags_box body_back dropdown-menu">
             <div class="container">
                 <div class="body_back p-4">
                     @if (!request()->is('*/0'))
-                        <a href="{{ route('trainers.index', ['tag_id' => 0]) }}">
-                            <p class="btn btn-outline-success">
-                                Все категории</p>
+                        <a class="btn btn-outline-success" href="{{ route('trainers.index', ['tag_id' => 0]) }}">
+                            Все категории
                         </a>
                     @endif
                     @foreach ($tags as $tag)
-                        <a href="{{ route('trainers.index', ['tag_id' => $tag->id]) }}">
-                            <p class="btn btn-outline-secondary @if (request()->is("*/$tag->id")) active @endif">
-                                {{ $tag->tag }}</p>
+                        <a class="btn btn-outline-secondary @if (request()->is("*/$tag->id")) active @endif"
+                            href="{{ route('trainers.index', ['tag_id' => $tag->id]) }}">
+                            {{ $tag->tag }}
                         </a>
                     @endforeach
                 </div>
@@ -42,9 +39,7 @@
         <div class="trainers_box">
             @forelse($trainersList as $key => $trainer)
                 <div class="item_box">
-                    <a href="{{ route('trainers.show', ['id' => $trainer->id]) }}"><img src="{{ $trainer->profile->image }}"
-                            class="bd-placeholder-img trainers_image" alt="img">
-                    </a>
+                    <img src="{{ $trainer->profile->image }}" class="bd-placeholder-img trainers_image" alt="img">
                     <h2 class="fw-normal trainers_name">{{ $trainer->profile->first_name }}
                         {{ $trainer->profile->last_name }}</h2>
                     <p>Возраст: {{ $trainer->profile->age }} {{ $trainerBuilder->getUnitCase($trainer->profile->age) }}</p>
@@ -52,8 +47,8 @@
                         {{ $trainerBuilder->getUnitCase($trainer->skill->experience) }}</p>
                     <p>Город: {{ $trainer->skill->location }}</p>
                     <p class="trainers_text">Навыки: {{ $trainer->skill->skills_list }}</p>
-                    <p><a class="btn btn-outline-secondary"
-                            href="{{ route('trainers.show', ['id' => $trainer->id]) }}">Подробнее &raquo;</a></p>
+                    <a class="btn btn-outline-secondary"
+                        href="{{ route('trainers.show', ['id' => $trainer->id]) }}">Подробнее &raquo;</a>
                 </div>
                 <!-- /.col-lg-4 -->
             @empty
