@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Account;
 
 use App\Http\Controllers\Controller;
+use App\Models\Profile;
 use App\Models\User;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
@@ -10,17 +11,18 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
-class ProfilController extends Controller
+class ProfileController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * * @param User $user_id
+     * User $user
+     * @param User $user
      * @return Application|Factory|View
      */
-    public function index(User $user_id): View|Factory|Application
+    public function index(User $user): View|Factory|Application
     {
-        return view('account.profiles.index', ['user_id'=>$user_id]);
+        return view('account.profiles.index');
     }
 
     /**
@@ -29,9 +31,9 @@ class ProfilController extends Controller
      * @param User $user_id
      * @return Factory|View|Application
      */
-    public function create(User $user_id): Factory|View|Application
+    public function create(User $user_id)
     {
-        return view('account.profiles.create', ['user_id'=>$user_id]);
+        //
     }
 
     /**
@@ -51,9 +53,9 @@ class ProfilController extends Controller
      * @param  int  $id
      * @return Response
      */
-    public function show($id)
+    public function show($id): Response
     {
-        //
+        return view('account.profiles.create', ['id'=>$id]);
     }
 
     /**

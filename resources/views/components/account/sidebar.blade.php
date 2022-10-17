@@ -85,7 +85,7 @@
                 </button>
                 <div class="collapse" id="dashboard-collapse">
                     <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 ">
-                        <li><a href="{{ route('account.profiles.index', ['user_id'=>Auth::user()->id]) }}" class="nav-link d-inline-flex text-decoration-none rounded text-white">Просмотр</a></li>
+                        <li><a href="{{ route('account.profiles.index', ['id'=>Auth::user()->id]) }}" class="nav-link d-inline-flex text-decoration-none rounded text-white">Просмотр</a></li>
                         <li><a href="{{ route('account.profiles.create', ['user_id'=>Auth::user()->id]) }}" class="nav-link d-inline-flex text-decoration-none rounded text-white">Создание</a></li>
                         <li><a href="{{ route('account.users.edit', ['user'=>Auth::user()]) }}" class="nav-link d-inline-flex text-decoration-none rounded text-white">Редактирование</a></li>
                     </ul>

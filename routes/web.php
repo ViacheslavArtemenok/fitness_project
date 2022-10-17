@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\Account\IndexController as AccountIndexController;
 use App\Http\Controllers\Account\UserController as AccountUserController;
-use \App\Http\Controllers\Account\ProfilController as AccountProfileController;
+use \App\Http\Controllers\Account\ProfileController as AccountProfileController;
 use App\Http\Controllers\Admin\IndexController as AdminIndexController;
 use App\Http\Controllers\Admin\ProfileController as AdminProfileController;
 use App\Http\Controllers\Admin\SkillController as AdminSkillController;
