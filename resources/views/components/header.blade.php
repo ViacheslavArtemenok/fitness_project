@@ -47,17 +47,21 @@
                                 <a class="dropdown-item btn btn-outline-danger" href="{{ route('logout') }}"
                                     onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
-                                     {{ __('Logout') }}
-                                 </a>
+                                    {{ __('Выйти') }}
+                                </a>
 
-                                 <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                     @csrf
-                                 </form>
-                             </div>
-                         </li>
-                     @endguest
-                 </ul>
-             </div>
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                    @csrf
+                                </form>
+                            </div>
+                        </li>
+                    @endguest
+                </ul>
+                <form class="d-flex" role="search">
+                    <input class="form-control me-2" type="search" placeholder="Найти тренера" aria-label="Search">
+                    <button class="btn btn-outline-success" type="submit">Поиск</button>
+                </form>
+            </div>
         </div>
-   </section>
+    </nav>
 </header>
