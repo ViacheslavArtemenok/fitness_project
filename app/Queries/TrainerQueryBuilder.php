@@ -29,6 +29,7 @@ final class TrainerQueryBuilder
     {
         return $this->model->get()
             ->where('role', 'IS_TRAINER')
+            ->where('status', 'ACTIVE')
             ->with(['profile', 'skill', 'tags']);
     }
     public function getAllTags(): Collection
@@ -40,6 +41,7 @@ final class TrainerQueryBuilder
     {
         return $this->model
             ->where('role', 'IS_TRAINER')
+            ->where('status', 'ACTIVE')
             ->with(['profile', 'skill', 'tags'])
             ->paginate(config('trainers.users'));
     }
@@ -53,6 +55,7 @@ final class TrainerQueryBuilder
         }
         return  $this->model
             ->where('role', 'IS_TRAINER')
+            ->where('status', 'ACTIVE')
             ->whereIn('id', $arr)
             ->with(['profile', 'skill', 'tags'])
             ->paginate(config('trainers.users'));

@@ -20,12 +20,10 @@ return new class extends Migration
             $table->string('phone_second')->nullable();
             $table->string('email');
             $table->string('url');
-            $table->char('description',100);
-
+            $table->text('description');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
             $table->softDeletes();
-
         });
     }
 

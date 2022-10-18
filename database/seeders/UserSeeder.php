@@ -38,6 +38,7 @@ class UserSeeder extends Seeder
             'email'       => 'admin@mail.ru',
             'phone'       => '+7 (999) 999-99-99',
             'role'        => User::IS_ADMIN,
+            'status'      => User::ACTIVE,
             'password'    => Hash::make('12345678'),
             'email_verified_at' => now('Europe/Moscow'),
             'created_at'  => now('Europe/Moscow')
@@ -50,6 +51,33 @@ class UserSeeder extends Seeder
                 'email'       => $faker->email(),
                 'phone'       => '+7 ' . '(9' . rand(10, 99) . ') ' . rand(100, 999) . '-' . rand(10, 99) . '-' . rand(10, 99),
                 'role'        => User::IS_TRAINER,
+                'status'      => User::ACTIVE,
+                'password'    => Hash::make('12345678'),
+                'email_verified_at' => now('Europe/Moscow'),
+                'created_at'  => now('Europe/Moscow')
+            ];
+        }
+        for ($i = 0; $i < 30; $i++) {
+
+            $users[] = [
+                'name'        => $faker->userName(),
+                'email'       => $faker->email(),
+                'phone'       => '+7 ' . '(9' . rand(10, 99) . ') ' . rand(100, 999) . '-' . rand(10, 99) . '-' . rand(10, 99),
+                'role'        => User::IS_CLIENT,
+                'status'      => User::ACTIVE,
+                'password'    => Hash::make('12345678'),
+                'email_verified_at' => now('Europe/Moscow'),
+                'created_at'  => now('Europe/Moscow')
+            ];
+        }
+        for ($i = 0; $i < 20; $i++) {
+
+            $users[] = [
+                'name'        => $faker->userName(),
+                'email'       => $faker->email(),
+                'phone'       => '+7 ' . '(9' . rand(10, 99) . ') ' . rand(100, 999) . '-' . rand(10, 99) . '-' . rand(10, 99),
+                'role'        => User::IS_GYM,
+                'status'      => User::ACTIVE,
                 'password'    => Hash::make('12345678'),
                 'email_verified_at' => now('Europe/Moscow'),
                 'created_at'  => now('Europe/Moscow')

@@ -20,32 +20,29 @@ class GymsSeeder extends Seeder
         DB::table('gyms')->insert($this->getData());
     }
 
-    public function getData(): array {
+    public function getData(): array
+    {
         $gyms = [];
-        $faker=Factory::create('ru_RU');
+        $faker = Factory::create('ru_RU');
         $faker->addProvider(new \Faker\Provider\ru_RU\Person($faker));
         for ($i = 0; $i < 20; $i++) {
-            if ($i%2==0) {
-                $phone_second ='+7 ' . '(9' . rand(10, 99) . ') ' . rand(100, 999) . '-' . rand(10, 99) . '-' . rand(10, 99);
-            } else
-            {
+            if ($i > 2 && $i % 3 == 0) {
                 $phone_second = null;
+            } else {
+                $phone_second = '+7 ' . '(9' . rand(10, 99) . ') ' . rand(100, 999) . '-' . rand(10, 99) . '-' . rand(10, 99);
             }
 
             $gyms[] = [
-                'id' => $i + 1,
-                'user_id' => rand(1,99),
+                'user_id' => $i + 131,
                 'phone_main' => '+7 ' . '(9' . rand(10, 99) . ') ' . rand(100, 999) . '-' . rand(10, 99) . '-' . rand(10, 99),
                 'phone_second' => $phone_second,
                 'email' => $faker->email(),
-                'url' => 'https://www.youtube.com/',
-                'description'          => $faker->text(75),
+                'url' => 'https://fitness-cccp.ru/wp-content/uploads/2017/05/' . $i + 1 . '-832x522.jpg',
+                'description'          => $faker->text(400),
                 'created_at'     => now('Europe/Moscow')
             ];
         }
 
         return $gyms;
-
-
     }
 }

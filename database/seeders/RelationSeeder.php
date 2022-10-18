@@ -27,13 +27,14 @@ class RelationSeeder extends Seeder
         $relations = [];
 
         for ($i = 0; $i < 100; $i++) {
-            $relations[] = [
-                'user_id' => rand(1, 99),
-                'tag_id' => rand(1, 22),
-                'created_at' => now('Europe/Moscow')
-            ];
+            for ($e = 0; $e < rand(1, 6); $e++) {
+                $relations[] = [
+                    'user_id' => $i + 1,
+                    'tag_id' => rand(1, 22),
+                    'created_at' => now('Europe/Moscow')
+                ];
+            }
         }
-
         return $relations;
     }
 }

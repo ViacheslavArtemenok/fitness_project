@@ -18,21 +18,19 @@ class GymImagesSeedr extends Seeder
     {
         DB::table('gym_images')->insert($this->getData());
     }
-    public function getData(): array {
+    public function getData(): array
+    {
         $gym_images = [];
 
-        for ($i = 0; $i < 120; $i++) {
-
-            $gym_images[] = [
-                'id' => $i + 1,
-                'gym_id' => rand(1,20),
-                'image' => 'https://fitness-cccp.ru/wp-content/uploads/2017/05/11-832x522.jpg',
-                'created_at' => now('Europe/Moscow')
+        for ($i = 0; $i < 20; $i++) {
+            for ($e = 0; $e < 6; $e++) {
+                $gym_images[] = [
+                    'gym_id' => $i + 1,
+                    'image' => 'https://fitness-cccp.ru/wp-content/uploads/2017/05/' . rand(1, 24) . '-832x522.jpg',
+                    'created_at' => now('Europe/Moscow')
                 ];
+            }
         }
-
         return $gym_images;
-
-
     }
 }
