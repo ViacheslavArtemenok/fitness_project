@@ -20,7 +20,10 @@ class User extends Authenticatable
     public const IS_ADMIN = 'IS_ADMIN';
     public const IS_CLIENT = 'IS_CLIENT';
     public const IS_TRAINER = 'IS_TRAINER';
-
+    public const IS_GYM = 'IS_GYM';
+    public const DRAFT = 'DRAFT';
+    public const ACTIVE = 'ACTIVE';
+    public const BLOCKED = 'BLOCKED';
 
     /**
      * The attributes that are mass assignable.
@@ -32,7 +35,8 @@ class User extends Authenticatable
         'email',
         'password',
         'phone',
-        'role'
+        'role',
+        'status'
     ];
 
     /**

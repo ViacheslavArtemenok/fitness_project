@@ -26,7 +26,11 @@ class DatabaseSeeder extends Seeder
             ProfileSeeder::class,
             SkillSeeder::class,
             TagSeeder::class,
-            RelationSeeder::class
+            RelationSeeder::class,
+            SubscriptionSeeder::class,
+            GymsSeeder::class,
+            GymsAddressesSeedr::class,
+            GymImagesSeedr::class,
         ]);
     }
 }

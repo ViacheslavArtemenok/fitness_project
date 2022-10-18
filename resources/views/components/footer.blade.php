@@ -1,5 +1,4 @@
 <!-- FOOTER -->
-
 <div class="footer_box">
     <div class="container">
         <footer class="py-5 footer_design">
@@ -21,18 +20,24 @@
                 </div>
 
                 <div class="col-md-5 offset-md-1 mb-3">
-                    <form>
-                        <h5>Подпишитесь на нашу рассылку</h5>
-                        <p>Узнайте первым о наших скидках и акциях</p>
-                        <div class="d-flex flex-column flex-sm-row w-100 gap-2">
-                            <label for="newsletter1" class="visually-hidden">Email address</label>
-                            <input id="newsletter1" type="text" class="form-control" placeholder="Email address">
-                            <button class="btn btn-outline-success" type="button">Подписаться</button>
-                        </div>
+                    <h5>Подпишитесь на нашу рассылку</h5>
+                    <p>Узнайте первым о наших скидках и акциях</p>
+                    <form method="post" action="{{ route('subscriptions.store', ['status=1']) }}"
+                        class="d-flex flex-column flex-sm-row w-100 gap-2">
+                        @csrf
+                        <label for="phone_mask" class="visually-hidden">Phone number</label>
+                        <input id="phone_mask" type="text" name="phone" class="form-control" placeholder="Телефон">
+                        <label for="newsletter1" class="visually-hidden">Email address</label>
+                        <input id="newsletter1" type="email" name="email" class="form-control"
+                            placeholder="Электронная почта">
+                        <button class="btn btn-outline-success" type="submit">Подписаться</button>
                     </form>
+                    <div class="p-2">
+                        <p>Укажите номер телефона, чтобы мы убедились, что вы не робот. Рассылка будет приходить только
+                            на ваш email.</p>
+                    </div>
                 </div>
             </div>
-
             <div class="d-flex flex-column flex-sm-row justify-content-between py-4 my-4 border-top">
                 <p>&copy; {{ date('Y') }} AggFitness, частное приложение. Все права защищены</p>
             </div>
