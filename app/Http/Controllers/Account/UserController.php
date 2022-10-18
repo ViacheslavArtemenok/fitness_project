@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Account;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Users\EditRequest;
+use App\Models\Profile;
 use App\Models\User;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
@@ -38,12 +39,20 @@ class UserController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return RedirectResponse
      */
-    public function store(Request $request)
+    public function store(Request $request): RedirectResponse
     {
-        //
+        $profile = new Profile(
+            $request->validated()
+        );
+
+        if ($profile->save()){
+            return redirect()->route('account.profiles.index')
+                ->with('success', __('messages.account.profiles.create.success'));
+        }
+        return back('error', __('messages.account.profiles.create.fail'));
     }
 
     /**

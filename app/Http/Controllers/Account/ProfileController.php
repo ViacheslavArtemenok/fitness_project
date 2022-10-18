@@ -10,7 +10,6 @@ use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Illuminate\Support\Facades\Auth;
 
 class ProfileController extends Controller
 {
@@ -23,11 +22,7 @@ class ProfileController extends Controller
     {
         $id = $_GET['profile'];
         $user = Profile::all()
-            ->where('user_id', $id);
-        if (!$user){
-            $user=0;
-        }
-       dd($user);
+            ->find($id);
             return view('account.profiles.index', ['user' => $user]);
     }
 

@@ -16,7 +16,7 @@
             </tr>
             </thead>
                 <tbody>
-                @if(!$user)
+                @if($user===null)
                     <tr>
                         <td colspan="5">Профиль пустой</td>
                     </tr>
