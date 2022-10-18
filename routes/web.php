@@ -60,6 +60,6 @@ Route::middleware('auth')->group(function () {
         Route::resource('skills', AdminSkillController::class);
         Route::resource('users', AdminUserController::class);
         Route::resource('tags', AdminTagController::class);
-        Route::resource('relations', AdminRelationController::class);
+        Route::resource('relations', AdminRelationController::class)->parameters(['relations' => 'trainer']);
     });
 });
