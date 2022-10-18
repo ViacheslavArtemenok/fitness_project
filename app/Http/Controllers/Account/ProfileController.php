@@ -10,30 +10,35 @@ use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Auth;
 
 class ProfileController extends Controller
 {
     /**
      * Display a listing of the resource.
-     *
-     * User $user
-     * @param User $user
-     * @return Application|Factory|View
+     * @param
+     * @return View
      */
-    public function index(User $user): View|Factory|Application
+    public function index(): View
     {
-        return view('account.profiles.index');
+        $id = $_GET['profile'];
+        $user = Profile::all()
+            ->where('user_id', $id);
+        if (!$user){
+            $user=0;
+        }
+       dd($user);
+            return view('account.profiles.index', ['user' => $user]);
     }
 
     /**
      * Show the form for creating a new resource.
      *
-     * @param User $user_id
      * @return Factory|View|Application
      */
-    public function create(User $user_id)
+    public function create(): Factory|View|Application
     {
-        //
+        return view('account.profiles.create');
     }
 
     /**
@@ -50,23 +55,23 @@ class ProfileController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param $id
      * @return Response
      */
-    public function show($id): Response
+    public function show($id)
     {
-        return view('account.profiles.create', ['id'=>$id]);
+        //
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
-     * @return Response
+     * @param Profile $profile
+     * @return View
      */
-    public function edit($id)
+    public function edit(Profile $profile): View
     {
-        //
+        return view('account.profiles.edit', ['profile' => $profile]);
     }
 
     /**
