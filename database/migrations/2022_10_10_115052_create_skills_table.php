@@ -19,8 +19,8 @@ return new class extends Migration
             $table->string('location', 150);
             $table->string('education', 150);
             $table->tinyInteger('experience');
-            $table->string('achievements', 150)->nullable();
-            $table->string('skills_list', 250);
+            $table->string('achievements', 1500)->nullable();
+            $table->string('skills_list', 1500);
             $table->text('description');
             $table->timestamps();
             $table->softDeletes();
