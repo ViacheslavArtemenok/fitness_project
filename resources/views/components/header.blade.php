@@ -64,7 +64,7 @@
                             aria-expanded="false">
                             Город
                         </button>
-                        <ul class="dropdown-menu overflow-scroll" style="height: 600px;">
+                        <ul class="dropdown-menu overflow-scroll menu_height">
                             @foreach (config('cities') as $key => $city)
                                 <li><a class="dropdown-item"
                                         href="{{ route('trainers.index', ['tag_id' => 0, 'city_id' => $key]) }}">{{ $city }}</a>
