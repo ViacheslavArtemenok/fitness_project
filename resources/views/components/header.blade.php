@@ -14,7 +14,7 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link @if (request()->routeIs('trainers.index')) active @endif"
-                            href="{{ route('trainers.index', ['tag_id' => 0]) }}">Тренеры</a>
+                            href="{{ route('trainers.index', ['tag_id' => 0, 'city_id' => 0]) }}">Тренеры</a>
                     </li>
                     @auth
                         <li class="nav-item">
@@ -58,6 +58,26 @@
                         </li>
                     @endguest
                 </ul>
+                @if (request()->routeIs('trainers.index'))
+                    <div class="btn-group align-self-start me-4 mb-2">
+                        <button type="button" class="btn btn-outline-success dropdown-toggle" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            Город
+                        </button>
+                        <ul class="dropdown-menu overflow-scroll menu_height">
+                            @foreach (config('cities') as $key => $city)
+                                <li><a class="dropdown-item"
+                                        href="{{ route('trainers.index', ['tag_id' => 0, 'city_id' => $key]) }}">{{ $city }}</a>
+                                </li>
+                                @if ($key === 2)
+                                    <li>
+                                        <hr class="dropdown-divider">
+                                    </li>
+                                @endif
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
                 <form class="d-flex" role="search">
                     <input class="form-control me-2" type="search" placeholder="Найти тренера" aria-label="Search">
                     <button class="btn btn-outline-success" type="submit">Поиск</button>

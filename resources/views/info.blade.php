@@ -2,14 +2,6 @@
     Главная @parent
     @endsection @section('content')
     <!-- HOME -->
-    <!-- PRE LOADER -->
-    <section class="preloader">
-        <div class="spinner">
-
-            <span class="spinner-rotate"></span>
-
-        </div>
-    </section>
     <div id="myCarousel" class="carousel slide" data-bs-ride="carousel">
         <div class="carousel-indicators promo_info">
             <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="0" class="active" aria-current="true"
@@ -35,7 +27,7 @@
                             <a class="btn btn-lg btn-outline-success"
                                 @if ($key === 2) href="#phone_mask" 
                                 @else 
-                                href="{{ route('trainers.index', ['tag_id' => 0]) }}" @endif>Подробнее</a>
+                                href="{{ route('trainers.index', ['tag_id' => 0, 'city_id' => 0]) }}" @endif>Подробнее</a>
                         </div>
                     </div>
                 </div>

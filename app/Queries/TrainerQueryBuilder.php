@@ -23,6 +23,7 @@ final class TrainerQueryBuilder
         $this->model = User::query();
         $this->relationModel = Relation::query();
         $this->tagModel = Tag::query();
+        $this->skillModel = Skill::query();
     }
 
     public function getAll(): Collection
@@ -37,21 +38,51 @@ final class TrainerQueryBuilder
         return $this->tagModel->get();
     }
 
-    public function getAllPaginate(): LengthAwarePaginator
+    public function getAllPaginate(int $city_id): LengthAwarePaginator
     {
-        return $this->model
-            ->where('role', 'IS_TRAINER')
-            ->where('status', 'ACTIVE')
-            ->with(['profile', 'skill', 'tags'])
-            ->paginate(config('trainers.users'));
+        if ($city_id === 0) {
+            return $this->model
+                ->where('role', 'IS_TRAINER')
+                ->where('status', 'ACTIVE')
+                ->with(['profile', 'skill', 'tags'])
+                ->paginate(config('trainers.users'));
+        } else {
+            $arr = [];
+            $usersCity = $this->skillModel->get()
+                ->where('location', config('cities')[$city_id]);
+            foreach ($usersCity as $item) {
+                $arr[] = $item->user_id;
+            }
+            return $this->model
+                ->where('role', 'IS_TRAINER')
+                ->where('status', 'ACTIVE')
+                ->whereIn('id', $arr)
+                ->with(['profile', 'skill', 'tags'])
+                ->paginate(config('trainers.users'));
+        }
     }
-    public function getAllByTagPaginate(int $tag_id): LengthAwarePaginator
+    public function getAllByTagPaginate(int $tag_id, int $city_id): LengthAwarePaginator
     {
+        /**
+         * Собираем массив $arr с id пользователей по тегу
+         */
         $arr = [];
         $users = $this->relationModel->get()
             ->where('tag_id', $tag_id);
         foreach ($users as $item) {
             $arr[] = $item->user_id;
+        }
+        /**
+         * Пересобираем массив $arr с id пользователей по тегу с ограничением по городу
+         */
+        if ($city_id !== 0) {
+            $usersCity = $this->skillModel->get()
+                ->where('location', config('cities')[$city_id])
+                ->whereIn('user_id', $arr);
+            $arr = [];
+            foreach ($usersCity as $item) {
+                $arr[] = $item->user_id;
+            }
         }
         return  $this->model
             ->where('role', 'IS_TRAINER')
