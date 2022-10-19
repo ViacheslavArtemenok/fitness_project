@@ -12,27 +12,26 @@ use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\DB;
 
 class ProfileController extends Controller
 {
     /**
      * Display a listing of the resource.
-     * @param
      * @return View
      */
     public function index(): View
     {
             $id = $_GET['profile'];
-            $user = Profile::all()
-                ->find($id);
-            return view('account.profiles.index', ['user' => $user]);
+            $profile = Profile::all()
+                ->where('user_id', $id)
+                ->first();
+            return view('account.profiles.index', ['profile' => $profile]);
     }
 
     /**
      * Show the form for creating a new resource.
-     *@param Profile $profile
      * @return Factory|View|Application
      */
     public function create(): Factory|View|Application
@@ -63,6 +62,9 @@ class ProfileController extends Controller
         );
 
         if ($profile->save()){
+            DB::table('users')
+                ->where('id', '=', $user_id)
+                ->update(['status' => 'ACTIVE']);
             return redirect()->route('account.profiles.index', ['profile'=>$profile])
                 ->with('success', __('messages.account.profiles.update.success'));
         }
@@ -83,12 +85,14 @@ class ProfileController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param Profile $profile
+     * @param int $id
      * @return View
      */
-    public function edit(Profile $profile): View
+    public function edit(int $id): View
     {
-//        dd($profile->id);
+        $profile = Profile::all()
+            ->where('user_id', $id)
+            ->first();
         return view('account.profiles.edit', ['profile' => $profile]);
     }
 
@@ -98,14 +102,13 @@ class ProfileController extends Controller
      * @param EditRequest $request
      * @param Profile $profile
      * @param UploadService $uploadService
-     * @return RedirectResponse
+     * @return Application|Factory|View|RedirectResponse
      */
     public function update(EditRequest $request,
                            Profile $profile,
                            UploadService $uploadService
-    ): RedirectResponse
+    ): View|Factory|RedirectResponse|Application
     {
-//        dd($request);
         $profile = $profile->fill($request->validated());
 
         if ($request->hasFile('image')) {
@@ -113,7 +116,7 @@ class ProfileController extends Controller
         }
 
         if ($profile->save()){
-            return redirect()->route('account.profiles.index', ['profile'=>$profile])
+            return view('account.profiles.index', ['profile'=>$profile])
                 ->with('success', __('messages.account.profiles.update.success'));
         }
         return back('error', __('messages.account.profiles.update.fail'));

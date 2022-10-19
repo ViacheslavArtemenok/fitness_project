@@ -16,22 +16,21 @@
             </tr>
             </thead>
                 <tbody>
-                @if($user===null)
+                @if($profile===null)
                     <tr>
-                        <td colspan="5">Профиль пустой</td>
+                        <td colspan="6"><a class="btn btn-primary" href="{{ route('account.profiles.create', ['profile'=> Auth::user()->id]) }}">Заполните профиль</a></td>
                     </tr>
                 @else
                 <tr>
-                    <td> <img src="{{ Storage::disk('public')->url($user->image) }}" style="width: 100px"></td>
-                    <td>{{ $user->first_name }}</td>
-                    <td>{{ $user->father_name }}</td>
-                    <td>{{ $user->last_name }}</td>
-                    <td>{{ $user->age }}</td>
-                    <td>{{ $user->gender }}</td>
+                    <td> <img src="{{ Storage::disk('public')->url($profile->image) }}" style="width: 100px"></td>
+                    <td>{{ $profile->first_name }}</td>
+                    <td>{{ $profile->father_name }}</td>
+                    <td>{{ $profile->last_name }}</td>
+                    <td>{{ $profile->age }}</td>
+                    <td>{{ $profile->gender }}</td>
                 </tr>
                 @endif
                 </tbody>
-
         </table>
     </div>
 @endsection

@@ -36,14 +36,14 @@ Route::middleware('auth')->group(function () {
         Route::resource('users', AccountUserController::class);
         Route::resource('profiles', AccountProfileController::class);
         Route::get('/profiles/{profile}', [AccountProfileController::class, 'edit']);
-        Route::post('/profiles/{profile}', [AccountProfileController::class, 'update']);
+//        Route::post('/profiles/{profile}', [AccountProfileController::class, 'update']);
 //        Route::post('/profiles/{user_id}', [AccountProfileController::class, 'store']);
     });
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+//Route::get('/dashboard', function () {
+//    return view('account');
+//})->middleware(['auth', 'verified'])->name('account');
 
 require __DIR__ . '/auth.php';
 

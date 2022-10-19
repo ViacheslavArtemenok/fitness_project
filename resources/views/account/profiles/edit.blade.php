@@ -5,6 +5,11 @@
 
         @include('inc.message')
 
+        @if($profile===null){
+
+<h2>Профиль пустой</h2>
+    }
+        @endif
         <form method="post" action="{{ route('account.profiles.update', ['profile'=>$profile]) }}" enctype="multipart/form-data">
             @csrf
             @method('put')
