@@ -36,6 +36,7 @@ Route::middleware('auth')->group(function () {
         Route::resource('users', AccountUserController::class);
         Route::resource('profiles', AccountProfileController::class);
         Route::get('/profiles/{profile}', [AccountProfileController::class, 'edit']);
+        Route::post('/profiles/{profile}', [AccountProfileController::class, 'update']);
     });
 });
 

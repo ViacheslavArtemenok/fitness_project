@@ -87,7 +87,7 @@
                     <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 ">
                         <li><a href="{{ route('account.profiles.index', ['profile'=> Auth::user()->id]) }}" class="nav-link d-inline-flex text-decoration-none rounded text-white">Просмотр</a></li>
                         <li><a href="{{ route('account.profiles.create') }}" class="nav-link d-inline-flex text-decoration-none rounded text-white">Создание</a></li>
-                        <li><a href="{{ route('account.profiles.edit', ['profile'=> Auth::user()->id]) }}" class="nav-link d-inline-flex text-decoration-none rounded text-white">Редактирование</a></li>
+                        <li><a href="{{ route('account.profiles.edit', ['profile'=> Auth::user()]) }}" class="nav-link d-inline-flex text-decoration-none rounded text-white">Редактирование</a></li>
                     </ul>
                 </div>
             </li>

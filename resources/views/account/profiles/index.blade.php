@@ -22,7 +22,7 @@
                     </tr>
                 @else
                 <tr>
-                    <td>#</td>
+                    <td>{{ $user->image }}</td>
                     <td>{{ $user->first_name }}</td>
                     <td>{{ $user->father_name }}</td>
                     <td>{{ $user->last_name }}</td>

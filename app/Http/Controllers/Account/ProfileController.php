@@ -3,11 +3,14 @@
 namespace App\Http\Controllers\Account;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Profiles\EditRequest;
 use App\Models\Profile;
-use App\Models\User;
+use App\Services\UploadService;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
@@ -20,9 +23,9 @@ class ProfileController extends Controller
      */
     public function index(): View
     {
-        $id = $_GET['profile'];
-        $user = Profile::all()
-            ->find($id);
+            $id = $_GET['profile'];
+            $user = Profile::all()
+                ->find($id);
             return view('account.profiles.index', ['user' => $user]);
     }
 
@@ -66,29 +69,50 @@ class ProfileController extends Controller
      */
     public function edit(Profile $profile): View
     {
+//        dd($profile->id);
         return view('account.profiles.edit', ['profile' => $profile]);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return Response
+     * @param EditRequest $request
+     * @param Profile $profile
+     * @param UploadService $uploadService
+     * @return RedirectResponse
      */
-    public function update(Request $request, $id)
+    public function update(EditRequest $request,
+                           Profile $profile,
+                           UploadService $uploadService
+    ): RedirectResponse
     {
-        //
+        $profile = $profile->fill($request->validated());
+
+        if ($request->hasFile('image')) {
+            $profile['image'] = $uploadService->uploadImage($request->file('image'));
+        }
+
+        if ($profile->save()){
+            return redirect()->route('account.profiles.index', ['profile'=>$profile])
+                ->with('success', __('messages.account.profiles.update.success'));
+        }
+        return back('error', __('messages.account.categories.update.fail'));
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
-     * @return Response
+     * @param int $id
+     * @return JsonResponse
      */
-    public function destroy($id)
+    public function destroy(Profile $profile):JsonResponse
     {
-        //
+        try {
+            $profile->delete();
+            return \response()->json('ok');
+        } catch (\Exception $e) {
+            \Log::error($e->getMessage());
+            return \response()->json( 'error', 400);
+        }
     }
 }

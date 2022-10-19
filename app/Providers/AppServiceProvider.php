@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Queries\TrainerQueryBuilder;
+use App\Services\UploadService;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\ServiceProvider;
 
@@ -16,6 +17,7 @@ class AppServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->bind(TrainerQueryBuilder::class);
+        $this->app->bind(UploadService::class);
     }
 
     /**
