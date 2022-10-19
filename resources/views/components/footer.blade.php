@@ -8,7 +8,8 @@
                     <ul class="nav flex-column">
                         <li class="nav-item mb-2"><a href="{{ route('info') }}" class="nav-link p-0 text-muted">Главная</a>
                         </li>
-                        <li class="nav-item mb-2"><a href="{{ route('trainers.index', ['tag_id' => 0]) }}"
+                        <li class="nav-item mb-2"><a
+                                href="{{ route('trainers.index', ['tag_id' => 0, 'city_id' => 0]) }}"
                                 class="nav-link p-0 text-muted">Тренеры</a></li>
                         <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">О нас</a></li>
                         <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Контакты</a></li>

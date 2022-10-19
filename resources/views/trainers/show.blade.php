@@ -25,11 +25,12 @@
                     <div class="d-flex flex-wrap align-items-start">
                         @forelse($trainer->tags as $key => $tagItem)
                             <a class="btn btn-secondary mb-2 me-2"
-                                href="{{ route('trainers.index', ['tag_id' => $tagItem->id]) }}">
+                                href="{{ route('trainers.index', ['tag_id' => $tagItem->id, 'city_id' => $city_id]) }}">
                                 {{ $tagItem->tag }}
                             </a>
                         @empty
-                            <a class="btn btn-secondary mb-2 me-2" href="{{ route('trainers.index', ['tag_id' => 0]) }}">
+                            <a class="btn btn-secondary mb-2 me-2"
+                                href="{{ route('trainers.index', ['tag_id' => 0, 'city_id' => $city_id]) }}">
                                 Профиль тренировок не указан
                             </a>
                         @endforelse
