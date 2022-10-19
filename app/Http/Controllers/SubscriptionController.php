@@ -42,12 +42,12 @@ class SubscriptionController extends Controller
             $result = Subscription::create($request->validated());
             if ($result) {
                 return redirect()->route('info')
-                    ->with('success', __('messages.user.subscriptions.create.success'));
+                    ->with('success', __('messages.subscriptions.create.success'));
             }
-            return back()->with('error', __('messages.user.subscriptions.create.fail'));
+            return back()->with('error', __('messages.subscriptions.create.fail'));
         } catch (\Exception $e) {
             if ($e->getCode() == 23000) {
-                return back()->with('error', __('messages.user.subscriptions.create.isset'));
+                return back()->with('error', __('messages.subscriptions.create.isset'));
             }
         }
     }

@@ -3,27 +3,36 @@
     Список тренеров @parent
 @endsection
 @section('content')
-    <div class="dropdown body_back p-3 d-flex justify-content-center">
-        <button class="btn btn-outline-success dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Категории тренировок
-        </button>
-        <div class="tags_box body_back dropdown-menu">
-            <div class="container">
-                <div class="body_back p-4">
-                    @if (!request()->is('*/0'))
-                        <a class="btn btn-outline-success" href="{{ route('trainers.index', ['tag_id' => 0]) }}">
-                            Все категории
-                        </a>
-                    @endif
-                    @foreach ($tags as $tag)
-                        <a class="btn btn-outline-secondary @if (request()->is("*/$tag->id")) active @endif"
-                            href="{{ route('trainers.index', ['tag_id' => $tag->id]) }}">
-                            {{ $tag->tag }}
-                        </a>
-                    @endforeach
+    <div class="d-flex align-items-center justify-content-center body_back">
+        <div class="dropdown p-3 d-flex justify-content-center flex-grow-1">
+            <button class="btn btn-outline-success dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                aria-expanded="false">
+                @if ($tag_id !== 0)
+                    {{ $tags[$tag_id - 1]->tag }}
+                @else
+                    Категории тренировок
+                @endif
+            </button>
+            <div class="tags_box body_back dropdown-menu">
+                <div class="container">
+                    <div class="body_back p-4">
+                        @if (!request()->is("*/0/$city_id"))
+                            <a class="mb-2 me-1 btn btn-outline-success"
+                                href="{{ route('trainers.index', ['tag_id' => 0, 'city_id' => $city_id]) }}">
+                                Все категории
+                            </a>
+                        @endif
+                        @foreach ($tags as $tag)
+                            <a class="mb-2 me-1 btn btn-outline-secondary @if (request()->is("*/$tag->id/$city_id")) active @endif"
+                                href="{{ route('trainers.index', ['tag_id' => $tag->id, 'city_id' => $city_id]) }}">
+                                {{ $tag->tag }}
+                            </a>
+                        @endforeach
+                    </div>
                 </div>
             </div>
         </div>
+        <h4 class="me-4"> {{ config('cities')[$city_id] }} </h4>
     </div>
     <div class="container marketing">
         <div class="row featurette">
@@ -60,7 +69,8 @@
 
                     </div>
                     <a class="btn btn-outline-secondary"
-                        href="{{ route('trainers.show', ['id' => $trainer->id]) }}">Подробнее &raquo;</a>
+                        href="{{ route('trainers.show', ['id' => $trainer->id, 'city_id' => $city_id]) }}">Подробнее
+                        &raquo;</a>
                 </div>
                 <!-- /.col-lg-4 -->
             @empty
