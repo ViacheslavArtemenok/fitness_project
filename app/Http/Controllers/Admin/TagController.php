@@ -3,9 +3,13 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\Tag;
+
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use Illuminate\View\View;
+use App\Http\Requests\Tags\CreateRequest;
+use App\Http\Requests\Tags\EditRequest;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\JsonResponse;
 
 class TagController extends Controller
 {
@@ -26,22 +30,31 @@ class TagController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return View
      */
-    public function create()
+    public function create(): View
     {
-        //
+        return view('admin.tags.create');
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param  CreateRequest  $request
+     * @return RedirectResponse
      */
-    public function store(Request $request)
+    public function store(CreateRequest $request): RedirectResponse
     {
-        //
+        $tag = new Tag(
+            $request->validated()
+        );
+
+        if($tag->save()) {
+            return redirect()->route('admin.tags.index')
+                ->with('success', __('messages.admin.tags.create.success'));
+        }
+
+        return back()->with('error', __('messages.admin.tags.create.fail'));
     }
 
     /**
@@ -58,34 +71,53 @@ class TagController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param  Tag $tag
+     * @return View
      */
-    public function edit($id)
+    public function edit(Tag $tag): View
     {
-        //
+        return view('admin.tags.edit', [
+            'tag' => $tag
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  EditRequest
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return RedirectResponse
      */
-    public function update(Request $request, $id)
+    public function update(EditRequest $request, Tag $tag): RedirectResponse
     {
-        //
+        $tag = $tag->fill($request->validated());
+
+        if($tag->save()) {
+            return redirect()->route('admin.tags.index')
+                ->with('success',  __('messages.admin.tags.update.success'));
+        }
+
+        return back()->with('error', __('messages.admin.tags.update.fail'));
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param  Tag $tag
+     * @return JsonResponse
      */
-    public function destroy($id)
+    public function destroy(Tag $tag): JsonResponse
     {
-        //
+        try {
+            $deleted = $tag->delete();
+            if ( $deleted === false) {
+                return \response()->json(['status' => 'error'], 400);
+            } else {
+                return \response()->json(['status' => 'ok']);
+            }
+        } catch (\Exception $e) {
+            \Log::error($e->getMessage().' '.$e->getCode());
+            return \response()->json(['status' => 'error'], 400);
+        }
     }
 }

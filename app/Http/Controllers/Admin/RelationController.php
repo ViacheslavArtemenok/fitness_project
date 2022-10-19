@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers\Admin;
 
-//use App\Models\Tag;
+use App\Models\Tag;
 use App\Models\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
 
 class RelationController extends Controller
@@ -62,25 +63,48 @@ class RelationController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param  User $trainer
+     * @return View
      */
-    public function edit($id)
+    public function edit(User $trainer): View
     {
-        //
+        $tags = Tag::all();
+
+        return view('admin.relations.edit', [
+            'trainer' => $trainer,
+            'tags' => $tags
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param  Request  $request
+     * @param  User $trainer
+     * @return RedirectResponse
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, User $trainer): RedirectResponse
     {
-        //
-    }
+        $tag_id = $request->post('tags');
+
+        //dd($tags);
+
+        $trainer_id = $trainer->id;
+
+        //dd($trainer_id );
+
+        //todo: добавить id в таблицу relations
+
+//        $trainer->tags()->attach($tag_id, ['user_id' => $trainer_id]);
+
+        $trainer->tags()->sync($tag_id, ['user_id' => $trainer_id]);
+
+//        $trainer->tags()->updateExistingPivot($tag_id, ['user_id' => $trainer_id]);
+        //dd($trainer->tags());
+
+        return redirect()->route('admin.relations.index')
+            ->with('success', __('messages.admin.relations.update.success'));
+     }
 
     /**
      * Remove the specified resource from storage.

@@ -33,7 +33,7 @@
                     <td>{{ $trainer->created_at }}</td>
                     <td>
                         <div style="">
-                            <a href="#">Ред.</a>&nbsp;
+                            <a href="{{ route('admin.relations.edit', ['trainer' => $trainer]) }}">Ред.</a>&nbsp;
                             <a href="javascript:;" class="delete" rel="{{ $trainer->id }}"
                                style="color: red;">Уд.</a>
                         </div>
