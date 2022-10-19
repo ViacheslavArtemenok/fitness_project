@@ -9,7 +9,7 @@ class UploadService
 {
     public function uploadImage(UploadedFile $uploadedFile):string
     {
-        $path = $uploadedFile->storeAs('profile', $uploadedFile->hashName(), 'public');
+        $path = $uploadedFile->storeAs('image', $uploadedFile->hashName(), 'public');
         if ($path === false){
             throw new UploadException('file was not upload');
         }

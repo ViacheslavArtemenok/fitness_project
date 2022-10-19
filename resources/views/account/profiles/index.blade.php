@@ -22,7 +22,7 @@
                     </tr>
                 @else
                 <tr>
-                    <td>{{ $user->image }}</td>
+                    <td> <img src="{{ Storage::disk('public')->url($user->image) }}" style="width: 100px"></td>
                     <td>{{ $user->first_name }}</td>
                     <td>{{ $user->father_name }}</td>
                     <td>{{ $user->last_name }}</td>

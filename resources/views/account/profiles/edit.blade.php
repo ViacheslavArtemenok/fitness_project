@@ -9,7 +9,7 @@
             @csrf
             @method('put')
 
-            <img id="image" src="{{ $profile->image }}" style="width: 100px">
+            <img src="{{ Storage::disk('public')->url($profile->image) }}" style="width: 100px">
             <br>
             <br>
             <div class="form-group">
@@ -51,19 +51,5 @@
         </form>
     </div>
 @endsection
-@push('js')
-    <script src="https://cdn.ckeditor.com/ckeditor5/35.1.0/classic/ckeditor.js"></script>
-    <script>
-        ClassicEditor
-            .create( document.querySelector( '#description' ), {
-                filebrowserImageBrowseUrl: '/laravel-filemanager?type=Images',
-                filebrowserImageUploadUrl: '/laravel-filemanager/upload?type=Images&_token=',
-                filebrowserBrowseUrl: '/laravel-filemanager?type=Files',
-                filebrowserUploadUrl: '/laravel-filemanager/upload?type=Files&_token='
-            })
-            .catch( error => {
-                console.log( error );
-            });
-    </script>
-@endpush
+
 

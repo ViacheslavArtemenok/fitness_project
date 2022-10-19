@@ -37,6 +37,7 @@ Route::middleware('auth')->group(function () {
         Route::resource('profiles', AccountProfileController::class);
         Route::get('/profiles/{profile}', [AccountProfileController::class, 'edit']);
         Route::post('/profiles/{profile}', [AccountProfileController::class, 'update']);
+//        Route::post('/profiles/{user_id}', [AccountProfileController::class, 'store']);
     });
 });
 

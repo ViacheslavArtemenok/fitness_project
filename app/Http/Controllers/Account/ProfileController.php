@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Account;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Profiles\CreateRequest;
 use App\Http\Requests\Profiles\EditRequest;
 use App\Models\Profile;
 use App\Services\UploadService;
@@ -31,23 +32,41 @@ class ProfileController extends Controller
 
     /**
      * Show the form for creating a new resource.
-     *
+     *@param Profile $profile
      * @return Factory|View|Application
      */
     public function create(): Factory|View|Application
     {
-        return view('account.profiles.create');
+        $user_id = $_GET['profile'];
+        return view('account.profiles.create', ['user_id'=>$user_id]);
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return Response
+     * @param CreateRequest $request
+     * @param UploadService $uploadService
+     * @return RedirectResponse
      */
-    public function store(Request $request)
+    public function store(CreateRequest $request,
+                          UploadService $uploadService,
+    ): RedirectResponse
     {
-        //
+        $user_id = $_GET['user_id'];
+        $validated = $request->validated();
+        if ($request->hasFile('image')) {
+            $validated['image'] = $uploadService->uploadImage($request->file('image'));
+            $validated['user_id'] = $user_id;
+        }
+        $profile = new Profile(
+            $validated
+        );
+
+        if ($profile->save()){
+            return redirect()->route('account.profiles.index', ['profile'=>$profile])
+                ->with('success', __('messages.account.profiles.update.success'));
+        }
+        return back('error', __('messages.account.profiles.update.fail'));
     }
 
     /**
@@ -86,6 +105,7 @@ class ProfileController extends Controller
                            UploadService $uploadService
     ): RedirectResponse
     {
+//        dd($request);
         $profile = $profile->fill($request->validated());
 
         if ($request->hasFile('image')) {
@@ -96,7 +116,7 @@ class ProfileController extends Controller
             return redirect()->route('account.profiles.index', ['profile'=>$profile])
                 ->with('success', __('messages.account.profiles.update.success'));
         }
-        return back('error', __('messages.account.categories.update.fail'));
+        return back('error', __('messages.account.profiles.update.fail'));
     }
 
     /**
