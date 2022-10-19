@@ -223,3 +223,11 @@ margin: 0px 6px 36px;
   width: 100vw;
   box-shadow: -5px 0px 5px #000000;
 }
+.menu_height{
+  height: 600px;
+}
+@media (max-width: 760px) {
+  .menu_height{
+    height: 300px;
+  }
+}
