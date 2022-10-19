@@ -22,15 +22,18 @@
                         {{ $trainerBuilder->getUnitCase($trainer->profile->age) }}</p>
                     <p class="lead">Опыт: {{ $trainer->skill->experience }}
                         {{ $trainerBuilder->getUnitCase($trainer->skill->experience) }}</p>
-                    @forelse($trainer->tags as $key => $tagItem)
-                        <a class="btn btn-secondary" href="{{ route('trainers.index', ['tag_id' => $tagItem->id]) }}">
-                            {{ $tagItem->tag }}
-                        </a>
-                    @empty
-                        <a class="btn btn-secondary" href="{{ route('trainers.index', ['tag_id' => 0]) }}">
-                            Профиль тренировок не указан
-                        </a>
-                    @endforelse
+                    <div class="d-flex flex-wrap align-items-start">
+                        @forelse($trainer->tags as $key => $tagItem)
+                            <a class="btn btn-secondary mb-2 me-2"
+                                href="{{ route('trainers.index', ['tag_id' => $tagItem->id]) }}">
+                                {{ $tagItem->tag }}
+                            </a>
+                        @empty
+                            <a class="btn btn-secondary mb-2 me-2" href="{{ route('trainers.index', ['tag_id' => 0]) }}">
+                                Профиль тренировок не указан
+                            </a>
+                        @endforelse
+                    </div>
                 </div>
                 <div class="col-md-5">
                     <img class="market_image" src="{{ $trainer->profile->image }}" alt="img">

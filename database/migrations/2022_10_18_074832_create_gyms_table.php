@@ -11,17 +11,17 @@ return new class extends Migration
      *
      * @return void
      */
-    public function up(): void
+    public function up()
     {
-        Schema::create('skills', function (Blueprint $table) {
+        Schema::create('gyms', function (Blueprint $table) {
             $table->id();
-            //skills_id
-            $table->string('location', 150);
-            $table->string('education', 150);
-            $table->tinyInteger('experience');
-            $table->string('achievements', 1500)->nullable();
-            $table->string('skills_list', 1500);
+            $table->unsignedBigInteger('user_id');
+            $table->string('phone_main');
+            $table->string('phone_second')->nullable();
+            $table->string('email');
+            $table->string('url');
             $table->text('description');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
             $table->softDeletes();
         });
@@ -32,8 +32,8 @@ return new class extends Migration
      *
      * @return void
      */
-    public function down(): void
+    public function down()
     {
-        Schema::dropIfExists('skills');
+        Schema::dropIfExists('gyms');
     }
 };

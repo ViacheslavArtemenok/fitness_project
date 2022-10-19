@@ -46,7 +46,19 @@
                     <p>Опыт: {{ $trainer->skill->experience }}
                         {{ $trainerBuilder->getUnitCase($trainer->skill->experience) }}</p>
                     <p>Город: {{ $trainer->skill->location }}</p>
-                    <p class="trainers_text">Навыки: {{ $trainer->skill->skills_list }}</p>
+                    <p>Категории тренировок:</p>
+                    <div class="d-flex flex-wrap flex-grow-1 align-items-start">
+                        @forelse($trainer->tags as $key => $tagItem)
+                            <p class="btn btn-secondary btn-sm disabled me-2 pt-0 pb-0 ps-1 pe-1">
+                                {{ $tagItem->tag }}
+                            </p>
+                        @empty
+                            <p class="btn btn-secondary btn-sm disabled me-2 pt-0 pb-0 ps-1 pe-1">
+                                Профиль тренировок не указан
+                            </p>
+                        @endforelse
+
+                    </div>
                     <a class="btn btn-outline-secondary"
                         href="{{ route('trainers.show', ['id' => $trainer->id]) }}">Подробнее &raquo;</a>
                 </div>
@@ -58,4 +70,4 @@
         {{ $trainersList->links() }}
         <hr class="featurette-divider">
     </div>
-@endsection
+@endsection;

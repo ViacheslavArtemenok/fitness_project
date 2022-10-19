@@ -30,18 +30,24 @@ class SkillSeeder extends Seeder
         $faker->addProvider(new \Faker\Provider\ru_RU\Person($faker));
 
         for ($i = 0; $i < 100; $i++) {
+            do {
+                $city = $faker->city();
+            } while ($city === 'Москва');
+            if ($i % 2 === 0) {
+                $city = 'Москва';
+            }
+
             $skills[] = [
                 'user_id'         => $i + 1,
-                'location'        => $faker->city(),
-                'education'       => $faker->text(100),
-                'experience'      => rand(0, 20),
-                'achievements'    => $faker->text(100),
-                'skills_list'     => $faker->text(100),
-                'description'     => $faker->paragraph(3),
+                'location'        => $city,
+                'education'       => $faker->company(),
+                'experience'      => rand(1, 20),
+                'achievements'    => $faker->text(400),
+                'skills_list'     => $faker->text(600),
+                'description'     => $faker->paragraph(30),
                 'created_at'      => now('Europe/Moscow')
             ];
         }
-
         return $skills;
     }
 }
