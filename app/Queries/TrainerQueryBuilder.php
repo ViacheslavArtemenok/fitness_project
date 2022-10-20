@@ -28,7 +28,7 @@ final class TrainerQueryBuilder
         $this->profileModel = Profile::query();
     }
 
-    public function getArr(object $model, string $fieldW, mixed $valueW, string $sign, string $fieldWIn): object
+    public function buildArr(object $model, string $fieldW, mixed $valueW, string $sign, string $fieldWIn): object
     {
         if ($valueW === 0 || $valueW == "%%") {
             return $this;
@@ -72,10 +72,10 @@ final class TrainerQueryBuilder
         } else {
             $city = 0;
         }
-        $trainers = $this->getArr($this->skillModel, 'location', $city, '=', 'user_id')
-            ->getArr($this->relationModel, 'tag_id', $tag_id, '=', 'user_id')
-            ->getArr($this->profileModel, 'last_name', "%{$lastName}%", 'LIKE', 'user_id')
-            ->getArr($this->profileModel, 'first_name', "%{$firstName}%", 'LIKE', 'user_id');
+        $trainers = $this->buildArr($this->skillModel, 'location', $city, '=', 'user_id')
+            ->buildArr($this->relationModel, 'tag_id', $tag_id, '=', 'user_id')
+            ->buildArr($this->profileModel, 'last_name', "%{$lastName}%", 'LIKE', 'user_id')
+            ->buildArr($this->profileModel, 'first_name', "%{$firstName}%", 'LIKE', 'user_id');
 
         if (count($trainers->arr)) { //Запрос с параметрами
             return  $this->model
