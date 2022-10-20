@@ -29,7 +29,7 @@ class EditRequest extends FormRequest
             'father_name' => ['required', 'string', 'min:3', 'max:100'],
             'age' =>  ['required', 'integer'],
             'gender' => ['required', 'string'],
-            'image' => ['required', 'string', 'min:3', 'max:100']
+            'image' => ['required', 'min:3', 'max:100']
         ];
     }
 

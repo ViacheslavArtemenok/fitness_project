@@ -4,8 +4,7 @@
         <h2>Заполнение профиля</h2>
 
         @include('inc.message')
-
-        <form method="post" action="{{ route('account.profiles.store') }}" enctype="multipart/form-data">
+        <form method="post" action="{{ route('account.profiles.store', ['user_id'=>$user_id]) }}" enctype="multipart/form-data">
             @csrf
             <div class="form-group">
                 <label for="first_name">Имя</label>
@@ -46,18 +45,4 @@
         </form>
     </div>
 @endsection
-@push('js')
-    <script src="https://cdn.ckeditor.com/ckeditor5/35.1.0/classic/ckeditor.js"></script>
-    <script>
-        ClassicEditor
-            .create( document.querySelector( '#description' ), {
-                filebrowserImageBrowseUrl: '/laravel-filemanager?type=Images',
-                filebrowserImageUploadUrl: '/laravel-filemanager/upload?type=Images&_token=',
-                filebrowserBrowseUrl: '/laravel-filemanager?type=Files',
-                filebrowserUploadUrl: '/laravel-filemanager/upload?type=Files&_token='
-            })
-            .catch( error => {
-                console.log( error );
-            });
-    </script>
-@endpush
+
