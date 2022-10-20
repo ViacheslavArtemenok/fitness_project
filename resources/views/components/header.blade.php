@@ -59,7 +59,7 @@
                     @endguest
                 </ul>
                 @if (request()->routeIs('trainers.index'))
-                    <div class="btn-group align-self-start me-4 mb-2">
+                    <div class="btn-group align-self-start me-2 mb-2">
                         <button type="button" class="btn btn-outline-success dropdown-toggle" data-bs-toggle="dropdown"
                             aria-expanded="false">
                             Город
@@ -77,11 +77,18 @@
                             @endforeach
                         </ul>
                     </div>
+
+                    <form class="d-flex" role="search" method="GET" action="{{ request()->url() }}">
+                        <div class="input-group me-2">
+                            <input type="text" class="form-control" placeholder="Имя тренера" aria-label="Имя"
+                                name="firstName">
+                            <span class="input-group-text"></span>
+                            <input type="text" class="form-control" placeholder="Фамилия тренера"
+                                aria-label="Фамилия" name="lastName">
+                        </div>
+                        <button class="btn btn-outline-success" type="submit">Поиск</button>
+                    </form>
                 @endif
-                <form class="d-flex" role="search">
-                    <input class="form-control me-2" type="search" placeholder="Найти тренера" aria-label="Search">
-                    <button class="btn btn-outline-success" type="submit">Поиск</button>
-                </form>
             </div>
         </div>
     </nav>

@@ -24,12 +24,12 @@ class EditRequest extends FormRequest
     public function rules()
     {
         return [
-            'location' => ['required', 'string', 'min:3', 'max:255'],
-            'education' =>  ['required', 'string', 'min:3', 'max:255'],
+            'location' => ['required', 'string', 'min:3', 'max:120'],
+            'education' =>  ['required', 'string', 'min:3', 'max:600'],
             'experience' => ['required', 'numeric', 'min:1'],
-            'achievements' =>  ['required', 'string', 'min:3', 'max:255'],
-            'skills_list' =>  ['required', 'string', 'min:3', 'max:255'],
-            'description' =>  ['required', 'string', 'min:3', 'max:255'],
+            'achievements' =>  ['required', 'string', 'min:3', 'max:800'],
+            'skills_list' =>  ['required', 'string', 'min:3', 'max:800'],
+            'description' =>  ['required', 'string', 'min:3', 'max:800'],
         ];
     }
 

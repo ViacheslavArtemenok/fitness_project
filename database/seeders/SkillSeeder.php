@@ -42,9 +42,9 @@ class SkillSeeder extends Seeder
                 'location'        => $city,
                 'education'       => $faker->company(),
                 'experience'      => rand(1, 20),
-                'achievements'    => $faker->text(400),
-                'skills_list'     => $faker->text(600),
-                'description'     => $faker->paragraph(30),
+                'achievements'    => $faker->paragraph(rand(3, 8)),
+                'skills_list'     => $faker->paragraph(rand(6, 10)),
+                'description'     => $faker->paragraph(rand(6, 10)),
                 'created_at'      => now('Europe/Moscow')
             ];
         }
