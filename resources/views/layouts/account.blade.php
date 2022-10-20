@@ -80,6 +80,7 @@
         </div>
     </div>
     <script src="{{ asset('assets/js/bootstrap.bundle.min.js') }}"></script>
+    <link href="{{ asset('assets/css/sidebars.css') }}" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/feather.min.js"></script>
 
     @stack('js')
