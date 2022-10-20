@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\Account\IndexController as AccountIndexController;
 use App\Http\Controllers\Account\UserController as AccountUserController;
-use \App\Http\Controllers\Account\ProfilController as AccountProfileController;
+use \App\Http\Controllers\Account\ProfileController as AccountProfileController;
 use App\Http\Controllers\Admin\IndexController as AdminIndexController;
 use App\Http\Controllers\Admin\ProfileController as AdminProfileController;
 use App\Http\Controllers\Admin\SkillController as AdminSkillController;
@@ -29,18 +29,16 @@ use App\Http\Controllers\SubscriptionController;
 Route::get('/', InfoController::class)
     ->name('info');
 
+// Account routes
 Route::middleware('auth')->group(function () {
     Route::get('/account', AccountIndexController::class)
         ->name('account');
     Route::group(['prefix' => 'account', 'as' => 'account.'], function () {
         Route::resource('users', AccountUserController::class);
         Route::resource('profiles', AccountProfileController::class);
+        Route::get('/profiles/{profile}', [AccountProfileController::class, 'edit']);
     });
 });
-
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
 
 require __DIR__ . '/auth.php';
 

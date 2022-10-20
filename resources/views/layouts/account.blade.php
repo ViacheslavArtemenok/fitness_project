@@ -7,7 +7,6 @@
     <title>Личный кабинет</title>
     <link rel="canonical" href="https://getbootstrap.com/docs/5.2/examples/sidebars/">
     <link href="{{ asset('assets/css/bootstrap.min.css') }}" rel="stylesheet">
-    <link href=" {{ asset('assets/bootstrap.min.css') }}" rel="stylesheet">
     <style>
         .bd-placeholder-img {
             font-size: 1.125rem;
@@ -52,16 +51,21 @@
             text-align: center;
             white-space: nowrap;
             -webkit-overflow-scrolling: touch;
+
+        }
+        body{
+            background: #dddddd;
         }
     </style>
     <!-- Custom styles for this template -->
     <link href="{{ asset('assets/dashboard.css') }}" rel="stylesheet">
 </head>
 <body>
-<div class="container-fluid">
+<x-header></x-header>
+<div class="container-fluid" style="margin-top: 80px">
     <div class="row">
         <x-account.sidebar></x-account.sidebar>
-        <main class="col-md-9 ms-sm-auto col-lg-10 ">
+        <main class="col-md-9 ms-sm-auto col-lg-10">
             @yield('content')
         </main>
     </div>
