@@ -20,81 +20,79 @@ final class TrainerQueryBuilder
 
     public function __construct()
     {
+        $this->arr = [];
         $this->model = User::query();
         $this->relationModel = Relation::query();
         $this->tagModel = Tag::query();
         $this->skillModel = Skill::query();
+        $this->profileModel = Profile::query();
     }
 
-    public function getAll(): Collection
+    public function buildArr(object $model, string $fieldW, mixed $valueW, string $sign, string $fieldWIn): object
     {
-        return $this->model->get()
-            ->where('role', 'IS_TRAINER')
-            ->where('status', 'ACTIVE')
-            ->with(['profile', 'skill', 'tags']);
+        if ($valueW === 0 || $valueW == "%%") {
+            return $this;
+        } else {
+            if (count($this->arr) > 0) {
+                $collection = $model
+                    ->where($fieldW, $sign, $valueW)
+                    ->whereIn($fieldWIn, $this->arr)
+                    ->get();
+                $this->arr = [];
+            } else {
+                $collection = $model
+                    ->where($fieldW, $sign, $valueW)
+                    ->get();
+            }
+            foreach ($collection as $item) {
+                $this->arr[] = $item->user_id;
+            }
+            return $this;
+        }
     }
+
     public function getAllTags(): Collection
     {
         return $this->tagModel->get();
     }
 
-    public function getAllPaginate(int $city_id): LengthAwarePaginator
+    public function getAllPaginate(): LengthAwarePaginator
     {
-        if ($city_id === 0) {
-            return $this->model
-                ->where('role', 'IS_TRAINER')
-                ->where('status', 'ACTIVE')
-                ->with(['profile', 'skill', 'tags'])
-                ->paginate(config('trainers.users'));
-        } else {
-            $arr = [];
-            $usersCity = $this->skillModel->get()
-                ->where('location', config('cities')[$city_id]);
-            foreach ($usersCity as $item) {
-                $arr[] = $item->user_id;
-            }
-            return $this->model
-                ->where('role', 'IS_TRAINER')
-                ->where('status', 'ACTIVE')
-                ->whereIn('id', $arr)
-                ->with(['profile', 'skill', 'tags'])
-                ->paginate(config('trainers.users'));
-        }
-    }
-    public function getAllByTagPaginate(int $tag_id, int $city_id): LengthAwarePaginator
-    {
-        /**
-         * Собираем массив $arr с id пользователей по тегу
-         */
-        $arr = [];
-        $users = $this->relationModel->get()
-            ->where('tag_id', $tag_id);
-        foreach ($users as $item) {
-            $arr[] = $item->user_id;
-        }
-        /**
-         * Пересобираем массив $arr с id пользователей по тегу с ограничением по городу
-         */
-        if ($city_id !== 0) {
-            $usersCity = $this->skillModel->get()
-                ->where('location', config('cities')[$city_id])
-                ->whereIn('user_id', $arr);
-            $arr = [];
-            foreach ($usersCity as $item) {
-                $arr[] = $item->user_id;
-            }
-        }
-        return  $this->model
+        return $this->model
             ->where('role', 'IS_TRAINER')
             ->where('status', 'ACTIVE')
-            ->whereIn('id', $arr)
             ->with(['profile', 'skill', 'tags'])
             ->paginate(config('trainers.users'));
+    }
+
+    public function getWithParamsPaginate(string $firstName = null, string $lastName = null, int $city_id, int $tag_id)
+    {
+        if ($city_id > 0) {
+            $city = config('cities')[$city_id];
+        } else {
+            $city = 0;
+        }
+        $trainers = $this->buildArr($this->skillModel, 'location', $city, '=', 'user_id')
+            ->buildArr($this->relationModel, 'tag_id', $tag_id, '=', 'user_id')
+            ->buildArr($this->profileModel, 'last_name', "%{$lastName}%", 'LIKE', 'user_id')
+            ->buildArr($this->profileModel, 'first_name', "%{$firstName}%", 'LIKE', 'user_id');
+
+        if (count($trainers->arr)) { //Запрос с параметрами
+            return  $this->model
+                ->where('role', 'IS_TRAINER')
+                ->where('status', 'ACTIVE')
+                ->whereIn('id', $trainers->arr)
+                ->with(['profile', 'skill', 'tags'])
+                ->paginate(config('trainers.users'));
+        } elseif (!count($trainers->arr) && $lastName || $firstName) { //Запрос без параметров - список пуст
+            return collect([]);
+        } else return $this->getAllPaginate(); //Запрос без параметров - все
     }
 
     public function getById(int $id): object
     {
         return $this->model
+            ->where('role', 'IS_TRAINER')
             ->with(['profile', 'skill', 'tags'])
             ->findOrFail($id);
     }

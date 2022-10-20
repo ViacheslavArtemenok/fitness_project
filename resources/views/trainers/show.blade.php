@@ -46,9 +46,13 @@
                 <h3>Образование</h3>
                 <p>{{ $trainer->skill->education }}</p>
                 <h3>Навыки</h3>
-                <p>{{ $trainer->skill->skills_list }}</p>
+                @foreach (explode('. ', $trainer->skill->skills_list) as $item)
+                    <p>&bull; {{ rtrim($item, '.') }}</p>
+                @endforeach
                 <h3>Достижения</h3>
-                <p>{{ $trainer->skill->achievements }}</p>
+                @foreach (explode('. ', $trainer->skill->achievements) as $item)
+                    <p>&bull; {{ rtrim($item, '.') }}</p>
+                @endforeach
                 <h3>О себе</h3>
                 <p>{{ $trainer->skill->description }}</p>
             </div>
