@@ -5,6 +5,7 @@ use App\Http\Controllers\PageController;
 use App\Http\Controllers\Account\IndexController as AccountIndexController;
 use App\Http\Controllers\Account\UserController as AccountUserController;
 use \App\Http\Controllers\Account\ProfileController as AccountProfileController;
+use App\Http\Controllers\Account\SkillController as AccountSkillController;
 use App\Http\Controllers\Admin\IndexController as AdminIndexController;
 use App\Http\Controllers\Admin\ProfileController as AdminProfileController;
 use App\Http\Controllers\Admin\SkillController as AdminSkillController;
@@ -36,7 +37,8 @@ Route::middleware('auth')->group(function () {
     Route::group(['prefix' => 'account', 'as' => 'account.'], function () {
         Route::resource('users', AccountUserController::class);
         Route::resource('profiles', AccountProfileController::class);
-        Route::get('/profiles/{profile}', [AccountProfileController::class, 'edit']);
+//        Route::get('/profiles/{profile}', [AccountProfileController::class, 'edit']);
+        Route::resource('skills', AccountSkillController::class);
     });
 });
 

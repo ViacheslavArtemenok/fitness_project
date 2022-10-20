@@ -14,6 +14,7 @@
                 <a class="btn btn-primary" href="{{ route('admin.index') }}">Администрировать</a>
             @endif
         </div>
+        <br>
     @endif
 
     <x-alert type="warning" :message="$message"></x-alert>

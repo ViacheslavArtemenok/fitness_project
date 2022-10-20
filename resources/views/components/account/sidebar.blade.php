@@ -91,12 +91,22 @@
                 </div>
             </li>
 
-            <li>
-                <button href="#" class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed text-white">
-                    <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#table"/></svg>
-                    Навыки и умения
-                </button>
-            </li>
+        <li class="mb-1">
+            <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed text-white" data-bs-toggle="collapse" data-bs-target="#dashboard-collapse" aria-expanded="false">
+                <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#chevron-right"/></svg>
+                Навыки и умения
+            </button>
+            <div class="collapse" id="dashboard-collapse">
+                <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 ">
+                    <li><a href="{{ route('account.skills.index', ['skill'=> Auth::user()->id]) }}" class="nav-link d-inline-flex text-decoration-none rounded text-white">Просмотр</a></li>
+                    <li><a href="№" class="nav-link d-inline-flex text-decoration-none rounded text-white">Создание</a></li>
+                    @if(Auth::user()->status==='ACTIVE')
+                        <li><a href="№" class="nav-link d-inline-flex text-decoration-none rounded text-white">Редактирование</a></li>
+                    @endif
+                </ul>
+            </div>
+        </li>
+
             <li>
                 <button href="#" class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed text-white @if(request()->routeIs('account.index'))active @endif">
                     <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#grid"/></svg>
