@@ -37,7 +37,6 @@ Route::middleware('auth')->group(function () {
     Route::group(['prefix' => 'account', 'as' => 'account.'], function () {
         Route::resource('users', AccountUserController::class);
         Route::resource('profiles', AccountProfileController::class);
-//        Route::get('/profiles/{profile}', [AccountProfileController::class, 'edit']);
         Route::resource('skills', AccountSkillController::class);
     });
 });
