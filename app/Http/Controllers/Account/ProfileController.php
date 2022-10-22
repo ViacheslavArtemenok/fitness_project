@@ -65,10 +65,10 @@ class ProfileController extends Controller
             DB::table('users')
                 ->where('id', '=', $user_id)
                 ->update(['status' => 'ACTIVE']);
-            return redirect()->route('account.profiles.index', ['profile'=>$profile])
-                ->with('success', __('messages.account.profiles.update.success'));
+            return redirect()->route('account.profiles.index', ['profile'=>$profile->user_id])
+                ->with('success', __('messages.account.profiles.create.success'));
         }
-        return back('error', __('messages.account.profiles.update.fail'));
+        return back('error', __('messages.account.profiles.create.fail'));
     }
 
     /**
@@ -116,7 +116,7 @@ class ProfileController extends Controller
         }
 
         if ($profile->save()){
-            return view('account.profiles.index', ['profile'=>$profile])
+            return redirect()->route('account.profiles.index', ['profile'=>$profile->user_id])
                 ->with('success', __('messages.account.profiles.update.success'));
         }
         return back('error', __('messages.account.profiles.update.fail'));
@@ -128,14 +128,8 @@ class ProfileController extends Controller
      * @param int $id
      * @return JsonResponse
      */
-    public function destroy(Profile $profile):JsonResponse
+    public function destroy(int $id)
     {
-        try {
-            $profile->delete();
-            return \response()->json('ok');
-        } catch (\Exception $e) {
-            \Log::error($e->getMessage());
-            return \response()->json( 'error', 400);
-        }
+        //
     }
 }

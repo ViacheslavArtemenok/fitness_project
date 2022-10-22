@@ -72,7 +72,7 @@ class UserController extends Controller
      * @param User $user
      * @return Application|Factory|View
      */
-    public function edit(User $user): \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+    public function edit(User $user): Application|Factory|View
     {
         return view('account.users.edit', [
             'user'=> $user,

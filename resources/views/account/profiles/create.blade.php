@@ -13,15 +13,15 @@
             </div>
             <br>
             <div class="form-group">
-                <label for="last_name">Фамилия</label>
-                <input type="text" class="form-control" name="last_name" id="last_name" value="{{ old('last_name') }}">
-                @error('last_name') <span style="color: red">{{ $message }}</span> @enderror
-            </div>
-            <br>
-            <div class="form-group">
                 <label for="father_name">Отчество</label>
                 <input type="text" class="form-control" name="father_name" id="father_name" value="{{ old('father_name') }}">
                 @error('father_name') <span style="color: red">{{ $message }}</span> @enderror
+            </div>
+            <br>
+            <div class="form-group">
+                <label for="last_name">Фамилия</label>
+                <input type="text" class="form-control" name="last_name" id="last_name" value="{{ old('last_name') }}">
+                @error('last_name') <span style="color: red">{{ $message }}</span> @enderror
             </div>
             <br>
             <div class="form-group">

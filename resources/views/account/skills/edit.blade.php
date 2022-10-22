@@ -45,7 +45,7 @@
             <br>
             <div class="form-group">
                 <label for="description">description</label>
-                <input type="text" class="form-control" name="description" id="description" value="{{ $skill->description }}">
+                <textarea type="text" class="form-control" name="description" id="description" >{!! $skill->description !!}</textarea>
                 @error('description') <span style="color: red">{{ $message }}</span> @enderror
             </div>
             <br>

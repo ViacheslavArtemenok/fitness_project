@@ -22,6 +22,7 @@ class SkillController extends Controller
      */
     public function index(): View
     {
+//        dd($_GET);
         $id = $_GET['skill'];
         $skill = Skill::all()
             ->where('user_id', $id)
@@ -61,9 +62,9 @@ class SkillController extends Controller
                 ->where('id', '=', $user_id)
                 ->update(['status' => 'ACTIVE']);
             return redirect()->route('account.skills.index', ['skill'=>$user_id])
-                ->with('success', __('messages.account.skills.update.success'));
+                ->with('success', __('messages.account.skills.create.success'));
         }
-        return back('error', __('messages.account.skills.update.fail'));
+        return back('error', __('messages.account.skills.create.fail'));
     }
 
     /**
@@ -103,9 +104,10 @@ class SkillController extends Controller
     ): View|Factory|RedirectResponse|Application
     {
         $skill = $skill->fill($request->validated());
+//        dd($skill->user_id);
 
         if ($skill->save()){
-            return view('account.skills.index', ['skill'=>$skill])
+            return redirect()->route('account.skills.index', ['skill'=>$skill->user_id])
                 ->with('success', __('messages.account.skills.update.success'));
         }
         return back('error', __('messages.account.skills.update.fail'));
@@ -114,17 +116,11 @@ class SkillController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param Skill $skill
+     * @param int $id
      * @return JsonResponse
      */
-    public function destroy(Skill $skill):JsonResponse
+    public function destroy(int $id)
     {
-        try {
-            $skill->delete();
-            return \response()->json('ok');
-        } catch (\Exception $e) {
-            \Log::error($e->getMessage());
-            return \response()->json( 'error', 400);
-        }
+        //
     }
 }

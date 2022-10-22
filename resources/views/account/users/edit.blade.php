@@ -36,12 +36,7 @@
             </div>
             <br>
             <div class="form-group">
-                <label for="role">Статус</label>
-                <select class="form-control" name="role" id="role">
-                    <option @if($user->role==='IS_TRAINER') selected @endif value="IS_TRAINER">Тренер</option>
-                    <option @if($user->role==='IS_CLIENT') selected @endif value="IS_CLIENT">Клиент</option>
-
-                </select>
+                <input class="form-control" type="hidden" name="role" id="role" value="{{ $user->role }}">
             </div>
             <br>
             <div class="form-group">

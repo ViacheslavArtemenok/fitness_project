@@ -2,8 +2,10 @@
 @section('content')
 
     <h2>Профиль пользователя</h2>
+
+    @include('inc.message')
+
     <div class="table-responsive">
-        @include('inc.message')
         <table class="table table-striped table-sm">
             <thead>
             <tr>
@@ -22,7 +24,7 @@
                     </tr>
                 @else
                 <tr>
-                    <td> <img src="{{ Storage::disk('public')->url($profile->image) }}" style="width: 100px"></td>
+                    <td><img src="{{ Storage::disk('public')->url($profile->image) }}" style="width: 100px"></td>
                     <td>{{ $profile->first_name }}</td>
                     <td>{{ $profile->father_name }}</td>
                     <td>{{ $profile->last_name }}</td>
