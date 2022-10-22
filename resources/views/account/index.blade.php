@@ -6,15 +6,25 @@
     <div class="container marketing">
         <hr class="featurette-divider">
         @if ($user)
-            @if($user->profile)
             <div class="row featurette">
                 <div class="col-md-7 order-md-2">
-                    <h2 class="featurette-heading fw-normal lh-1">{{ $user->profile->first_name }}
+                    <h2 class="featurette-heading fw-normal lh-1">
+                        @if($user->profile)
+                            <div class="col-md-5">
+                                <img class="market_image" src="{{ Storage::disk('public')->url($user->profile->image) }}" alt="img">
+                            </div>
+                        {{ $user->profile->first_name }}
                         {{ $user->profile->father_name }}
                         {{ $user->profile->last_name }}</h2>
+                    <p class="lead">Возраст: {{ $user->profile->age }}</p>
+                    @else
+                        <a class="btn btn-secondary mb-2 me-2"
+                           href="{{ route('account.profiles.create', ['profile'=> Auth::user()->id]) }}">
+                            Профиль не заполнен
+                        </a>
+                    @endif
                     <p class="lead">Телефон: {{ $user->phone }}</p>
                     <p class="lead">Email: {{ $user->email }}</p>
-                    <p class="lead">Возраст: {{ $user->profile->age }}</p>
                     <div class="d-flex flex-wrap align-items-start">
                         @forelse($user->tags as $key => $tagItem)
                             <a class="btn btn-secondary mb-2 me-2"
@@ -29,11 +39,7 @@
                         @endforelse
                     </div>
                 </div>
-                <div class="col-md-5">
-                    <img class="market_image" src="{{ Storage::disk('public')->url($user->profile->image) }}" alt="img">
-                </div>
             </div>
-            @endif
             @if($user->skill)
             <div class="row featurette">
                 <hr class="featurette-divider">
@@ -52,7 +58,7 @@
             </div>
                 @else
                     <a class="btn btn-secondary mb-2 me-2"
-                       href="">
+                       href="{{ route('account.skills.create', ['skill'=> Auth::user()->id]) }}">
                         Навыки не указаны
                     </a>
             @endif

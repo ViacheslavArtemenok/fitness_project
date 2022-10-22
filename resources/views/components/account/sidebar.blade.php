@@ -67,53 +67,39 @@
         </div>
         <br>
     @endif
-        <hr>
+    <hr>
     <ul class="list-unstyled ps-0">
-            <li class="nav-item">
-                <a class="btn btn-toggle link-dark d-inline-flex align-items-center rounded border-0 collapsed text-white @if(request()->routeIs('account.index'))active @endif" aria-current="page" href="{{ route('account') }}">
-                    <span data-feather="home"></span>
-                    <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#calendar3"/></svg>
-                    Личный кабинет
-                </a>
-            </li>
-            <li>
-                <a href="{{ route('account.users.edit', ['user'=>Auth::user()]) }}" class="btn btn-toggle link-dark d-inline-flex align-items-center rounded border-0 collapsed text-white">
-                    <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#people-circle"/></svg>
-                    Редактировать аккаунт
-                </a>
-            </li>
-
-
-            <li class="mb-1">
-                <button class="btn btn-toggle link-dark d-inline-flex align-items-center rounded border-0 collapsed text-white" data-bs-toggle="collapse" data-bs-target="#dashboard-collapse" aria-expanded="false">
-                    <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#chevron-right"/></svg>
-                    Профиль
-                </button>
-                <div class="collapse" id="dashboard-collapse">
-                    <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 ">
-                        <li><a href="{{ route('account.profiles.create', ['profile'=> Auth::user()->id]) }}" class="nav-link link-dark d-inline-flex text-decoration-none rounded text-white">Создание</a></li>
-                            @if(Auth::user()->status==='ACTIVE')
-                        <li><a href="{{ route('account.profiles.edit', ['profile'=> Auth::user()]) }}" class="nav-link link-dark d-inline-flex text-decoration-none rounded text-white">Редактирование</a></li>
-                            @endif
-                    </ul>
-                </div>
-            </li>
-
-        <li class="mb-1">
-            <button class="btn btn-toggle link-dark d-inline-flex align-items-center rounded border-0 collapsed text-white" data-bs-toggle="collapse" data-bs-target="#skills-collapse" aria-expanded="false">
-                <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#chevron-right"/></svg>
-                Навыки и умения
-            </button>
-            <div class="collapse" id="skills-collapse">
-                <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 ">
-                    <li><a href="{{ route('account.skills.create', ['skill'=> Auth::user()->id]) }}" class="nav-link link-dark d-inline-flex text-decoration-none rounded text-white">Создание</a></li>
-                    @if(Auth::user()->status==='ACTIVE')
-                        <li><a href="{{ route('account.skills.edit', ['skill'=> Auth::user()]) }}" class="nav-link link-dark d-inline-flex text-decoration-none rounded text-white">Редактирование</a></li>
-                    @endif
-                </ul>
-            </div>
+        <li class="nav-item">
+            <a class="btn btn-toggle link-dark d-inline-flex align-items-center rounded border-0 collapsed text-white " aria-current="page" href="{{ route('account') }}">
+                <span data-feather="home"></span>
+                <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#calendar3"/></svg>
+                Личный кабинет
+            </a>
         </li>
-    </ul>
+        <li>
+            <a href="{{ route('account.users.edit', ['user'=>Auth::user()]) }}" class="btn btn-toggle link-dark d-inline-flex align-items-center rounded border-0 collapsed text-white">
+                <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#people-circle"/></svg>
+                Редактировать аккаунт
+            </a>
+        </li>
+        @if(Auth::user()->status==='ACTIVE')
+        <li>
+            <a href="{{ route('account.profiles.edit', ['profile'=> Auth::user()]) }}" class="btn btn-toggle link-dark d-inline-flex align-items-center rounded border-0 collapsed text-white">
+                <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#gear-fill"/></svg>
+                Редактировать профиль
+            </a>
+        </li>
+        @endif
+
+        @if(Auth::user()->status==='ACTIVE')
+            <li>
+                <a href="{{ route('account.skills.edit', ['skill'=> Auth::user()]) }}" class="btn btn-toggle link-dark d-inline-flex align-items-center rounded border-0 collapsed text-white">
+                    <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#collection"/></svg>
+                    Редактировать навыки
+                </a>
+            </li>
+        @endif
 </nav>
 
+<div class="b-example-divider b-example-vr"></div>
 
