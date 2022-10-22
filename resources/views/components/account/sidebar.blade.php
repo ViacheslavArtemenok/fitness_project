@@ -71,7 +71,6 @@
     <ul class="list-unstyled ps-0">
         <li class="nav-item">
             <a class="btn btn-toggle link-dark d-inline-flex align-items-center rounded border-0 collapsed text-white " aria-current="page" href="{{ route('account') }}">
-                <span data-feather="home"></span>
                 <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#calendar3"/></svg>
                 Личный кабинет
             </a>

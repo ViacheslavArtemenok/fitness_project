@@ -14,37 +14,37 @@
             @csrf
             @method('put')
             <div class="form-group">
-                <label for="location">location</label>
+                <label for="location">Расположение</label>
                 <input type="text" class="form-control" name="location" id="location" value="{{ $skill->location }}">
                 @error('location') <span style="color: red">{{ $message }}</span> @enderror
             </div>
             <br>
             <div class="form-group">
-                <label for="education">education</label>
-                <input type="text" class="form-control" name="education" id="education" value="{{ $skill->education }}">
+                <label for="education">Образование</label>
+                <textarea type="text" class="form-control" name="education" id="education">{!! $skill->education !!}</textarea>
                 @error('education') <span style="color: red">{{ $message }}</span> @enderror
             </div>
             <br>
             <div class="form-group">
-                <label for="experience">experience</label>
-                <input type="number" class="form-control" name="experience" id="experience" value="{{ $skill->experience }}">
+                <label for="experience">Опыт</label>
+                <input type="number" class="form-control" name="experience" id="experience" value="{!! $skill->experience !!}">
                 @error('experience') <span style="color: red">{{ $message }}</span> @enderror
             </div>
             <br>
             <div class="form-group">
-                <label for="achievements">achievements</label>
-                <input type="text" class="form-control" name="achievements" id="achievements" value="{{ $skill->achievements }}">
+                <label for="achievements">Достижения</label>
+                <textarea type="text" class="form-control" name="achievements" id="achievements">{!! $skill->achievements !!}</textarea>
                 @error('achievements') <span style="color: red">{{ $message }}</span> @enderror
             </div>
             <br>
             <div class="form-group">
-                <label for="skills_list">skills_list</label>
-                <input type="text" class="form-control" name="skills_list" id="skills_list" value="{{ $skill->skills_list }}">
+                <label for="skills_list">Список навыков</label>
+                <textarea type="text" class="form-control" name="skills_list" id="skills_list">{!! $skill->skills_list !!}</textarea>
                 @error('skills_list') <span style="color: red">{{ $message }}</span> @enderror
             </div>
             <br>
             <div class="form-group">
-                <label for="description">description</label>
+                <label for="description">Описание</label>
                 <textarea type="text" class="form-control" name="description" id="description" >{!! $skill->description !!}</textarea>
                 @error('description') <span style="color: red">{{ $message }}</span> @enderror
             </div>
