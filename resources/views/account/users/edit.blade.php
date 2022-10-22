@@ -10,7 +10,7 @@
             @csrf
             @method('put')
             <div class="form-group">
-                <label for="name">Имя</label>
+                <label for="name">Ник</label>
                 <input type="text" class="form-control" name="name" id="name" value = "{{ $user->name }}">
                 @error('name') <span style="color: red">{{ $message }}</span> @enderror
             </div>

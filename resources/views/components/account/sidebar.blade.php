@@ -57,7 +57,16 @@
     </symbol>
 </svg>
 <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block sidebar collapse d-flex flex-column flex-shrink-0 p-2 text-bg-dark" style="margin-top: 50px">
-
+    @if(Auth::user())
+        <div class="p-6 border-b border-gray-200" style="margin-top: 20px">
+            <h4 style="text-align: center">Здравствуйте, {{ Auth::user()->name }}!</h4>
+            <br>
+            @if(Auth::user()->role === 'IS_ADMIN')
+                <a class="btn btn-primary" href="{{ route('admin.index') }}">Администрировать</a>
+            @endif
+        </div>
+        <br>
+    @endif
         <hr>
     <ul class="list-unstyled ps-0">
             <li class="nav-item">
