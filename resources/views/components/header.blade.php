@@ -88,6 +88,12 @@
                         </div>
                         <button class="btn btn-outline-success" type="submit">Поиск</button>
                     </form>
+                @else
+                    <div class="btn-group align-self-start me-2 mb-2">
+                        <a href="/#phone_mask" class="btn btn-outline-success">
+                            Новости
+                        </a>
+                    </div>
                 @endif
             </div>
         </div>
