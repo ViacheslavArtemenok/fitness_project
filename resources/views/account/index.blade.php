@@ -3,7 +3,7 @@
     @include('inc.message')
     <br>
     <h1 style="text-align: center">Личный кабинет</h1>
-    <div class="container marketing">
+    <div class="container marketing" style="height: 100vh">
         <hr class="featurette-divider">
         @if ($user)
             <div class="row featurette">
@@ -11,7 +11,7 @@
                     <h2 class="featurette-heading fw-normal lh-1">
                         @if($user->profile)
                             <div class="col-md-5">
-                                <img class="market_image" src="{{ Storage::disk('public')->url($user->profile->image) }}" alt="img">
+                                <img class="market_image" src="{{ Storage::disk('public')->url($user->profile->image) }}" alt="img" style="width: 100px">
                             </div>
                         {{ $user->profile->first_name }}
                         {{ $user->profile->father_name }}
@@ -69,8 +69,5 @@
         @endif
         <hr class="featurette-divider">
     </div>
-
-
-
 @endsection
 
