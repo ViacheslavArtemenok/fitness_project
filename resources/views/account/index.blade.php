@@ -2,54 +2,60 @@
 @section('content')
     @include('inc.message')
     <br>
-
-    <h1 style="text-align: center">Индекс страница</h1>
-
+    <h1 style="text-align: center">Личный кабинет</h1>
     <div class="container marketing">
         <hr class="featurette-divider">
-        @if ($trainer)
+        @if ($user)
+            @if($user->profile)
             <div class="row featurette">
                 <div class="col-md-7 order-md-2">
-                    <h2 class="featurette-heading fw-normal lh-1">{{ $trainer->profile->first_name }}
-                        {{ $trainer->profile->father_name }}
-                        {{ $trainer->profile->last_name }}</h2>
-                    <p class="lead">Город: {{ $trainer->skill->location }}</p>
-                    <p class="lead">Телефон: {{ $trainer->phone }}</p>
-                    <p class="lead">Email: {{ $trainer->email }}</p>
-                    <p class="lead">Возраст: {{ $trainer->profile->age }}
-                        {{ $trainerBuilder->getUnitCase($trainer->profile->age) }}</p>
-                    <p class="lead">Опыт: {{ $trainer->skill->experience }}
-                        {{ $trainerBuilder->getUnitCase($trainer->skill->experience) }}</p>
+                    <h2 class="featurette-heading fw-normal lh-1">{{ $user->profile->first_name }}
+                        {{ $user->profile->father_name }}
+                        {{ $user->profile->last_name }}</h2>
+                    <p class="lead">Телефон: {{ $user->phone }}</p>
+                    <p class="lead">Email: {{ $user->email }}</p>
+                    <p class="lead">Возраст: {{ $user->profile->age }}</p>
                     <div class="d-flex flex-wrap align-items-start">
-                        @forelse($trainer->tags as $key => $tagItem)
+                        @forelse($user->tags as $key => $tagItem)
                             <a class="btn btn-secondary mb-2 me-2"
-                               href="{{ route('trainers.index', ['tag_id' => $tagItem->id, 'city_id' => $city_id]) }}">
+                               href="">
                                 {{ $tagItem->tag }}
                             </a>
                         @empty
                             <a class="btn btn-secondary mb-2 me-2"
-                               href="{{ route('trainers.index', ['tag_id' => 0, 'city_id' => $city_id]) }}">
+                               href="">
                                 Профиль тренировок не указан
                             </a>
                         @endforelse
                     </div>
                 </div>
                 <div class="col-md-5">
-                    <img class="market_image" src="{{ $trainer->profile->image }}" alt="img">
+                    <img class="market_image" src="{{ Storage::disk('public')->url($user->profile->image) }}" alt="img">
                 </div>
             </div>
-
+            @endif
+            @if($user->skill)
             <div class="row featurette">
                 <hr class="featurette-divider">
+                <h3>Опыт</h3>
+                <p class="lead">{{ $user->skill->experience }}</p>
+                <h3>Город</h3>
+                <p class="lead">{{ $user->skill->location }}</p>
                 <h3>Образование</h3>
-                <p>{{ $trainer->skill->education }}</p>
+                <p>{{ $user->skill->education }}</p>
                 <h3>Навыки</h3>
-                <p>{{ $trainer->skill->skills_list }}</p>
+                <p>{{ $user->skill->skills_list }}</p>
                 <h3>Достижения</h3>
-                <p>{{ $trainer->skill->achievements }}</p>
+                <p>{{ $user->skill->achievements }}</p>
                 <h3>О себе</h3>
-                <p>{{ $trainer->skill->description }}</p>
+                <p>{{ $user->skill->description }}</p>
             </div>
+                @else
+                    <a class="btn btn-secondary mb-2 me-2"
+                       href="">
+                        Навыки не указаны
+                    </a>
+            @endif
         @else
             <hr class="featurette-divider">
             <h1>Искомый тренер у нас не зарегистрирован...</h1>

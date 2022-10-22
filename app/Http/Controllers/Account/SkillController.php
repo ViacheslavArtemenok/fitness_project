@@ -20,14 +20,9 @@ class SkillController extends Controller
      *
      * @return View
      */
-    public function index(): View
+    public function index()
     {
-//        dd($_GET);
-        $id = $_GET['skill'];
-        $skill = Skill::all()
-            ->where('user_id', $id)
-            ->first();
-        return view('account.skills.index', ['skill' => $skill]);
+//
     }
 
     /**
@@ -61,7 +56,7 @@ class SkillController extends Controller
             DB::table('users')
                 ->where('id', '=', $user_id)
                 ->update(['status' => 'ACTIVE']);
-            return redirect()->route('account.skills.index', ['skill'=>$user_id])
+            return redirect()->route('account', ['skill'=>$user_id])
                 ->with('success', __('messages.account.skills.create.success'));
         }
         return back('error', __('messages.account.skills.create.fail'));
@@ -107,7 +102,7 @@ class SkillController extends Controller
 //        dd($skill->user_id);
 
         if ($skill->save()){
-            return redirect()->route('account.skills.index', ['skill'=>$skill->user_id])
+            return redirect()->route('account', ['skill'=>$skill->user_id])
                 ->with('success', __('messages.account.skills.update.success'));
         }
         return back('error', __('messages.account.skills.update.fail'));

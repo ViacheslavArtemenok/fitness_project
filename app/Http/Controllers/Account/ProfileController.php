@@ -21,13 +21,9 @@ class ProfileController extends Controller
      * Display a listing of the resource.
      * @return View
      */
-    public function index(): View
+    public function index()
     {
-            $id = $_GET['profile'];
-            $profile = Profile::all()
-                ->where('user_id', $id)
-                ->first();
-            return view('account.profiles.index', ['profile' => $profile]);
+            //
     }
 
     /**
@@ -65,7 +61,7 @@ class ProfileController extends Controller
             DB::table('users')
                 ->where('id', '=', $user_id)
                 ->update(['status' => 'ACTIVE']);
-            return redirect()->route('account.profiles.index', ['profile'=>$profile->user_id])
+            return redirect()->route('account', ['profile'=>$profile->user_id])
                 ->with('success', __('messages.account.profiles.create.success'));
         }
         return back('error', __('messages.account.profiles.create.fail'));
@@ -116,7 +112,7 @@ class ProfileController extends Controller
         }
 
         if ($profile->save()){
-            return redirect()->route('account.profiles.index', ['profile'=>$profile->user_id])
+            return redirect()->route('account', ['profile'=>$profile->user_id])
                 ->with('success', __('messages.account.profiles.update.success'));
         }
         return back('error', __('messages.account.profiles.update.fail'));

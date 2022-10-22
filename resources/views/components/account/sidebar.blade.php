@@ -91,7 +91,6 @@
                 </button>
                 <div class="collapse" id="dashboard-collapse">
                     <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 ">
-                        <li><a href="{{ route('account.profiles.index', ['profile'=> Auth::user()->id]) }}" class="nav-link link-dark d-inline-flex text-decoration-none rounded text-white">Просмотр</a></li>
                         <li><a href="{{ route('account.profiles.create', ['profile'=> Auth::user()->id]) }}" class="nav-link link-dark d-inline-flex text-decoration-none rounded text-white">Создание</a></li>
                             @if(Auth::user()->status==='ACTIVE')
                         <li><a href="{{ route('account.profiles.edit', ['profile'=> Auth::user()]) }}" class="nav-link link-dark d-inline-flex text-decoration-none rounded text-white">Редактирование</a></li>
@@ -107,7 +106,6 @@
             </button>
             <div class="collapse" id="skills-collapse">
                 <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 ">
-                    <li><a href="{{ route('account.skills.index', ['skill'=> Auth::user()->id]) }}" class="nav-link link-dark  d-inline-flex text-decoration-none rounded text-white">Просмотр</a></li>
                     <li><a href="{{ route('account.skills.create', ['skill'=> Auth::user()->id]) }}" class="nav-link link-dark d-inline-flex text-decoration-none rounded text-white">Создание</a></li>
                     @if(Auth::user()->status==='ACTIVE')
                         <li><a href="{{ route('account.skills.edit', ['skill'=> Auth::user()]) }}" class="nav-link link-dark d-inline-flex text-decoration-none rounded text-white">Редактирование</a></li>

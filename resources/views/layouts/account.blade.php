@@ -70,7 +70,7 @@
 </head>
 
 <body>
-    <x-header></x-header>
+<x-header></x-header>
     <div class="container-fluid" style="margin-top: 80px">
         <div class="row">
             <x-account.sidebar></x-account.sidebar>
