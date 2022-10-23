@@ -38,35 +38,40 @@
         <div class="row featurette">
             <div class="col-md-7">
                 <h2 class="featurette-heading fw-normal lh-1">Список фитнес-тренеров</h2>
-                <p class="lead">Здесь можно ознакомиться с анкетами, получить подробную информацию и контактные данные
-                    о
+                <p class="lead">Здесь можно ознакомиться с анкетами, получить контактные данные и подробную информацию о
                     каждом фитнес-тренере</p>
             </div>
         </div>
+        @if (request()->firstName || request()->lastName)
+            <h3>Результаты поиска: <span class="fw-lighter">{{ request()->firstName }}
+                    {{ request()->lastName }}</span></h3>
+        @endif
         <hr class="featurette-divider">
         <!-- Three columns of text below the carousel -->
         <div class="trainers_box">
             @forelse($trainersList as $key => $trainer)
                 <div class="item_box">
                     <img src="{{ $trainer->profile->image }}" class="bd-placeholder-img trainers_image" alt="img">
-                    <h2 class="fw-normal trainers_name">{{ $trainer->profile->first_name }}
-                        {{ $trainer->profile->last_name }}</h2>
-                    <p>Возраст: {{ $trainer->profile->age }} {{ $trainerBuilder->getUnitCase($trainer->profile->age) }}</p>
+                    <h3 class="fw-normal trainers_name">{{ $trainer->profile->first_name }}
+                        {{ $trainer->profile->last_name }}</h3>
+                    <p>Возраст: {{ $trainer->profile->age }} {{ $trainerBuilder->getUnitCase($trainer->profile->age) }}
+                    </p>
                     <p>Опыт: {{ $trainer->skill->experience }}
                         {{ $trainerBuilder->getUnitCase($trainer->skill->experience) }}</p>
                     <p>Город: {{ $trainer->skill->location }}</p>
                     <p>Категории тренировок:</p>
-                    <div class="d-flex flex-wrap flex-grow-1 align-items-start">
-                        @forelse($trainer->tags as $key => $tagItem)
-                            <p class="btn btn-secondary btn-sm disabled me-2 pt-0 pb-0 ps-1 pe-1">
-                                {{ $tagItem->tag }}
-                            </p>
-                        @empty
-                            <p class="btn btn-secondary btn-sm disabled me-2 pt-0 pb-0 ps-1 pe-1">
-                                Профиль тренировок не указан
-                            </p>
-                        @endforelse
-
+                    <div class="flex-grow-1">
+                        <div class="d-flex flex-wrap align-items-start">
+                            @forelse($trainer->tags as $key => $tagItem)
+                                <p class="btn btn-secondary btn-sm disabled me-2 pt-0 pb-0 ps-1 pe-1">
+                                    {{ $tagItem->tag }}
+                                </p>
+                            @empty
+                                <p class="btn btn-secondary btn-sm disabled me-2 pt-0 pb-0 ps-1 pe-1">
+                                    Профиль тренировок не указан
+                                </p>
+                            @endforelse
+                        </div>
                     </div>
                     <a class="btn btn-outline-secondary"
                         href="{{ route('trainers.show', ['id' => $trainer->id, 'city_id' => $city_id]) }}">Подробнее
@@ -77,7 +82,11 @@
                 <h2>Список пуст</h2>
             @endforelse
         </div><!-- /.row -->
-        {{ $trainersList->links() }}
+        @if (request() && count($trainersList))
+            {{ $trainersList->appends(['firstName' => request()->firstName, 'lastName' => request()->lastName])->links() }}
+        @elseif(!request() && count($trainersList))
+            {{ $trainersList->links() }}
+        @endif
         <hr class="featurette-divider">
     </div>
 @endsection;
