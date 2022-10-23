@@ -86,7 +86,7 @@ final class TrainerQueryBuilder
                 ->paginate(config('trainers.users'));
         } elseif (!count($trainers->arr) && $lastName || $firstName) { //Запрос без параметров - список пуст
             return collect([]);
-        } else return $this->getAllPaginate(); //Запрос без параметров - все
+        } else return $this->getAllPaginate(); //Запрос без параметров - все тренеры
     }
 
     public function getById(int $id): object
