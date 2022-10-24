@@ -44,11 +44,10 @@ class TagController extends Controller
      */
     public function store(Request $request, User $user)
     {
-        $user_id=$user->id;
+        $user_id = $request->get('id');
         $tag_id = $request->post('tags');
-        dd($user_id);
         $user->tags()->sync($tag_id, ['user_id' => $user_id]);
-        $trainer->tags()->sync($tag_id, ['user_id' => $trainer_id]);
+//        $trainer->tags()->sync($tag_id, ['user_id' => $trainer_id]);
         return redirect()->route('account', ['profile'=>$user_id])
             ->with('success', __('messages.account.profiles.update.success'));
 
