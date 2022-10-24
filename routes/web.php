@@ -6,6 +6,7 @@ use App\Http\Controllers\Account\IndexController as AccountIndexController;
 use App\Http\Controllers\Account\UserController as AccountUserController;
 use \App\Http\Controllers\Account\ProfileController as AccountProfileController;
 use App\Http\Controllers\Account\SkillController as AccountSkillController;
+use \App\Http\Controllers\Account\TagController as AccountTagController;
 use App\Http\Controllers\Admin\IndexController as AdminIndexController;
 use App\Http\Controllers\Admin\ProfileController as AdminProfileController;
 use App\Http\Controllers\Admin\SkillController as AdminSkillController;
@@ -38,6 +39,7 @@ Route::middleware('auth')->group(function () {
         Route::resource('users', AccountUserController::class);
         Route::resource('profiles', AccountProfileController::class);
         Route::resource('skills', AccountSkillController::class);
+        Route::resource('tags', AccountTagController::class);
     });
 });
 

@@ -58,9 +58,6 @@ class ProfileController extends Controller
         );
 
         if ($profile->save()){
-            DB::table('users')
-                ->where('id', '=', $user_id)
-                ->update(['status' => 'ACTIVE']);
             return redirect()->route('account', ['profile'=>$profile->user_id])
                 ->with('success', __('messages.account.profiles.create.success'));
         }

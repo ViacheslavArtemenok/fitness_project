@@ -19,21 +19,20 @@
                     <p class="lead">Возраст: {{ $user->profile->age }}</p>
                     @else
                         <a class="btn btn-secondary mb-2 me-2"
-                           href="{{ route('account.profiles.create', ['profile'=> Auth::user()->id]) }}">
-                            Профиль не заполнен
+                           href="{{ route('account.profiles.create', ['profile'=>$user->id]) }}">
+                            Заполните профиль
                         </a>
                     @endif
                     <p class="lead">Телефон: {{ $user->phone }}</p>
                     <p class="lead">Email: {{ $user->email }}</p>
                     <div class="d-flex flex-wrap align-items-start">
                         @forelse($user->tags as $key => $tagItem)
-                            <a class="btn btn-secondary mb-2 me-2"
-                               href="">
+                            <a class="btn btn-secondary mb-2 me-2">
                                 {{ $tagItem->tag }}
                             </a>
                         @empty
                             <a class="btn btn-secondary mb-2 me-2"
-                               href="">
+                               href="{{ route('account.tags.create', ['user_id' => $user->id]) }}">
                                 Профиль тренировок не указан
                             </a>
                         @endforelse
@@ -58,14 +57,13 @@
             </div>
                 @else
                     <a class="btn btn-secondary mb-2 me-2"
-                       href="{{ route('account.skills.create', ['skill'=> Auth::user()->id]) }}">
-                        Навыки не указаны
+                       href="{{ route('account.skills.create', ['skill'=>$user->id]) }}">
+                        Заполните навыки
                     </a>
             @endif
         @else
             <hr class="featurette-divider">
             <h1>Искомый тренер у нас не зарегистрирован...</h1>
-            <hr class="featurette-divider">
         @endif
         <hr class="featurette-divider">
     </div>

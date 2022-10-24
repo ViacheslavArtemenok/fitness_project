@@ -98,7 +98,16 @@
                 </a>
             </li>
         @endif
+
+        @if(Auth::user()->status==='ACTIVE')
+            <li>
+                <a href="{{ route('account.tags.edit', ['tag'=> Auth::user()]) }}" class="btn btn-toggle link-dark d-inline-flex align-items-center rounded border-0 collapsed text-white">
+                    <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#toggles2"/></svg>
+                    Редактировать тэги
+                </a>
+            </li>
+        @endif
 </nav>
 
-<div class="b-example-divider b-example-vr"></div>
+{{--<div class="b-example-divider b-example-vr"></div>--}}
 

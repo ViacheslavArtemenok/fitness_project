@@ -53,9 +53,6 @@ class SkillController extends Controller
         $skill['user_id'] = $user_id;
 
         if ($skill->save()){
-            DB::table('users')
-                ->where('id', '=', $user_id)
-                ->update(['status' => 'ACTIVE']);
             return redirect()->route('account', ['skill'=>$user_id])
                 ->with('success', __('messages.account.skills.create.success'));
         }
@@ -99,8 +96,6 @@ class SkillController extends Controller
     ): View|Factory|RedirectResponse|Application
     {
         $skill = $skill->fill($request->validated());
-//        dd($skill->user_id);
-
         if ($skill->save()){
             return redirect()->route('account', ['skill'=>$skill->user_id])
                 ->with('success', __('messages.account.skills.update.success'));
