@@ -31,9 +31,4 @@ class GymReview extends Model
         'score',
         'status'
     ];
-
-    public function users(): BelongsToMany
-    {
-        return $this->belongsToMany(User::class);
-    }
 }
