@@ -81,12 +81,11 @@ class TagController extends Controller
     public function edit(int $id)
     {
         $user = User::all()->find($id);
-        $tagsCheked = $user->tags();
-        dd($tagsCheked);
+        $tagsChecked = $user->tags()->get();
         $tags = Tag::all();
-        $tagsCheked = Relation::all()
-        ->where('user_id', $id);
-        return view('account.tags.edit', ['user_id'=>$id, 'tags'=>$tags, 'tagsCheked'=>$tagsCheked]);
+//        $tagsChecked = Relation::all()
+//        ->where('user_id', $id);
+        return view('account.tags.edit', ['user_id'=>$id, 'tags'=>$tags, 'tagsCheked'=>$tagsChecked]);
     }
 
     /**

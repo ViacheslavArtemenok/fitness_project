@@ -12,13 +12,15 @@
             <div class="form-group">
                 @forelse($tags as $tagItem)
                     <div class="form-check">
-                        @foreach($tagsCheked as $item)
-                        <input class="form-check-input"  type="checkbox" @if($tagItem->id === $item->tag_id) checked @endif name="tags[]" value="{{ $tagItem->id }}" id="tag">
-                        @endforeach
-                            <label class="form-check-label" for="flexCheckDefault">
+
+                        <input class="form-check-input"  type="checkbox"
+                               @foreach($tagsCheked as $item)
+                               @if($tagItem->id === $item->id) checked @endif
+                               @endforeach
+                               name="tags[]" value="{{ $tagItem->id }}" id="tag">
+                        <label class="form-check-label" for="flexCheckDefault">
                             {{ $tagItem->tag }}
                         </label>
-
                     </div>
                 @empty
                     <a class="btn btn-secondary mb-2 me-2"
