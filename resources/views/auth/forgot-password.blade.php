@@ -1,6 +1,6 @@
 @extends('layouts.main')
 @section('title')
-    Вход
+    Восстановление пароля
     @parent
 @endsection
 @section('content')

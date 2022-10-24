@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Queries\TrainerQueryBuilder;
 use Illuminate\Http\Request;
 
-class PageController extends Controller
+class TrainerController extends Controller
 {
     public function __construct()
     {
@@ -24,10 +24,10 @@ class PageController extends Controller
 
     public function show(int $id, int $city_id)
     {
-        $trainer = $this->trainerBuilder->getById($id);
         return view('trainers.show', [
-            'trainer' => $trainer,
+            'trainer' => $this->trainerBuilder->getById($id),
             'trainerBuilder' => $this->trainerBuilder,
+            'trainer_id' => $id,
             'city_id' => $city_id,
         ]);
     }

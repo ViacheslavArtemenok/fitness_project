@@ -9,9 +9,11 @@ use App\Models\Profile;
 use App\Models\Relation;
 use App\Models\Skill;
 use App\Models\Tag;
+use App\Models\TrainerReview;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection;
+use Ramsey\Uuid\Type\Integer;
 
 final class TrainerQueryBuilder
 {
@@ -26,8 +28,11 @@ final class TrainerQueryBuilder
         $this->tagModel = Tag::query();
         $this->skillModel = Skill::query();
         $this->profileModel = Profile::query();
+        $this->reviewModel = TrainerReview::query();
     }
-
+    /**
+     * $this->buildArr(); Подсобный метод
+     */
     public function buildArr(object $model, string $fieldW, mixed $valueW, string $sign, string $fieldWIn): object
     {
         if ($valueW === 0 || $valueW == "%%") {
@@ -61,7 +66,7 @@ final class TrainerQueryBuilder
         return $this->model
             ->where('role', 'IS_TRAINER')
             ->where('status', 'ACTIVE')
-            ->with(['profile', 'skill', 'tags'])
+            ->with(['profile', 'skill', 'tags', 'trainer_reviews'])
             ->paginate(config('trainers.users'));
     }
 
@@ -82,19 +87,51 @@ final class TrainerQueryBuilder
                 ->where('role', 'IS_TRAINER')
                 ->where('status', 'ACTIVE')
                 ->whereIn('id', $trainers->arr)
-                ->with(['profile', 'skill', 'tags'])
+                ->with(['profile', 'skill', 'tags', 'trainer_reviews'])
                 ->paginate(config('trainers.users'));
         } elseif (!count($trainers->arr) && $lastName || $firstName) { //Запрос без параметров - список пуст
             return collect([]);
         } else return $this->getAllPaginate(); //Запрос без параметров - все тренеры
     }
-
+    /**
+     * Получить модель тренера
+     */
     public function getById(int $id): object
     {
         return $this->model
+            ->where('status', 'ACTIVE')
             ->where('role', 'IS_TRAINER')
-            ->with(['profile', 'skill', 'tags'])
+            ->with(['profile', 'skill', 'tags', 'trainer_reviews'])
             ->findOrFail($id);
+    }
+    /**
+     * Получить рейтинг тренера из полей 'score'
+     */
+    public function getScore(Collection $data): float
+    {
+        $sum = 0;
+        foreach ($data as $item) {
+            $sum += $item->pivot->score;
+        }
+        $result = round($sum / count($data), 1);
+        return $result;
+    }
+    /**
+     * Получить модель тренера и отзывы
+     */
+    public function getReviewsPaginate(Collection $data): array
+    {
+        $collection = [];
+        foreach ($data as $client) {
+            $collection[] = User::query()
+                ->where('role', 'IS_CLIENT')
+                ->where('status', 'ACTIVE')
+                ->with(['profile', 'trainer_reviews'])
+                ->findOrFail($client->pivot->client_id);
+        }
+
+
+        return $collection;
     }
 
     /**

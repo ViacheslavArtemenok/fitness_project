@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\TrainerReview;
 use Faker\Factory;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -30,18 +31,19 @@ class TrainerReviewsSeeder extends Seeder
         $faker = Factory::create('ru_RU');
         $faker->addProvider(new \Faker\Provider\ru_RU\Person($faker));
 
-        for ($i = 0; $i < 100; $i++) {
-            $trainerReviews[] = [
-                'client_id' => rand(1, 99),
-                'trainer_id' => rand(1, 99),
-                'title' => $faker->text(15),
-                'description' => $faker->text(100),
-                'score' => rand(0, 5),
-                'status' => 'DRAFT',
-                'created_at'  => now('Europe/Moscow')
-            ];
+        for ($i = 2; $i < 101; $i++) {
+            for ($e = 0; $e < rand(4, 12); $e++) {
+                $trainerReviews[] = [
+                    'client_id' => rand(101, 130),
+                    'trainer_id' => $i,
+                    'title' => $faker->paragraph(1),
+                    'description' => $faker->paragraph(rand(3, 10)),
+                    'score' => rand(4, 5),
+                    'status' => TrainerReview::ACTIVE,
+                    'created_at'  => now('Europe/Moscow')
+                ];
+            }
         }
-
         return $trainerReviews;
     }
 }

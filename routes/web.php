@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\PageController;
+use App\Http\Controllers\TrainerController;
 use App\Http\Controllers\Account\IndexController as AccountIndexController;
 use App\Http\Controllers\Account\UserController as AccountUserController;
 use \App\Http\Controllers\Account\ProfileController as AccountProfileController;
@@ -36,16 +36,15 @@ Route::middleware('auth')->group(function () {
     Route::group(['prefix' => 'account', 'as' => 'account.'], function () {
         Route::resource('users', AccountUserController::class);
         Route::resource('profiles', AccountProfileController::class);
-        Route::get('/profiles/{profile}', [AccountProfileController::class, 'edit']);
     });
 });
 
 require __DIR__ . '/auth.php';
 
-Route::get('/trainers/{tag_id}/{city_id}', [PageController::class, 'index'])
+Route::get('/trainers/{tag_id}/{city_id}', [TrainerController::class, 'index'])
     ->where('id', '\d+')
     ->name('trainers.index');
-Route::get('/trainer/{id}/{city_id}', [PageController::class, 'show'])
+Route::get('/trainer/{id}/{city_id}', [TrainerController::class, 'show'])
     ->where('id', '\d+')
     ->name('trainers.show');
 Route::resource('subscriptions', SubscriptionController::class);
