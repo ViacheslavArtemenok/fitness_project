@@ -24,6 +24,7 @@ class ProfileController extends Controller
     public function index(): View
     {
             $id = $_GET['profile'];
+            
             $profile = Profile::all()
                 ->where('user_id', $id)
                 ->first();
@@ -37,6 +38,7 @@ class ProfileController extends Controller
     public function create(): Factory|View|Application
     {
         $user_id = $_GET['profile'];
+
         return view('account.profiles.create', ['user_id'=>$user_id]);
     }
 
