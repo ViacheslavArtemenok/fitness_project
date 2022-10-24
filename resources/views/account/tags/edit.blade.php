@@ -2,35 +2,36 @@
 @section('content')
     <div class="offset-2 col-8">
         <br>
-        <h2>Редактировать тег</h2>
+        <h2>Редактировать теги</h2>
 
         @include('inc.message')
 
-        <div class="d-flex flex-wrap align-items-start">
-            @forelse($user->tags as $key => $tagItem)
-                <a class="btn btn-secondary mb-2 me-2"
-                   href="">
-                    {{ $tagItem->tag }}
-                </a>
-            @empty
-                <a class="btn btn-secondary mb-2 me-2"
-                   href="{{ route('account.tags.create', ['tag' => Auth::user()->id]) }}">
-                    Профиль тренировок не указан
-                </a>
-            @endforelse
-        </div>
+        <form method="post" action="{{ route('account.tags.update', ['tag' => $user_id]) }}" >
+            @csrf
+            @method('put')
+            <div class="form-group">
+                @forelse($tags as $tagItem)
+                    <div class="form-check">
+                        @foreach($tagsCheked as $item)
+                        <input class="form-check-input"  type="checkbox" @if($tagItem->id === $item->tag_id) checked @endif name="tags[]" value="{{ $tagItem->id }}" id="tag">
+                        @endforeach
+                            <label class="form-check-label" for="flexCheckDefault">
+                            {{ $tagItem->tag }}
+                        </label>
 
-{{--        <form method="post" action="{{ route('admin.tags.update', ['tag' => $tag]) }}" enctype="multipart/form-data">--}}
-{{--            @csrf--}}
-{{--            @method('put')--}}
-{{--            <div class="form-group">--}}
-{{--                <label for="tag">Тэг</label>--}}
-{{--                <input type="text" class="form-control" name="tag" id="tag" value="{{ $tag->tag }}">--}}
-{{--            </div>--}}
-{{--            <br>--}}
-{{--            <button class="btn btn-success" type="submit">Сохранить</button>--}}
-{{--        </form>--}}
+                    </div>
+                @empty
+                    <a class="btn btn-secondary mb-2 me-2"
+                       href="{{ route('account.tags.create', ['tag' => Auth::user()->id]) }}">
+                        Профили отсутствуют
+                    </a>
+                @endforelse
+            </div>
+            <br>
+            <button class="btn btn-success" type="submit">Редактировать</button>
+        </form>
     </div>
 @endsection
 @push('js')
 @endpush
+

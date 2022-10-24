@@ -6,7 +6,7 @@
 
         @include('inc.message')
 
-        <form method="post" action="{{ route('account.tags.store', ['id' => $user->id]) }}">
+        <form method="post" action="{{ route('account.tags.store', ['id' => $user_id]) }}">
             @csrf
             <div class="form-group">
                 @forelse($tags as $tagItem)

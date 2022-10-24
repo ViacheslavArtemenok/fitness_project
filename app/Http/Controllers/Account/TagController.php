@@ -7,11 +7,15 @@ use App\Http\Requests\Tags\CreateRequest;
 use App\Models\Relation;
 use App\Models\Tag;
 use App\Models\User;
+
+use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\View;
+
+
 
 class TagController extends Controller
 {
@@ -28,7 +32,8 @@ class TagController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return
      */
     public function create(Request $request)
     {
@@ -42,20 +47,18 @@ class TagController extends Controller
      * @param Request $request
      * @return RedirectResponse
      */
-    public function store(Request $request, User $user)
+    public function store(Request $request): RedirectResponse
     {
         $user_id = $request->get('id');
         $tag_id = $request->post('tags');
-        $user->tags()->sync($tag_id, ['user_id' => $user_id]);
-//        $trainer->tags()->sync($tag_id, ['user_id' => $trainer_id]);
+        $user = User::query()
+            ->with('profile', 'skill', 'tags')
+            ->find($user_id)
+        ;
+        $user->tags()->sync($tag_id);
+
         return redirect()->route('account', ['profile'=>$user_id])
             ->with('success', __('messages.account.profiles.update.success'));
-
-//        dd(User::query()
-//            ->with('profile', 'skill', 'tags')
-//            ->find($id)->tags()->save());
-//        User::find($id)->tags()->save($tag_id, ['user_id' => $id]);
-
     }
 
     /**
@@ -72,26 +75,37 @@ class TagController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param int $id
+     * @return View
      */
-    public function edit(int $id):View
+    public function edit(int $id)
     {
-        $user_id = $request->get('user_id');
+        $user = User::all()->find($id);
+        $tagsCheked = $user->tags();
+        dd($tagsCheked);
         $tags = Tag::all();
-        return view('account.tags.create', ['user_id'=>$user_id, 'tags'=>$tags]);
+        $tagsCheked = Relation::all()
+        ->where('user_id', $id);
+        return view('account.tags.edit', ['user_id'=>$id, 'tags'=>$tags, 'tagsCheked'=>$tagsCheked]);
     }
 
     /**
      * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param int $tag
+     * @param Request $request
+     * @return RedirectResponse
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, int $tag): RedirectResponse
     {
-        //
+        $tag_id = $request->post('tags');
+        $user = User::query()
+            ->with('profile', 'skill', 'tags')
+            ->find($tag)
+        ;
+        $user->tags()->sync($tag_id);
+
+        return redirect()->route('account', ['profile'=>$tag])
+            ->with('success', __('messages.account.profiles.update.success'));
     }
 
     /**
