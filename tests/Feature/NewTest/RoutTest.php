@@ -4,6 +4,8 @@ namespace Tests\Feature\NewTest;
 
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Models\Profile;
+use App\Models\Skill;
+use App\Models\Tag;
 use App\Models\User;
 use App\Services\UploadService;
 use Faker\Factory;
@@ -140,14 +142,23 @@ public function test_admin_profiles_controller_show(){
             $response = $this->actingAs($user)->get(route('admin.profiles.show', $_GET));
             $response->assertOk();
         }
-// public function test_admin_profiles_controller_edit(){
-//             $user = User::factory()->create();
-//             $_GET=['profile' => 8];
-//             $user->role = 'IS_ADMIN';
-//             // $this->withoutMiddleware();
-//             $response = $this->actingAs($user)->get(route('admin.profiles.edit', $_GET));
-//             $response->assertOk();
-//         }
+public function test_admin_profiles_controller_edit(){
+            $user = User::factory()->create();
+            $faker = Factory::create();
+            $profile = Profile::create([
+                'user_id' => $user->id,
+                'first_name' => $faker->firstNameFemale(),
+                'last_name' => $faker->lastName('female'),
+                'father_name' => 'Петровна',
+                'age' => rand(25, 45),
+                'gender' => 'female',
+                'image' => 'https://cdn.inskill.ru/media/32540/c/1591358903_o4XapEybYWOG87t8-thumb.jpg?v=1591358908',
+                'created_at' => now('Europe/Moscow'),]);
+
+            $user->role = 'IS_ADMIN';
+            $response = $this->actingAs($user)->get(route('admin.profiles.edit', $profile));
+            $response->assertOk();
+        }
 public function test_admin_relation_controller_index(){
             $user = User::factory()->create();
             $user->role = 'IS_ADMIN';
@@ -180,4 +191,133 @@ public function test_admin_skill_controller_index(){
             $response = $this->actingAs($user)->get(route('admin.skills.index'));
             $response->assertOk();
         }
+public function test_admin_skill_controller_create(){
+            $user = User::factory()->create();
+            $user->role = 'IS_ADMIN';
+            $response = $this->actingAs($user)->get(route('admin.skills.create'));
+            $response->assertOk();
+        }
+public function test_admin_skill_controller_show(){
+            $user = User::factory()->create();
+            $_GET=['skill' => 14];
+            $user->role = 'IS_ADMIN';
+            $response = $this->actingAs($user)->get(route('admin.skills.show', $_GET));
+            $response->assertOk();
+        }
+public function test_admin_skill_controller_edit(){
+            $user = User::factory()->create();
+            $faker = Factory::create();
+            $skill = Skill::create([
+                'user_id'         => $user->id,
+                'location'        => 'Москва',
+                'education'       => $faker->company(),
+                'experience'      => rand(1, 20),
+                'achievements'    => $faker->paragraph(rand(3, 8)),
+                'skills_list'     => $faker->paragraph(rand(6, 10)),
+                'description'     => $faker->paragraph(rand(6, 10)),
+                'created_at'      => now('Europe/Moscow')]);
+
+            $user->role = 'IS_ADMIN';
+            $response = $this->actingAs($user)->get(route('admin.skills.edit', $skill));
+            $response->assertOk();
+        }
+public function test_admin_tag_controller_index(){
+            $user = User::factory()->create();
+            $user->role = 'IS_ADMIN';
+            $response = $this->actingAs($user)->get(route('admin.tags.index'));
+            $response->assertOk();
+        }
+public function test_admin_tag_controller_create(){
+            $user = User::factory()->create();
+            $user->role = 'IS_ADMIN';
+            $response = $this->actingAs($user)->get(route('admin.tags.create'));
+            $response->assertOk();
+        }
+public function test_admin_tag_controller_show(){
+            $user = User::factory()->create();
+            $user->role = 'IS_ADMIN';
+            $_GET=['tag' => 14];
+            $response = $this->actingAs($user)->get(route('admin.tags.show', $_GET));
+            $response->assertOk();
+        }
+public function test_admin_tag_controller_edit(){
+            $user = User::factory()->create();
+            $tag = Tag::create([
+                'tag' => 'Игровые программы',
+                'created_at' => now('Europe/Moscow')]);
+            $user->role = 'IS_ADMIN';
+            $response = $this->actingAs($user)->get(route('admin.tags.edit', $tag));
+            $response->assertOk();
+        }
+public function test_admin_user_controller_index(){
+            $user = User::factory()->create();
+            $user->role = 'IS_ADMIN';
+            $response = $this->actingAs($user)->get(route('account.users.index'));
+            $response->assertOk();
+        }
+public function test_admin_user_controller_create(){
+            $user = User::factory()->create();
+            $user->role = 'IS_ADMIN';
+            $response = $this->actingAs($user)->get(route('account.users.create'));
+            $response->assertOk();
+        }
+public function test_admin_user_controller_show(){
+            $user = User::factory()->create();
+            $_GET=['user' => 14];
+            $user->role = 'IS_ADMIN';
+            $response = $this->actingAs($user)->get(route('account.users.show', $_GET));
+            $response->assertOk();
+        }
+public function test_admin_user_controller_edit(){
+            $user = User::factory()->create();
+            $user->role = 'IS_ADMIN';
+            $response = $this->actingAs($user)->get(route('account.users.edit', $user));
+            $response->assertOk();
+        }
+public function test_api_user(){
+            $user = User::factory()->create();
+            $response = $this->actingAs($user)->get('api/user');
+            $response->assertOk();
+        }
+public function test_subscription_controller_index(){
+            $response = $this->get(route('subscriptions.index'));
+            $response->assertOk();
+        }
+public function test_subscription_controller_create(){
+            $response = $this->get(route('subscriptions.create'));
+            $response->assertOk();
+        }
+public function test_subscription_controller_show(){
+            $_GET=['subscription' => 14];
+            $response = $this->get(route('subscriptions.show', $_GET));
+            $response->assertOk();
+        }
+public function test_subscription_controller_edit(){
+            $_GET=['subscription' => 14];
+            $response = $this->get(route('subscriptions.edit', $_GET));
+            $response->assertOk();
+        }
+public function test_trainers_controller_show(){
+            $_GET=[
+                'city_id' => 14,
+                'id' => 14
+        ];
+            $response = $this->get(route('trainers.show', $_GET));
+            $response->assertOk();
+        }
+public function test_trainers_controller_index(){
+            $_GET=[
+                'city_id' => 14,
+                'tag_id' => 14
+        ];
+            $response = $this->get(route('trainers.index', $_GET));
+            $response->assertOk();
+        }
+public function test_verify_email(){
+            $user = User::factory()->create();
+            $response = $this->actingAs($user)->get(route('verification.notice'));
+            $response->assertRedirect(route('account'));
+        }
+
+
 }
