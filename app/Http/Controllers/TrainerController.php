@@ -21,14 +21,32 @@ class TrainerController extends Controller
             'tag_id' => $tag_id,
         ]);
     }
-
+    /**
+     * Нужны два объекта TrainerQueryBuilder,
+     * иначе не работает
+     */
     public function show(int $id, int $city_id)
     {
+        $arr = $this->trainerBuilder->getReviewsPaginate($id);
         return view('trainers.show', [
-            'trainer' => $this->trainerBuilder->getById($id),
+            'trainer' => $arr['trainer'],
+            'reviews' => $arr['reviews'],
             'trainerBuilder' => $this->trainerBuilder,
             'trainer_id' => $id,
             'city_id' => $city_id,
+        ]);
+    }
+    public function review(int $review_id, int $client_id, int $trainer_id, int $city_id)
+    {
+        $arr = $this->trainerBuilder->getReview($trainer_id, $client_id);
+        return view('trainers.review', [
+            'trainer' => $arr['trainer'],
+            'client' => $arr['client'],
+            'trainerBuilder' => $this->trainerBuilder,
+            'trainer_id' => $trainer_id,
+            'city_id' => $city_id,
+            'review_id' => $review_id,
+
         ]);
     }
 }

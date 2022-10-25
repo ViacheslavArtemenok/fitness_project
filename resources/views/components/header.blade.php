@@ -13,7 +13,7 @@
                             href="{{ route('info') }}">Главная</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link @if (request()->routeIs('trainers.index')) active @endif"
+                        <a class="nav-link @if (request()->routeIs('trainers.*')) active @endif"
                             href="{{ route('trainers.index', ['tag_id' => 0, 'city_id' => 0]) }}">Тренеры</a>
                     </li>
                     @auth
@@ -43,12 +43,12 @@
                                 {{ Auth::user()->name }}
                             </a>
 
-                            <div class="dropdown-menu dropdown-menu-end btn btn-outline-secondary"
+                            <div class="dropdown-menu dropdown-menu-end btn btn-outline-secondary border border-2 border-success bg-dark text-center"
                                 aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="{{ route('logout') }}"
+                                <a class="dropdown-item text-danger link-dark fw-semibold" href="{{ route('logout') }}"
                                     onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
-                                    {{ __('Выйти') }}
+                                    {{ __('Выход') }}
                                 </a>
 
                                 <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
@@ -90,8 +90,8 @@
                     </form>
                 @else
                     <div class="btn-group align-self-start me-2 mb-2">
-                        <a href="/#phone_mask" class="btn btn-outline-success">
-                            Новости
+                        <a href="{{ request()->url() }}#phone_mask" class="btn btn-outline-success">
+                            &#9660 Новости &#9660
                         </a>
                     </div>
                 @endif

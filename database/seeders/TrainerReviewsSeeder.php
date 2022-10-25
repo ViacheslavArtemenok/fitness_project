@@ -37,7 +37,7 @@ class TrainerReviewsSeeder extends Seeder
                     'client_id' => rand(101, 130),
                     'trainer_id' => $i,
                     'title' => $faker->paragraph(1),
-                    'description' => $faker->paragraph(rand(3, 10)),
+                    'description' => $faker->paragraph(rand(15, 40)),
                     'score' => rand(4, 5),
                     'status' => TrainerReview::ACTIVE,
                     'created_at'  => now('Europe/Moscow')

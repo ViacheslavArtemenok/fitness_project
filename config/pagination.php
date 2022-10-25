@@ -10,6 +10,6 @@ return [
     ],
     'trainers' => [
         'users' => 15,
-        'reviews' => 3,
-    ]
+        'reviews' => 9,
+    ],
 ];
