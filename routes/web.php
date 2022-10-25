@@ -28,6 +28,14 @@ use App\Http\Controllers\SubscriptionController;
 
 Route::get('/', InfoController::class)
     ->name('info');
+//Front routes
+Route::get('/trainers/{tag_id}/{city_id}', [TrainerController::class, 'index'])
+    ->where('id', '\d+')
+    ->name('trainers.index');
+Route::get('/trainer/{id}/{city_id}', [TrainerController::class, 'show'])
+    ->where('id', '\d+')
+    ->name('trainers.show');
+Route::resource('subscriptions', SubscriptionController::class);
 
 // Account routes
 Route::middleware('auth')->group(function () {
@@ -40,15 +48,7 @@ Route::middleware('auth')->group(function () {
 });
 
 require __DIR__ . '/auth.php';
-
-Route::get('/trainers/{tag_id}/{city_id}', [TrainerController::class, 'index'])
-    ->where('id', '\d+')
-    ->name('trainers.index');
-Route::get('/trainer/{id}/{city_id}', [TrainerController::class, 'show'])
-    ->where('id', '\d+')
-    ->name('trainers.show');
-Route::resource('subscriptions', SubscriptionController::class);
-
+//Admin routes
 Route::middleware('auth')->group(function () {
     Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'is_admin'], function () {
         Route::get('/', AdminIndexController::class)
