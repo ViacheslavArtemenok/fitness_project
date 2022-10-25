@@ -46,11 +46,19 @@ Route::middleware('auth')->group(function () {
 require __DIR__ . '/auth.php';
 //Front routes
 Route::get('/trainers/{tag_id}/{city_id}', [TrainerController::class, 'index'])
-    ->where('id', '\d+')
+    ->where('tag_id', '\d+')
+    ->where('city_id', '\d+')
     ->name('trainers.index');
 Route::get('/trainer/{id}/{city_id}', [TrainerController::class, 'show'])
     ->where('id', '\d+')
+    ->where('city_id', '\d+')
     ->name('trainers.show');
+Route::get('/review/{review_id}/{client_id}/{trainer_id}/{city_id}', [TrainerController::class, 'review'])
+    ->where('review_id', '\d+')
+    ->where('client_id', '\d+')
+    ->where('trainer_id', '\d+')
+    ->where('city_id', '\d+')
+    ->name('trainers.review');
 Route::resource('subscriptions', SubscriptionController::class);
 
 //Admin routes

@@ -6,7 +6,16 @@
     @parent
 @endsection
 @section('content')
-    <!-- TEAM -->
+    <div class="d-flex align-items-center body_back">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb m-4">
+                <li class="breadcrumb-item"><a class="text-white-50 link-success"
+                        href="{{ route('trainers.index', ['tag_id' => 0, 'city_id' => $city_id]) }}">Тренеры</a></li>
+                <li class="breadcrumb-item text-white-50" aria-current="page"> {{ $trainer->profile->first_name }}
+                    {{ $trainer->profile->last_name }}</li>
+            </ol>
+        </nav>
+    </div>
     <div class="container marketing">
         <hr class="featurette-divider">
         @if ($trainer)
@@ -16,7 +25,12 @@
                         {{ $trainer->profile->father_name }}
                         {{ $trainer->profile->last_name }}</h2>
                     <div class="d-flex">
-                        <h4>Рейтинг: {{ $trainerBuilder->getScore($trainer->trainer_reviews) }}</h4>
+                        <h4>Рейтинг: @if (count($trainer->clients))
+                                {{ $trainerBuilder->getScore($trainer->clients) }}
+                            @else
+                                Нет оценки
+                            @endif
+                        </h4>
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#daa520"
                             class="bi bi-star mt-1 ms-2" viewBox="0 0 16 16">
                             <path fill="#daa520"
@@ -43,6 +57,10 @@
                             </a>
                         @endforelse
                     </div>
+                    <a class="btn btn-outline-danger mt-3 mb-2 me-2"
+                        href="{{ route('trainers.index', ['tag_id' => 0, 'city_id' => $city_id]) }}">&#9668 &#9668
+                        &#9668 Назад
+                    </a>
                 </div>
                 <div class="col-md-5">
                     <img class="market_image" src="{{ Storage::disk('public')->url($trainer->profile->image) }}"
@@ -73,31 +91,52 @@
             <h1>Искомый тренер у нас не зарегистрирован...</h1>
             <hr class="featurette-divider">
         @endif
-        <hr class="featurette-divider">
         <div class="container px-4 py-5" id="featured-3">
-            <h2 class="pb-2 border-bottom">Отзывы</h2>
+            <h2 class="text-center">
+                @if (count($reviews))
+                    Отзывы
+                @endif
+            </h2>
             <div class="row g-5 py-5 row-cols-1 row-cols-lg-3">
                 <!--Карточка отзыва -->
-                @forelse($trainer->trainer_reviews as $key => $review)
-                    <div class="feature col">
-                        <div class="p-3 bg-light rounded-1 shadow">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#000"
-                                class="bi bi-chat-left-text-fill" viewBox="0 0 16 16">
-                                <path
-                                    d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H4.414a1 1 0 0 0-.707.293L.854 15.146A.5.5 0 0 1 0 14.793V2zm3.5 1a.5.5 0 0 0 0 1h9a.5.5 0 0 0 0-1h-9zm0 2.5a.5.5 0 0 0 0 1h9a.5.5 0 0 0 0-1h-9zm0 2.5a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1h-5z" />
-                            </svg>
-                            <h4>{{ mb_substr($review->pivot->title, 0, 20) . '...' }}</h4>
-                            <p>{{ mb_substr($review->pivot->description, 0, 90) . '...' }}</p>
-                            <h6>{{ $review->name }}</h6>
-                            <p>{{ $review->pivot->created_at->format('d.m.Y (H:i)') }}</p>
-                            <a href="#" class="btn btn-outline-secondary align-items-center">
-                                Подробнее
-                            </a>
-                        </div>
-                    </div>
+                @forelse($reviews as $review)
+                    @foreach ($review->trainers as $trainerR)
+                        @if ($trainerR->id === $trainer_id)
+                            <div class="feature col">
+                                <div class="p-3 bg-light rounded-1 shadow">
+                                    <div class="d-flex shadow mb-2 rounded-1">
+                                        <img class="m-2 w-25 rounded-2 border border-secondary border-2 border-opacity-10"
+                                            src="{{ Storage::disk('public')->url($review->profile->image) }}"
+                                            alt="img">
+                                        <div class="d-flex flex-column align-self-center">
+                                            <h6>{{ $review->profile->first_name }}
+                                                {{ $review->profile->last_name }}</h6>
+                                            <h6>{{ $review->profile->age }}
+                                                {{ $trainerBuilder->getUnitCase($review->profile->age) }}</h6>
+                                        </div>
+                                    </div>
+                                    <h4>{{ mb_substr($trainerR->pivot->title, 0, 20) . '...' }}</h4>
+                                    <p>{{ mb_substr($trainerR->pivot->description, 0, 90) . '...' }}</p>
+                                    <p>{{ $trainerR->pivot->created_at->format('d.m.Y (H:i)') }}</p>
+                                    <a href="{{ route('trainers.review', [
+                                        'review_id' => $trainerR->pivot->id,
+                                        'client_id' => $review->id,
+                                        'trainer_id' => $trainer->id,
+                                        'city_id' => $city_id,
+                                    ]) }}"
+                                        class="btn btn-outline-secondary align-items-center">
+                                        Подробнее
+                                    </a>
+                                </div>
+                            </div>
+                        @endif
+                    @endforeach
                 @empty
                     <h2>Пока нет отзывов</h2>
                 @endforelse
             </div>
+            @if (count($reviews))
+                {{ $reviews->links() }}
+            @endif
         </div>
     @endsection
