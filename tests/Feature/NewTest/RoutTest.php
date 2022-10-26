@@ -398,13 +398,13 @@ public function test_admin_skills_controller_store(){
 //         $response = $this->actingAs($user)->post(route('admin.users.store',$req , $_GET));
 //         $response->assertRedirect(route('admin.users.store'));
 //     }
-public function test_account_profiles_controller_destroy(){
-        $user = User::factory()->create();
-        $profile = Profile::latest()->take(1)->get();
-        $_GET = ['profile' => $profile];
-        $profile->deleted_at = now('Europe/Moscow');
-        $response = $this->actingAs($user)->delete(route('account.profiles.destroy',$profile, $_GET));
-        $response->assertOk();
-    }
+// public function test_account_profiles_controller_destroy(){
+//         $user = User::factory()->create();
+//         $profile = Profile::latest()->take(1)->get();
+//         $_GET = ['profile' => $profile];
+//         $profile->deleted_at = now('Europe/Moscow');
+//         $response = $this->actingAs($user)->delete(route('account.profiles.destroy',$profile, $_GET));
+//         $response->assertOk();
+//     }
 
 }
