@@ -57,53 +57,57 @@
     </symbol>
 </svg>
 <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block sidebar collapse d-flex flex-column flex-shrink-0 p-2 text-bg-dark" style="margin-top: 50px">
-
-        <hr>
+    @if(Auth::user())
+        <div class="p-6 border-b border-gray-200" style="margin-top: 20px">
+            <h4 style="text-align: center">Здравствуйте, {{ Auth::user()->name }}!</h4>
+            <br>
+            @if(Auth::user()->role === 'IS_ADMIN')
+                <a class="btn btn-primary" href="{{ route('admin.index') }}">Администрировать</a>
+            @endif
+        </div>
+        <br>
+    @endif
+    <hr>
     <ul class="list-unstyled ps-0">
-            <li class="nav-item">
-                <a class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed text-white @if(request()->routeIs('account.index'))active @endif" aria-current="page" href="{{ route('account') }}">
-                    <span data-feather="home"></span>
-                    <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#calendar3"/></svg>
-                    Личный кабинет
+        <li class="nav-item">
+            <a class="btn btn-toggle link-dark d-inline-flex align-items-center rounded border-0 collapsed text-white " aria-current="page" href="{{ route('account') }}">
+                <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#calendar3"/></svg>
+                Личный кабинет
+            </a>
+        </li>
+        <li>
+            <a href="{{ route('account.users.edit', ['user'=>Auth::user()]) }}" class="btn btn-toggle link-dark d-inline-flex align-items-center rounded border-0 collapsed text-white">
+                <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#people-circle"/></svg>
+                Редактировать аккаунт
+            </a>
+        </li>
+        @if(Auth::user()->status==='ACTIVE')
+        <li>
+            <a href="{{ route('account.profiles.edit', ['profile'=> Auth::user()]) }}" class="btn btn-toggle link-dark d-inline-flex align-items-center rounded border-0 collapsed text-white">
+                <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#gear-fill"/></svg>
+                Редактировать профиль
+            </a>
+        </li>
+        @endif
+
+        @if(Auth::user()->status==='ACTIVE')
+            <li>
+                <a href="{{ route('account.skills.edit', ['skill'=> Auth::user()]) }}" class="btn btn-toggle link-dark d-inline-flex align-items-center rounded border-0 collapsed text-white">
+                    <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#collection"/></svg>
+                    Редактировать навыки
                 </a>
             </li>
+        @endif
+
+        @if(Auth::user()->status==='ACTIVE')
             <li>
-                <a href="{{ route('account.users.edit', ['user'=>Auth::user()]) }}" class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed text-white">
-                    <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#people-circle"/></svg>
-                    Редактировать аккаунт
+                <a href="{{ route('account.tags.edit', ['tag'=> Auth::user()]) }}" class="btn btn-toggle link-dark d-inline-flex align-items-center rounded border-0 collapsed text-white">
+                    <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#toggles2"/></svg>
+                    Редактировать тэги
                 </a>
             </li>
-
-
-            <li class="mb-1">
-                <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed text-white" data-bs-toggle="collapse" data-bs-target="#dashboard-collapse" aria-expanded="false">
-                    <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#chevron-right"/></svg>
-                    Профиль
-                </button>
-                <div class="collapse" id="dashboard-collapse">
-                    <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 ">
-                        <li><a href="{{ route('account.profiles.index', ['profile'=> Auth::user()->id]) }}" class="nav-link d-inline-flex text-decoration-none rounded text-white">Просмотр</a></li>
-                        <li><a href="{{ route('account.profiles.create', ['profile'=> Auth::user()->id]) }}" class="nav-link d-inline-flex text-decoration-none rounded text-white">Создание</a></li>
-                            @if(Auth::user()->status==='ACTIVE')
-                        <li><a href="{{ route('account.profiles.edit', ['profile'=> Auth::user()]) }}" class="nav-link d-inline-flex text-decoration-none rounded text-white">Редактирование</a></li>
-                            @endif
-                    </ul>
-                </div>
-            </li>
-
-            <li>
-                <button href="#" class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed text-white">
-                    <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#table"/></svg>
-                    Навыки и умения
-                </button>
-            </li>
-            <li>
-                <button href="#" class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed text-white @if(request()->routeIs('account.index'))active @endif">
-                    <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#grid"/></svg>
-                    Products
-                </button>
-            </li>
-    </ul>
+        @endif
 </nav>
 
+{{--<div class="b-example-divider b-example-vr"></div>--}}
 

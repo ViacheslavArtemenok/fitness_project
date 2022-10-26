@@ -29,7 +29,17 @@ class ProfileSeeder extends Seeder
         $faker = Factory::create('ru_RU');
         $faker->addProvider(new \Faker\Provider\ru_RU\Person($faker));
 
-        for ($i = 0; $i < 100; $i++) {
+        $profiles[] = [
+            'user_id' => 1,
+            'first_name' => 'Admin',
+            'last_name' => 'Admins',
+            'father_name' => 'Ad',
+            'age' => 99,
+            'gender' => 'male',
+            'image' => 'image/StoKaGTG8BDdMPxIXh8Lu8qUiufXTaKKmw9uqQaW.jpg',
+            'created_at' => now('Europe/Moscow'),
+        ];
+        for ($i = 1; $i < 100; $i++) {
             if ($i > 2 && $i % 3 === 0) {
                 $profiles[] = [
                     'user_id' => $i + 1,
@@ -38,7 +48,7 @@ class ProfileSeeder extends Seeder
                     'father_name' => 'Петровна',
                     'age' => rand(25, 45),
                     'gender' => 'female',
-                    'image' => 'https://cdn.inskill.ru/media/32540/c/1591358903_o4XapEybYWOG87t8-thumb.jpg?v=1591358908',
+                    'image' => 'image/R7iVXGJGksz1PIwveeXXu8EecSM3vY4qHs9vkS6r.jpg',
                     'created_at' => now('Europe/Moscow'),
                 ];
             } else {
@@ -49,7 +59,32 @@ class ProfileSeeder extends Seeder
                     'father_name' => 'Александрович',
                     'age' => rand(25, 45),
                     'gender' => 'male',
-                    'image' => 'https://dathletics.com/upload/iblock/b52/b52da545e7809c799e9dabd08b5249bf.jpg',
+                    'image' => 'image/neGE3GlAMl3E5GhNvHxDrK2B2eyzgKTQttg2Ks4b.jpg',
+                    'created_at' => now('Europe/Moscow'),
+                ];
+            }
+        }
+        for ($i = 100; $i < 130; $i++) {
+            if ($i > 2 && $i % 3 === 0) {
+                $profiles[] = [
+                    'user_id' => $i + 1,
+                    'first_name' => $faker->firstNameFemale(),
+                    'last_name' => $faker->lastName('female'),
+                    'father_name' => 'Петровна',
+                    'age' => rand(25, 45),
+                    'gender' => 'female',
+                    'image' => 'image/SEYY9Sj7295UdmyOVOt3prX5Zqj35tn1Q07XhDL8.jpg',
+                    'created_at' => now('Europe/Moscow'),
+                ];
+            } else {
+                $profiles[] = [
+                    'user_id' => $i + 1,
+                    'first_name' => $faker->firstNameMale(),
+                    'last_name' => $faker->lastName('male'),
+                    'father_name' => 'Александрович',
+                    'age' => rand(25, 45),
+                    'gender' => 'male',
+                    'image' => 'image/8o9a6Xu8VR1dAFOSJyiMZlC1mXJEoCtzOn0OAFVG.jpg',
                     'created_at' => now('Europe/Moscow'),
                 ];
             }

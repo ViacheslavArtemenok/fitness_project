@@ -9,25 +9,31 @@ use App\Models\Profile;
 use App\Models\Relation;
 use App\Models\Skill;
 use App\Models\Tag;
+use App\Models\TrainerReview;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection;
+use Ramsey\Uuid\Type\Integer;
+
+
 
 final class TrainerQueryBuilder
 {
-    private Builder $model;
-
 
     public function __construct()
     {
         $this->arr = [];
-        $this->model = User::query();
+        $this->trainerModel = User::query();
+        $this->clientModel = User::query();
         $this->relationModel = Relation::query();
         $this->tagModel = Tag::query();
         $this->skillModel = Skill::query();
         $this->profileModel = Profile::query();
+        $this->reviewModel = TrainerReview::query();
     }
-
+    /**
+     * $this->buildArr(); Подсобный метод
+     */
     public function buildArr(object $model, string $fieldW, mixed $valueW, string $sign, string $fieldWIn): object
     {
         if ($valueW === 0 || $valueW == "%%") {
@@ -58,14 +64,14 @@ final class TrainerQueryBuilder
 
     public function getAllPaginate(): LengthAwarePaginator
     {
-        return $this->model
+        return $this->trainerModel
             ->where('role', 'IS_TRAINER')
             ->where('status', 'ACTIVE')
-            ->with(['profile', 'skill', 'tags'])
+            ->with(['profile', 'skill', 'tags', 'clients'])
             ->paginate(config('trainers.users'));
     }
 
-    public function getWithParamsPaginate(string $firstName = null, string $lastName = null, int $city_id, int $tag_id)
+    public function getWithParamsPaginate(string $firstName = null, string $lastName = null, int $city_id, int $tag_id): mixed
     {
         if ($city_id > 0) {
             $city = config('cities')[$city_id];
@@ -77,25 +83,82 @@ final class TrainerQueryBuilder
             ->buildArr($this->profileModel, 'last_name', "%{$lastName}%", 'LIKE', 'user_id')
             ->buildArr($this->profileModel, 'first_name', "%{$firstName}%", 'LIKE', 'user_id');
 
+
+
+
         if (count($trainers->arr)) { //Запрос с параметрами
-            return  $this->model
+            return  $this->trainerModel
                 ->where('role', 'IS_TRAINER')
                 ->where('status', 'ACTIVE')
                 ->whereIn('id', $trainers->arr)
-                ->with(['profile', 'skill', 'tags'])
+                ->with(['profile', 'skill', 'tags', 'clients'])
                 ->paginate(config('trainers.users'));
-        } elseif (!count($trainers->arr) && $lastName || $firstName) { //Запрос без параметров - список пуст
+        } elseif (count($trainers->arr) === 0 && $lastName || $firstName || $city_id > 0 || $tag_id > 0) { //Запрос без параметров - список пуст
             return collect([]);
         } else return $this->getAllPaginate(); //Запрос без параметров - все тренеры
     }
-
+    /**
+     * Получить модель тренера
+     */
     public function getById(int $id): object
     {
-        return $this->model
+        return $this->trainerModel
+            ->where('status', 'ACTIVE')
             ->where('role', 'IS_TRAINER')
-            ->with(['profile', 'skill', 'tags'])
+            ->with(['profile', 'skill', 'tags', 'clients'])
             ->findOrFail($id);
     }
+    /**
+     * Получить рейтинг тренера из полей 'score'
+     */
+    public function getScore(Collection $data): float
+    {
+        $sum = 0;
+        foreach ($data as $item) {
+            $sum += $item->pivot->score;
+        }
+        $result = round($sum / count($data), 1);
+        return $result;
+    }
+    /**
+     * Получить модель тренера и отзывы
+     */
+    public function getReviewsPaginate(int $id): array
+    {
+        $arr = [];
+        $trainer = $this->getById($id);
+        foreach ($trainer->clients as $item) {
+            $arr[] = $item->id;
+        }
+        if (count($arr)) {
+            $reviews = $this->clientModel
+                ->where('role', 'IS_CLIENT')
+                ->whereIn('id', $arr)
+                ->with(['profile', 'trainers'])
+                ->paginate(6);
+        } else {
+            $reviews = collect([]);
+        }
+        return [
+            'trainer' => $trainer,
+            'reviews' => $reviews
+        ];
+    }
+    public function getReview(int $trainer_id, int $client_id): array
+    {
+        $trainer = $this->getById($trainer_id);
+
+        $client = $this->clientModel
+            ->where('role', 'IS_CLIENT')
+            ->with(['profile', 'trainers'])
+            ->findOrFail($client_id);
+
+        return [
+            'trainer' => $trainer,
+            'client' => $client
+        ];
+    }
+
 
     /**
      * В качестве obj из контроллера

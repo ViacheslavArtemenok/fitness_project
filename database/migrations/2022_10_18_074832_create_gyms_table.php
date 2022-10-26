@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('gyms', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
+            $table->string('title', 250);
             $table->string('phone_main');
             $table->string('phone_second')->nullable();
             $table->string('email');

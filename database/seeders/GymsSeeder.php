@@ -34,6 +34,7 @@ class GymsSeeder extends Seeder
 
             $gyms[] = [
                 'user_id' => $i + 131,
+                'title'   => $faker->company(),
                 'phone_main' => '+7 ' . '(9' . rand(10, 99) . ') ' . rand(100, 999) . '-' . rand(10, 99) . '-' . rand(10, 99),
                 'phone_second' => $phone_second,
                 'email' => $faker->email(),
