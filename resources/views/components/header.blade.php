@@ -13,8 +13,8 @@
                             href="{{ route('info') }}">Главная</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link @if (request()->routeIs('trainers.index')) active @endif"
-                            href="{{ route('trainers.index', ['tag_id' => 0]) }}">Тренеры</a>
+                        <a class="nav-link @if (request()->routeIs('trainers.*')) active @endif"
+                            href="{{ route('trainers.index', ['tag_id' => 0, 'city_id' => 0]) }}">Тренеры</a>
                     </li>
                     @auth
                         <li class="nav-item">
@@ -43,12 +43,12 @@
                                 {{ Auth::user()->name }}
                             </a>
 
-                            <div class="dropdown-menu dropdown-menu-end btn btn-outline-secondary"
+                            <div class="dropdown-menu dropdown-menu-end btn btn-outline-secondary border border-2 border-success bg-dark text-center"
                                 aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="{{ route('logout') }}"
+                                <a class="dropdown-item text-danger link-dark fw-semibold" href="{{ route('logout') }}"
                                     onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
-                                    {{ __('Выйти') }}
+                                    {{ __('Выход') }}
                                 </a>
 
                                 <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
@@ -58,10 +58,43 @@
                         </li>
                     @endguest
                 </ul>
-                <form class="d-flex" role="search">
-                    <input class="form-control me-2" type="search" placeholder="Найти тренера" aria-label="Search">
-                    <button class="btn btn-outline-success" type="submit">Поиск</button>
-                </form>
+                @if (request()->routeIs('trainers.index'))
+                    <div class="btn-group align-self-start me-2 mb-2">
+                        <button type="button" class="btn btn-outline-success dropdown-toggle" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            Город
+                        </button>
+                        <ul class="dropdown-menu overflow-scroll menu_height">
+                            @foreach (config('cities') as $key => $city)
+                                <li><a class="dropdown-item"
+                                        href="{{ route('trainers.index', ['tag_id' => 0, 'city_id' => $key]) }}">{{ $city }}</a>
+                                </li>
+                                @if ($key === 2)
+                                    <li>
+                                        <hr class="dropdown-divider">
+                                    </li>
+                                @endif
+                            @endforeach
+                        </ul>
+                    </div>
+
+                    <form class="d-flex" role="search" method="GET" action="{{ request()->url() }}">
+                        <div class="input-group me-2">
+                            <input type="text" class="form-control" placeholder="Имя тренера" aria-label="Имя"
+                                name="firstName">
+                            <span class="input-group-text"></span>
+                            <input type="text" class="form-control" placeholder="Фамилия тренера"
+                                aria-label="Фамилия" name="lastName">
+                        </div>
+                        <button class="btn btn-outline-success" type="submit">Поиск</button>
+                    </form>
+                @else
+                    <div class="btn-group align-self-start me-2 mb-2">
+                        <a href="{{ request()->url() }}#phone_mask" class="btn btn-outline-success">
+                            &#9660 Новости &#9660
+                        </a>
+                    </div>
+                @endif
             </div>
         </div>
     </nav>
