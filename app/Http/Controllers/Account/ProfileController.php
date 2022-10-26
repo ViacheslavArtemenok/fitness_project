@@ -23,7 +23,9 @@ class ProfileController extends Controller
      */
     public function index()
     {
+       
             //
+
     }
 
     /**
@@ -33,6 +35,7 @@ class ProfileController extends Controller
     public function create(): Factory|View|Application
     {
         $user_id = $_GET['profile'];
+
         return view('account.profiles.create', ['user_id'=>$user_id]);
     }
 
