@@ -41,6 +41,7 @@
                     <option selected value="{{ \App\Models\User::IS_ADMIN }}">Админ</option>
                     <option value="{{ \App\Models\User::IS_CLIENT }}">Клиент</option>
                     <option value="{{ \App\Models\User::IS_TRAINER }}">Тренер</option>
+                    <option value="{{ \App\Models\User::IS_GYM }}">Владелец зала</option>
                 </select>
             </div>
             <div class="form-group">

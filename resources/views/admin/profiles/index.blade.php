@@ -24,7 +24,13 @@
             @forelse($profiles as $profile)
                 <tr id="row-{{ $profile->id }}">
                     <td>{{ $profile->id }}</td>
-                    <td>{{ $profile->image }}</td>
+                    <td>
+                        <div class="">
+                            @if(isset($profile->image))
+                            <img class="market_image" src="{{ Storage::disk('public')->url($profile->image) }}" alt="img" style="width: 100px">
+                            @endif
+                        </div>
+                    </td>
                     <td>{{ $profile->last_name }}</td>
                     <td>{{ $profile->first_name }}</td>
                     <td>{{ $profile->father_name }}</td>

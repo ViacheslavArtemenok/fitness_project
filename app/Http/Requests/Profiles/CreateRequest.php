@@ -24,6 +24,7 @@ class CreateRequest extends FormRequest
     public function rules()
     {
         return [
+            'user_id' => ['required', 'integer'],
             'first_name' => ['required', 'string', 'min:3', 'max:100'],
             'last_name' => ['required', 'string', 'min:3', 'max:100'],
             'father_name' => ['required', 'string', 'min:3', 'max:100'],
@@ -36,6 +37,7 @@ class CreateRequest extends FormRequest
     public function attributes(): array
     {
         return [
+            'user_id' => 'Идентификатор',
             'first_name' => 'Имя',
             'last_name' => 'Фамилия',
             'father_name' => 'Отчество',

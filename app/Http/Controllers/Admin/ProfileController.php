@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\Profile;
+use App\Models\User;
 
 use App\Http\Controllers\Controller;
 use Illuminate\View\View;
@@ -10,6 +11,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\JsonResponse;
 use App\Http\Requests\Profiles\EditRequest;
 use App\Http\Requests\Profiles\CreateRequest;
+use App\Services\UploadService;
 
 class ProfileController extends Controller
 {
@@ -34,19 +36,30 @@ class ProfileController extends Controller
      */
     public function create(): View
     {
-        return view('admin.profiles.create');
+        $users = User::leftJoin('profiles', function($join) {
+                $join->on('users.id', '=', 'profiles.user_id');
+            })
+            ->whereNull('profiles.user_id')
+            ->get(['users.id', 'users.role', 'users.name']);
+
+        return view('admin.profiles.create', ['users' => $users]);
     }
 
     /**
      * Store a newly created resource in storage.
      *
      * @param  CreateRequest  $request
+     * @param  UploadService $uploadService
      * @return RedirectResponse
      */
-    public function store(CreateRequest $request): RedirectResponse
+    public function store(CreateRequest $request, UploadService $uploadService): RedirectResponse
     {
+        if ($request->hasFile('image')) {
+            $validated['image'] = 'image/' . $uploadService->uploadImage($request->file('image'));
+        }
+
         $profile = new Profile(
-            array_merge($request->validated(), ['user_id' => 2])
+            $request->validated()
         );
 
         if($profile->save()) {
@@ -86,11 +99,16 @@ class ProfileController extends Controller
      *
      * @param  EditRequest  $request
      * @param  Profile  $profile
+     * @param  UploadService $uploadService
      * @return RedirectResponse
      */
-    public function update(EditRequest $request, Profile $profile): RedirectResponse
+    public function update(EditRequest $request, Profile $profile, UploadService $uploadService): RedirectResponse
     {
         $profile = $profile->fill($request->validated());
+
+        if ($request->hasFile('image')) {
+            $profile['image'] = $uploadService->uploadImage($request->file('image'));
+        }
 
         if($profile->save()) {
             return redirect()->route('admin.profiles.index')
