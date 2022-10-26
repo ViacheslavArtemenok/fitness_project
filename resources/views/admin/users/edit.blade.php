@@ -48,6 +48,7 @@
                     <option @if($user->role === \App\Models\User::IS_ADMIN) selected @endif value="{{ \App\Models\User::IS_ADMIN }}">Админ</option>
                     <option @if($user->role === \App\Models\User::IS_CLIENT) selected @endif value="{{ \App\Models\User::IS_CLIENT }}">Клиент</option>
                     <option @if($user->role === \App\Models\User::IS_TRAINER) selected @endif value="{{ \App\Models\User::IS_TRAINER }}">Тренер</option>
+                    <option @if($user->role === \App\Models\User::IS_GYM) selected @endif value="{{ \App\Models\User::IS_GYM }}">Владелец зала</option>
                 </select>
             </div>
             <div class="form-group">

@@ -34,4 +34,9 @@ class Skill extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function profile(): HasOne
+    {
+        return $this->hasOne(Profile::class, 'user_id', 'id');
+    }
 }

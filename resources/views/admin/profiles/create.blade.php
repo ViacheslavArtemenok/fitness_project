@@ -8,6 +8,16 @@
 
         <form method="post" action="{{ route('admin.profiles.store') }}">
             @csrf
+            @if(isset($users))
+            <div class="form-group">
+                <label for="userId">Пользователь : роль</label>
+                <select class="form-control" name="user_id" id="userId">
+                    @foreach($users as $user)
+                    <option value="{{ $user->id }}">{{ $user->name }} : {{ $user->role }}</option>
+                    @endforeach
+                </select>
+            </div>
+            @endif
             <div class="form-group">
                 <label for="lastName">Фамилия</label>
                 <input type="text" class="form-control" name="last_name" id="lastName" value="{{ old('last_name') }}">
@@ -34,6 +44,10 @@
             <div class="form-group">
                 <label for="image">Аватар</label>
                 <input type="text" class="form-control" name="image" id="image" value="{{ old('image') }}">
+            </div>
+            <div class="form-group">
+                <label for="image">Аватар</label>
+                <input type="file" class="form-control" name="image" id="image">
             </div>
             <br>
             <button class="btn btn-success" type="submit">Сохранить</button>
