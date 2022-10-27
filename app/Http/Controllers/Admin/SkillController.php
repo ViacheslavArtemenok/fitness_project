@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\Skill;
+use App\Models\User;
 
 use App\Http\Controllers\Controller;
 use Illuminate\View\View;
@@ -10,6 +11,7 @@ use App\Http\Requests\Skills\EditRequest;
 use App\Http\Requests\Skills\CreateRequest;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\DB;
 
 class SkillController extends Controller
 {
@@ -20,7 +22,11 @@ class SkillController extends Controller
      */
     public function index(): View
     {
-        $skills = Skill::query()->with('profile')->paginate(config('pagination.admin.skills'));
+        $skills = Skill::query()
+            ->with('profile')
+            ->paginate(config('pagination.admin.skills'));
+
+
 
         return view('admin.skills.index', [
             'skills' => $skills
@@ -34,7 +40,13 @@ class SkillController extends Controller
      */
     public function create(): View
     {
-        return view('admin.skills.create');
+        $users = User::leftJoin('skills', function($join) {
+            $join->on('users.id', '=', 'skills.user_id');
+        })
+            ->whereNull('skills.user_id')
+            ->get(['users.id', 'users.role', 'users.name']);
+
+        return view('admin.skills.create', ['users' => $users]);
     }
 
     /**
@@ -46,7 +58,7 @@ class SkillController extends Controller
     public function store(CreateRequest $request): RedirectResponse
     {
         $skill = new Skill(
-            array_merge($request->validated(), ['user_id' => 2])
+            $request->validated()
         );
 
         if($skill->save()) {

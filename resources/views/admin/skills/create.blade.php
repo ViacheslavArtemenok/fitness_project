@@ -8,6 +8,16 @@
 
         <form method="post" action="{{ route('admin.skills.store') }}">
             @csrf
+            @if(isset($users))
+                <div class="form-group">
+                    <label for="userId">Пользователь : роль</label>
+                    <select class="form-control" name="user_id" id="userId">
+                        @foreach($users as $user)
+                            <option value="{{ $user->id }}">{{ $user->name }} : {{ $user->role }}</option>
+                        @endforeach
+                    </select>
+                </div>
+            @endif
             <div class="form-group">
                 <label for="location">Расположение</label>
                 <input type="text" class="form-control" name="location" id="location" value="{{ old('location') }}">

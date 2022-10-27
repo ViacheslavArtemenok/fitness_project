@@ -61,7 +61,7 @@ class User extends Authenticatable
 
     public function profile(): HasOne
     {
-        return $this->hasOne(Profile::class);
+        return $this->hasOne(Profile::class, 'user_id', 'id');
     }
 
     public function skill(): HasOne
@@ -74,17 +74,13 @@ class User extends Authenticatable
         return $this->belongsToMany(Tag::class, 'relations')->withTimestamps();
     }
 
-    public function gyms(): BelongsToMany
+    public function gymReviews(): HasMany
     {
-        return $this->belongsToMany(Gym::class, 'gym_reviews', 'client_id', 'gym_id');
+        return $this->hasMany(GymReview::class);
     }
 
-    public function clients(): BelongsToMany
+    public function trainerReviews(): HasMany
     {
-        return $this->belongsToMany(User::class, 'trainer_reviews', 'trainer_id', 'client_id')->withPivot('id', 'client_id', 'title', 'description', 'score', 'status',)->withTimestamps();
-    }
-    public function trainers(): BelongsToMany
-    {
-        return $this->belongsToMany(User::class, 'trainer_reviews', 'client_id', 'trainer_id')->withPivot('id', 'trainer_id', 'title', 'description', 'score', 'status',)->withTimestamps();
+        return $this->hasMany(TrainerReview::class);
     }
 }
