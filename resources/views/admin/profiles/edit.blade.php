@@ -6,20 +6,25 @@
 
         @include('inc.message')
 
-        <form method="post" action="{{ route('admin.profiles.update', ['profile' => $profile]) }}" enctype="multipart/form-data">
+        <form method="post" action="{{ route('admin.profiles.update', ['profile' => $profile]) }}"
+            enctype="multipart/form-data">
             @csrf
             @method('put')
+            <input type="text" name="user_id" id="user_id" value="{{ $profile->user_id }}" hidden>
             <div class="form-group">
                 <label for="lastName">Фамилия</label>
-                <input type="text" class="form-control" name="last_name" id="lastName" value="{{ $profile->last_name }}">
+                <input type="text" class="form-control" name="last_name" id="lastName"
+                    value="{{ $profile->last_name }}">
             </div>
             <div class="form-group">
                 <label for="firstName">Имя</label>
-                <input type="text" class="form-control" name="first_name" id="firstName" value="{{ $profile->first_name }}">
+                <input type="text" class="form-control" name="first_name" id="firstName"
+                    value="{{ $profile->first_name }}">
             </div>
             <div class="form-group">
                 <label for="fatherName">Отчество</label>
-                <input type="text" class="form-control" name="father_name" id="fatherName" value="{{ $profile->father_name }}">
+                <input type="text" class="form-control" name="father_name" id="fatherName"
+                    value="{{ $profile->father_name }}">
             </div>
             <div class="form-group">
                 <label for="age">Возраст</label>
@@ -28,8 +33,8 @@
             <div class="form-group">
                 <label for="gender">Пол</label>
                 <select class="form-control" name="gender" id="gender">
-                    <option @if($profile->gender === 'male') selected @endif value="male">Муж</option>
-                    <option @if($profile->gender === 'female') selected @endif value="female">Жен</option>
+                    <option @if ($profile->gender === 'male') selected @endif value="male">Муж</option>
+                    <option @if ($profile->gender === 'female') selected @endif value="female">Жен</option>
                 </select>
             </div>
             <div class="form-group">

@@ -2,7 +2,9 @@
 
 namespace App\Http\Requests\Profiles;
 
+use App\Models\Profile;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class CreateRequest extends FormRequest
 {
@@ -29,21 +31,19 @@ class CreateRequest extends FormRequest
             'last_name' => ['required', 'string', 'min:3', 'max:100'],
             'father_name' => ['required', 'string', 'min:3', 'max:100'],
             'age' =>  ['required', 'integer'],
-            'gender' => ['required', 'string'],
-            'image' => ['required', 'min:3', 'max:100']
+            'gender' => ['required', Rule::in([Profile::MALE, Profile::FEMALE])],
         ];
     }
 
     public function attributes(): array
     {
         return [
-            'user_id' => 'Идентификатор',
+            'user_id' => 'Идентификатор пользователя',
             'first_name' => 'Имя',
             'last_name' => 'Фамилия',
             'father_name' => 'Отчество',
             'age' => 'Возраст',
             'gender' => 'Пол',
-            'image' => 'Аватар'
         ];
     }
 }

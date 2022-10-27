@@ -20,9 +20,13 @@ class SkillController extends Controller
      *
      * @return View
      */
+    public function __construct()
+    {
+        $this->model = Skill::query();
+    }
     public function index()
     {
-//
+        //
     }
 
     /**
@@ -30,10 +34,9 @@ class SkillController extends Controller
      *
      * @return Factory|View|Application
      */
-    public function create(): Factory|View|Application
+    public function create(): View
     {
-        $user_id = $_GET['skill'];
-        return view('account.skills.create', ['user_id'=>$user_id]);
+        return view('account.skills.create');
     }
 
     /**
@@ -42,18 +45,10 @@ class SkillController extends Controller
      * @param CreateRequest $request
      * @return RedirectResponse
      */
-    public function store(CreateRequest $request
-    ): RedirectResponse
+    public function store(CreateRequest $request): RedirectResponse
     {
-        $user_id = $_GET['user_id'];
-        $validated = $request->validated();
-        $skill = new Skill(
-            $validated
-        );
-        $skill['user_id'] = $user_id;
-
-        if ($skill->save()){
-            return redirect()->route('account', ['skill'=>$user_id])
+        if (Skill::create($request->validated())) {
+            return redirect()->route('account')
                 ->with('success', __('messages.account.skills.create.success'));
         }
         return back('error', __('messages.account.skills.create.fail'));
@@ -78,10 +73,12 @@ class SkillController extends Controller
      */
     public function edit(int $id): View
     {
-        $skill = Skill::all()
-            ->where('user_id', $id)
-            ->first();
-        return view('account.skills.edit', ['skill' => $skill]);
+
+        return view('account.skills.edit', [
+            'skill' => $this->model
+                ->where('user_id', $id)
+                ->firstOrFail()
+        ]);
     }
 
     /**
@@ -91,13 +88,10 @@ class SkillController extends Controller
      * @param Skill $skill
      * @return View|Factory|RedirectResponse|Application
      */
-    public function update(EditRequest $request,
-                           Skill $skill
-    ): View|Factory|RedirectResponse|Application
+    public function update(EditRequest $request, Skill $skill): RedirectResponse
     {
-        $skill = $skill->fill($request->validated());
-        if ($skill->save()){
-            return redirect()->route('account', ['skill'=>$skill->user_id])
+        if ($skill->fill($request->validated())->save()) {
+            return redirect()->route('account')
                 ->with('success', __('messages.account.skills.update.success'));
         }
         return back('error', __('messages.account.skills.update.fail'));

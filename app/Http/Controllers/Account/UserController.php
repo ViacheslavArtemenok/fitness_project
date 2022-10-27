@@ -16,6 +16,10 @@ use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
+    public function __construct()
+    {
+        $this->model = User::query();
+    }
     /**
      * Display a listing of the resource.
      *
@@ -42,17 +46,9 @@ class UserController extends Controller
      * @param Request $request
      * @return RedirectResponse
      */
-    public function store(Request $request): RedirectResponse
+    public function store(Request $request)
     {
-        $profile = new Profile(
-            $request->validated()
-        );
-
-        if ($profile->save()){
-            return redirect()->route('account.profiles.index')
-                ->with('success', __('messages.account.profiles.create.success'));
-        }
-        return back('error', __('messages.account.profiles.create.fail'));
+        //
     }
 
     /**
@@ -72,10 +68,10 @@ class UserController extends Controller
      * @param User $user
      * @return Application|Factory|View
      */
-    public function edit(User $user): Application|Factory|View
+    public function edit(int $id): View
     {
         return view('account.users.edit', [
-            'user'=> $user,
+            'user' => $this->model->findOrFail($id),
         ]);
     }
 
@@ -88,14 +84,21 @@ class UserController extends Controller
      */
     public function update(EditRequest $request, User $user): RedirectResponse
     {
-        $user = $user->fill(array_merge($request->validated(),
-            ['password' => Hash::make($request['password'])]
-        ));
-        if ($user->save()){
-            return redirect()->route('account')
-                ->with('success', __('messages.account.users.update.success'));
+        $data = [];
+        if (Hash::check($request->validated()['password'], $user->password)) {
+            $data = $request->validated();
+            if (isset($request->validated()['newPassword'])) {
+                $data['password'] = Hash::make($request->validated()['newPassword']);
+            } else {
+                $data['password'] = Hash::make($request->validated()['password']);
+            }
+            unset($data['newPassword']);
+            if ($user->fill($data)->save()) {
+                return redirect()->route('account')
+                    ->with('success', __('messages.account.users.update.success'));
+            }
         }
-        return back('error', __('messages.account.users.update.fail'));
+        return back()->with('error', __('messages.account.users.update.fail'));
     }
 
     /**

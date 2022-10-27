@@ -13,6 +13,8 @@ class Profile extends Model
     use SoftDeletes;
 
     protected $dates = ['deleted_at'];
+    public const MALE = 'male';
+    public const FEMALE = 'female';
 
     /**
      * The attributes that are mass assignable.
@@ -31,11 +33,11 @@ class Profile extends Model
 
     public function user(): BelongsTo
     {
-        return $this->belongsTo(User::class, 'user_id', 'id');
+        return $this->belongsTo(User::class);
     }
-
     public function skill(): BelongsTo
     {
-        return $this->belongsTo(Skill::class, 'user_id', 'id');
+        // user_id модели Profile ссылается на user_id модели Skill
+        return $this->belongsTo(Skill::class, 'user_id', 'user_id');
     }
 }
