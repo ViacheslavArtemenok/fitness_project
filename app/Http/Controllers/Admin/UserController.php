@@ -46,7 +46,8 @@ class UserController extends Controller
     public function store(CreateRequest $request): RedirectResponse
     {
         $user = new User(
-            $request->validated()
+            array_merge($request->validated(),
+                ['password' => Hash::make($request['password'])])
         );
 
         if($user->save()) {

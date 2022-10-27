@@ -36,6 +36,9 @@
                     case \App\Models\User::IS_TRAINER:
                             $role = 'Тренер';
                             break;
+                    case \App\Models\User::IS_GYM:
+                            $role = 'Владелец зала';
+                            break;
                     }
                 @endphp
 

@@ -36,6 +36,10 @@
                 <label for="image">Аватар</label>
                 <input type="text" class="form-control" name="image" id="image" value="{{ $profile->image }}">
             </div>
+            <div class="form-group">
+                <label for="image">Аватар</label>
+                <input type="file" class="form-control" name="image" id="image">
+            </div>
             <br>
             <button class="btn btn-success" type="submit">Сохранить</button>
         </form>

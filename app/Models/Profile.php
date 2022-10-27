@@ -33,6 +33,11 @@ class Profile extends Model
 
     public function user(): BelongsTo
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'user_id', 'id');
+    }
+
+    public function skill(): BelongsTo
+    {
+        return $this->belongsTo(Skill::class, 'user_id', 'id');
     }
 }
