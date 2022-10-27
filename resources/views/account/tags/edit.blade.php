@@ -27,7 +27,7 @@
                 @endforelse
             </div>
             <br>
-            <button class="btn btn-success" type="submit">Редактировать</button>
+            <button class="btn btn-outline-success" type="submit">Редактировать</button>
         </form>
     </div>
 @endsection

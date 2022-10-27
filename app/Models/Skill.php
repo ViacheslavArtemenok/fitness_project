@@ -34,9 +34,9 @@ class Skill extends Model
     {
         return $this->belongsTo(User::class);
     }
-
     public function profile(): HasOne
     {
-        return $this->hasOne(Profile::class, 'user_id', 'id');
+        // user_id модели Skill ссылается на user_id модели Profile
+        return $this->hasOne(Profile::class, 'user_id', 'user_id');
     }
 }

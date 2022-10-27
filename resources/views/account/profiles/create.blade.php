@@ -58,7 +58,7 @@
                 <input type="file" class="form-control" name="image" id="image">
             </div>
             <br>
-            <button class="btn btn-success" type="submit">Сохранить</button>
+            <button class="btn btn-outline-success" type="submit">Сохранить</button>
         </form>
     </div>
 @endsection

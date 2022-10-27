@@ -82,10 +82,10 @@
         <div class="p-6 border-b border-gray-200">
             <hr class="featurette-divider">
             <div class="d-flex justify-content-center pt-4">
-                <img class="ms-2 me-3 indicator @if (Auth::user()->status === 'ACTIVE') indicator_green @else indicator_red @endif"
+                <img class="mt-2 ms-2 me-3 indicator @if (Auth::user()->status === 'ACTIVE') indicator_green @else indicator_red @endif"
                     src="@if (Auth::user()->status === 'ACTIVE') /assets/images/yes.jpg @else /assets/images/no.jpg @endif"
                     alt="img">
-                <h6 class="align-self-center">
+                <h6 class="mt-2">
                     @if (mb_strlen(Auth::user()->name) > 28)
                         {{ mb_substr(Auth::user()->name, 0, 28) }}...
                     @else
@@ -106,7 +106,7 @@
     <ul class="list-unstyled ps-0">
         @if (Auth::user()->status !== 'BLOCKED')
             <li class="nav-item">
-                <a class="btn btn-toggle link-dark d-inline-flex align-items-center rounded border-0 collapsed text-white "
+                <a class="btn btn-toggle link-dark d-inline-flex align-items-center rounded border-0 collapsed text-white fw-normal"
                     aria-current="page" href="{{ route('account') }}">
                     <svg class="bi pe-none me-2" width="16" height="16">
                         <use xlink:href="#calendar3" />
@@ -117,7 +117,7 @@
 
             <li>
                 <a href="{{ route('account.users.edit', ['user' => Auth::user()->id]) }}"
-                    class="btn btn-toggle link-dark d-inline-flex align-items-center rounded border-0 collapsed text-white">
+                    class="btn btn-toggle link-dark d-inline-flex align-items-center rounded border-0 collapsed text-white fw-normal">
                     <svg class="bi pe-none me-2" width="16" height="16">
                         <use xlink:href="#people-circle" />
                     </svg>
@@ -128,7 +128,7 @@
             @if (isset(Auth::user()->profile->first_name))
                 <li>
                     <a href="{{ route('account.profiles.edit', ['profile' => Auth::user()->id]) }}"
-                        class="btn btn-toggle link-dark d-inline-flex align-items-center rounded border-0 collapsed text-white">
+                        class="btn btn-toggle link-dark d-inline-flex align-items-center rounded border-0 collapsed text-white fw-normal">
                         <svg class="bi pe-none me-2" width="16" height="16">
                             <use xlink:href="#gear-fill" />
                         </svg>
@@ -138,7 +138,7 @@
             @else
                 <li>
                     <a href="{{ route('account.profiles.create') }}"
-                        class="btn btn-toggle link-dark d-inline-flex align-items-center rounded border-0 collapsed text-white">
+                        class="btn btn-toggle link-dark d-inline-flex align-items-center rounded border-0 collapsed text-white fw-normal">
                         <svg class="bi pe-none me-2" width="16" height="16">
                             <use xlink:href="#gear-fill" />
                         </svg>
@@ -150,7 +150,7 @@
             @if (isset(Auth::user()->skill->experience))
                 <li>
                     <a href="{{ route('account.skills.edit', ['skill' => Auth::user()->id]) }}"
-                        class="btn btn-toggle link-dark d-inline-flex align-items-center rounded border-0 collapsed text-white">
+                        class="btn btn-toggle link-dark d-inline-flex align-items-center rounded border-0 collapsed text-white fw-normal">
                         <svg class="bi pe-none me-2" width="16" height="16">
                             <use xlink:href="#collection" />
                         </svg>
@@ -160,7 +160,7 @@
             @else
                 <li>
                     <a href="{{ route('account.skills.create') }}"
-                        class="btn btn-toggle link-dark d-inline-flex align-items-center rounded border-0 collapsed text-white">
+                        class="btn btn-toggle link-dark d-inline-flex align-items-center rounded border-0 collapsed text-white fw-normal">
                         <svg class="bi pe-none me-2" width="16" height="16">
                             <use xlink:href="#gear-fill" />
                         </svg>
@@ -172,7 +172,7 @@
 
             <li>
                 <a href="{{ route('account.tags.edit', ['tag' => Auth::user()->id]) }}"
-                    class="btn btn-toggle link-dark d-inline-flex align-items-center rounded border-0 collapsed text-white">
+                    class="btn btn-toggle link-dark d-inline-flex align-items-center rounded border-0 collapsed text-white fw-normal">
                     <svg class="bi pe-none me-2" width="16" height="16">
                         <use xlink:href="#toggles2" />
                     </svg>
@@ -182,15 +182,26 @@
         @else
             <li>
                 <a href="{{ route('info') }}"
-                    class="btn btn-toggle link-dark d-inline-flex align-items-center rounded border-0 collapsed text-white">
-                    <svg class="bi pe-none me-2" width="16" height="16">
-                        <use xlink:href="#toggles2" />
+                    class="btn btn-toggle link-dark d-inline-flex align-items-center rounded border-0 collapsed text-white fw-normal">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                        class="bi pe-none me-2" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd"
+                            d="M15 2a1 1 0 0 0-1-1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2zM0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2zm10.096 8.803a.5.5 0 1 0 .707-.707L6.707 6h2.768a.5.5 0 1 0 0-1H5.5a.5.5 0 0 0-.5.5v3.975a.5.5 0 0 0 1 0V6.707l4.096 4.096z" />
                     </svg>
-                    Аккаунт
+                    На главную
                 </a>
             </li>
         @endif
     </ul>
+    @if (Auth::user()->status === 'DRAFT')
+        <hr class="featurette-divider">
+        <div class="ms-4 w-75">
+            <p>Ваш профиль еще не активирован! Заполните поля с данными профиля, навыков и выберите подходящие тэги
+                тренировок...
+                Как всё будет готово, отправьте нам письмо на адрес aggfitness@inbox.ru, наш
+                администратор проверит вашу анкету и выполнит активацию.</p>
+        </div>
+    @endif
 </nav>
 
 {{-- <div class="b-example-divider b-example-vr"></div> --}}

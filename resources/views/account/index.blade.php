@@ -2,13 +2,11 @@
 @section('content')
     @include('inc.message')
     <br>
-    <h1 style="text-align: center">
-        @if (Auth::user()->status !== 'BLOCKED')
-            Личный кабинет
-        @else
-            Личный кабинет заблокирован по решению администрации сайта
-        @endif
-    </h1>
+    @if (Auth::user()->status !== 'BLOCKED')
+        <h2 class="text-center">Личный кабинет</h2>
+    @else
+        <h3 class="text-center text-danger">Личный кабинет заблокирован по решению администрации сайта</h3>
+    @endif
     <div class="container marketing">
         <hr class="featurette-divider">
         @if ($user)
