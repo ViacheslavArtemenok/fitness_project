@@ -35,6 +35,7 @@ class Profile extends Model
     {
         return $this->belongsTo(User::class);
     }
+
     public function skill(): BelongsTo
     {
         // user_id модели Profile ссылается на user_id модели Skill

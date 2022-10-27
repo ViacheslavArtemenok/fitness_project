@@ -54,12 +54,14 @@ class ProfileController extends Controller
      */
     public function store(CreateRequest $request, UploadService $uploadService): RedirectResponse
     {
+        $validated = $request->validated();
+
         if ($request->hasFile('image')) {
-            $validated['image'] = 'image/' . $uploadService->uploadImage($request->file('image'));
+            $validated['image'] = $uploadService->uploadImage($request->file('image'));
         }
 
         $profile = new Profile(
-            $request->validated()
+            $validated
         );
 
         if($profile->save()) {

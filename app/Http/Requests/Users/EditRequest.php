@@ -2,7 +2,9 @@
 
 namespace App\Http\Requests\Users;
 
+use App\Models\User;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class EditRequest extends FormRequest
 {
@@ -29,19 +31,21 @@ class EditRequest extends FormRequest
             'phone' =>  ['required', 'string'],
             'password' => ['required', 'min:8', 'max:50'],
             'newPassword' => ['nullable', 'min:8', 'max:50', 'confirmed'],
-            'role' => ['required', 'string']
+            'role' => ['required', Rule::in([User::IS_GYM, User::IS_TRAINER, User::IS_ADMIN, User::IS_CLIENT])],
+            'status' => ['required', Rule::in([User::ACTIVE, User::DRAFT, User::BLOCKED])]
         ];
     }
 
     public function attributes(): array
     {
         return [
-            'name' => 'Имя пользователя',
+            'name' => 'Никнейм',
             'email' => 'Электронная почта',
             'phone' => 'Телефон',
             'password' => 'Пароль',
             'newPassword' => 'Новый пароль',
-            'role' => 'Роль'
+            'role' => 'Роль',
+            'status' => 'Статус'
         ];
     }
 }
