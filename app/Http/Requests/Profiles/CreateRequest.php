@@ -32,6 +32,7 @@ class CreateRequest extends FormRequest
             'father_name' => ['required', 'string', 'min:3', 'max:100'],
             'age' =>  ['required', 'integer'],
             'gender' => ['required', Rule::in([Profile::MALE, Profile::FEMALE])],
+            'image' => ['required', 'image', 'mimes:jpg, png, jpeg']
         ];
     }
 
@@ -44,6 +45,7 @@ class CreateRequest extends FormRequest
             'father_name' => 'Отчество',
             'age' => 'Возраст',
             'gender' => 'Пол',
+            'image' => 'Аватар'
         ];
     }
 }

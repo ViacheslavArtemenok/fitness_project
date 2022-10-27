@@ -6,7 +6,7 @@
 
         @include('inc.message')
 
-        <form method="post" action="{{ route('admin.profiles.store') }}">
+        <form method="post" action="{{ route('admin.profiles.store') }}" enctype="multipart/form-data">
             @csrf
             @if(isset($users))
             <div class="form-group">
@@ -41,10 +41,10 @@
                     <option value="female">Жен</option>
                 </select>
             </div>
-            <div class="form-group">
-                <label for="image">Аватар</label>
-                <input type="text" class="form-control" name="image" id="image" value="{{ old('image') }}">
-            </div>
+            {{--<div class="form-group">--}}
+                {{--<label for="image">Аватар</label>--}}
+                {{--<input type="text" class="form-control" name="image" id="image" value="{{ old('image') }}">--}}
+            {{--</div>--}}
             <div class="form-group">
                 <label for="image">Аватар</label>
                 <input type="file" class="form-control" name="image" id="image">

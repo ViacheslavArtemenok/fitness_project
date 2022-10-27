@@ -37,10 +37,10 @@
                     <option @if ($profile->gender === 'female') selected @endif value="female">Жен</option>
                 </select>
             </div>
-            <div class="form-group">
-                <label for="image">Аватар</label>
-                <input type="text" class="form-control" name="image" id="image" value="{{ $profile->image }}">
-            </div>
+            {{--<div class="form-group">--}}
+                {{--<label for="image">Аватар</label>--}}
+                {{--<input type="text" class="form-control" name="image" id="image" value="{{ $profile->image }}">--}}
+            {{--</div>--}}
             <div class="form-group">
                 <label for="image">Аватар</label>
                 <input type="file" class="form-control" name="image" id="image">

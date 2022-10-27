@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\User;
+use App\Models\Profile;
 use App\Http\Requests\Users\EditRequest;
 use App\Http\Requests\Users\CreateRequest;
 use App\Http\Controllers\Controller;
@@ -49,6 +50,13 @@ class UserController extends Controller
             array_merge($request->validated(),
                 ['password' => Hash::make($request['password'])])
         );
+
+//        $profile = new Profile();
+//
+//        $profile->last_name = $request->input('last_name');
+//        $profile->user_id = $user->id;
+//
+//        $user->profile()->save($profile);
 
         if($user->save()) {
             return redirect()->route('admin.users.index')

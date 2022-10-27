@@ -14,10 +14,11 @@
                 <th scope="col">Фамилия</th>
                 <th scope="col">Имя</th>
                 <th scope="col">Отчество</th>
-                <th scope="col">Ник</th>
+                <th scope="col">Никнейм</th>
                 <th scope="col">Элект почта</th>
                 <th scope="col">Телефон</th>
                 <th scope="col">Роль</th>
+                <th scope="col">Статус</th>
                 <th scope="col">Дата добавления</th>
                 <th scope="col">Дата проверки эл. почты</th>
                 <th scope="col">Управление</th>
@@ -63,6 +64,7 @@
                     <td>{{ $user->email }}</td>
                     <td>{{ $user->phone }}</td>
                     <td>{{ $role }}</td>
+                    <td>{{ $user->status }}</td>
                     <td>{{ $user->created_at }}</td>
                     <td>{{ $user->email_verified_at }}</td>
                     <td>
@@ -75,7 +77,7 @@
                 </tr>
             @empty
                 <tr>
-                    <td colspan="11">Записей не найдено</td>
+                    <td colspan="12">Записей не найдено</td>
                 </tr>
             @endforelse
             </tbody>
