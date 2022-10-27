@@ -24,6 +24,10 @@ class TagController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function __construct()
+    {
+        $this->model = User::query();
+    }
     public function index()
     {
         //
@@ -37,9 +41,7 @@ class TagController extends Controller
      */
     public function create(Request $request)
     {
-        $user_id = $request->get('user_id');
-        $tags = Tag::all();
-        return view('account.tags.create', ['user_id'=>$user_id, 'tags'=>$tags]);
+        //
     }
 
     /**
@@ -47,18 +49,9 @@ class TagController extends Controller
      * @param Request $request
      * @return RedirectResponse
      */
-    public function store(Request $request): RedirectResponse
+    public function store(Request $request): void
     {
-        $user_id = $request->get('id');
-        $tag_id = $request->post('tags');
-        $user = User::query()
-            ->with('profile', 'skill', 'tags')
-            ->find($user_id)
-        ;
-        $user->tags()->sync($tag_id);
-
-        return redirect()->route('account', ['profile'=>$user_id])
-            ->with('success', __('messages.account.profiles.update.success'));
+        //
     }
 
     /**
@@ -80,12 +73,13 @@ class TagController extends Controller
      */
     public function edit(int $id)
     {
-        $user = User::all()->find($id);
-        $tagsChecked = $user->tags()->get();
+        $user = $this->model
+            ->with('tags')
+            ->findOrFail($id);
         $tags = Tag::all();
-//        $tagsChecked = Relation::all()
-//        ->where('user_id', $id);
-        return view('account.tags.edit', ['user_id'=>$id, 'tags'=>$tags, 'tagsCheked'=>$tagsChecked]);
+        //        $tagsChecked = Relation::all()
+        //        ->where('user_id', $id);
+        return view('account.tags.edit', ['tags' => $tags, 'tagsCheked' => $user->tags]);
     }
 
     /**
@@ -94,17 +88,18 @@ class TagController extends Controller
      * @param Request $request
      * @return RedirectResponse
      */
-    public function update(Request $request, int $tag): RedirectResponse
+    public function update(Request $request, int $user_id): RedirectResponse
     {
         $tag_id = $request->post('tags');
-        $user = User::query()
-            ->with('profile', 'skill', 'tags')
-            ->find($tag)
-        ;
-        $user->tags()->sync($tag_id);
+        $user = $this->model
+            ->with('tags')
+            ->findOrFail($user_id);
 
-        return redirect()->route('account', ['profile'=>$tag])
-            ->with('success', __('messages.account.profiles.update.success'));
+        if ($user->tags()->sync($tag_id)) {
+            return redirect()->route('account')
+                ->with('success', __('messages.account.profiles.update.success'));
+        }
+        return back()->with('error', __('messages.account.profiles.update.fail'));
     }
 
     /**

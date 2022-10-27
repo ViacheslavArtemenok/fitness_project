@@ -21,19 +21,23 @@ class ProfileController extends Controller
      * Display a listing of the resource.
      * @return View
      */
+    public function __construct()
+    {
+        $this->model = Profile::query();
+    }
+
     public function index()
     {
-            //
+        //
     }
 
     /**
      * Show the form for creating a new resource.
      * @return Factory|View|Application
      */
-    public function create(): Factory|View|Application
+    public function create(): View
     {
-        $user_id = $_GET['profile'];
-        return view('account.profiles.create', ['user_id'=>$user_id]);
+        return view('account.profiles.create');
     }
 
     /**
@@ -43,22 +47,14 @@ class ProfileController extends Controller
      * @param UploadService $uploadService
      * @return RedirectResponse
      */
-    public function store(CreateRequest $request,
-                          UploadService $uploadService,
-    ): RedirectResponse
+    public function store(CreateRequest $request, UploadService $uploadService): RedirectResponse
     {
-        $user_id = $_GET['user_id'];
         $validated = $request->validated();
         if ($request->hasFile('image')) {
             $validated['image'] = $uploadService->uploadImage($request->file('image'));
-            $validated['user_id'] = $user_id;
         }
-        $profile = new Profile(
-            $validated
-        );
-
-        if ($profile->save()){
-            return redirect()->route('account', ['profile'=>$profile->user_id])
+        if (Profile::create($request->validated())) {
+            return redirect()->route('account')
                 ->with('success', __('messages.account.profiles.create.success'));
         }
         return back('error', __('messages.account.profiles.create.fail'));
@@ -83,10 +79,11 @@ class ProfileController extends Controller
      */
     public function edit(int $id): View
     {
-        $profile = Profile::all()
-            ->where('user_id', $id)
-            ->first();
-        return view('account.profiles.edit', ['profile' => $profile]);
+        return view('account.profiles.edit', [
+            'profile' => $this->model
+                ->where('user_id', $id)
+                ->firstOrFail()
+        ]);
     }
 
     /**
@@ -97,23 +94,18 @@ class ProfileController extends Controller
      * @param UploadService $uploadService
      * @return Application|Factory|View|RedirectResponse
      */
-    public function update(EditRequest $request,
-                           Profile $profile,
-                           UploadService $uploadService
-    ): View|Factory|RedirectResponse|Application
+    public function update(EditRequest $request, Profile $profile, UploadService $uploadService): RedirectResponse
     {
-        $profile = $profile->fill($request->validated());
-
         if ($request->hasFile('image')) {
             $profile['image'] = $uploadService->uploadImage($request->file('image'));
         }
-
-        if ($profile->save()){
-            return redirect()->route('account', ['profile'=>$profile->user_id])
+        if ($profile->fill($request->validated())->save()) {
+            return redirect()->route('account')
                 ->with('success', __('messages.account.profiles.update.success'));
         }
         return back('error', __('messages.account.profiles.update.fail'));
     }
+
 
     /**
      * Remove the specified resource from storage.

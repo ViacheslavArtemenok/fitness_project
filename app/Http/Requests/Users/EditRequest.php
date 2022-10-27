@@ -27,8 +27,8 @@ class EditRequest extends FormRequest
             'name' => ['required', 'string', 'min:3', 'max:255'],
             'email' => ['required', 'email', 'min:5', 'max:255'],
             'phone' =>  ['required', 'string'],
-            'password' => ['required_with:confirmPassword', 'string', 'same:confirmPassword', 'min:8'],
-            'confirmPassword' => ['required', 'string', 'min:8'],
+            'password' => ['required', 'min:8', 'max:50'],
+            'newPassword' => ['nullable', 'min:8', 'max:50', 'confirmed'],
             'role' => ['required', 'string']
         ];
     }
@@ -40,7 +40,7 @@ class EditRequest extends FormRequest
             'email' => 'Электронная почта',
             'phone' => 'Телефон',
             'password' => 'Пароль',
-            'confirmPassword' => 'Подтверждение пароля',
+            'newPassword' => 'Новый пароль',
             'role' => 'Роль'
         ];
     }

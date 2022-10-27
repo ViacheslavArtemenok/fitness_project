@@ -13,6 +13,8 @@ class Profile extends Model
     use SoftDeletes;
 
     protected $dates = ['deleted_at'];
+    public const MALE = 'male';
+    public const FEMALE = 'female';
 
     /**
      * The attributes that are mass assignable.

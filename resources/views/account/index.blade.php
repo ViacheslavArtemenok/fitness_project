@@ -2,70 +2,112 @@
 @section('content')
     @include('inc.message')
     <br>
-    <h1 style="text-align: center">Личный кабинет</h1>
-    <div class="container marketing" style="height: 100vh">
+    <h1 style="text-align: center">
+        @if (Auth::user()->status !== 'BLOCKED')
+            Личный кабинет
+        @else
+            Личный кабинет заблокирован по решению администрации сайта
+        @endif
+    </h1>
+    <div class="container marketing">
         <hr class="featurette-divider">
         @if ($user)
-            <div class="row featurette">
-                <div class="col-md-7 order-md-2">
-                    <h2 class="featurette-heading fw-normal lh-1">
-                        @if($user->profile)
-                            <div class="col-md-5">
-                                <img class="market_image" src="{{ Storage::disk('public')->url($user->profile->image) }}" alt="img" style="width: 100px">
-                            </div>
-                        {{ $user->profile->first_name }}
-                        {{ $user->profile->father_name }}
-                        {{ $user->profile->last_name }}</h2>
-                    <p class="lead">Возраст: {{ $user->profile->age }}</p>
-                    @else
-                        <a class="btn btn-secondary mb-2 me-2"
-                           href="{{ route('account.profiles.create', ['profile'=>$user->id]) }}">
-                            Заполните профиль
-                        </a>
-                    @endif
-                    <p class="lead">Телефон: {{ $user->phone }}</p>
-                    <p class="lead">Email: {{ $user->email }}</p>
+            <div class="d-flex shadow mb-4 rounded-1">
+                <img class="m-2 rounded-2 border border-secondary border-2 border-opacity-10 avatar"
+                    src="@if (isset($user->profile->image)) {{ Storage::disk('public')->url($user->profile->image) }} @else /assets/images/user.jpg @endif"
+                    alt="img">
+                <!--Блок с личными данными-->
+                <div class="d-flex flex-column flex-grow-1 ps-4 pt-1">
+                    <h5 class="fw-semibold">
+                        @if ($user->profile)
+                            {{ $user->profile->first_name }}
+                            {{ $user->profile->father_name }}
+                            {{ $user->profile->last_name }}
+                        @else
+                            {{ $user->name }}
+                        @endif
+                    </h5>
                     <div class="d-flex flex-wrap align-items-start">
                         @forelse($user->tags as $key => $tagItem)
-                            <a class="btn btn-secondary mb-2 me-2">
+                            <a class="btn btn-secondary btn-sm mb-2 me-2">
                                 {{ $tagItem->tag }}
                             </a>
                         @empty
-                            <a class="btn btn-secondary mb-2 me-2"
-                               href="{{ route('account.tags.create', ['user_id' => $user->id]) }}">
+                            <a class="btn btn-secondary btn-sm mb-2 me-2"
+                                href="{{ route('account.tags.create', ['user_id' => $user->id]) }}">
                                 Профиль тренировок не указан
                             </a>
                         @endforelse
                     </div>
+                    <table class="table w-25">
+                        <thead>
+                            <tr>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if ($user->skill)
+                                <tr>
+                                    <th scope="row">Город:</th>
+                                    <td>{{ $user->skill->location }}</td>
+                                </tr>
+                            @endif
+                            @if ($user->profile)
+                                <tr>
+                                    <th scope="row">Возраст:</th>
+                                    <td>{{ $user->profile->age }}</td>
+                                </tr>
+                            @endif
+                            @if ($user->skill)
+                                <tr>
+                                    <th scope="row">Опыт:</th>
+                                    <td>{{ $user->skill->experience }}</td>
+                                </tr>
+                            @endif
+                            <tr>
+                                <th scope="row">Телефон:</th>
+                                <td>{{ $user->phone }}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Email:</th>
+                                <td>{{ $user->email }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
-            @if($user->skill)
-            <div class="row featurette">
+            @if ($user->skill)
+                <table class="table shadow">
+                    <thead>
+                        <tr>
+                            <th scope="col">Образование</th>
+                            <th scope="col">Навыки</th>
+                            <th scope="col">Достижения</th>
+                            <th scope="col">О себе</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>{{ $user->skill->education }}</td>
+                            <td>{{ $user->skill->skills_list }}</td>
+                            <td>{{ $user->skill->achievements }}</td>
+                            <td>{{ $user->skill->description }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            @else
                 <hr class="featurette-divider">
-                <h3>Опыт</h3>
-                <p class="lead">{{ $user->skill->experience }}</p>
-                <h3>Город</h3>
-                <p class="lead">{{ $user->skill->location }}</p>
-                <h3>Образование</h3>
-                <p>{{ $user->skill->education }}</p>
-                <h3>Навыки</h3>
-                <p>{{ $user->skill->skills_list }}</p>
-                <h3>Достижения</h3>
-                <p>{{ $user->skill->achievements }}</p>
-                <h3>О себе</h3>
-                <p>{{ $user->skill->description }}</p>
-            </div>
-                @else
-                    <a class="btn btn-secondary mb-2 me-2"
-                       href="{{ route('account.skills.create', ['skill'=>$user->id]) }}">
-                        Заполните навыки
-                    </a>
+                <a class="btn btn-secondary mb-2 me-2" href="{{ route('account.profiles.create') }}">
+                    Заполните профиль
+                </a>
+                <a class="btn btn-secondary mb-2 me-2" href="{{ route('account.skills.create') }}">
+                    Заполните навыки
+                </a>
             @endif
         @else
             <hr class="featurette-divider">
             <h1>Искомый тренер у нас не зарегистрирован...</h1>
+            <hr class="featurette-divider">
         @endif
-        <hr class="featurette-divider">
     </div>
 @endsection
-
