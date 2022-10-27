@@ -24,6 +24,7 @@ class EditRequest extends FormRequest
     public function rules()
     {
         return [
+            'user_id' => ['required', 'integer'],
             'location' => ['required', 'string', 'min:3', 'max:120'],
             'education' =>  ['required', 'string', 'min:3', 'max:600'],
             'experience' => ['required', 'numeric', 'min:1'],
@@ -36,6 +37,7 @@ class EditRequest extends FormRequest
     public function attributes(): array
     {
         return [
+            'user_id' => 'Идентификатор пользователя',
             'location' => 'Расположение',
             'education' => 'Образование',
             'experience' => 'Опыт',

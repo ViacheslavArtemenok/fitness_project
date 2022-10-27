@@ -37,7 +37,7 @@ class CreateRequest extends FormRequest
     public function attributes(): array
     {
         return [
-            'user_id' => 'Идентификатор',
+            'user_id' => 'Идентификатор пользователя',
             'location' => 'Расположение',
             'education' => 'Образование',
             'experience' => 'Опыт',

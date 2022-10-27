@@ -24,7 +24,7 @@ class EditRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'tag' => ['required', 'string', 'min:5', 'max:255']
+            'tag' => ['required', 'string', 'min:3', 'max:150']
         ];
     }
 

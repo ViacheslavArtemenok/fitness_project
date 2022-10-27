@@ -21,8 +21,7 @@ class IndexController extends Controller
         $id = Auth::user()->id;
         $user = User::query()
             ->with('profile', 'skill', 'tags')
-            ->find($id)
-        ;
-        return view('account.index', ['user'=>$user]);
+            ->findOrFail($id);
+        return view('account.index', ['user' => $user]);
     }
 }
