@@ -2,7 +2,9 @@
 
 namespace App\Http\Requests\Users;
 
+use App\Models\User;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class CreateRequest extends FormRequest
 {
@@ -29,14 +31,14 @@ class CreateRequest extends FormRequest
             'phone' =>  ['required', 'string'],
             'password' => ['required_with:confirmPassword', 'string', 'same:confirmPassword', 'min:8'],
             'confirmPassword' => ['required', 'string', 'min:8'],
-            'role' => ['required', 'string']
+            'role' => ['required', Rule::in([User::IS_GYM, User::IS_TRAINER, User::IS_ADMIN, User::IS_CLIENT])]
         ];
     }
 
     public function attributes(): array
     {
         return [
-            'name' => 'Имя пользователя',
+            'name' => 'Никнейм',
             'email' => 'Электронная почта',
             'phone' => 'Телефон',
             'password' => 'Пароль',
