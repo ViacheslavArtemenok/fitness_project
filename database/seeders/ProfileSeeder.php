@@ -33,7 +33,7 @@ class ProfileSeeder extends Seeder
             'user_id' => 1,
             'first_name' => 'Admin',
             'last_name' => 'Admins',
-            'father_name' => 'Ad',
+            'father_name' => 'Admin',
             'age' => 99,
             'gender' => 'male',
             'image' => 'image/StoKaGTG8BDdMPxIXh8Lu8qUiufXTaKKmw9uqQaW.jpg',

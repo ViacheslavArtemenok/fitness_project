@@ -7,7 +7,7 @@
     @else
         <h3 class="text-center text-danger">Личный кабинет заблокирован по решению администрации сайта</h3>
     @endif
-    <div class="container marketing">
+    <div class="container marketing skill_bottom">
         <hr class="featurette-divider">
         @if ($user)
             <div class="d-flex shadow mb-4 rounded-1">

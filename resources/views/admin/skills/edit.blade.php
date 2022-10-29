@@ -37,23 +37,20 @@
             </div>
             <div class="form-group">
                 <label for="experience">Опыт</label>
-                <input type="text" class="form-control" name="experience" id="experience"
+                <input type="number" class="form-control" name="experience" id="experience"
                     value="{{ $skill->experience ?? 'none' }}">
             </div>
             <div class="form-group">
                 <label for="achievements">Достижения</label>
-                <input type="text" class="form-control" name="achievements" id="achievements"
-                    value="{{ $skill->achievements ?? 'none' }}">
+                <textarea class="form-control" name="achievements" id="achievements">{{ $skill->achievements ?? 'none' }}</textarea>
             </div>
             <div class="form-group">
                 <label for="skillList">Список навыков</label>
-                <input type="text" class="form-control" name="skills_list" id="skillList"
-                    value="{{ $skill->skills_list ?? 'none' }}">
+                <textarea class="form-control" name="skills_list" id="skillList">{{ $skill->skills_list ?? 'none' }}</textarea>
             </div>
             <div class="form-group">
                 <label for="desciption">Описание</label>
-                <input type="text" class="form-control" name="description" id="description"
-                    value="{{ $skill->description ?? 'none' }}">
+                <textarea class="form-control" name="description" id="description">{{ $skill->description ?? 'none' }}</textarea>
             </div>
             <br>
             <button class="btn btn-success" type="submit">Сохранить</button>

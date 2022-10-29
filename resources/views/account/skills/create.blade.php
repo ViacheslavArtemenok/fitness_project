@@ -60,7 +60,7 @@
                 @enderror
             </div>
             <br>
-            <button class="btn btn-outline-success" type="submit">Сохранить</button>
+            <button class="btn btn-outline-success skill_bottom" type="submit">Сохранить</button>
         </form>
     </div>
 @endsection
