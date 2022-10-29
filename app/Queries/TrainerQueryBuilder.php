@@ -9,12 +9,8 @@ use App\Models\Profile;
 use App\Models\Relation;
 use App\Models\Skill;
 use App\Models\Tag;
-use App\Models\TrainerReview;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection;
-use Ramsey\Uuid\Type\Integer;
-
 
 
 final class TrainerQueryBuilder
@@ -23,20 +19,20 @@ final class TrainerQueryBuilder
     public function __construct()
     {
         $this->arr = [];
+        $this->checker = false;
         $this->trainerModel = User::query();
         $this->clientModel = User::query();
         $this->relationModel = Relation::query();
         $this->tagModel = Tag::query();
         $this->skillModel = Skill::query();
         $this->profileModel = Profile::query();
-        $this->reviewModel = TrainerReview::query();
     }
     /**
      * $this->buildArr(); Подсобный метод
      */
     public function buildArr(object $model, string $fieldW, mixed $valueW, string $sign, string $fieldWIn): object
     {
-        if ($valueW === 0 || $valueW == "%%") {
+        if ($valueW === 0 || $valueW == "%%" || $this->checker) {
             return $this;
         } else {
             if (count($this->arr) > 0) {
@@ -50,9 +46,11 @@ final class TrainerQueryBuilder
                     ->where($fieldW, $sign, $valueW)
                     ->get();
             }
-            foreach ($collection as $item) {
-                $this->arr[] = $item->user_id;
-            }
+            if (count($collection) > 0) {
+                foreach ($collection as $item) {
+                    $this->arr[] = $item->user_id;
+                }
+            } else $this->checker = true;
             return $this;
         }
     }
@@ -78,22 +76,19 @@ final class TrainerQueryBuilder
         } else {
             $city = 0;
         }
-        $trainers = $this->buildArr($this->skillModel, 'location', $city, '=', 'user_id')
-            ->buildArr($this->relationModel, 'tag_id', $tag_id, '=', 'user_id')
-            ->buildArr($this->profileModel, 'last_name', "%{$lastName}%", 'LIKE', 'user_id')
-            ->buildArr($this->profileModel, 'first_name', "%{$firstName}%", 'LIKE', 'user_id');
+        $trainers = $this->buildArr($this->profileModel, 'last_name', "%{$lastName}%", 'LIKE', 'user_id')
+            ->buildArr($this->profileModel, 'first_name', "%{$firstName}%", 'LIKE', 'user_id')
+            ->buildArr($this->skillModel, 'location', $city, '=', 'user_id')
+            ->buildArr($this->relationModel, 'tag_id', $tag_id, '=', 'user_id');
 
-
-
-
-        if (count($trainers->arr)) { //Запрос с параметрами
+        if (count($trainers->arr)) { //Вернуть результаты поиска
             return  $this->trainerModel
                 ->where('role', 'IS_TRAINER')
                 ->where('status', 'ACTIVE')
                 ->whereIn('id', $trainers->arr)
                 ->with(['profile', 'skill', 'tags', 'clients'])
                 ->paginate(config('trainers.users'));
-        } elseif (count($trainers->arr) === 0 && $lastName || $firstName || $city_id > 0 || $tag_id > 0) { //Запрос без параметров - список пуст
+        } elseif ($this->checker) { //Поиск не дал результатов
             return collect([]);
         } else return $this->getAllPaginate(); //Запрос без параметров - все тренеры
     }
