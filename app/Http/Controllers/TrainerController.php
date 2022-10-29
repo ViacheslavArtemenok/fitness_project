@@ -27,6 +27,9 @@ class TrainerController extends Controller
      */
     public function show(int $id, int $city_id)
     {
+        if ($id === 0) {
+            return response('test', 200);
+        }
         $arr = $this->trainerBuilder->getReviewsPaginate($id);
         return view('trainers.show', [
             'trainer' => $arr['trainer'],
@@ -38,6 +41,9 @@ class TrainerController extends Controller
     }
     public function review(int $review_id, int $client_id, int $trainer_id, int $city_id)
     {
+        if ($review_id === 0) {
+            return response('test', 200);
+        }
         $arr = $this->trainerBuilder->getReview($trainer_id, $client_id);
         return view('trainers.review', [
             'trainer' => $arr['trainer'],

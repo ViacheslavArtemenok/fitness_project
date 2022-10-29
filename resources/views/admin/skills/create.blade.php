@@ -8,11 +8,11 @@
 
         <form method="post" action="{{ route('admin.skills.store') }}">
             @csrf
-            @if(isset($users))
+            @if (isset($users))
                 <div class="form-group">
                     <label for="userId">Пользователь : роль</label>
                     <select class="form-control" name="user_id" id="userId">
-                        @foreach($users as $user)
+                        @foreach ($users as $user)
                             <option value="{{ $user->id }}">{{ $user->name }} : {{ $user->role }}</option>
                         @endforeach
                     </select>
@@ -28,19 +28,20 @@
             </div>
             <div class="form-group">
                 <label for="experience">Опыт</label>
-                <input type="text" class="form-control" name="experience" id="experience" value="{{ old('experience') }}">
+                <input type="number" class="form-control" name="experience" id="experience"
+                    value="{{ old('experience') }}">
             </div>
             <div class="form-group">
                 <label for="achievements">Достижения</label>
-                <input type="text" class="form-control" name="achievements" id="achievements" value="{{ old('achievements') }}">
+                <textarea class="form-control" name="achievements" id="achievements">{{ old('achievements') }}</textarea>
             </div>
             <div class="form-group">
                 <label for="skillList">Список навыков</label>
-                <input type="text" class="form-control" name="skills_list" id="skillList" value="{{ old('skills_list') }}">
+                <textarea class="form-control" name="skills_list" id="skillList">{{ old('skills_list') }}</textarea>
             </div>
             <div class="form-group">
                 <label for="desciption">Описание</label>
-                <input type="text" class="form-control" name="description" id="description" value="{{ old('description') }}">
+                <textarea class="form-control" name="description" id="description">{{ old('description') }}</textarea>
             </div>
             <br>
             <button class="btn btn-success" type="submit">Сохранить</button>

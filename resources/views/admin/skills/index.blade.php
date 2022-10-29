@@ -9,47 +9,64 @@
         @include('inc.message')
         <table class="table table-striped table-sm">
             <thead>
-            <tr>
-                <th scope="col">#</th>
-                <th scope="col">Фамилия</th>
-                <th scope="col">Имя</th>
-                <th scope="col">Отчество</th>
-                <th scope="col">Расположение</th>
-                <th scope="col">Образование</th>
-                <th scope="col">Опыт</th>
-                <th scope="col">Достижения</th>
-                <th scope="col">Список навыков</th>
-                <th scope="col">Описание</th>
-                <th scope="col">Управление</th>
-            </tr>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Фамилия</th>
+                    <th scope="col">Имя</th>
+                    <th scope="col">Отчество</th>
+                    <th scope="col">Расположение</th>
+                    <th scope="col">Образование</th>
+                    <th scope="col">Опыт</th>
+                    <th scope="col">Достижения</th>
+                    <th scope="col">Список навыков</th>
+                    <th scope="col">Описание</th>
+                    <th scope="col">Управление</th>
+                </tr>
             </thead>
             <tbody>
-            @forelse($skills as $skill)
-                <tr id="row-{{ $skill->id }}">
-                    <td>{{ $skill->id }}</td>
-                    <td>{{ $skill->profile->last_name }}</td>
-                    <td>{{ $skill->profile->first_name }}</td>
-                    <td>{{ $skill->profile->father_name }}</td>
-                    <td>{{ $skill->location }}</td>
-                    <td>{{ $skill->education }}</td>
-                    <td>{{ $skill->experience }}</td>
-                    <td>{{ $skill->achievements }}</td>
-                    <td>{{ $skill->skills_list }}</td>
-                    <td>{{ $skill->description }}</td>
+                @forelse($skills as $skill)
+                    <tr id="row-{{ $skill->id }}">
+                        <td>{{ $skill->id }}</td>
+                        <td>
+                            @if ($skill->profile)
+                                {{ $skill->profile->last_name }}
+                            @else
+                                Нет
+                            @endif
+                        </td>
+                        <td>
+                            @if ($skill->profile)
+                                {{ $skill->profile->first_name }}
+                            @else
+                                Нет
+                            @endif
+                        </td>
+                        <td>
+                            @if ($skill->profile)
+                                {{ $skill->profile->father_name }}
+                            @else
+                                Нет
+                            @endif
+                        </td>
+                        <td>{{ $skill->location }}</td>
+                        <td>{{ $skill->education }}</td>
+                        <td>{{ $skill->experience }}</td>
+                        <td>{{ $skill->achievements }}</td>
+                        <td>{{ $skill->skills_list }}</td>
+                        <td>{{ $skill->description }}</td>
 
-                    <td>
-                        <div style="">
-                            <a href="{{ route('admin.skills.edit', ['skill' => $skill]) }}">Ред.</a>&nbsp;
-                            <a href="javascript:;" class="delete" rel="{{ $skill->id }}"
-                               style="color: red;">Уд.</a>
-                        </div>
-                    </td>
-                </tr>
-            @empty
-                <tr>
-                    <td colspan="11">Записей не найдено</td>
-                </tr>
-            @endforelse
+                        <td>
+                            <div style="">
+                                <a href="{{ route('admin.skills.edit', ['skill' => $skill]) }}">Ред.</a>&nbsp;
+                                <a href="javascript:;" class="delete" rel="{{ $skill->id }}" style="color: red;">Уд.</a>
+                            </div>
+                        </td>
+                    </tr>
+                @empty
+                    <tr>
+                        <td colspan="11">Записей не найдено</td>
+                    </tr>
+                @endforelse
             </tbody>
         </table>
         {{ $skills->links() }}
@@ -58,10 +75,10 @@
 
 @push('js')
     <script type="text/javascript">
-        document.addEventListener("DOMContentLoaded", function () {
+        document.addEventListener("DOMContentLoaded", function() {
             let elements = document.querySelectorAll(".delete");
-            elements.forEach(function (e, k) {
-                e.addEventListener("click", function () {
+            elements.forEach(function(e, k) {
+                e.addEventListener("click", function() {
                     const id = e.getAttribute('rel');
                     send(`/admin/skills/${id}`).then((result) => {
                         const answer = JSON.parse(JSON.stringify(result));
@@ -106,6 +123,7 @@
             let result = await response.json();
             return result;
         }
+
         function getHtml(message, type = 'success') {
             let alertContent;
             alertContent = `<div class="alert alert-${type} alert-dismissible fade show">
@@ -114,6 +132,7 @@
                                 </div>`;
             return alertContent;
         }
+
         function renderBlock(container, message, type = 'success', target = 'afterbegin') {
             container.insertAdjacentHTML(target, getHtml(message, type));
             return true;
