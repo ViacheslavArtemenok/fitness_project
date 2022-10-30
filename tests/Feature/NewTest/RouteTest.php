@@ -7,12 +7,9 @@ use App\Models\Skill;
 use App\Models\Tag;
 use App\Models\User;
 use Faker\Factory;
-use Illuminate\Http\UploadedFile;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Storage;
 use Tests\TestCase;
 
-class test extends TestCase
+class RouteTest extends TestCase
 {
 
 
@@ -27,13 +24,13 @@ class test extends TestCase
         $response = $this->get('/');
         $response->assertOk();
     }
-    public function test_acount_index_controller()
+    public function test_account_index_controller()
     {
         $user = User::factory()->create();
         $response = $this->actingAs($user)->get(route('account'));
         $response->assertOk();
     }
-    public function test_acount_profile_controller_index()
+    public function test_account_profile_controller_index()
     {
         $user = User::factory()->create();
         $_GET = ['profile' => 14];
@@ -41,7 +38,7 @@ class test extends TestCase
         $response->assertOk();
     }
 
-    public function test_acount_profile_controller_create()
+    public function test_account_profile_controller_create()
     {
         $user = User::factory()->create();
         $_GET = ['profile' => 14];
@@ -49,21 +46,21 @@ class test extends TestCase
         $response->assertOk();
     }
 
-    public function test_acount_profile_controller_edit()
+    public function test_account_profile_controller_edit()
     {
         $user = User::factory()->create();
         $_GET = ['profile' => 14];
         $response = $this->actingAs($user)->get(route('account.profiles.create', $_GET));
         $response->assertOk();
     }
-    public function test_acount_users_controller_index()
+    public function test_account_users_controller_index()
     {
         $user = User::factory()->create();
         $response = $this->actingAs($user)->get(route('account.users.index'));
         $response->assertOk();
     }
 
-    public function test_acount_users_controller_create()
+    public function test_account_users_controller_create()
     {
         $user = User::factory()->create();
         $user->role = 'IS_ADMIN';
@@ -71,7 +68,7 @@ class test extends TestCase
         $response = $this->actingAs($user)->get(route('account.users.create', $_GET));
         $response->assertOk();
     }
-    public function test_acount_users_controller_show()
+    public function test_account_users_controller_show()
     {
         $user = User::factory()->create();
         $_GET = ['user' => 14];
@@ -79,7 +76,7 @@ class test extends TestCase
         $response = $this->actingAs($user)->get(route('account.users.show', $_GET));
         $response->assertOk();
     }
-    public function test_acount_users_controller_edit()
+    public function test_account_users_controller_edit()
     {
         $user = User::factory()->create();
         $_GET = ['user' => 14];
@@ -369,7 +366,7 @@ class test extends TestCase
     //     $response = $this->actingAs($user)->post(route('account.users.store',$req));
     //     $response->assertRedirect(route('account.profiles.index'));
     // }
-    // public function test_acount_profile_controller_store(){
+    // public function test_account_profile_controller_store(){
     //     $user = User::factory()->create();
     //     $_GET = ['user_id' => 14];
     //     $img = UploadedFile::fake()->create('222222.jpg');
