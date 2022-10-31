@@ -69,6 +69,11 @@ class User extends Authenticatable
         return $this->hasOne(Skill::class);
     }
 
+    public function characteristic(): HasOne
+    {
+        return $this->hasOne(Characteristic::class);
+    }
+
     public function tags(): BelongsToMany
     {
         return $this->belongsToMany(Tag::class, 'relations')->withTimestamps();

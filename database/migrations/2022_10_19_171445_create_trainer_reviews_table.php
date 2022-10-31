@@ -19,8 +19,8 @@ return new class extends Migration
             $table->unsignedBigInteger('client_id');
             $table->unsignedBigInteger('trainer_id');
 
-            $table->foreign('client_id')->references('id')->on('users');
-            $table->foreign('trainer_id')->references('id')->on('users');
+            $table->foreign('client_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('trainer_id')->references('id')->on('users')->onDelete('cascade');
 
             $table->string('title', 250);
             $table->text('description');
