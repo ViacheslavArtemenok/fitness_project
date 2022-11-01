@@ -20,8 +20,9 @@ class IndexController extends Controller
     {
         $id = Auth::user()->id;
         $user = User::query()
-            ->with('profile', 'skill', 'tags')
+            ->with('profile', 'skill', 'tags', 'characteristic')
             ->findOrFail($id);
+//        dd($user);
         return view('account.index', ['user' => $user]);
     }
 }

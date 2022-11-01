@@ -146,39 +146,65 @@
                     </a>
                 </li>
             @endif
+            @if (Auth::user()->role === 'IS_TRAINER')
+                @if (isset(Auth::user()->skill->experience))
+                    <li>
+                        <a href="{{ route('account.skills.edit', ['skill' => Auth::user()->id]) }}"
+                            class="btn btn-toggle link-dark d-inline-flex align-items-center rounded border-0 collapsed text-white fw-normal">
+                            <svg class="bi pe-none me-2" width="16" height="16">
+                                <use xlink:href="#collection" />
+                            </svg>
+                            Редактировать навыки
+                        </a>
+                    </li>
+                @else
+                    <li>
+                        <a href="{{ route('account.skills.create') }}"
+                            class="btn btn-toggle link-dark d-inline-flex align-items-center rounded border-0 collapsed text-white fw-normal">
+                            <svg class="bi pe-none me-2" width="16" height="16">
+                                <use xlink:href="#gear-fill" />
+                            </svg>
+                            Заполнить Навыки
+                        </a>
+                    </li>
+                @endif
 
-            @if (isset(Auth::user()->skill->experience))
-                <li>
-                    <a href="{{ route('account.skills.edit', ['skill' => Auth::user()->id]) }}"
-                        class="btn btn-toggle link-dark d-inline-flex align-items-center rounded border-0 collapsed text-white fw-normal">
-                        <svg class="bi pe-none me-2" width="16" height="16">
-                            <use xlink:href="#collection" />
-                        </svg>
-                        Редактировать навыки
-                    </a>
-                </li>
-            @else
-                <li>
-                    <a href="{{ route('account.skills.create') }}"
-                        class="btn btn-toggle link-dark d-inline-flex align-items-center rounded border-0 collapsed text-white fw-normal">
-                        <svg class="bi pe-none me-2" width="16" height="16">
-                            <use xlink:href="#gear-fill" />
-                        </svg>
-                        Заполнить Навыки
-                    </a>
-                </li>
+
+                    <li>
+                        <a href="{{ route('account.tags.edit', ['tag' => Auth::user()->id]) }}"
+                            class="btn btn-toggle link-dark d-inline-flex align-items-center rounded border-0 collapsed text-white fw-normal">
+                            <svg class="bi pe-none me-2" width="16" height="16">
+                                <use xlink:href="#toggles2" />
+                            </svg>
+                            Редактировать тэги
+                        </a>
+                    </li>
             @endif
 
+            @if (Auth::user()->role === 'IS_CLIENT')
+                @if (isset(Auth::user()->skill->experience))
+                    <li>
+                        <a href="{{ route('account.characteristics.edit', ['characteristic' => Auth::user()->id]) }}"
+                           class="btn btn-toggle link-dark d-inline-flex align-items-center rounded border-0 collapsed text-white fw-normal">
+                            <svg class="bi pe-none me-2" width="16" height="16">
+                                <use xlink:href="#collection" />
+                            </svg>
+                            Редактировать характеристики
+                        </a>
+                    </li>
+                @else
+                    <li>
+                        <a href="{{ route('account.characteristics.create') }}"
+                           class="btn btn-toggle link-dark d-inline-flex align-items-center rounded border-0 collapsed text-white fw-normal">
+                            <svg class="bi pe-none me-2" width="16" height="16">
+                                <use xlink:href="#gear-fill" />
+                            </svg>
+                            Заполнить характеристики
+                        </a>
+                    </li>
+                @endif
+            @endif
 
-            <li>
-                <a href="{{ route('account.tags.edit', ['tag' => Auth::user()->id]) }}"
-                    class="btn btn-toggle link-dark d-inline-flex align-items-center rounded border-0 collapsed text-white fw-normal">
-                    <svg class="bi pe-none me-2" width="16" height="16">
-                        <use xlink:href="#toggles2" />
-                    </svg>
-                    Редактировать тэги
-                </a>
-            </li>
         @else
             <li>
                 <a href="{{ route('info') }}"
