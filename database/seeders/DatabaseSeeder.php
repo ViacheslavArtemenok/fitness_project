@@ -28,11 +28,12 @@ class DatabaseSeeder extends Seeder
             TagSeeder::class,
             RelationSeeder::class,
             SubscriptionSeeder::class,
-            GymsSeeder::class,
-            GymsAddressesSeedr::class,
-            GymImagesSeedr::class,
+            GymSeeder::class,
+            GymAddressesSeeder::class,
+            GymImagesSeeder::class,
             GymReviewsSeeder::class,
-            TrainerReviewsSeeder::class
+            TrainerReviewsSeeder::class,
+            CharacteristicSeeder::class,
         ]);
     }
 }

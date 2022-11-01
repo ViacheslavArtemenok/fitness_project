@@ -96,7 +96,7 @@
             <br>
             @if (Auth::user()->role === 'IS_ADMIN')
                 <div class="d-flex justify-content-center">
-                    <a class="btn btn-primary" href="{{ route('admin.index') }}">Администрировать</a>
+                    <a class="btn btn-outline-primary" href="{{ route('admin.index') }}">Администрировать</a>
                 </div>
             @endif
         </div>

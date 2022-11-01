@@ -13,15 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('gym_images', function (Blueprint $table) {
-            $table->id();
-            $table->unsignedBigInteger('gym_id');
-            $table->string('image', 255)->nullable();
-
-
-            $table->foreign('gym_id')->references('id')->on('gyms')->onDelete('cascade');
-            $table->timestamps();
-            $table->softDeletes();
+        Schema::table('characteristics', function (Blueprint $table) {
+            $table->foreignId('user_id')
+                ->after('id')
+                ->constrained('users')
+                ->onDelete('cascade');
         });
     }
 
@@ -32,6 +28,8 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('gym_images');
+        Schema::table('characteristics', function (Blueprint $table) {
+            $table->dropConstrainedForeignId('user_id');
+        });
     }
 };
