@@ -14,7 +14,7 @@ class GymReview extends Model
 
     protected $dates = ['deleted_at'];
 
-    protected $table = ['trainer_reviews'];
+    protected $table = 'gym_reviews';
 
     public const DRAFT = 'DRAFT';
     public const ACTIVE = 'ACTIVE';
