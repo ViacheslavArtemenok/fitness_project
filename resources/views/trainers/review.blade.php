@@ -14,7 +14,7 @@
                 <li class="breadcrumb-item"><a class="text-white-50 link-success"
                         href="{{ route('trainers.show', ['id' => $trainer_id, 'city_id' => $city_id]) }}">{{ $trainer->profile->first_name }}
                         {{ $trainer->profile->last_name }}</a></li>
-                <li class="breadcrumb-item text-white-50" aria-current="page">Отзывы</li>
+                <li class="breadcrumb-item text-white-50" aria-current="page">Отзыв</li>
             </ol>
         </nav>
     </div>
@@ -63,6 +63,12 @@
                         href="{{ route('trainers.show', ['id' => $trainer_id, 'city_id' => $city_id]) }}">&#9668 &#9668
                         &#9668 Назад
                     </a>
+                    @if (Auth::user() && Auth::user()->role === 'IS_CLIENT')
+                        <a class="btn btn-outline-success mt-3 mb-2 me-2"
+                            href="{{ route('trainerReviews.show', ['trainerReview' => $trainer->id]) }}">Отзыв &#9650;
+                            &#9650;
+                            &#9650;</a>
+                    @endif
                 </div>
                 <div class="col-md-5">
                     <img class="market_image" src="{{ Storage::disk('public')->url($trainer->profile->image) }}"
