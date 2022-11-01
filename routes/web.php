@@ -16,6 +16,7 @@ use App\Http\Controllers\Admin\RelationController as AdminRelationController;
 
 use App\Http\Controllers\InfoController;
 use App\Http\Controllers\SubscriptionController;
+use App\Http\Controllers\TrainerReviewController;
 
 /*
 |--------------------------------------------------------------------------
@@ -60,6 +61,7 @@ Route::get('/review/{review_id}/{client_id}/{trainer_id}/{city_id}', [TrainerCon
     ->where('city_id', '\d+')
     ->name('trainers.review');
 Route::resource('subscriptions', SubscriptionController::class);
+Route::resource('trainerReviews', TrainerReviewController::class);
 
 //Admin routes
 Route::middleware('auth')->group(function () {
