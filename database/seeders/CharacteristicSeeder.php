@@ -2,6 +2,8 @@
 
 namespace Database\Seeders;
 
+use App\Models\Characteristic;
+
 use Faker\Factory;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -26,7 +28,7 @@ class CharacteristicSeeder extends Seeder
     private function getData(): array
     {
         $characteristics = [];
-        $healthGroups = ['A', 'B', 'C'];
+        $healthGroups = [Characteristic::HEALTH_A, Characteristic::HEALTH_B, Characteristic::HEALTH_C];
         $faker = Factory::create('ru_RU');
         $faker->addProvider(new \Faker\Provider\ru_RU\Person($faker));
 
