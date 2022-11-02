@@ -68,8 +68,8 @@ Route::get('/review/{review_id}/{client_id}/{trainer_id}/{city_id}', [TrainerCon
 Route::resource('subscriptions', SubscriptionController::class);
 Route::resource('trainerReviews', TrainerReviewController::class);
 
-//Admin routes
 Route::middleware('auth')->group(function () {
+//Admin routes
     Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'is_admin'], function () {
         Route::get('/', AdminIndexController::class)
             ->name('index');
@@ -80,12 +80,13 @@ Route::middleware('auth')->group(function () {
         Route::resource('relations', AdminRelationController::class)->parameters(['relations' => 'trainer']);
         Route::resource('characteristics', AdminCharacteristicController::class);
     });
-});
 
 //Client routes
-    Route::group(['prefix' => 'client', 'as' => 'client.'], function () {
+    Route::group(['prefix' => 'client', 'as' => 'client.', 'middleware' => 'is_client'], function () {
         Route::get('/', ClientIndexController::class)
             ->name('index');
 
         Route::resource('characteristics', ClientCharacteristicController::class);
     });
+});
+
