@@ -8,6 +8,7 @@ use App\Queries\TrainerQueryBuilder;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class TrainerReviewController extends Controller
 {
@@ -42,13 +43,9 @@ class TrainerReviewController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(CreateRequest $request): RedirectResponse
+    public function store(CreateRequest $request)
     {
-        if ($this->trainerBuilder->create($this->model, $request->validated())) {
-            return redirect()->route('trainers.show', ['id' => $request->validated(['trainer_id']), 'city_id' => 0])
-                ->with('success', __('messages.reviews.create.success'));
-        }
-        return back('error', __('messages.reviews.create.fail'));
+        //
     }
 
     /**
@@ -57,12 +54,9 @@ class TrainerReviewController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(int $trainer_id): View
+    public function show(int $id)
     {
-        return view('trainerReviews.show', [
-            'trainer' => $this->trainerBuilder->getById($trainer_id),
-            'trainerBuilder' => $this->trainerBuilder,
-        ]);
+        //
     }
 
     /**
@@ -71,9 +65,22 @@ class TrainerReviewController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(int $trainer_id): View|RedirectResponse
     {
-        //
+        if (Auth::user()) {
+            if (Auth::user()->role === 'IS_CLIENT' && Auth::user()->status === 'ACTIVE') {
+                return view('trainerReviews.edit', [
+                    'trainer' => $this->trainerBuilder->getById($trainer_id),
+                    'trainerBuilder' => $this->trainerBuilder,
+                ]);
+            } else {
+                return redirect()->route('account')
+                    ->with('info', __('messages.reviews.create.attention'));
+            }
+        } else {
+            return redirect()->route('login')
+                ->with('info', __('messages.reviews.create.login'));
+        }
     }
 
     /**
@@ -83,9 +90,23 @@ class TrainerReviewController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(CreateRequest $request, int $trainer_id): RedirectResponse
     {
-        //
+        $request = $request->validated();
+        if ($request['client_id'] !== '0' || $request['trainer_id'] !== '0' || $request['status'] !== 'BLOCKED') {
+            $this->trainerBuilder->update(Auth::user(), ['status' => 'BLOCKED']);
+            return redirect()->route('account')
+                ->with('error', __('messages.reviews.create.danger'));
+        }
+        $request['client_id'] = Auth::user()->id;
+        $request['trainer_id'] = $trainer_id;
+        $request['status'] = 'DRAFT';
+        if ($this->trainerBuilder->create($this->model, $request)) {
+            return redirect()->route('trainers.show', ['id' => $request['trainer_id'], 'city_id' => 0])
+                ->with('success', __('messages.reviews.create.success'));
+        }
+        return redirect()->route('trainers.show', ['id' => $request['trainer_id'], 'city_id' => 0])
+            ->with('error', __('messages.reviews.create.fail'));
     }
 
     /**
