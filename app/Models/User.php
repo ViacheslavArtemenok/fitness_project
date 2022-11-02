@@ -22,6 +22,7 @@ class User extends Authenticatable
     public const IS_CLIENT = 'IS_CLIENT';
     public const IS_TRAINER = 'IS_TRAINER';
     public const IS_GYM = 'IS_GYM';
+
     public const DRAFT = 'DRAFT';
     public const ACTIVE = 'ACTIVE';
     public const BLOCKED = 'BLOCKED';
