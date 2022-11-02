@@ -61,9 +61,9 @@
                         href="{{ route('trainers.index', ['tag_id' => 0, 'city_id' => $city_id]) }}">&#9668 &#9668
                         &#9668 Назад
                     </a>
-                    @if (Auth::user() && Auth::user()->role === 'IS_CLIENT')
+                    @if (!Auth::user() || Auth::user()->role === 'IS_CLIENT')
                         <a class="btn btn-outline-success mt-3 mb-2 me-2"
-                            href="{{ route('trainerReviews.show', ['trainerReview' => $trainer->id]) }}">Отзыв &#9650;
+                            href="{{ route('trainerReviews.edit', ['trainerReview' => $trainer->id]) }}">Отзыв &#9650;
                             &#9650;
                             &#9650;</a>
                     @endif
