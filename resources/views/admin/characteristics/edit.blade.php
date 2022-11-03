@@ -14,6 +14,18 @@
                 <input readonly type="text" class="form-control" name="user_id" id="user_id" value="{{ $characteristic->user_id }}">
             </div>
             <div class="form-group">
+                <label for="last_name">Фамилия</label>
+                <input readonly type="text" class="form-control" name="last_name" id="last_name" value="{{ $characteristic->profile->last_name }}">
+            </div>
+            <div class="form-group">
+                <label for="first_name">Имя</label>
+                <input readonly type="text" class="form-control" name="first_name" id="first_name" value="{{ $characteristic->profile->first_name }}">
+            </div>
+            <div class="form-group">
+                <label for="father_name">Отчество</label>
+                <input readonly type="text" class="form-control" name="father_name" id="father_name" value="{{ $characteristic->profile->father_name }}">
+            </div>
+            <div class="form-group">
                 <label for="location">Город</label>
                 <input type="text" class="form-control" name="location" id="location" value="{{ $characteristic->location }}">
             </div>

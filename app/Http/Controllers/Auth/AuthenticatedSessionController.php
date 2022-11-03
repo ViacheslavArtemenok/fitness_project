@@ -28,11 +28,32 @@ class AuthenticatedSessionController extends Controller
      */
     public function store(LoginRequest $request)
     {
+        $redirectTo = '';
+
         $request->authenticate();
 
         $request->session()->regenerate();
 
-        return redirect()->intended(RouteServiceProvider::ACCOUNT);
+        switch (Auth::user()->role) {
+            case 'IS_ADMIN':
+                $redirectTo = RouteServiceProvider::ADMIN;
+                break;
+            case 'IS_CLIENT':
+                $redirectTo = RouteServiceProvider::CLIENT;
+                break;
+            case 'IS_GYM':
+                $redirectTo = RouteServiceProvider::GYM;
+                break;
+            case 'IS_TRAINER':
+                $redirectTo = RouteServiceProvider::ACCOUNT;
+                break;
+            default:
+                dd(Auth::user());
+                break;
+        }
+
+        //return redirect()->intended(RouteServiceProvider::ACCOUNT);
+        return redirect()->intended($redirectTo);
     }
 
     /**
