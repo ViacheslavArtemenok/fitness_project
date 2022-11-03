@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Tests\TestCase;
 
-class test extends TestCase
+class RoutTest extends TestCase
 {
 
 
@@ -312,8 +312,8 @@ class test extends TestCase
     public function test_trainers_controller_index()
     {
         $_GET = [
-            'tag_id' => 0,
-            'city_id' => 0,
+            'tag_id' => 4,
+            'city_id' => 4,
         ];
         $response = $this->get(route('trainers.index', $_GET));
         $response->assertOk();
@@ -454,13 +454,6 @@ class test extends TestCase
     //         $response = $this->actingAs($user)->post(route('admin.users.store',$req , $_GET));
     //         $response->assertRedirect(route('admin.users.store'));
     //     }
-    // public function test_account_profiles_controller_destroy(){
-    //         $user = User::factory()->create();
-    //         $profile = Profile::latest()->take(1)->get();
-    //         $_GET = ['profile' => $profile];
-    //         $profile->deleted_at = now('Europe/Moscow');
-    //         $response = $this->actingAs($user)->delete(route('account.profiles.destroy',$profile, $_GET));
-    //         $response->assertOk();
-    //     }
+
 
 }
