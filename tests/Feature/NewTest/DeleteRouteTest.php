@@ -18,7 +18,7 @@ class DeleteRouteTest extends TestCase
      *
      * @return void
      */
-    public function test_account_profiles_controller_destroy(){
+    public function test_admin_profiles_controller_destroy(){
         $user = User::factory()->create();
         $user->role = 'IS_ADMIN';
         $deliteObjects = Profile::latest()->take(1)->get();
@@ -30,7 +30,7 @@ class DeleteRouteTest extends TestCase
         $response->assertOk();
     }
 
-    public function test_account_relations_controller_destroy(){
+    public function test_admin_relations_controller_destroy(){
         $user = User::factory()->create();
         $user->role = 'IS_ADMIN';
         $deliteObjects = Relation::latest()->take(1)->get();
@@ -42,7 +42,7 @@ class DeleteRouteTest extends TestCase
         $response->assertOk();
     }
 
-    public function test_account_skill_controller_destroy(){
+    public function test_admin_skill_controller_destroy(){
         $user = User::factory()->create();
         $user->role = 'IS_ADMIN';
         $deliteObjects = Skill::latest()->take(1)->get();
@@ -53,7 +53,7 @@ class DeleteRouteTest extends TestCase
         $response = $this->actingAs($user)->delete(route('admin.skills.destroy',$_GET,$deliteObject));
         $response->assertOk();
     }
-    public function test_account_tag_controller_destroy(){
+    public function test_admin_tag_controller_destroy(){
         $user = User::factory()->create();
         $user->role = 'IS_ADMIN';
         $deliteObjects = Tag::latest()->take(1)->get();
@@ -64,4 +64,17 @@ class DeleteRouteTest extends TestCase
         $response = $this->actingAs($user)->delete(route('admin.tags.destroy',$_GET,$deliteObject));
         $response->assertOk();
     }
+
+    public function test_admin_user_controller_destroy(){
+        $user = User::factory()->create();
+        $user->role = 'IS_ADMIN';
+        $deliteObjects = User::latest()->take(1)->get();
+        foreach ($deliteObjects as $deliteObject) {
+            $_GET = ['user' => $deliteObject->id];
+                    }
+        $deliteObject->deleted_at = now('Europe/Moscow');
+        $response = $this->actingAs($user)->delete(route('admin.users.destroy',$_GET,$deliteObject));
+        $response->assertOk();
+    }
 }
+
