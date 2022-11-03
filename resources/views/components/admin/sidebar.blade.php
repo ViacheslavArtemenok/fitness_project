@@ -3,7 +3,6 @@
         <ul class="nav flex-column">
             <li class="nav-item nav-link">
                 <h4>Здравствуйте, {{ Auth::user()->name }}!</h4>
-                <h5>Ваша роль : {{ Auth::user()->role }}</h5>
             </li>
             <li class="nav-item">
                 <a class="nav-link @if(request()->routeIs('account')) active @endif" aria-current="page"

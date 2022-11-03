@@ -12,9 +12,6 @@
             <tr>
                 <th scope="col">#</th>
                 <th scope="col">user_id</th>
-                <th scope="col">Фамилия</th>
-                <th scope="col">Имя</th>
-                <th scope="col">Отчество</th>
                 <th scope="col">Город</th>
                 <th scope="col">Рост</th>
                 <th scope="col">Вес</th>
@@ -30,9 +27,6 @@
                 <tr id="row-{{ $characteristic->id }}">
                     <td>{{ $characteristic->id }}</td>
                     <td>{{ $characteristic->user_id }}</td>
-                    <td>{{ $characteristic->profile->last_name }}</td>
-                    <td>{{ $characteristic->profile->first_name }}</td>
-                    <td>{{ $characteristic->profile->father_name }}</td>
                     <td>{{ $characteristic->location }}</td>
                     <td>{{ $characteristic->height }}</td>
                     <td>{{ $characteristic->weight }}</td>
@@ -50,7 +44,7 @@
                 </tr>
             @empty
                 <tr>
-                    <td colspan="13">Записей не найдено</td>
+                    <td colspan="10">Записей не найдено</td>
                 </tr>
             @endforelse
             </tbody>
