@@ -231,3 +231,9 @@ margin: 0px 6px 36px;
     height: 300px;
   }
 }
+.review_image{
+  max-width: 205px;
+}
+.review_number{
+  max-width: 80px;
+}

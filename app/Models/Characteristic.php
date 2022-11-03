@@ -15,13 +15,22 @@ class Characteristic extends Model
 
     protected $dates = ['deleted_at'];
 
-    /**
-     * The attributes that are mass assignable.
+    // define health here
+    /*
      * Группы здоровья для ENUM['health']:
      * А – Возможны занятия физической культурой без ограничений и участие в соревнованиях.
      * B – Возможны занятия физической культурой с незначительными ограничениями физических нагрузок без участия в соревнованиях.
      * C - Возможны занятия физической культурой со значительными ограничениями физических нагрузок.
      * D – Возможны занятия только лечебной физкультурой.
+    */
+
+    public const HEALTH_A = 'A';
+    public const HEALTH_B = 'B';
+    public const HEALTH_C = 'C';
+    public const HEALTH_D = 'D';
+
+    /**
+     * The attributes that are mass assignable.
      * @var array<int, string>
      */
     protected $fillable = [

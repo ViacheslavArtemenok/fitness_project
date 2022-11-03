@@ -14,9 +14,14 @@ use App\Http\Controllers\Admin\SkillController as AdminSkillController;
 use App\Http\Controllers\Admin\UserController as AdminUserController;
 use App\Http\Controllers\Admin\TagController as AdminTagController;
 use App\Http\Controllers\Admin\RelationController as AdminRelationController;
+use App\Http\Controllers\Admin\CharacteristicController as AdminCharacteristicController;
+
+use App\Http\Controllers\Client\IndexController as ClientIndexController;
+use App\Http\Controllers\Client\CharacteristicController as ClientCharacteristicController;
 
 use App\Http\Controllers\InfoController;
 use App\Http\Controllers\SubscriptionController;
+use App\Http\Controllers\TrainerReviewController;
 
 /*
 |--------------------------------------------------------------------------
@@ -62,6 +67,7 @@ Route::get('/review/{review_id}/{client_id}/{trainer_id}/{city_id}', [TrainerCon
     ->where('city_id', '\d+')
     ->name('trainers.review');
 Route::resource('subscriptions', SubscriptionController::class);
+Route::resource('trainerReviews', TrainerReviewController::class);
 
 //Admin routes
 Route::middleware('auth')->group(function () {
@@ -73,5 +79,14 @@ Route::middleware('auth')->group(function () {
         Route::resource('users', AdminUserController::class);
         Route::resource('tags', AdminTagController::class);
         Route::resource('relations', AdminRelationController::class)->parameters(['relations' => 'trainer']);
+        Route::resource('characteristics', AdminCharacteristicController::class);
     });
 });
+
+//Client routes
+    Route::group(['prefix' => 'client', 'as' => 'client.'], function () {
+        Route::get('/', ClientIndexController::class)
+            ->name('index');
+
+        Route::resource('characteristics', ClientCharacteristicController::class);
+    });

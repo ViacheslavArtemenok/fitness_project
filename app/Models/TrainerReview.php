@@ -17,7 +17,7 @@ class TrainerReview extends Model
 
     protected $dates = ['deleted_at'];
 
-    protected $table = ['trainer_reviews'];
+    protected $table = 'trainer_reviews';
 
     public const DRAFT = 'DRAFT';
     public const ACTIVE = 'ACTIVE';
@@ -29,6 +29,8 @@ class TrainerReview extends Model
      * @var array<int, string>
      */
     protected $fillable = [
+        'client_id',
+        'trainer_id',
         'title',
         'description',
         'score',

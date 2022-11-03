@@ -161,7 +161,7 @@ final class TrainerQueryBuilder
      * либо объект класса Skill
      * т.е. методы 
      */
-    public function create(object $obj, array $data): bool
+    public function create(object $obj, array $data): object
     {
         return $obj->create($data);
     }
