@@ -18,7 +18,7 @@ class RouteServiceProvider extends ServiceProvider
      * @var string
      */
 //    public const HOME = '/dashboard';
-    public const ACCOUNT = '/';
+    public const ACCOUNT = '/account';
     /**
     * The path to the "home" route for your application.
  *

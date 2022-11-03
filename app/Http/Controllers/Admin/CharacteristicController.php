@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Admin;
 
 use App\Models\Characteristic;
 
-use App\Http\Requests\Characteristics\EditRequest;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -19,9 +18,7 @@ class CharacteristicController extends Controller
      */
     public function index()
     {
-        $characteristics = Characteristic::query()
-            ->with('profile')
-            ->paginate(config('pagination.admin.characteristics'));
+        $characteristics = Characteristic::query()->paginate(config('pagination.admin.characteristics'));
 
         return view('admin.characteristics.index', [
             'characteristics' => $characteristics
@@ -77,20 +74,22 @@ class CharacteristicController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  EditRequest  $request
+     * @param  Request  $request
      * @param  Characteristic $characteristic
      * @return RedirectResponse
      */
-    public function update(EditRequest $request, Characteristic $characteristic): RedirectResponse
+    public function update(Request $request, Characteristic $characteristic): RedirectResponse
     {
-        $characteristic = $characteristic->fill($request->validated());
-
-        if($characteristic->save()) {
+//        $user = $user->fill(array_merge($request->validated(),
+//            ['password' => Hash::make($request['password'])]
+//        ));
+//
+//        if($user->save()) {
             return redirect()->route('admin.characteristics.index')
                 ->with('success',  __('messages.admin.characteristics.update.success'));
-       }
-
-        return back()->with('error', __('messages.admin.characteristics.update.fail'));
+//        }
+//
+//        return back()->with('error', __('messages.admin.users.update.fail'));
     }
 
     /**
