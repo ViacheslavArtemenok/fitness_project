@@ -7,6 +7,7 @@ use App\Http\Controllers\Account\UserController as AccountUserController;
 use App\Http\Controllers\Account\ProfileController as AccountProfileController;
 use App\Http\Controllers\Account\SkillController as AccountSkillController;
 use App\Http\Controllers\Account\TagController as AccountTagController;
+use App\Http\Controllers\Account\CharacteristicController as AccountCharacteristicController;
 
 use App\Http\Controllers\Admin\IndexController as AdminIndexController;
 use App\Http\Controllers\Admin\ProfileController as AdminProfileController;
@@ -46,6 +47,7 @@ Route::middleware('auth')->group(function () {
         Route::resource('profiles', AccountProfileController::class);
         Route::resource('skills', AccountSkillController::class);
         Route::resource('tags', AccountTagController::class);
+        Route::resource('characteristics', AccountCharacteristicController::class);
     });
 });
 
@@ -81,11 +83,3 @@ Route::middleware('auth')->group(function () {
         Route::resource('characteristics', AdminCharacteristicController::class);
     });
 });
-
-//Client routes
-    Route::group(['prefix' => 'client', 'as' => 'client.'], function () {
-        Route::get('/', ClientIndexController::class)
-            ->name('index');
-
-        Route::resource('characteristics', ClientCharacteristicController::class);
-    });

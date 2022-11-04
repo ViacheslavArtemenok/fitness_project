@@ -79,26 +79,70 @@
 
             <!--Отзыв-->
             @foreach ($client->trainers as $review)
-                @if ($review->pivot->id === $review_id && $review->pivot->status === 'ACTIVE')
-                    <div class="row featurette mt-4">
-                        <div class="bg-light p-3 ps-4 rounded-1 shadow">
-                            <h3>Тема отзыва</h3>
-                            <h4 class="fw-normal">{{ $review->pivot->title }}</h4>
-                            <h3>Описание</h3>
-                            <h5 class="fw-normal">{{ $review->pivot->description }}</h5>
-                            <p class="fw-bold">{{ $review->pivot->created_at->format('d.m.Y (H:i)') }}</p>
-                            <div class="d-flex shadow mb-2 rounded-1 w-50">
-                                <img class="m-2 w-25 rounded-2 border border-secondary border-2 border-opacity-10"
-                                    src="{{ Storage::disk('public')->url($client->profile->image) }}" alt="img">
-                                <div class="d-flex flex-grow-1 align-self-center justify-content-center">
-                                    <h5 class="fw-semibold">{{ $client->profile->first_name }}
-                                        {{ $client->profile->last_name }},
-                                        {{ $client->profile->age }}
-                                        {{ $trainerBuilder->getUnitCase($client->profile->age) }}</h5>
+                @if ($review->pivot->id === $review_id)
+                    @if ($review->pivot->status === 'ACTIVE')
+                        <div class="row featurette mt-4">
+                            <div class="bg-light p-3 ps-4 rounded-1 shadow">
+                                <h3>Тема отзыва</h3>
+                                <h4 class="fw-normal">{{ $review->pivot->title }}</h4>
+                                <h3>Описание</h3>
+                                <h5 class="fw-normal">{{ $review->pivot->description }}</h5>
+                                <p class="fw-bold">{{ $review->pivot->created_at->format('d.m.Y (H:i)') }}</p>
+                                <div class="d-flex shadow mb-2 rounded-1 w-50">
+                                    <img class="m-2 w-25 rounded-2 border border-secondary border-2 border-opacity-10"
+                                        src="{{ Storage::disk('public')->url($client->profile->image) }}" alt="img">
+                                    <div class="d-flex flex-grow-1 align-self-center justify-content-center">
+                                        <h5 class="fw-semibold">{{ $client->profile->first_name }}
+                                            {{ $client->profile->last_name }},
+                                            {{ $client->profile->age }}
+                                            {{ $trainerBuilder->getUnitCase($client->profile->age) }}</h5>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    @elseif ($review->pivot->status === 'DRAFT')
+                        <div class="row featurette mt-4">
+                            <div class="bg-light p-3 ps-4 rounded-1 shadow border border-primary border-3">
+                                <h3 class="text-primary">Отзыв на модерации</h3>
+                                <h3>Тема отзыва</h3>
+                                <h4 class="fw-normal">{{ $review->pivot->title }}</h4>
+                                <h3>Описание</h3>
+                                <h5 class="fw-normal">{{ $review->pivot->description }}</h5>
+                                <p class="fw-bold">{{ $review->pivot->created_at->format('d.m.Y (H:i)') }}</p>
+                                <div class="d-flex shadow mb-2 rounded-1 w-50">
+                                    <img class="m-2 w-25 rounded-2 border border-secondary border-2 border-opacity-10"
+                                        src="{{ Storage::disk('public')->url($client->profile->image) }}" alt="img">
+                                    <div class="d-flex flex-grow-1 align-self-center justify-content-center">
+                                        <h5 class="fw-semibold">{{ $client->profile->first_name }}
+                                            {{ $client->profile->last_name }},
+                                            {{ $client->profile->age }}
+                                            {{ $trainerBuilder->getUnitCase($client->profile->age) }}</h5>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    @elseif ($review->pivot->status === 'BLOCKED')
+                        <div class="row featurette mt-4">
+                            <div class="bg-light p-3 ps-4 rounded-1 shadow border border-danger border-3">
+                                <h3 class="text-danger">Отзыв заблокирован модераторами сайта</h3>
+                                <h3>Тема отзыва</h3>
+                                <h4 class="fw-normal">{{ $review->pivot->title }}</h4>
+                                <h3>Описание</h3>
+                                <h5 class="fw-normal">{{ $review->pivot->description }}</h5>
+                                <p class="fw-bold">{{ $review->pivot->created_at->format('d.m.Y (H:i)') }}</p>
+                                <div class="d-flex shadow mb-2 rounded-1 w-50">
+                                    <img class="m-2 w-25 rounded-2 border border-secondary border-2 border-opacity-10"
+                                        src="{{ Storage::disk('public')->url($client->profile->image) }}" alt="img">
+                                    <div class="d-flex flex-grow-1 align-self-center justify-content-center">
+                                        <h5 class="fw-semibold">{{ $client->profile->first_name }}
+                                            {{ $client->profile->last_name }},
+                                            {{ $client->profile->age }}
+                                            {{ $trainerBuilder->getUnitCase($client->profile->age) }}</h5>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    @endif
                 @endif
             @endforeach
         @else

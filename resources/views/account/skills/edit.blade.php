@@ -1,12 +1,15 @@
-@extends('layouts.account')
+@extends('layouts.main')
 @section('content')
+    <x-account.trainer.menu></x-account.trainer.menu>
     <div class="offset-2 col-8">
+        <hr class="featurette-divider">
         <h2>Редактирование навыков</h2>
-        <p class="text-primary">Навыки и достижения заполняются сплошным текстом, после каждого навыка или достижения
+        <h6 class="text-primary fw-normal mb-4">* Навыки и достижения заполняются сплошным текстом, после каждого навыка или
+            достижения
             обязательно ставим точку.
             На сайте
-            текст с навыками и текст с достижениями будет разбит на список в виде отдельных пунктов.</p>
-        @include('inc.message')
+            текст с навыками и текст с достижениями будет разбит на список в виде отдельных пунктов.</h6>
+
         @if ($skill === null)
             {
 
@@ -67,7 +70,8 @@
                 @enderror
             </div>
             <br>
-            <button class="btn btn-outline-success skill_bottom" type="submit">Сохранить</button>
+            <button class="btn btn-outline-success mb-4" type="submit">Сохранить</button>
         </form>
     </div>
+    <hr class="featurette-divider">
 @endsection

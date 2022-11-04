@@ -29,16 +29,6 @@ class ProfileSeeder extends Seeder
         $faker = Factory::create('ru_RU');
         $faker->addProvider(new \Faker\Provider\ru_RU\Person($faker));
 
-        $profiles[] = [
-            'user_id' => 1,
-            'first_name' => 'Admin',
-            'last_name' => 'Admins',
-            'father_name' => 'Admin',
-            'age' => 99,
-            'gender' => 'male',
-            'image' => 'image/StoKaGTG8BDdMPxIXh8Lu8qUiufXTaKKmw9uqQaW.jpg',
-            'created_at' => now('Europe/Moscow'),
-        ];
         for ($i = 1; $i < 100; $i++) {
             if ($i > 2 && $i % 3 === 0) {
                 $profiles[] = [
