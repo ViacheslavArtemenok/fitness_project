@@ -34,6 +34,7 @@ class UserSeeder extends Seeder
         $faker->addProvider(new \Faker\Provider\ru_RU\Person($faker));
 
         $users[] = [
+            'role_id'     => 1,
             'name'        => 'admin',
             'email'       => 'admin@mail.ru',
             'phone'       => '+7 (999) 999-99-99',
@@ -47,6 +48,7 @@ class UserSeeder extends Seeder
         for ($i = 1; $i < 100; $i++) {
 
             $users[] = [
+                'role_id'     => 2,
                 'name'        => $faker->userName(),
                 'email'       => $faker->email(),
                 'phone'       => '+7 ' . '(9' . rand(10, 99) . ') ' . rand(100, 999) . '-' . rand(10, 99) . '-' . rand(10, 99),
@@ -60,6 +62,7 @@ class UserSeeder extends Seeder
         for ($i = 0; $i < 30; $i++) {
 
             $users[] = [
+                'role_id'     => 3,
                 'name'        => $faker->userName(),
                 'email'       => $faker->email(),
                 'phone'       => '+7 ' . '(9' . rand(10, 99) . ') ' . rand(100, 999) . '-' . rand(10, 99) . '-' . rand(10, 99),
@@ -73,6 +76,7 @@ class UserSeeder extends Seeder
         for ($i = 0; $i < 20; $i++) {
 
             $users[] = [
+                'role_id'     => 4,
                 'name'        => $faker->userName(),
                 'email'       => $faker->email(),
                 'phone'       => '+7 ' . '(9' . rand(10, 99) . ') ' . rand(100, 999) . '-' . rand(10, 99) . '-' . rand(10, 99),

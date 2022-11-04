@@ -15,9 +15,8 @@ use App\Http\Controllers\Admin\UserController as AdminUserController;
 use App\Http\Controllers\Admin\TagController as AdminTagController;
 use App\Http\Controllers\Admin\RelationController as AdminRelationController;
 use App\Http\Controllers\Admin\CharacteristicController as AdminCharacteristicController;
-
-use App\Http\Controllers\Client\IndexController as ClientIndexController;
-use App\Http\Controllers\Client\CharacteristicController as ClientCharacteristicController;
+use App\Http\Controllers\Admin\ModeratingController as AdminModeratingController;
+use App\Http\Controllers\Admin\RoleController as AdminRoleController;
 
 use App\Http\Controllers\InfoController;
 use App\Http\Controllers\SubscriptionController;
@@ -79,5 +78,7 @@ Route::middleware('auth')->group(function () {
         Route::resource('tags', AdminTagController::class);
         Route::resource('relations', AdminRelationController::class)->parameters(['relations' => 'trainer']);
         Route::resource('characteristics', AdminCharacteristicController::class);
+        Route::resource('moderatings', AdminModeratingController::class);
+        Route::resource('roles', AdminRoleController::class);
     });
 });
