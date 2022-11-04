@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class IndexController extends Controller
 {
@@ -22,7 +23,25 @@ class IndexController extends Controller
         $user = User::query()
             ->with('profile', 'skill', 'tags', 'characteristic')
             ->findOrFail($id);
-//        dd($user);
-        return view('account.index', ['user' => $user]);
+
+//        $roles = User::query()
+//            ->pluck('role')
+//            ->unique();
+
+        switch ($user->role){
+            case 'IS_CLIENT':
+                $path = 'clients';
+                break;
+            case 'IS_TRAINER':
+                $path = 'trainers';
+                break;
+            case 'IS_GYM':
+                $path = 'gyms';
+                break;
+            case 'IS_ADMIN':
+                return view('admin.index', ['user' => $user]);
+        }
+
+        return view('account.'.$path.'.index', ['user' => $user]);
     }
 }

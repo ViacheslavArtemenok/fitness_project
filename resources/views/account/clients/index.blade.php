@@ -3,7 +3,7 @@
     @include('inc.message')
     <br>
     @if (Auth::user()->status !== 'BLOCKED')
-        <h2 class="text-center">Личный кабинет</h2>
+        <h2 class="text-center">Личный кабинет клиента</h2>
     @else
         <h3 class="text-center text-danger">Личный кабинет заблокирован по решению администрации сайта</h3>
     @endif
@@ -28,13 +28,7 @@
                     </h5>
                     <table class="table w-25">
                         <tbody>
-                            @if (Auth::user()->role === 'IS_TRAINER' and $user->skill)
-                                <tr>
-                                    <th scope="row">Город:</th>
-                                    <td>{{ $user->skill->location }}</td>
-                                </tr>
-                            @endif
-                            @if (Auth::user()->role === 'IS_CLIENT' and $user->characteristic)
+                            @if($user->characteristic)
                                 <tr>
                                     <th scope="row">Город:</th>
                                     <td>{{ $user->characteristic->location }}</td>
@@ -44,12 +38,6 @@
                                 <tr>
                                     <th scope="row">Возраст:</th>
                                     <td>{{ $user->profile->age }}</td>
-                                </tr>
-                            @endif
-                            @if (Auth::user()->role === 'IS_TRAINER' and $user->skill)
-                                <tr>
-                                    <th scope="row">Опыт:</th>
-                                    <td>{{ $user->skill->experience }}</td>
                                 </tr>
                             @endif
                             <tr>
@@ -65,50 +53,6 @@
                 </div>
             </div>
 
-            @if (Auth::user()->role === 'IS_TRAINER')
-                @if ($user->skill)
-                    <table class="table shadow">
-                        <thead>
-                            <tr>
-                                <th scope="col">Образование</th>
-                                <th scope="col">Навыки</th>
-                                <th scope="col">Достижения</th>
-                                <th scope="col">О себе</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>{{ $user->skill->education }}</td>
-                                <td>{{ $user->skill->skills_list }}</td>
-                                <td>{{ $user->skill->achievements }}</td>
-                                <td>{{ $user->skill->description }}</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <div class="d-flex flex-wrap align-items-start table shadow">
-                        @forelse($user->tags as $key => $tagItem)
-                            <a class="btn btn-secondary btn-sm mb-2 me-2">
-                                {{ $tagItem->tag }}
-                            </a>
-                        @empty
-                            <a class="btn btn-secondary btn-sm mb-2 me-2 "
-                               href="{{ route('account.tags.create', ['user_id' => $user->id]) }}">
-                                Профиль тренировок не указан
-                            </a>
-                        @endforelse
-                    </div>
-                @else
-                    <hr class="featurette-divider">
-                    <a class="btn btn-secondary mb-2 me-2" href="{{ route('account.profiles.create') }}">
-                        Заполните профиль
-                    </a>
-                    <a class="btn btn-secondary mb-2 me-2" href="{{ route('account.skills.create') }}">
-                        Заполните навыки
-                    </a>
-                @endif
-            @endif
-
-            @if (Auth::user()->role === 'IS_CLIENT')
                 @if ($user->characteristic)
                     <table class="table shadow">
                         <h3 class="text-center">Характеристики</h3>
@@ -135,7 +79,6 @@
                         Заполните характеристику
                     </a>
                 @endif
-            @endif
 
         @else
             <hr class="featurette-divider">
