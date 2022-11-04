@@ -1,10 +1,11 @@
-@extends('layouts.account')
+@extends('layouts.main')
 @section('content')
+    <x-account.trainer.menu></x-account.trainer.menu>
     <div class="offset-2 col-8">
-        <br>
+        <hr class="featurette-divider">
         <h2>Добавить теги</h2>
 
-        @include('inc.message')
+
 
         <form method="post" action="{{ route('account.tags.store', ['id' => $user_id]) }}">
             @csrf
@@ -28,6 +29,7 @@
             <button class="btn btn-outline-success" type="submit">Добавить</button>
         </form>
     </div>
+    <hr class="featurette-divider">
 @endsection
 @push('js')
 @endpush

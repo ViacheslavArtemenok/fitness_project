@@ -7,6 +7,7 @@ use App\Http\Controllers\Account\UserController as AccountUserController;
 use App\Http\Controllers\Account\ProfileController as AccountProfileController;
 use App\Http\Controllers\Account\SkillController as AccountSkillController;
 use App\Http\Controllers\Account\TagController as AccountTagController;
+use App\Http\Controllers\Account\CharacteristicController as AccountCharacteristicController;
 
 use App\Http\Controllers\Admin\IndexController as AdminIndexController;
 use App\Http\Controllers\Admin\ProfileController as AdminProfileController;
@@ -15,9 +16,6 @@ use App\Http\Controllers\Admin\UserController as AdminUserController;
 use App\Http\Controllers\Admin\TagController as AdminTagController;
 use App\Http\Controllers\Admin\RelationController as AdminRelationController;
 use App\Http\Controllers\Admin\CharacteristicController as AdminCharacteristicController;
-
-use App\Http\Controllers\Client\IndexController as ClientIndexController;
-use App\Http\Controllers\Client\CharacteristicController as ClientCharacteristicController;
 
 use App\Http\Controllers\InfoController;
 use App\Http\Controllers\SubscriptionController;
@@ -46,6 +44,7 @@ Route::middleware('auth')->group(function () {
         Route::resource('profiles', AccountProfileController::class);
         Route::resource('skills', AccountSkillController::class);
         Route::resource('tags', AccountTagController::class);
+        Route::resource('characteristics', AccountCharacteristicController::class);
     });
 });
 

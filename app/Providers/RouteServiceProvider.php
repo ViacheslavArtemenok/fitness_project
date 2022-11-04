@@ -17,13 +17,19 @@ class RouteServiceProvider extends ServiceProvider
      *
      * @var string
      */
-//    public const HOME = '/dashboard';
-    public const ACCOUNT = '/account';
+
+    public const ACCOUNT = '/';
     /**
-    * The path to the "home" route for your application.
- *
- * @var string
- */
+     * The path to the "admin" route for your application.
+     *
+     * @var string
+     */
+    public const ADMIN = '/admin';
+    /**
+     * The path to the "home" route for your application.
+     *
+     * @var string
+     */
     public const HOME = '/home';
 
     /**

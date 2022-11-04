@@ -85,10 +85,10 @@ class CharacteristicController extends Controller
     {
         $characteristic = $characteristic->fill($request->validated());
 
-        if($characteristic->save()) {
+        if ($characteristic->save()) {
             return redirect()->route('admin.characteristics.index')
                 ->with('success',  __('messages.admin.characteristics.update.success'));
-       }
+        }
 
         return back()->with('error', __('messages.admin.characteristics.update.fail'));
     }

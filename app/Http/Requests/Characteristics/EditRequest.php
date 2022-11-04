@@ -3,8 +3,8 @@
 namespace App\Http\Requests\Characteristics;
 
 use App\Models\Characteristic;
-use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
+use Illuminate\Foundation\Http\FormRequest;
 
 class EditRequest extends FormRequest
 {
@@ -31,7 +31,8 @@ class EditRequest extends FormRequest
             'height' => ['required', 'integer'],
             'weight' => ['required', 'integer'],
             'health' => ['required', Rule::in([Characteristic::HEALTH_A, Characteristic::HEALTH_B, Characteristic::HEALTH_C, Characteristic::HEALTH_D])],
-            'description'=> ['required', 'min: 3', 'max: 1500']
+            'description' => ['required', 'min: 3', 'max: 1500']
+
         ];
     }
 
