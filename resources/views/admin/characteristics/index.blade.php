@@ -2,7 +2,7 @@
 @section('content')
     <h2>Профили пользователей</h2>
     <div style="display: flex; justify-content: right;">
-        <a href="{{ route('admin.characteristics.create') }}" class="btn btn-primary">Добавить профиль клиента</a>
+        {{--<a href="{{ route('admin.characteristics.create') }}" class="btn btn-primary">Добавить профиль клиента</a>--}}
     </div><br>
     <div class="alert-message"></div><br>
     <div class="table-responsive">
@@ -37,8 +37,8 @@
                     <td>
                         <div style="">
                             <a href="{{ route('admin.characteristics.edit', ['characteristic' => $characteristic]) }}">Ред.</a>&nbsp;
-                            <a href="javascript:;" class="delete" rel="{{ $characteristic->id }}"
-                               style="color: red;">Уд.</a>
+                            {{--<a href="javascript:;" class="delete" rel="{{ $characteristic->id }}"--}}
+                               {{--style="color: red;">Уд.</a>--}}
                         </div>
                     </td>
                 </tr>
