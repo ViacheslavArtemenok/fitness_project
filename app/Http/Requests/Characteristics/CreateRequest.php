@@ -2,7 +2,9 @@
 
 namespace App\Http\Requests\Characteristics;
 
+use App\Models\Characteristic;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class CreateRequest extends FormRequest
 {
@@ -25,23 +27,23 @@ class CreateRequest extends FormRequest
     {
         return [
             'user_id' => ['required', 'integer'],
-            'location' => ['required', 'string', 'min:3', 'max:120'],
+            'location' => ['required', 'string', 'min: 3', 'max: 150'],
             'height' => ['required', 'integer'],
             'weight' => ['required', 'integer'],
-            'health' => ['required', 'string', 'min:1', 'max:1'],
-            'description' =>  ['required', 'string', 'min:3', 'max:800']
+            'health' => ['required', Rule::in([Characteristic::HEALTH_A, Characteristic::HEALTH_B, Characteristic::HEALTH_C, Characteristic::HEALTH_D])],
+            'description'=> ['required', 'min: 3', 'max: 1500']
         ];
     }
 
     public function attributes(): array
     {
         return [
-            'user_id' => 'Идентификатор пользователя',
-            'location' => 'Расположение',
+            'user_id' => 'Идентификатор клиента',
+            'location' => 'Город',
             'height' => 'Рост',
             'weight' => 'Вес',
             'health' => 'Группа здоровья',
-            'description' => 'Описание'
+            'description' => 'Описание',
         ];
     }
 }

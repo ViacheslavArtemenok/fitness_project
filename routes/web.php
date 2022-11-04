@@ -82,11 +82,3 @@ Route::middleware('auth')->group(function () {
         Route::resource('characteristics', AdminCharacteristicController::class);
     });
 });
-
-//Client routes
-    Route::group(['prefix' => 'client', 'as' => 'client.'], function () {
-        Route::get('/', ClientIndexController::class)
-            ->name('index');
-
-        Route::resource('characteristics', ClientCharacteristicController::class);
-    });
