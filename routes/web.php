@@ -17,9 +17,6 @@ use App\Http\Controllers\Admin\TagController as AdminTagController;
 use App\Http\Controllers\Admin\RelationController as AdminRelationController;
 use App\Http\Controllers\Admin\CharacteristicController as AdminCharacteristicController;
 
-use App\Http\Controllers\Client\IndexController as ClientIndexController;
-use App\Http\Controllers\Client\CharacteristicController as ClientCharacteristicController;
-
 use App\Http\Controllers\InfoController;
 use App\Http\Controllers\SubscriptionController;
 use App\Http\Controllers\TrainerReviewController;
