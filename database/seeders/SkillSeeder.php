@@ -29,7 +29,7 @@ class SkillSeeder extends Seeder
         $faker = Factory::create('ru_RU');
         $faker->addProvider(new \Faker\Provider\ru_RU\Person($faker));
 
-        for ($i = 0; $i < 100; $i++) {
+        for ($i = 1; $i < 100; $i++) {
             do {
                 $city = $faker->city();
             } while ($city === 'Москва');

@@ -26,7 +26,7 @@ class RelationSeeder extends Seeder
     {
         $relations = [];
 
-        for ($i = 0; $i < 100; $i++) {
+        for ($i = 1; $i < 100; $i++) {
             for ($e = 0; $e < rand(1, 6); $e++) {
                 $relations[] = [
                     'user_id' => $i + 1,

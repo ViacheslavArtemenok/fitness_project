@@ -17,10 +17,17 @@
                             href="{{ route('trainers.index', ['tag_id' => 0, 'city_id' => 0]) }}">Тренеры</a>
                     </li>
                     @auth
-                        <li class="nav-item">
-                            <a class="nav-link @if (request()->routeIs('account.*')) active @endif"
-                                href="{{ route('account') }}">Личный кабинет</a>
-                        </li>
+                        @if (Auth::user()->role === 'IS_ADMIN')
+                            <li class="nav-item">
+                                <a class="nav-link @if (request()->routeIs('admin.*')) active @endif"
+                                    href="{{ route('admin.index') }}">Администрировать</a>
+                            </li>
+                        @else
+                            <li class="nav-item">
+                                <a class="nav-link @if (request()->routeIs('account')) active @endif"
+                                    href="{{ route('account') }}">Личный кабинет</a>
+                            </li>
+                        @endif
                     @endauth
                     @guest
                         @if (Route::has('login'))

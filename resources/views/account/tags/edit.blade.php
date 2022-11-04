@@ -1,9 +1,10 @@
-@extends('layouts.account')
+@extends('layouts.main')
 @section('content')
+    <x-account.trainer.menu></x-account.trainer.menu>
     <div class="offset-2 col-8">
-        <br>
+        <hr class="featurette-divider">
         <h2>Редактировать набор тегов</h2>
-        @include('inc.message')
+
         <form method="post" action="{{ route('account.tags.update', ['tag' => Auth::user()->id]) }}">
             @csrf
             @method('put')
@@ -30,6 +31,7 @@
             <button class="btn btn-outline-success" type="submit">Редактировать</button>
         </form>
     </div>
+    <hr class="featurette-divider">
 @endsection
 @push('js')
 @endpush

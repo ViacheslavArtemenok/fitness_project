@@ -1,9 +1,15 @@
-@extends('layouts.account')
+@extends('layouts.main')
 @section('content')
+    @if (Auth::user()->role === 'IS_TRAINER')
+        <x-account.trainer.menu></x-account.trainer.menu>
+    @elseif(Auth::user()->role === 'IS_CLIENT')
+        <x-account.client.menu></x-account.client.menu>
+    @endif
     <div class="offset-2 col-8">
+        <hr class="featurette-divider">
         <h2>Редактирование профиля</h2>
 
-        @include('inc.message')
+
 
         @if ($profile === null)
             {
@@ -75,4 +81,5 @@
             <button class="btn btn-outline-success" type="submit">Сохранить</button>
         </form>
     </div>
+    <hr class="featurette-divider">
 @endsection
