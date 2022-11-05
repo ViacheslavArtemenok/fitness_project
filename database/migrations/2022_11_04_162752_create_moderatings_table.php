@@ -17,14 +17,17 @@ return new class extends Migration
         Schema::create('moderatings', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
-            $table->enum('status',
+            $table->enum(
+                'status',
                 [
                     Moderating::IS_PENDING,
                     Moderating::IS_APPROVED,
                     Moderating::IS_REJECTED
-                ])
+                ]
+            )
                 ->default(Moderating::IS_PENDING);
-            $table->enum('reason',
+            $table->enum(
+                'reason',
                 [
                     Moderating::REASON00,
                     Moderating::REASON01,
@@ -32,10 +35,11 @@ return new class extends Migration
                     Moderating::REASON03,
                     Moderating::REASON04,
                     Moderating::REASON05
-                ])
+                ]
+            )
                 ->default(Moderating::REASON00);
 
-            $table->foreign('user_id')->references('user_id')->on('profiles');
+            $table->foreign('user_id')->references('id')->on('users');
 
             $table->timestamps();
             $table->softDeletes();
