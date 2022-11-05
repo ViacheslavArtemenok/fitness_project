@@ -1,12 +1,14 @@
-@extends('layouts.account')
+@extends('layouts.main')
 @section('content')
+    <x-account.trainer.menu></x-account.trainer.menu>
     <div class="offset-2 col-8">
+        <hr class="featurette-divider">
         <h2>Заполнение навыков</h2>
-        <p class="text-primary">Навыки и достижения заполняются сплошным текстом, после каждого навыка или достижения
+        <p class="text-primary">* Навыки и достижения заполняются сплошным текстом, после каждого навыка или достижения
             обязательно ставим точку.
             На сайте
             текст с навыками и текст с достижениями будет разбит на список в виде отдельных пунктов.</p>
-        @include('inc.message')
+
         <form method="post" action="{{ route('account.skills.store') }}" enctype="multipart/form-data">
             @csrf
             <input type="text" name="user_id" id="user_id" value="{{ Auth::user()->id }}" hidden>
@@ -60,7 +62,8 @@
                 @enderror
             </div>
             <br>
-            <button class="btn btn-outline-success skill_bottom" type="submit">Сохранить</button>
+            <button class="btn btn-outline-success mb-4" type="submit">Сохранить</button>
         </form>
     </div>
+    <hr class="featurette-divider">
 @endsection

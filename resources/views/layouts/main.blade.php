@@ -12,6 +12,8 @@
     <link href="{{ asset('assets/css/carousel.css') }}" rel="stylesheet">
     <!-- MAIN CSS -->
     <link href="{{ asset('assets/css/templatemo-style.css') }}" rel="stylesheet">
+    <!--ACCOUNT-->
+    <link href="{{ asset('assets/css/account.css') }}" rel="stylesheet">
 </head>
 
 <body class="body_back" id="top" data-spy="scroll" data-target=".navbar-collapse" data-offset="50">

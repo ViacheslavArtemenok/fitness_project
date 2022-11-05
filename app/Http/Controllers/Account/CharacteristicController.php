@@ -3,29 +3,28 @@
 namespace App\Http\Controllers\Account;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Profiles\CreateRequest;
-use App\Http\Requests\Profiles\EditRequest;
-use App\Models\Profile;
-use App\Services\UploadService;
+use App\Http\Requests\Characteristics\CreateRequest;
+use App\Http\Requests\Characteristics\EditRequest;
+use App\Models\Characteristic;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
-class ProfileController extends Controller
+class CharacteristicController extends Controller
 {
     /**
      * Display a listing of the resource.
+     *
      * @return View
      */
     public function __construct()
     {
-        $this->model = Profile::query();
+        $this->model = Characteristic::query();
     }
-
     public function index()
     {
         //
@@ -33,38 +32,37 @@ class ProfileController extends Controller
 
     /**
      * Show the form for creating a new resource.
+     *
      * @return Factory|View|Application
      */
     public function create(): View
     {
-        return view('account.profiles.create');
+        return view('account.characteristics.create');
     }
 
     /**
      * Store a newly created resource in storage.
      *
      * @param CreateRequest $request
-     * @param UploadService $uploadService
      * @return RedirectResponse
      */
-    public function store(CreateRequest $request, UploadService $uploadService): RedirectResponse
+    public function store(CreateRequest $request): RedirectResponse
     {
-        $validated = $request->validated();
-        if ($request->hasFile('image')) {
-            $validated['image'] = $uploadService->uploadImage($request->file('image'));
-        }
-        if (Profile::create($validated)) {
+        $request = $request->validated();
+        $request['user_id'] = Auth::user()->id;
+
+        if (Characteristic::create($request)) {
             return redirect()->route('account')
-                ->with('success', __('messages.account.profiles.create.success'));
+                ->with('success', __('messages.account.characteristics.create.success'));
         }
-        return back('error', __('messages.account.profiles.create.fail'));
+        return back('error', __('messages.account.characteristics.create.fail'));
     }
 
     /**
      * Display the specified resource.
      *
-     * @param $id
-     * @return Response
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
      */
     public function show($id)
     {
@@ -79,8 +77,9 @@ class ProfileController extends Controller
      */
     public function edit(int $id): View
     {
-        return view('account.profiles.edit', [
-            'profile' => $this->model
+
+        return view('account.characteristics.edit', [
+            'characteristic' => $this->model
                 ->where('user_id', $id)
                 ->firstOrFail()
         ]);
@@ -90,23 +89,17 @@ class ProfileController extends Controller
      * Update the specified resource in storage.
      *
      * @param EditRequest $request
-     * @param Profile $profile
-     * @param UploadService $uploadService
-     * @return Application|Factory|View|RedirectResponse
+     * @param Skill $skill
+     * @return View|Factory|RedirectResponse|Application
      */
-    public function update(EditRequest $request, Profile $profile, UploadService $uploadService): RedirectResponse
+    public function update(EditRequest $request, Characteristic $characteristic): RedirectResponse
     {
-        $validated = $request->validated();
-        if ($request->hasFile('image')) {
-            $validated['image'] = $uploadService->uploadImage($request->file('image'));
-        }
-        if ($profile->fill($validated)->save()) {
+        if ($characteristic->fill($request->validated())->save()) {
             return redirect()->route('account')
-                ->with('success', __('messages.account.profiles.update.success'));
+                ->with('success', __('messages.account.characteristics.update.success'));
         }
-        return back('error', __('messages.account.profiles.update.fail'));
+        return back('error', __('messages.account.characteristics.update.fail'));
     }
-
 
     /**
      * Remove the specified resource from storage.
