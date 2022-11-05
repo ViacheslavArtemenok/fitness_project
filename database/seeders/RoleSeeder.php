@@ -32,7 +32,7 @@ class RoleSeeder extends Seeder
 
         $roles[] = [
             'role'         => Role::IS_ADMIN,
-            'title'        => 'Администротор',
+            'title'        => 'Администратор',
             'description'  => $faker->paragraph(rand(6, 10)),
             'created_at'   => now('Europe/Moscow')
         ];
@@ -46,14 +46,14 @@ class RoleSeeder extends Seeder
 
         $roles[] = [
             'role'         => Role::IS_CLIENT,
-            'title'        => 'Клиент спортзала',
+            'title'        => 'Клиент сайта',
             'description'  => $faker->paragraph(rand(6, 10)),
             'created_at'   => now('Europe/Moscow')
         ];
 
         $roles[] = [
             'role'         => Role::IS_GYM,
-            'title'        => 'Владелец спортзала',
+            'title'        => 'Представитель спортзала',
             'description'  => $faker->paragraph(rand(6, 10)),
             'created_at'   => now('Europe/Moscow')
         ];
