@@ -68,7 +68,7 @@ class TrainerReviewController extends Controller
     public function edit(int $trainer_id): View|RedirectResponse
     {
         if (Auth::user()) {
-            if (Auth::user()->role === 'IS_CLIENT' && Auth::user()->status === 'ACTIVE') {
+            if (Auth::user()->role_id === 3 && Auth::user()->status === 'ACTIVE') {
                 return view('trainerReviews.edit', [
                     'trainer' => $this->trainerBuilder->getById($trainer_id),
                     'trainerBuilder' => $this->trainerBuilder,
