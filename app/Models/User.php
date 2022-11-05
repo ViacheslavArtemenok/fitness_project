@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
@@ -18,12 +19,7 @@ class User extends Authenticatable  implements MustVerifyEmail
     use SoftDeletes;
 
     protected $dates = ['deleted_at'];
-    // define role here
-    public const IS_ADMIN = 'IS_ADMIN';
-    public const IS_CLIENT = 'IS_CLIENT';
-    public const IS_TRAINER = 'IS_TRAINER';
-    public const IS_GYM = 'IS_GYM';
-
+    // define status here
     public const DRAFT = 'DRAFT';
     public const ACTIVE = 'ACTIVE';
     public const BLOCKED = 'BLOCKED';
@@ -38,7 +34,7 @@ class User extends Authenticatable  implements MustVerifyEmail
         'email',
         'password',
         'phone',
-        'role',
+        'role_id',
         'status'
     ];
 
@@ -96,12 +92,12 @@ class User extends Authenticatable  implements MustVerifyEmail
         return $this->belongsToMany(User::class, 'trainer_reviews', 'client_id', 'trainer_id')->withPivot('id', 'trainer_id', 'title', 'description', 'score', 'status',)->withTimestamps();
     }
 
-    public function roles(): HasOne
+    public function role(): BelongsTo
     {
-        return $this->hasOne(Role::class);
+        return $this->belongsTo(Role::class);
     }
 
-    public function moderatings(): HasOne
+    public function moderating(): HasOne
     {
         return $this->hasOne(Moderating::class);
     }

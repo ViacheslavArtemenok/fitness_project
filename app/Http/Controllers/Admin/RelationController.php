@@ -19,7 +19,7 @@ class RelationController extends Controller
     public function index(): View
     {
         $trainers = User::query()
-            ->where('role', User::IS_TRAINER)
+            ->where('role_id', 2)
             ->with('tags')
             ->paginate(config('pagination.admin.relations'));
 
@@ -95,16 +95,16 @@ class RelationController extends Controller
 
         //todo: добавить id в таблицу relations
 
-//        $trainer->tags()->attach($tag_id, ['user_id' => $trainer_id]);
+        //        $trainer->tags()->attach($tag_id, ['user_id' => $trainer_id]);
 
         $trainer->tags()->sync($tag_id, ['user_id' => $trainer_id]);
 
-//        $trainer->tags()->updateExistingPivot($tag_id, ['user_id' => $trainer_id]);
+        //        $trainer->tags()->updateExistingPivot($tag_id, ['user_id' => $trainer_id]);
         //dd($trainer->tags());
 
         return redirect()->route('admin.relations.index')
             ->with('success', __('messages.admin.relations.update.success'));
-     }
+    }
 
     /**
      * Remove the specified resource from storage.

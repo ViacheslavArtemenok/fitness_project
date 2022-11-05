@@ -31,30 +31,30 @@ class RoleSeeder extends Seeder
         $faker->addProvider(new \Faker\Provider\ru_RU\Person($faker));
 
         $roles[] = [
-            'role'         => Role::IS_ADMIN,
+            'role'         => 'IS_ADMIN',
             'title'        => 'Администратор',
-            'description'  => $faker->paragraph(rand(6, 10)),
+            'description'  => 'Вы администратор и мееете доступ к настройкам сайта',
             'created_at'   => now('Europe/Moscow')
         ];
 
         $roles[] = [
-            'role'         => Role::IS_TRAINER,
+            'role'         => 'IS_TRAINER',
             'title'        => 'Тренер',
-            'description'  => $faker->paragraph(rand(6, 10)),
+            'description'  => 'Вы тренер и хотите создать анкету с портфолио',
             'created_at'   => now('Europe/Moscow')
         ];
 
         $roles[] = [
-            'role'         => Role::IS_CLIENT,
+            'role'         => 'IS_CLIENT',
             'title'        => 'Клиент сайта',
-            'description'  => $faker->paragraph(rand(6, 10)),
+            'description'  => 'Вы клиент, ищете тренера, клуб, хотите оставить отзыв',
             'created_at'   => now('Europe/Moscow')
         ];
 
         $roles[] = [
-            'role'         => Role::IS_GYM,
+            'role'         => 'IS_GYM',
             'title'        => 'Представитель спортзала',
-            'description'  => $faker->paragraph(rand(6, 10)),
+            'description'  => 'Вы представитель фитнес-клуба, ваша цель - рекламная интеграция и сотрудничество',
             'created_at'   => now('Europe/Moscow')
         ];
 

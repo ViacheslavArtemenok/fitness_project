@@ -1,16 +1,13 @@
 @extends('layouts.main')
 @section('content')
-    @if (Auth::user()->role === 'IS_TRAINER')
+    @if (Auth::user()->role_id === 2)
         <x-account.trainer.menu></x-account.trainer.menu>
-    @elseif(Auth::user()->role === 'IS_CLIENT')
+    @elseif(Auth::user()->role_id === 3)
         <x-account.client.menu></x-account.client.menu>
     @endif
     <div class="offset-2 col-8">
         <hr class="featurette-divider">
         <h2>Редактирование профиля</h2>
-
-
-
         @if ($profile === null)
             {
 

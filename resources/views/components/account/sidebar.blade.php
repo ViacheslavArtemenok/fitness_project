@@ -94,7 +94,7 @@
                 </h6>
             </div>
             <br>
-            @if (Auth::user()->role === 'IS_ADMIN')
+            @if (Auth::user()->role_id === 1)
                 <div class="d-flex justify-content-center">
                     <a class="btn btn-outline-primary" href="{{ route('admin.index') }}">Администрировать</a>
                 </div>
