@@ -34,6 +34,7 @@ class ModeratingSeeder extends Seeder
         ];
 
         $rejected = [
+            Moderating::REASON00,
             Moderating::REASON01,
             Moderating::REASON02,
             Moderating::REASON03,
@@ -44,22 +45,22 @@ class ModeratingSeeder extends Seeder
         $faker = Factory::create('ru_RU');
         $faker->addProvider(new \Faker\Provider\ru_RU\Person($faker));
 
-        for ($i = 1; $i < 100; $i++) {
+        for ($i = 2; $i < 100; $i++) {
 
             $statusIndex = rand(0, 2);
 
-            if ($statusIndex === 2)  {
+            if ($statusIndex === 2) {
                 $moderatings[] = [
                     'user_id'       => $i,
                     'status'        => $status[$statusIndex],
-                    'reason'        => $rejected[rand(0, 4)],
+                    'reason'        => $rejected[rand(1, 4)],
                     'created_at'    => now('Europe/Moscow')
                 ];
             } else {
                 $moderatings[] = [
                     'user_id'       => $i,
                     'status'        => $status[$statusIndex],
-                    'reason'        => '',
+                    'reason'        => $rejected[0],
                     'created_at'    => now('Europe/Moscow')
                 ];
             }
