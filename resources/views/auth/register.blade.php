@@ -5,7 +5,6 @@
 @endsection
 @section('content')
     <hr class="featurette-divider">
-
     <div class="container">
 
         <div class="card">
@@ -64,27 +63,23 @@
                         </div>
                     </div>
                     <div class="row mb-3">
-                        <label for="role" class="col-md-4 col-form-label text-md-end"
-                            @error('role')
+                        <label for="role_id" class="col-md-4 col-form-label text-md-end"
+                            @error('role_id')
                         style="color:red"
                     @enderror>Цель
                             регистрации</label>
                         <div class="col-md-6">
-                            <select class="form-control" name="role" id="role">
+                            <select class="form-control" name="role_id" id="role_id">
                                 <option value="0">Выбрать</option>
-                                <option value="IS_TRAINER" @if (old('role') === 'IS_TRAINER') selected @endif>Вы тренер и
-                                    хотите
-                                    создать анкету
-                                    с портфолио</option>
-                                <option value="IS_CLIENT" @if (old('role') === 'IS_CLIENT') selected @endif>Вы
-                                    клиент, ищете тренера, клуб,
-                                    хотите оставить отзыв
-                                </option>
-                                <option value="IS_GYM" @if (old('role') === 'IS_GYM') selected @endif>Вы представитель
-                                    фитнес-клуба
-                                </option>
+                                @foreach ($roles as $key => $role)
+                                    @if ($role->id > 1)
+                                        <option value="{{ $role->id }}"
+                                            @if (old('role_id') === $role->id) selected @endif>
+                                            {{ $role->description }}</option>
+                                    @endif
+                                @endforeach
                             </select>
-                            @error('role')
+                            @error('role_id')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>

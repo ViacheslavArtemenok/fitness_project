@@ -43,16 +43,13 @@
                 <input type="text" class="form-control" name="phone" id="phone" value="{{ $user->phone }}">
             </div>
             <div class="form-group">
-                <label for="role">Роль</label>
-                <select class="form-control" name="role" id="role">
-                    <option @if ($user->role === \App\Models\User::IS_ADMIN) selected @endif value="{{ \App\Models\User::IS_ADMIN }}">Админ
-                    </option>
-                    <option @if ($user->role === \App\Models\User::IS_CLIENT) selected @endif value="{{ \App\Models\User::IS_CLIENT }}">
-                        Клиент</option>
-                    <option @if ($user->role === \App\Models\User::IS_TRAINER) selected @endif value="{{ \App\Models\User::IS_TRAINER }}">
-                        Тренер</option>
-                    <option @if ($user->role === \App\Models\User::IS_GYM) selected @endif value="{{ \App\Models\User::IS_GYM }}">
-                        Владелец зала</option>
+                <label for="role_id">Роль</label>
+                <select class="form-control" name="role_id" id="role_id">
+                    @foreach ($roles as $key => $role)
+                        <option @if ($user->role_id === $role->id) selected @endif value="{{ $role->id }}">
+                            {{ $role->title }}
+                        </option>
+                    @endforeach
                 </select>
             </div>
             <div class="form-group">

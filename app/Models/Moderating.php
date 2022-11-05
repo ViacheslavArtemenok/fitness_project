@@ -53,6 +53,6 @@ class Moderating extends Model
      */
     public function profile(): HasOne
     {
-        return $this->HasOne(Profile::class, 'user_id');
+        return $this->HasOne(Profile::class, 'user_id', 'user_id');
     }
 }
