@@ -45,13 +45,14 @@ class PutPatchTest extends TestCase
     // PUT|PATCH       account/users/{user} account.users.update › Account\UserCon…
     public function test_account_users_controller_update(){
         $user = User::factory()->create();
+        $facker = Factory::create();
         $updateObjects = Profile::latest()->take(1)->get();
         foreach ($updateObjects as $updateObject) {
             $_POST = ['user' => $updateObject->id,
             'name'        => 'admin',
-            'email'       => 'admin@mail.ru',
-            'phone'       => '+7 (999) 999-99-99',
-            'role'        => User::IS_ADMIN,
+            'email'       => $facker->email,
+            'phone'       => '+7 ' . '(9' . rand(10, 99) . ') ' . rand(100, 999) . '-' . rand(10, 99) . '-' . rand(10, 99),
+            'role_id'        => 1,
             'status'      => User::ACTIVE,
             'password'    => 12345678,
             'email_verified_at' => now('Europe/Moscow'),
@@ -85,7 +86,7 @@ class PutPatchTest extends TestCase
         //  Тест работает но мне кажется что в контроллере надо что то допиливать @Veedok
     public function test_admin_relations_controller_update(){
         $user = User::factory()->create();
-        $user->role = 'IS_ADMIN';
+        $user->role_id = 1;
         $deliteObjects = Profile::latest()->take(1)->get();
         foreach ($deliteObjects as $deliteObject) {
             $_POST = ['trainer' => $deliteObject->id];
@@ -97,7 +98,7 @@ class PutPatchTest extends TestCase
             //  PUT|PATCH       admin/skills/{skill} ........................ admin.skills.update › Admin\SkillController@update
     public function test_admin_skills_controller_update(){
                 $user = User::factory()->create();
-                $user->role = 'IS_ADMIN';
+                $user->role_id = 1;
                 $faker = Factory::create();
                 $updateObjects = Skill::latest()->take(1)->get();
                 foreach ($updateObjects as $updateObject) {
@@ -117,7 +118,7 @@ class PutPatchTest extends TestCase
 //  PUT|PATCH       admin/tags/{tag} ................................ admin.tags.update › Admin\TagController@update
 public function test_admin_tags_controller_update(){
     $user = User::factory()->create();
-    $user->role = 'IS_ADMIN';
+    $user->role_id = 1;
     $updateObjects = Tag::latest()->take(1)->get();
     foreach ($updateObjects as $updateObject) {
         $_POST = ['tag'=> $updateObject->id];
@@ -128,7 +129,7 @@ public function test_admin_tags_controller_update(){
 //   PUT|PATCH       admin/users/{user} ............................ admin.users.update › Admin\UserController@update
 public function test_admin_users_controller_update(){
     $user = User::factory()->create();
-    $user->role = 'IS_ADMIN';
+    $user->role_id = 1;
     $updateObjects = User::latest()->take(1)->get();
     foreach ($updateObjects as $updateObject) {
         $_POST = ['user'=> $updateObject->id];
