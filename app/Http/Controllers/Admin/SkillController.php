@@ -44,7 +44,7 @@ class SkillController extends Controller
             $join->on('users.id', '=', 'skills.user_id');
         })
             ->whereNull('skills.user_id')
-            ->get(['users.id', 'users.role', 'users.name']);
+            ->get(['users.id', 'users.role_id', 'users.name']);
 
         return view('admin.skills.create', ['users' => $users]);
     }

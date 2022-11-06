@@ -66,7 +66,7 @@ class RoutTest extends TestCase
     public function test_acount_users_controller_create()
     {
         $user = User::factory()->create();
-        $user->role = 'IS_ADMIN';
+        $user->role_id = 1;
         // dd($user);
         $response = $this->actingAs($user)->get(route('account.users.create', $_GET));
         $response->assertOk();
@@ -91,7 +91,7 @@ class RoutTest extends TestCase
     {
         $user = User::factory()->create();
         $_GET = ['user' => 14];
-        $user->role = 'IS_ADMIN';
+        $user->role_id = 1;
         $response = $this->actingAs($user)->get(route('admin.index', $_GET));
         $response->assertOk();
     }
@@ -99,15 +99,15 @@ class RoutTest extends TestCase
     {
         $user = User::factory()->create();
         $_GET = ['user' => 14];
-        $user->role = 'IS_ADMIN';
+        $user->role_id = 1;
         $response = $this->actingAs($user)->get(route('admin.profiles.index', $_GET));
         $response->assertOk();
     }
     public function test_admin_profiles_controller_create()
     {
         $user = User::factory()->create();
-        $_GET = ['user' => 14];
-        $user->role = 'IS_ADMIN';
+        $_GET = ['user' => 1];
+        $user->role_id = 1;
         $response = $this->actingAs($user)->get(route('admin.profiles.create', $_GET));
         $response->assertOk();
     }
@@ -115,7 +115,7 @@ class RoutTest extends TestCase
     {
         $user = User::factory()->create();
         $_GET = ['profile' => 14];
-        $user->role = 'IS_ADMIN';
+        $user->role_id = 1;
         $response = $this->actingAs($user)->get(route('admin.profiles.show', $_GET));
         $response->assertOk();
     }
@@ -134,21 +134,21 @@ class RoutTest extends TestCase
             'created_at' => now('Europe/Moscow'),
         ]);
 
-        $user->role = 'IS_ADMIN';
+        $user->role_id = 1;
         $response = $this->actingAs($user)->get(route('admin.profiles.edit', $profile));
         $response->assertOk();
     }
     public function test_admin_relation_controller_index()
     {
         $user = User::factory()->create();
-        $user->role = 'IS_ADMIN';
+        $user->role_id = 1;
         $response = $this->actingAs($user)->get(route('admin.relations.index'));
         $response->assertOk();
     }
     public function test_admin_relation_controller_create()
     {
         $user = User::factory()->create();
-        $user->role = 'IS_ADMIN';
+        $user->role_id = 1;
         $response = $this->actingAs($user)->get(route('admin.relations.create'));
         $response->assertOk();
     }
@@ -156,7 +156,7 @@ class RoutTest extends TestCase
     {
         $user = User::factory()->create();
         $_GET = ['profile' => 14];
-        $user->role = 'IS_ADMIN';
+        $user->role_id = 1;
         $response = $this->actingAs($user)->get(route('admin.relations.create', $_GET));
         $response->assertOk();
     }
@@ -164,29 +164,31 @@ class RoutTest extends TestCase
     {
         $user = User::factory()->create();
         $_GET = ['trainer' => 14];
-        $user->role = 'IS_ADMIN';
+        $user->role_id = 1;
         $response = $this->actingAs($user)->get(route('admin.relations.edit', $_GET));
         $response->assertOk();
     }
     public function test_admin_skill_controller_index()
     {
         $user = User::factory()->create();
-        $user->role = 'IS_ADMIN';
+        $user->role_id = 1;
         $response = $this->actingAs($user)->get(route('admin.skills.index'));
         $response->assertOk();
     }
     public function test_admin_skill_controller_create()
     {
         $user = User::factory()->create();
-        $user->role = 'IS_ADMIN';
+        $user->role_id = 1;
         $response = $this->actingAs($user)->get(route('admin.skills.create'));
         $response->assertOk();
     }
     public function test_admin_skill_controller_show()
     {
         $user = User::factory()->create();
+        // dd($user);
         $_GET = ['skill' => 14];
-        $user->role = 'IS_ADMIN';
+        $user->role_id = 1;
+        // dd($user->role_id);
         $response = $this->actingAs($user)->get(route('admin.skills.show', $_GET));
         $response->assertOk();
     }
@@ -205,28 +207,28 @@ class RoutTest extends TestCase
             'created_at'      => now('Europe/Moscow')
         ]);
 
-        $user->role = 'IS_ADMIN';
+        $user->role_id = 1;
         $response = $this->actingAs($user)->get(route('admin.skills.edit', $skill));
         $response->assertOk();
     }
     public function test_admin_tag_controller_index()
     {
         $user = User::factory()->create();
-        $user->role = 'IS_ADMIN';
+        $user->role_id = 1;
         $response = $this->actingAs($user)->get(route('admin.tags.index'));
         $response->assertOk();
     }
     public function test_admin_tag_controller_create()
     {
         $user = User::factory()->create();
-        $user->role = 'IS_ADMIN';
+        $user->role_id = 1;
         $response = $this->actingAs($user)->get(route('admin.tags.create'));
         $response->assertOk();
     }
     public function test_admin_tag_controller_show()
     {
         $user = User::factory()->create();
-        $user->role = 'IS_ADMIN';
+        $user->role_id = 1;
         $_GET = ['tag' => 14];
         $response = $this->actingAs($user)->get(route('admin.tags.show', $_GET));
         $response->assertOk();
@@ -238,21 +240,21 @@ class RoutTest extends TestCase
             'tag' => 'Игровые программы',
             'created_at' => now('Europe/Moscow')
         ]);
-        $user->role = 'IS_ADMIN';
+        $user->role_id = 1;
         $response = $this->actingAs($user)->get(route('admin.tags.edit', $tag));
         $response->assertOk();
     }
     public function test_admin_user_controller_index()
     {
         $user = User::factory()->create();
-        $user->role = 'IS_ADMIN';
+        $user->role_id = 1;
         $response = $this->actingAs($user)->get(route('account.users.index'));
         $response->assertOk();
     }
     public function test_admin_user_controller_create()
     {
         $user = User::factory()->create();
-        $user->role = 'IS_ADMIN';
+        $user->role_id = 1;
         $response = $this->actingAs($user)->get(route('account.users.create'));
         $response->assertOk();
     }
@@ -260,14 +262,14 @@ class RoutTest extends TestCase
     {
         $user = User::factory()->create();
         $_GET = ['user' => 14];
-        $user->role = 'IS_ADMIN';
+        $user->role_id = 1;
         $response = $this->actingAs($user)->get(route('account.users.show', $_GET));
         $response->assertOk();
     }
     public function test_admin_user_controller_edit()
     {
         $user = User::factory()->create();
-        $user->role = 'IS_ADMIN';
+        $user->role_id = 1;
         $response = $this->actingAs($user)->get(route('account.users.edit', $user));
         $response->assertOk();
     }
@@ -334,7 +336,7 @@ class RoutTest extends TestCase
     {
         $user = User::factory()->create();
         $response = $this->actingAs($user)->get(route('verification.notice'));
-        $response->assertRedirect(route('account'));
+        $response->assertRedirect('/');
     }
 
 
@@ -344,7 +346,7 @@ class RoutTest extends TestCase
     public function test_admin_tags_controller_store()
     {
         $user = User::factory()->create();
-        $user->role = 'IS_ADMIN';
+        $user->role_id = 1;
         $req = [
             'tag' => 'Tests',
             'created_at' => now('Europe/Moscow')
@@ -387,7 +389,7 @@ class RoutTest extends TestCase
     public function test_admin_profile_controller_store()
     {
         $user = User::factory()->create();
-        $user->role = 'IS_ADMIN';
+        $user->role_id = 1;
         $faker = Factory::create();
         $req = [
             'user_id' => 99,
@@ -407,7 +409,7 @@ class RoutTest extends TestCase
         $user = User::factory()->create();
         $_GET = ['user_id' => 14];
         $faker = Factory::create();
-        $user->role = 'IS_ADMIN';
+        $user->role_id = 1;
         $req = [
             'user_id'         => $user->id,
             'location'        => 'Москва',
