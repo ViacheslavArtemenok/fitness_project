@@ -14,7 +14,7 @@ class TrainerController extends Controller
     }
     public function index(int $tag_id, int $city_id)
     {
-        if (Auth::user()->role === 'IS_CLIENT' && $city_id === 0) {
+        if (Auth::user() && Auth::user()->role_id === 3 && $city_id === 0) {
             foreach (config('cities') as $key => $city) {
                 if (Auth::user()->characteristic->location === $city) {
                     $city_id = $key;

@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests\Users;
 
-use App\Models\User;
+use App\Models\Role;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
@@ -13,6 +13,11 @@ class CreateRequest extends FormRequest
      *
      * @return bool
      */
+    public function __construct()
+    {
+        $this->roles = Role::all();
+    }
+
     public function authorize()
     {
         return true;
@@ -25,13 +30,17 @@ class CreateRequest extends FormRequest
      */
     public function rules()
     {
+        $arr = [];
+        foreach ($this->roles as $role) {
+            $arr[] = $role->id;
+        }
         return [
             'name' => ['required', 'string', 'min:3', 'max:255'],
             'email' => ['required', 'email', 'min:5', 'max:255'],
             'phone' =>  ['required', 'string'],
             'password' => ['required_with:confirmPassword', 'string', 'same:confirmPassword', 'min:8'],
             'confirmPassword' => ['required', 'string', 'min:8'],
-            'role' => ['required', Rule::in([User::IS_GYM, User::IS_TRAINER, User::IS_ADMIN, User::IS_CLIENT])]
+            'role_id' => ['required', 'integer', Rule::in($arr)],
         ];
     }
 
@@ -43,7 +52,7 @@ class CreateRequest extends FormRequest
             'phone' => 'Телефон',
             'password' => 'Пароль',
             'confirmPassword' => 'Подтверждение пароля',
-            'role' => 'Роль'
+            'role_id' => 'Роль'
         ];
     }
 }

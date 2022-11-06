@@ -17,16 +17,11 @@ return new class extends Migration
     {
         Schema::create('roles', function (Blueprint $table) {
             $table->id();
-
-            $table->enum('role', [
-                Role::IS_ADMIN, Role::IS_CLIENT, Role::IS_TRAINER, Role::IS_GYM
-            ])->default(Role::IS_TRAINER)->unique();
-            $table->string('title', 250);
+            $table->string('role', 150)->unique();
+            $table->string('title', 250)->unique();
             $table->text('description');
-
             $table->timestamps();
             $table->softDeletes();
-
         });
     }
 

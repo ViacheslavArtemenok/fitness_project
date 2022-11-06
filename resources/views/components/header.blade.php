@@ -17,7 +17,7 @@
                             href="{{ route('trainers.index', ['tag_id' => 0, 'city_id' => 0]) }}">Тренеры</a>
                     </li>
                     @auth
-                        @if (Auth::user()->role === 'IS_ADMIN')
+                        @if (Auth::user()->role_id === 1)
                             <li class="nav-item">
                                 <a class="nav-link @if (request()->routeIs('admin.*')) active @endif"
                                     href="{{ route('admin.index') }}">Администрировать</a>

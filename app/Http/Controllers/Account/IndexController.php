@@ -24,24 +24,30 @@ class IndexController extends Controller
     public function __invoke(Request $request): View
     {
         $id = Auth::user()->id;
-        if (Auth::user()->role === 'IS_TRAINER') {
-            $user = User::query()
-                ->with('profile', 'skill', 'tags', 'clients')
-                ->findOrFail($id);
-            return view('account.indexTrainer', [
-                'user' => $user,
-                'trainerBuilder' => $this->trainerBuilder
-            ]);
+        switch (Auth::user()->role_id) {
+            case 1:
+                return abort(404);
+                break;
+            case 2:
+                $user = User::query()
+                    ->with('profile', 'skill', 'tags', 'clients')
+                    ->findOrFail($id);
+                $path = 'account.indexTrainer';
+                break;
+            case 3:
+                $user = User::query()
+                    ->with('profile', 'characteristic', 'trainers')
+                    ->findOrFail($id);
+                $path = 'account.indexClient';
+                break;
+            case 4:
+                $path = 'account.indexGym';
+                break;
         }
-        if (Auth::user()->role === 'IS_CLIENT') {
-            $user = User::query()
-                ->with('profile', 'characteristic', 'trainers')
-                ->findOrFail($id);
-            return view('account.indexClient', [
-                'user' => $user,
-                'trainerBuilder' => $this->trainerBuilder
-            ]);
-        }
-        return abort(404);
+
+        return view($path, [
+            'user' => $user,
+            'trainerBuilder' => $this->trainerBuilder
+        ]);
     }
 }
