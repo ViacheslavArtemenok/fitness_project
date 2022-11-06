@@ -402,20 +402,6 @@ class RoutTest extends TestCase
         $response = $this->actingAs($user)->post(route('admin.profiles.store', $req));
         $response->assertRedirect(route('admin.profiles.index'));
     }
-    //     public function test_admin_relations_controller_store(){
-    // // Не написана функция в самом контроллере
-    //         $user = User::factory()->create();
-    //         $_GET = ['user_id' => 14];
-    //         $user->role = 'IS_ADMIN';
-    //         $req = [
-    //             'user_id' => $user->id,
-    //             'tag_id' => rand(1, 22),
-    //             'created_at' => now('Europe/Moscow')
-    //     ];
-    //         $response = $this->actingAs($user)->post(route('admin.relations.store',$req , $_GET));
-    //         $response->assertRedirect(route('admin.relations.index'));
-    //     }
-
     public function test_admin_skills_controller_store()
     {
         $user = User::factory()->create();
@@ -435,6 +421,19 @@ class RoutTest extends TestCase
         $response = $this->actingAs($user)->post(route('admin.skills.store', $req, $_GET));
         $response->assertRedirect(route('admin.skills.index'));
     }
+        // public function test_admin_relations_controller_store(){
+        // // Не написана функция в самом контроллере
+        //         $user = User::factory()->create();
+        //         $_GET = ['user_id' => 14];
+        //         $user->role = 'IS_ADMIN';
+        //         $req = [
+        //             'user_id' => $user->id,
+        //             'tag_id' => rand(1, 22),
+        //             'created_at' => now('Europe/Moscow')
+        //     ];
+        //         $response = $this->actingAs($user)->post(route('admin.relations.store',$req , $_GET));
+        //         $response->assertRedirect(route('admin.relations.index'));
+        //     }
     // public function test_admin_user_controller_store(){
     //     // Проблемы в контроллере Тест не проходит
     //         $user = User::factory()->create();
