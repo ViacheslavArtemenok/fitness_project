@@ -1,17 +1,8 @@
-  PUT|PATCH       account/profiles/{profile} account.profiles.update › Accoun…
-  DELETE          account/profiles/{profile} account.profiles.destroy › Accou…
-  PUT|PATCH       account/users/{user} account.users.update › Account\UserCon…
-  DELETE          account/users/{user} account.users.destroy › Account\UserCo…
-  PUT|PATCH       admin/profiles/{profile} admin.profiles.update › Admin\Prof…
-  DELETE          admin/profiles/{profile} admin.profiles.destroy › Admin\Pro…
-  PUT|PATCH       admin/relations/{trainer} admin.relations.update › Admin\Re…
-  DELETE          admin/relations/{trainer} admin.relations.destroy › Admin\R…
-  PUT|PATCH       admin/skills/{skill} ........................ admin.skills.update › Admin\SkillController@update
-  DELETE          admin/skills/{skill} ...................... admin.skills.destroy › Admin\SkillController@destroy
-  PUT|PATCH       admin/tags/{tag} ................................ admin.tags.update › Admin\TagController@update
-  DELETE          admin/tags/{tag} .............................. admin.tags.destroy › Admin\TagController@destroy
-  PUT|PATCH       admin/users/{user} ............................ admin.users.update › Admin\UserController@update
-  DELETE          admin/users/{user} .......................... admin.users.destroy › Admin\UserController@destroy
+DELETE          account/profiles/{profile} account.profiles.destroy › Accou…   Не прописан в самом контроллере
+DELETE          account/users/{user} account.users.destroy › Account\UserCo…   Не прописан в самом контроллере
+PUT|PATCH       account/profiles/{profile} account.profiles.update › Accoun…
+
+ 
   POST            email/verification-notification verification.send › Auth\EmailVerificationNotificationController@store
   POST            subscriptions ............................... subscriptions.store › SubscriptionController@store
   PUT|PATCH       subscriptions/{subscription} .............. subscriptions.update › SubscriptionController@update
@@ -30,6 +21,7 @@
   POST            reset-password .............................. password.update › Auth\NewPasswordController@store
   GET|HEAD        reset-password/{token} ...................... password.reset › Auth\NewPasswordController@create
   GET|HEAD        sanctum/csrf-cookie .......... sanctum.csrf-cookie › Laravel\Sanctum › CsrfCookieController@show
+
 
 
 
