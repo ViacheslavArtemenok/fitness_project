@@ -68,7 +68,10 @@ Route::get('/review/{review_id}/{client_id}/{trainer_id}/{city_id}', [TrainerCon
     ->where('city_id', '\d+')
     ->name('trainers.review');
 Route::resource('subscriptions', SubscriptionController::class);
-Route::resource('trainerReviews', TrainerReviewController::class);
+
+Route::group(['middleware' => ['auth', 'is_activated']], function () {
+    Route::resource('trainerReviews', TrainerReviewController::class);
+});
 
 //Admin routes
 Route::middleware('auth')->group(function () {

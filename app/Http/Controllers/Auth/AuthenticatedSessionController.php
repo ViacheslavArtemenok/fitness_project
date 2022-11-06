@@ -34,6 +34,8 @@ class AuthenticatedSessionController extends Controller
 
         if (Auth::user()->role_id === 1) {
             return redirect()->intended(RouteServiceProvider::ADMIN);
+        } elseif (!Auth::user()->email_verified_at) {
+            return redirect()->intended(RouteServiceProvider::VERIFICATION);
         }
 
 

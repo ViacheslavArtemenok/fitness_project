@@ -7,9 +7,12 @@ use App\Models\Skill;
 use App\Models\Tag;
 use App\Models\User;
 use Faker\Factory;
+use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 use Tests\TestCase;
 
-class RouteTest extends TestCase
+class RoutTest extends TestCase
 {
 
 
@@ -24,13 +27,13 @@ class RouteTest extends TestCase
         $response = $this->get('/');
         $response->assertOk();
     }
-    public function test_account_index_controller()
+    public function test_acount_index_controller()
     {
         $user = User::factory()->create();
         $response = $this->actingAs($user)->get(route('account'));
         $response->assertOk();
     }
-    public function test_account_profile_controller_index()
+    public function test_acount_profile_controller_index()
     {
         $user = User::factory()->create();
         $_GET = ['profile' => 14];
@@ -38,7 +41,7 @@ class RouteTest extends TestCase
         $response->assertOk();
     }
 
-    public function test_account_profile_controller_create()
+    public function test_acount_profile_controller_create()
     {
         $user = User::factory()->create();
         $_GET = ['profile' => 14];
@@ -46,21 +49,21 @@ class RouteTest extends TestCase
         $response->assertOk();
     }
 
-    public function test_account_profile_controller_edit()
+    public function test_acount_profile_controller_edit()
     {
         $user = User::factory()->create();
         $_GET = ['profile' => 14];
         $response = $this->actingAs($user)->get(route('account.profiles.create', $_GET));
         $response->assertOk();
     }
-    public function test_account_users_controller_index()
+    public function test_acount_users_controller_index()
     {
         $user = User::factory()->create();
         $response = $this->actingAs($user)->get(route('account.users.index'));
         $response->assertOk();
     }
 
-    public function test_account_users_controller_create()
+    public function test_acount_users_controller_create()
     {
         $user = User::factory()->create();
         $user->role_id = 1;
@@ -68,19 +71,19 @@ class RouteTest extends TestCase
         $response = $this->actingAs($user)->get(route('account.users.create', $_GET));
         $response->assertOk();
     }
-    public function test_account_users_controller_show()
+    public function test_acount_users_controller_show()
     {
         $user = User::factory()->create();
         $_GET = ['user' => 14];
-        // $user->role_id = 1;
+        // $user->role = 'IS_ADMIN';
         $response = $this->actingAs($user)->get(route('account.users.show', $_GET));
         $response->assertOk();
     }
-    public function test_account_users_controller_edit()
+    public function test_acount_users_controller_edit()
     {
         $user = User::factory()->create();
         $_GET = ['user' => 14];
-        // $user->role_id = 1;
+        // $user->role = 'IS_ADMIN';
         $response = $this->actingAs($user)->get(route('account.users.edit', $_GET));
         $response->assertOk();
     }
@@ -103,7 +106,7 @@ class RouteTest extends TestCase
     public function test_admin_profiles_controller_create()
     {
         $user = User::factory()->create();
-        $_GET = ['user' => 14];
+        $_GET = ['user' => 1];
         $user->role_id = 1;
         $response = $this->actingAs($user)->get(route('admin.profiles.create', $_GET));
         $response->assertOk();
@@ -182,8 +185,10 @@ class RouteTest extends TestCase
     public function test_admin_skill_controller_show()
     {
         $user = User::factory()->create();
+        // dd($user);
         $_GET = ['skill' => 14];
         $user->role_id = 1;
+        // dd($user->role_id);
         $response = $this->actingAs($user)->get(route('admin.skills.show', $_GET));
         $response->assertOk();
     }
@@ -309,8 +314,8 @@ class RouteTest extends TestCase
     public function test_trainers_controller_index()
     {
         $_GET = [
-            'tag_id' => 0,
-            'city_id' => 0,
+            'tag_id' => 4,
+            'city_id' => 4,
         ];
         $response = $this->get(route('trainers.index', $_GET));
         $response->assertOk();
@@ -331,7 +336,7 @@ class RouteTest extends TestCase
     {
         $user = User::factory()->create();
         $response = $this->actingAs($user)->get(route('verification.notice'));
-        $response->assertRedirect(route('account'));
+        $response->assertRedirect('/');
     }
 
 
@@ -352,7 +357,7 @@ class RouteTest extends TestCase
     // public function test_account_users_controller_store(){
     //     // Проблемы в контроллере Тест не проходит
     //     $user = User::factory()->create();
-    //     $user->role_id = 1;
+    //     $user->role = 'IS_ADMIN';
     //     $req = [
     //         'name'        => 'admin',
     //         'email'       => 'admin@mail.ru',
@@ -366,7 +371,7 @@ class RouteTest extends TestCase
     //     $response = $this->actingAs($user)->post(route('account.users.store',$req));
     //     $response->assertRedirect(route('account.profiles.index'));
     // }
-    // public function test_account_profile_controller_store(){
+    // public function test_acount_profile_controller_store(){
     //     $user = User::factory()->create();
     //     $_GET = ['user_id' => 14];
     //     $img = UploadedFile::fake()->create('222222.jpg');
@@ -399,20 +404,6 @@ class RouteTest extends TestCase
         $response = $this->actingAs($user)->post(route('admin.profiles.store', $req));
         $response->assertRedirect(route('admin.profiles.index'));
     }
-    //     public function test_admin_relations_controller_store(){
-    // // Не написана функция в самом контроллере
-    //         $user = User::factory()->create();
-    //         $_GET = ['user_id' => 14];
-    //         $user->role_id = 1;
-    //         $req = [
-    //             'user_id' => $user->id,
-    //             'tag_id' => rand(1, 22),
-    //             'created_at' => now('Europe/Moscow')
-    //     ];
-    //         $response = $this->actingAs($user)->post(route('admin.relations.store',$req , $_GET));
-    //         $response->assertRedirect(route('admin.relations.index'));
-    //     }
-
     public function test_admin_skills_controller_store()
     {
         $user = User::factory()->create();
@@ -432,12 +423,26 @@ class RouteTest extends TestCase
         $response = $this->actingAs($user)->post(route('admin.skills.store', $req, $_GET));
         $response->assertRedirect(route('admin.skills.index'));
     }
+        // public function test_admin_relations_controller_store(){
+        // // Не написана функция в самом контроллере
+        //         $user = User::factory()->create();
+        //         $_GET = ['user_id' => 14];
+        //         $user->role = 'IS_ADMIN';
+        //         $req = [
+        //             'user_id' => $user->id,
+        //             'tag_id' => rand(1, 22),
+        //             'created_at' => now('Europe/Moscow')
+        //     ];
+        //         $response = $this->actingAs($user)->post(route('admin.relations.store',$req , $_GET));
+        //         $response->assertRedirect(route('admin.relations.index'));
+        //     }
+
     // public function test_admin_user_controller_store(){
     //     // Проблемы в контроллере Тест не проходит
     //         $user = User::factory()->create();
     //         $_GET = ['user_id' => 14];
     //         $faker = Factory::create();
-    //         $user->role_id = 1;
+    //         $user->role = 'IS_ADMIN';
     //         $req = [
     //             'name'        => 'admin',
     //             'email'       => 'admin@mail.ru',
@@ -451,13 +456,6 @@ class RouteTest extends TestCase
     //         $response = $this->actingAs($user)->post(route('admin.users.store',$req , $_GET));
     //         $response->assertRedirect(route('admin.users.store'));
     //     }
-    // public function test_account_profiles_controller_destroy(){
-    //         $user = User::factory()->create();
-    //         $profile = Profile::latest()->take(1)->get();
-    //         $_GET = ['profile' => $profile];
-    //         $profile->deleted_at = now('Europe/Moscow');
-    //         $response = $this->actingAs($user)->delete(route('account.profiles.destroy',$profile, $_GET));
-    //         $response->assertOk();
-    //     }
+
 
 }
