@@ -185,8 +185,10 @@ class RoutTest extends TestCase
     public function test_admin_skill_controller_show()
     {
         $user = User::factory()->create();
+        // dd($user);
         $_GET = ['skill' => 14];
         $user->role_id = 1;
+        // dd($user->role_id);
         $response = $this->actingAs($user)->get(route('admin.skills.show', $_GET));
         $response->assertOk();
     }

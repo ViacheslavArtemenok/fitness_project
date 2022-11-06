@@ -59,7 +59,7 @@ class PutPatchTest extends TestCase
             'created_at'  => now('Europe/Moscow')];
                     }
         $response = $this->actingAs($user)->put(route('account.users.update',$_POST));
-        $response->assertRedirect('/');
+        $response->assertRedirect(route('account'));
     }
     // // PUT|PATCH       admin/profiles/{profile} admin.profiles.update › Admin\Prof…
     //     public function test_admin_profiles_controller_update(){
