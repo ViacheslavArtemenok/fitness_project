@@ -132,7 +132,7 @@ public function test_admin_users_controller_update(){
     $updateObjects = User::latest()->take(1)->get();
     foreach ($updateObjects as $updateObject) {
         $_POST = ['user'=> $updateObject->id];
-        $updateObject->phone = '+7 999 999 99 99';
+        $updateObject->phone = '+7 ' . '(9' . rand(10, 99) . ') ' . rand(100, 999) . '-' . rand(10, 99) . '-' . rand(10, 99);;
         $updateObject->password = 11111111;
         $myTag = $updateObject->getAttributes();}
     $response = $this->actingAs($user)->put(route('admin.users.update',$_POST),$myTag);
