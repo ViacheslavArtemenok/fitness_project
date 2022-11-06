@@ -40,7 +40,7 @@ class ProfileController extends Controller
                 $join->on('users.id', '=', 'profiles.user_id');
             })
             ->whereNull('profiles.user_id')
-            ->get(['users.id', 'users.role', 'users.name']);
+            ->get(['users.id', 'users.role_id', 'users.name']);
 
         return view('admin.profiles.create', ['users' => $users]);
     }

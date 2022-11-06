@@ -20,7 +20,7 @@ class DeleteRouteTest extends TestCase
      */
     public function test_admin_profiles_controller_destroy(){
         $user = User::factory()->create();
-        $user->role = 'IS_ADMIN';
+        $user->role_id = 1;
         $deliteObjects = Profile::latest()->take(1)->get();
         foreach ($deliteObjects as $deliteObject) {
             $_GET = ['profile' => $deliteObject->id];
@@ -32,7 +32,7 @@ class DeleteRouteTest extends TestCase
 
     public function test_admin_relations_controller_destroy(){
         $user = User::factory()->create();
-        $user->role = 'IS_ADMIN';
+        $user->role_id = 1;
         $deliteObjects = Relation::latest()->take(1)->get();
         foreach ($deliteObjects as $deliteObject) {
             $_GET = ['trainer' => $deliteObject->id];
@@ -44,7 +44,7 @@ class DeleteRouteTest extends TestCase
 
     public function test_admin_skill_controller_destroy(){
         $user = User::factory()->create();
-        $user->role = 'IS_ADMIN';
+        $user->role_id = 1;
         $deliteObjects = Skill::latest()->take(1)->get();
         foreach ($deliteObjects as $deliteObject) {
             $_GET = ['skill' => $deliteObject->id];
@@ -55,7 +55,7 @@ class DeleteRouteTest extends TestCase
     }
     public function test_admin_tag_controller_destroy(){
         $user = User::factory()->create();
-        $user->role = 'IS_ADMIN';
+        $user->role_id = 1;
         $deliteObjects = Tag::latest()->take(1)->get();
         foreach ($deliteObjects as $deliteObject) {
             $_GET = ['tag' => $deliteObject->id];
@@ -67,7 +67,7 @@ class DeleteRouteTest extends TestCase
 
     public function test_admin_user_controller_destroy(){
         $user = User::factory()->create();
-        $user->role = 'IS_ADMIN';
+        $user->role_id = 1;
         $deliteObjects = User::latest()->take(1)->get();
         foreach ($deliteObjects as $deliteObject) {
             $_GET = ['user' => $deliteObject->id];
