@@ -10,6 +10,7 @@ use App\Http\Controllers\Account\TagController as AccountTagController;
 use App\Http\Controllers\Account\CharacteristicController as AccountCharacteristicController;
 
 use App\Http\Controllers\Admin\IndexController as AdminIndexController;
+use App\Http\Controllers\Admin\ChangePasswordController as AdminChangePasswordController;
 use App\Http\Controllers\Admin\ProfileController as AdminProfileController;
 use App\Http\Controllers\Admin\SkillController as AdminSkillController;
 use App\Http\Controllers\Admin\UserController as AdminUserController;
@@ -78,6 +79,12 @@ Route::middleware('auth')->group(function () {
     Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'is_admin'], function () {
         Route::get('/', AdminIndexController::class)
             ->name('index');
+
+        Route::get('/changepassword', AdminChangePasswordController::class)
+            ->name('changePassword');
+        Route::post('/updatepassword', [AdminChangePasswordController::class, 'updatePassword'])
+            ->name('updatePassword');
+
         Route::resource('profiles', AdminProfileController::class);
         Route::resource('skills', AdminSkillController::class);
         Route::resource('users', AdminUserController::class);

@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Moderating;
+use App\Models\Role;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
@@ -16,11 +18,20 @@ class ModeratingController extends Controller
      */
     public function index()
     {
-//        $moderatings = Moderating::query()
+        $statuses = [
+            Moderating::IS_PENDING,
+            Moderating::IS_REJECTED,
+            Moderating::IS_APPROVED
+        ];
+
+        $roles = Role::All('role')->toArray();
+
+//        $moderatings = User::query()
+//            ->where('role_id', 2)
 //            ->with('profile')
-//            ->with('user')
-//            ->where('status', Moderating::IS_PENDING)
-//            //->where('role_id', 2)
+//            ->with('moderating', function($query) {
+//                $query->where('status', 'IS_PENDING');
+//            })
 //            ->paginate(config('pagination.admin.moderatings'));
 
         $moderatings = Moderating::query()
@@ -31,11 +42,10 @@ class ModeratingController extends Controller
             ->where('status', Moderating::IS_PENDING)
             ->paginate(config('pagination.admin.moderatings'));
 
-
-        //dd($moderatings);
-
         return view('admin.moderatings.index', [
-            'moderatings' => $moderatings
+            'moderatings' => $moderatings,
+            'roles' => $roles,
+            'statuses' => $statuses
         ]);
     }
 
@@ -74,12 +84,32 @@ class ModeratingController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param  Moderating $moderating
+     * @return View
      */
-    public function edit($id)
+    public function edit(Moderating $moderating): View
     {
-        //
+        $reasons = [
+            Moderating::REASON00,
+            Moderating::REASON01,
+            Moderating::REASON02,
+            Moderating::REASON03,
+            Moderating::REASON04,
+            Moderating::REASON05,
+        ];
+
+        //тренера(users,profiles,skills,tags),
+        $moderatingList = User::query()
+            ->where('id', $moderating->user_id)
+            ->with('profile')
+            ->with('skill')
+            ->with('tags')
+            ->get();
+
+        return view('admin.moderatings.edit', [
+            'moderatingList' => $moderatingList,
+            'reasons' => $reasons
+        ]);
     }
 
     /**
