@@ -53,7 +53,7 @@ class ProfileController extends Controller
         if ($request->hasFile('image')) {
             $validated['image'] = $uploadService->uploadImage($request->file('image'));
         }
-        if (Profile::create($request->validated())) {
+        if (Profile::create($validated)) {
             return redirect()->route('account')
                 ->with('success', __('messages.account.profiles.create.success'));
         }
@@ -96,10 +96,11 @@ class ProfileController extends Controller
      */
     public function update(EditRequest $request, Profile $profile, UploadService $uploadService): RedirectResponse
     {
+        $validated = $request->validated();
         if ($request->hasFile('image')) {
-            $profile['image'] = $uploadService->uploadImage($request->file('image'));
+            $validated['image'] = $uploadService->uploadImage($request->file('image'));
         }
-        if ($profile->fill($request->validated())->save()) {
+        if ($profile->fill($validated)->save()) {
             return redirect()->route('account')
                 ->with('success', __('messages.account.profiles.update.success'));
         }

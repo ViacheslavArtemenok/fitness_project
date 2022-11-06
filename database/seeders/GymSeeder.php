@@ -8,7 +8,7 @@ use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
-class GymsSeeder extends Seeder
+class GymSeeder extends Seeder
 {
     /**
      * Run the database seeds.

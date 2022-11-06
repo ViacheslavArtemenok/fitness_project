@@ -1,21 +1,28 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\TrainerController;
+
 use App\Http\Controllers\Account\IndexController as AccountIndexController;
 use App\Http\Controllers\Account\UserController as AccountUserController;
-use \App\Http\Controllers\Account\ProfileController as AccountProfileController;
+use App\Http\Controllers\Account\ProfileController as AccountProfileController;
 use App\Http\Controllers\Account\SkillController as AccountSkillController;
-use \App\Http\Controllers\Account\TagController as AccountTagController;
+use App\Http\Controllers\Account\TagController as AccountTagController;
+use App\Http\Controllers\Account\CharacteristicController as AccountCharacteristicController;
+
 use App\Http\Controllers\Admin\IndexController as AdminIndexController;
 use App\Http\Controllers\Admin\ProfileController as AdminProfileController;
 use App\Http\Controllers\Admin\SkillController as AdminSkillController;
 use App\Http\Controllers\Admin\UserController as AdminUserController;
 use App\Http\Controllers\Admin\TagController as AdminTagController;
 use App\Http\Controllers\Admin\RelationController as AdminRelationController;
+use App\Http\Controllers\Admin\CharacteristicController as AdminCharacteristicController;
+use App\Http\Controllers\Admin\ModeratingController as AdminModeratingController;
+use App\Http\Controllers\Admin\RoleController as AdminRoleController;
 
 use App\Http\Controllers\InfoController;
+use App\Http\Controllers\TrainerController;
 use App\Http\Controllers\SubscriptionController;
+use App\Http\Controllers\TrainerReviewController;
 
 /*
 |--------------------------------------------------------------------------
@@ -40,6 +47,7 @@ Route::middleware('auth')->group(function () {
         Route::resource('profiles', AccountProfileController::class);
         Route::resource('skills', AccountSkillController::class);
         Route::resource('tags', AccountTagController::class);
+        Route::resource('characteristics', AccountCharacteristicController::class);
     });
 });
 
@@ -60,6 +68,7 @@ Route::get('/review/{review_id}/{client_id}/{trainer_id}/{city_id}', [TrainerCon
     ->where('city_id', '\d+')
     ->name('trainers.review');
 Route::resource('subscriptions', SubscriptionController::class);
+Route::resource('trainerReviews', TrainerReviewController::class);
 
 //Admin routes
 Route::middleware('auth')->group(function () {
@@ -71,5 +80,8 @@ Route::middleware('auth')->group(function () {
         Route::resource('users', AdminUserController::class);
         Route::resource('tags', AdminTagController::class);
         Route::resource('relations', AdminRelationController::class)->parameters(['relations' => 'trainer']);
+        Route::resource('characteristics', AdminCharacteristicController::class);
+        Route::resource('moderatings', AdminModeratingController::class);
+        Route::resource('roles', AdminRoleController::class);
     });
 });

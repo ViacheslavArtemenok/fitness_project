@@ -6,7 +6,9 @@ return [
         'profiles' => 15,
         'skills' => 15,
         'tags' => 15,
-        'relations' => 15
+        'relations' => 15,
+        'characteristics' => 15,
+        'moderatings' => 15,
     ],
     'trainers' => [
         'users' => 15,

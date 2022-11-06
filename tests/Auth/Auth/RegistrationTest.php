@@ -9,7 +9,6 @@ use Tests\TestCase;
 
 class RegistrationTest extends TestCase
 {
-    use RefreshDatabase;
 
     public function test_registration_screen_can_be_rendered()
     {
@@ -24,7 +23,7 @@ class RegistrationTest extends TestCase
             'name' => 'Test User',
             'email' => 'test@example.com',
             'phone' => '+79999999999',
-            'role'        => User::IS_TRAINER,
+            'role_id'        => 2,
             'password' => '11111111',
             'password_confirmation' => '11111111',
         ]);

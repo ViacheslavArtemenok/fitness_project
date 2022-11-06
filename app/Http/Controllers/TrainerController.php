@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Queries\TrainerQueryBuilder;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class TrainerController extends Controller
 {
@@ -13,6 +14,13 @@ class TrainerController extends Controller
     }
     public function index(int $tag_id, int $city_id)
     {
+        if (Auth::user() && Auth::user()->role_id === 3 && $city_id === 0) {
+            foreach (config('cities') as $key => $city) {
+                if (Auth::user()->characteristic->location === $city) {
+                    $city_id = $key;
+                }
+            }
+        }
         return view('trainers.index', [
             'trainersList' => $this->trainerBuilder->getWithParamsPaginate(request()->firstName, request()->lastName, $city_id, $tag_id),
             'trainerBuilder' => $this->trainerBuilder,

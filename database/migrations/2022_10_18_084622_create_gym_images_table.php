@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('image', 255)->nullable();
 
 
-            $table->foreign('gym_id')->references('id')->on('gyms');
+            $table->foreign('gym_id')->references('id')->on('gyms')->onDelete('cascade');
             $table->timestamps();
             $table->softDeletes();
         });

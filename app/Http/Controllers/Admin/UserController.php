@@ -7,8 +7,10 @@ use App\Models\Profile;
 use App\Http\Requests\Users\EditRequest;
 use App\Http\Requests\Users\CreateRequest;
 use App\Http\Controllers\Controller;
+use App\Models\Role;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 use Illuminate\View\View;
 use Illuminate\Support\Facades\Hash;
 
@@ -21,7 +23,9 @@ class UserController extends Controller
      */
     public function index(): View
     {
-        $users = User::query()->with('profile')->paginate(config('pagination.admin.users'));
+        $users = User::query()
+            ->with(['profile', 'role'])
+            ->paginate(config('pagination.admin.users'));
 
         return view('admin.users.index', [
             'users' => $users
@@ -35,7 +39,9 @@ class UserController extends Controller
      */
     public function create(): View
     {
-        return view('admin.users.create');
+        return view('admin.users.create', [
+            'roles' => Role::all(),
+        ]);
     }
 
     /**
@@ -47,18 +53,20 @@ class UserController extends Controller
     public function store(CreateRequest $request): RedirectResponse
     {
         $user = new User(
-            array_merge($request->validated(),
-                ['password' => Hash::make($request['password'])])
+            array_merge(
+                $request->validated(),
+                ['password' => Hash::make($request['password'])]
+            )
         );
 
-//        $profile = new Profile();
-//
-//        $profile->last_name = $request->input('last_name');
-//        $profile->user_id = $user->id;
-//
-//        $user->profile()->save($profile);
+        //        $profile = new Profile();
+        //
+        //        $profile->last_name = $request->input('last_name');
+        //        $profile->user_id = $user->id;
+        //
+        //        $user->profile()->save($profile);
 
-        if($user->save()) {
+        if ($user->save()) {
             return redirect()->route('admin.users.index')
                 ->with('success', __('messages.admin.users.create.success'));
         }
@@ -86,7 +94,8 @@ class UserController extends Controller
     public function edit(User $user): View
     {
         return view('admin.users.edit', [
-            'user' => $user
+            'user' => $user,
+            'roles' => Role::all(),
         ]);
     }
 
@@ -97,13 +106,17 @@ class UserController extends Controller
      * @param  User  $user
      * @return RedirectResponse
      */
-    public function update(EditRequest $request, User $user): RedirectResponse
+    public function update(Request $requestRole, EditRequest $request, User $user): RedirectResponse
     {
-        $user = $user->fill(array_merge($request->validated(),
-            ['password' => Hash::make($request['password'])]
+        $user = $user->fill(array_merge(
+            $request->validated(),
+            [
+                'password' => $user->password,
+                'role_id' => $requestRole->input('role_id'),
+            ]
         ));
 
-        if($user->save()) {
+        if ($user->save()) {
             return redirect()->route('admin.users.index')
                 ->with('success',  __('messages.admin.users.update.success'));
         }
@@ -122,13 +135,13 @@ class UserController extends Controller
     {
         try {
             $deleted = $user->delete();
-            if ( $deleted === false) {
+            if ($deleted === false) {
                 return \response()->json(['status' => 'error'], 400);
             } else {
                 return \response()->json(['status' => 'ok']);
             }
         } catch (\Exception $e) {
-            \Log::error($e->getMessage().' '.$e->getCode());
+            \Log::error($e->getMessage() . ' ' . $e->getCode());
             return \response()->json(['status' => 'error'], 400);
         }
     }

@@ -1,6 +1,6 @@
 @extends('layouts.main')
 @section('title')
-    Тренер: @if (isset($trainer))
+    Тренер: @if (isset($trainer->profile))
         {{ $trainer->profile->first_name }} {{ $trainer->profile->father_name }} {{ $trainer->profile->last_name }}
     @endif
     @parent
@@ -61,6 +61,12 @@
                         href="{{ route('trainers.index', ['tag_id' => 0, 'city_id' => $city_id]) }}">&#9668 &#9668
                         &#9668 Назад
                     </a>
+                    @if (!Auth::user() || Auth::user()->role_id === 3)
+                        <a class="btn btn-outline-success mt-3 mb-2 me-2"
+                            href="{{ route('trainerReviews.edit', ['trainerReview' => $trainer->id]) }}">Отзыв &#9650;
+                            &#9650;
+                            &#9650;</a>
+                    @endif
                 </div>
                 <div class="col-md-5">
                     <img class="market_image" src="{{ Storage::disk('public')->url($trainer->profile->image) }}"
@@ -101,7 +107,7 @@
                 <!--Карточка отзыва -->
                 @forelse($reviews as $review)
                     @foreach ($review->trainers as $trainerR)
-                        @if ($trainerR->id === $trainer_id)
+                        @if ($trainerR->id === $trainer_id && $trainerR->pivot->status === 'ACTIVE')
                             <div class="feature col">
                                 <div class="p-3 bg-light rounded-1 shadow">
                                     <div class="d-flex shadow mb-2 rounded-1">

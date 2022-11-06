@@ -16,11 +16,8 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->enum('role', [
-                User::IS_ADMIN, User::IS_CLIENT, User::IS_TRAINER, User::IS_GYM
-            ])->default(User::IS_TRAINER);
             $table->enum('status', [
-                User::DRAFT, User::ACTIVE, User::BLOCKED
+                User::DRAFT, User::ACTIVE, User::BLOCKED,
             ])->default(User::DRAFT);
             $table->string('name');
             $table->string('phone')->unique()->nullable();

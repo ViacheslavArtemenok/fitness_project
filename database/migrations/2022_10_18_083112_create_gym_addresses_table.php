@@ -26,7 +26,7 @@ return new class extends Migration
             $table->string('apartment')->nullable();
 
 
-            $table->foreign('gym_id')->references('id')->on('gyms');
+            $table->foreign('gym_id')->references('id')->on('gyms')->onDelete('cascade');
             $table->timestamps();
             $table->softDeletes();
         });

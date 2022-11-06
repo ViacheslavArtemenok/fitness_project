@@ -2,7 +2,9 @@
 
 namespace App\Models;
 
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
@@ -11,17 +13,13 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Laravel\Sanctum\HasApiTokens;
 
-class User extends Authenticatable
+class User extends Authenticatable  implements MustVerifyEmail
 {
     use HasApiTokens, HasFactory, Notifiable;
     use SoftDeletes;
 
     protected $dates = ['deleted_at'];
-    // define role here
-    public const IS_ADMIN = 'IS_ADMIN';
-    public const IS_CLIENT = 'IS_CLIENT';
-    public const IS_TRAINER = 'IS_TRAINER';
-    public const IS_GYM = 'IS_GYM';
+    // define status here
     public const DRAFT = 'DRAFT';
     public const ACTIVE = 'ACTIVE';
     public const BLOCKED = 'BLOCKED';
@@ -36,7 +34,7 @@ class User extends Authenticatable
         'email',
         'password',
         'phone',
-        'role',
+        'role_id',
         'status'
     ];
 
@@ -69,6 +67,11 @@ class User extends Authenticatable
         return $this->hasOne(Skill::class);
     }
 
+    public function characteristic(): HasOne
+    {
+        return $this->hasOne(Characteristic::class);
+    }
+
     public function tags(): BelongsToMany
     {
         return $this->belongsToMany(Tag::class, 'relations')->withTimestamps();
@@ -76,15 +79,26 @@ class User extends Authenticatable
 
     public function gyms(): BelongsToMany
     {
-        return $this->belongsToMany(Gym::class, 'gym_reviews', 'client_id', 'gym_id');
+        return $this->belongsToMany(GymReview::class, 'gym_reviews', 'client_id', 'gym_id');
     }
 
     public function clients(): BelongsToMany
     {
         return $this->belongsToMany(User::class, 'trainer_reviews', 'trainer_id', 'client_id')->withPivot('id', 'client_id', 'title', 'description', 'score', 'status',)->withTimestamps();
     }
+
     public function trainers(): BelongsToMany
     {
         return $this->belongsToMany(User::class, 'trainer_reviews', 'client_id', 'trainer_id')->withPivot('id', 'trainer_id', 'title', 'description', 'score', 'status',)->withTimestamps();
+    }
+
+    public function role(): BelongsTo
+    {
+        return $this->belongsTo(Role::class);
+    }
+
+    public function moderating(): HasOne
+    {
+        return $this->hasOne(Moderating::class);
     }
 }

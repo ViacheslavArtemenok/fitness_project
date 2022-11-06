@@ -63,7 +63,7 @@ final class TrainerQueryBuilder
     public function getAllPaginate(): LengthAwarePaginator
     {
         return $this->trainerModel
-            ->where('role', 'IS_TRAINER')
+            ->where('role_id', 2)
             ->where('status', 'ACTIVE')
             ->with(['profile', 'skill', 'tags', 'clients'])
             ->paginate(config('trainers.users'));
@@ -83,7 +83,7 @@ final class TrainerQueryBuilder
 
         if (count($trainers->arr)) { //Вернуть результаты поиска
             return  $this->trainerModel
-                ->where('role', 'IS_TRAINER')
+                ->where('role_id', 2)
                 ->where('status', 'ACTIVE')
                 ->whereIn('id', $trainers->arr)
                 ->with(['profile', 'skill', 'tags', 'clients'])
@@ -99,7 +99,7 @@ final class TrainerQueryBuilder
     {
         return $this->trainerModel
             ->where('status', 'ACTIVE')
-            ->where('role', 'IS_TRAINER')
+            ->where('role_id', 2)
             ->with(['profile', 'skill', 'tags', 'clients'])
             ->findOrFail($id);
     }
@@ -127,7 +127,7 @@ final class TrainerQueryBuilder
         }
         if (count($arr)) {
             $reviews = $this->clientModel
-                ->where('role', 'IS_CLIENT')
+                ->where('role_id', 3)
                 ->whereIn('id', $arr)
                 ->with(['profile', 'trainers'])
                 ->paginate(6);
@@ -144,7 +144,7 @@ final class TrainerQueryBuilder
         $trainer = $this->getById($trainer_id);
 
         $client = $this->clientModel
-            ->where('role', 'IS_CLIENT')
+            ->where('role_id', 3)
             ->with(['profile', 'trainers'])
             ->findOrFail($client_id);
 
@@ -161,7 +161,7 @@ final class TrainerQueryBuilder
      * либо объект класса Skill
      * т.е. методы 
      */
-    public function create(object $obj, array $data): bool
+    public function create(object $obj, array $data): object
     {
         return $obj->create($data);
     }
