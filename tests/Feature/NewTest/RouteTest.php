@@ -434,6 +434,7 @@ class RoutTest extends TestCase
         //         $response = $this->actingAs($user)->post(route('admin.relations.store',$req , $_GET));
         //         $response->assertRedirect(route('admin.relations.index'));
         //     }
+
     // public function test_admin_user_controller_store(){
     //     // Проблемы в контроллере Тест не проходит
     //         $user = User::factory()->create();
