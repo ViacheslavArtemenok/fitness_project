@@ -26,6 +26,12 @@ class RouteServiceProvider extends ServiceProvider
      */
     public const ADMIN = '/admin';
     /**
+     * The path to the "account" route for your application.
+     *
+     * @var string
+     */
+    public const VERIFICATION = '/account';
+    /**
      * The path to the "home" route for your application.
      *
      * @var string
