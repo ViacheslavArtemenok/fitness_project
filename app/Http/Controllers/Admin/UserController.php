@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\User;
-use App\Models\Profile;
 use App\Http\Requests\Users\EditRequest;
 use App\Http\Requests\Users\CreateRequest;
 use App\Http\Controllers\Controller;
