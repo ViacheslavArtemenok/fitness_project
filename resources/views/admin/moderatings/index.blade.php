@@ -19,6 +19,16 @@
             @endforeach
         </select>
     </div>
+    <div class="form-group">
+        <label for="status">Роли</label>
+        <select class="form-control" name="status" id="status">
+            @foreach ($roles as $key => $role)
+                <option @if ($role === 0) selected @endif value="{{ $key }}">
+                    {{ $role['role'] }}
+                </option>
+            @endforeach
+        </select>
+    </div>
     <br>
     <div class="table-responsive">
         @include('inc.message')
