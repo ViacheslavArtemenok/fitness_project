@@ -5,6 +5,21 @@
         {{-- <a href="{{ route('admin.profiles.create') }}" class="btn btn-primary">Добавить профиль</a> --}}
     </div><br>
     <div class="alert-message"></div><br>
+
+    <div class="form-group">
+        <span>Фильтровать по</span>
+    </div>
+    <div class="form-group">
+        <label for="status">Статусу</label>
+        <select class="form-control" name="status" id="status">
+            @foreach ($statuses as $key => $status)
+                <option @if ($status === 0) selected @endif value="{{ $key }}">
+                    {{ $status }}
+                </option>
+            @endforeach
+        </select>
+    </div>
+    <br>
     <div class="table-responsive">
         @include('inc.message')
         <table class="table table-striped table-sm">
@@ -13,6 +28,7 @@
                     <th scope="col">#</th>
                     <th scope="col">Идентификатор пользователя</th>
                     <th scope="col">Роль пользователя</th>
+                    <th scope="col">Статус пользователя</th>
                     <th scope="col">Фамилия</th>
                     <th scope="col">Имя</th>
                     <th scope="col">Отчество</th>
@@ -25,7 +41,8 @@
                     <tr id="row-{{ $moderating->id }}">
                         <td>{{ $key + 1 }}</td>
                         <td>{{ $moderating->user_id }}</td>
-                        <td>{!! !empty($moderating->user->role_id) ? $moderating->user->role_id : '' !!}</td>
+                        <td>{!! !empty($moderating->user->role_id) ? $roles[$moderating->user->role_id - 1]['role'] : '' !!}</td>
+                        <td>{!! !empty($moderating->user->status) ? $moderating->user->status : '' !!}</td>
                         <td>
                             @if (isset($moderating->profile->last_name))
                                 {{ $moderating->profile->last_name }}
@@ -45,7 +62,7 @@
                         <td>
                             <div style="">
                                 <a
-                                    href="{{ route('admin.moderatings.edit', ['moderating' => $moderating]) }}">Чит.</a>&nbsp;
+                                    href="{{ route('admin.moderatings.edit', ['moderating' => $moderating]) }}">Модерировать</a>&nbsp;
                                 {{-- <a href="javascript:;" class="delete" rel="{{ $profile->id }}" --}}
                                 {{-- style="color: red;">Уд.</a> --}}
                             </div>
@@ -53,7 +70,7 @@
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="6">Записей не найдено</td>
+                        <td colspan="9">Записей не найдено</td>
                     </tr>
                 @endforelse
             </tbody>

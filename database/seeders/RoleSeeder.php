@@ -3,7 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Role;
-use Faker\Factory;
+//use Faker\Factory;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Seeder;
 
@@ -27,8 +27,8 @@ class RoleSeeder extends Seeder
     {
         $roles = [];
 
-        $faker = Factory::create('ru_RU');
-        $faker->addProvider(new \Faker\Provider\ru_RU\Person($faker));
+       // $faker = Factory::create('ru_RU');
+       // $faker->addProvider(new \Faker\Provider\ru_RU\Person($faker));
 
         $roles[] = [
             'role'         => 'IS_ADMIN',
