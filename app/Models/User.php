@@ -19,6 +19,7 @@ class User extends Authenticatable  implements MustVerifyEmail
     use SoftDeletes;
 
     protected $dates = ['deleted_at'];
+
     // define status here
     public const DRAFT = 'DRAFT';
     public const ACTIVE = 'ACTIVE';
