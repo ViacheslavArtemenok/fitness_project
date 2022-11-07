@@ -72,13 +72,28 @@
                             Город
                         </button>
                         <ul class="dropdown-menu overflow-scroll menu_height">
+                            <li>
+                                <form class="d-flex" role="search" method="GET" action="{{ request()->url() }}">
+                                    <input type="text" class="form-control form-control-sm ms-2 me-2"
+                                        placeholder="Введите название города" aria-label="Город" name="city">
+                                    <button class="btn btn-outline-success" type="submit" hidden>Поиск</button>
+                                </form>
+                            </li>
                             @foreach (config('cities') as $key => $city)
-                                <li><a class="dropdown-item"
-                                        href="{{ route('trainers.index', ['tag_id' => 0, 'city_id' => $key]) }}">{{ $city }}</a>
-                                </li>
-                                @if ($key === 2)
+                                @if (Auth::user() && Auth::user()->role_id === 3 && $key === 0)
+                                    <li hidden><a class="dropdown-item"
+                                            href="{{ route('trainers.index', ['tag_id' => 0, 'city_id' => $key]) }}">{{ $city }}</a>
+                                    </li>
+                                @elseif ($key === 2)
+                                    <li><a class="dropdown-item"
+                                            href="{{ route('trainers.index', ['tag_id' => 0, 'city_id' => $key]) }}">{{ $city }}</a>
+                                    </li>
                                     <li>
                                         <hr class="dropdown-divider">
+                                    </li>
+                                @else
+                                    <li><a class="dropdown-item"
+                                            href="{{ route('trainers.index', ['tag_id' => 0, 'city_id' => $key]) }}">{{ $city }}</a>
                                     </li>
                                 @endif
                             @endforeach
