@@ -15,12 +15,29 @@ class TrainerController extends Controller
     public function index(int $tag_id, int $city_id)
     {
         if (Auth::user() && Auth::user()->role_id === 3 && $city_id === 0) {
+            if (request()->city) {
+                $requestCity = mb_strtolower(request()->city);
+                foreach (config('cities') as $key => $city) {
+                    if ($requestCity === mb_strtolower($city)) {
+                        $city_id = $key;
+                    }
+                }
+            } else {
+                foreach (config('cities') as $key => $city) {
+                    if (isset(Auth::user()->characteristic->location) && Auth::user()->characteristic->location === $city) {
+                        $city_id = $key;
+                    }
+                }
+            }
+        } elseif (request()->city) {
+            $requestCity = mb_strtolower(request()->city);
             foreach (config('cities') as $key => $city) {
-                if (isset(Auth::user()->characteristic->location) && Auth::user()->characteristic->location === $city) {
+                if ($requestCity === mb_strtolower($city)) {
                     $city_id = $key;
                 }
             }
         }
+
         return view('trainers.index', [
             'trainersList' => $this->trainerBuilder->getWithParamsPaginate(request()->firstName, request()->lastName, $city_id, $tag_id),
             'trainerBuilder' => $this->trainerBuilder,
