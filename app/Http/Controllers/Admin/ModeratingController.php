@@ -89,6 +89,8 @@ class ModeratingController extends Controller
      */
     public function edit(Moderating $moderating): View
     {
+        $moderatingList = '';
+
         $reasons = [
             Moderating::REASON00,
             Moderating::REASON01,
@@ -98,13 +100,24 @@ class ModeratingController extends Controller
             Moderating::REASON05,
         ];
 
-        //тренера(users,profiles,skills,tags),
-        $moderatingList = User::query()
-            ->where('id', $moderating->user_id)
-            ->with('profile')
-            ->with('skill')
-            ->with('tags')
-            ->get();
+        //if ($moderating->role_id === 2) {
+            //тренера(users,profiles,skills,tags),
+            $moderatingList = User::query()
+                ->where('id', $moderating->user_id)
+                ->with('profile')
+                ->with('skill')
+                ->with('tags')
+                ->get();
+        //}
+
+//        if ($moderating->role_id === 3) {
+//            //клиента(users,profiles,characteristics)
+//            $moderatingList = User::query()
+//                ->where('id', $moderating->user_id)
+//                ->with('profile')
+//                ->with('characteristics')
+//                ->get();
+//        }
 
         return view('admin.moderatings.edit', [
             'moderatingList' => $moderatingList,
@@ -116,12 +129,50 @@ class ModeratingController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  Moderating $moderating
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Moderating $moderating)
     {
-        //
+        $message = '';
+
+        $reasons = [
+            Moderating::REASON00,
+            Moderating::REASON01,
+            Moderating::REASON02,
+            Moderating::REASON03,
+            Moderating::REASON04,
+            Moderating::REASON05,
+        ];
+
+        switch($request['submit_key']) {
+            case 'IS_APPROVED': // нажата кнопка APPROVED
+                Moderating::whereId($moderating->id)
+                    ->update([
+                        'reason' => Moderating::REASON00,
+                        'status' => Moderating::IS_APPROVED
+                    ]);
+                User::whereId($moderating->id)
+                    ->update([
+                        'status' => User::ACTIVE
+                    ]);
+                $message = __('messages.admin.moderatings.change.success');
+                break;
+            case 'IS_REJECTED': // нажата кнопка REJECTED
+                Moderating::whereId($moderating->id)
+                    ->update([
+                        'reason' => $reasons[$request['reason']],
+                        'status' => Moderating::IS_REJECTED
+                    ]);
+                User::whereId($moderating->id)
+                    ->update([
+                        'status' => User::BLOCKED
+                    ]);
+                $message = __('messages.admin.moderatings.change.fail');
+                break;
+        }
+
+        return back()->with("success", $message);
     }
 
     /**
