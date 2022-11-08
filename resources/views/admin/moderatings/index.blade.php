@@ -46,6 +46,9 @@
                     <th scope="col">Управление</th>
                 </tr>
             </thead>
+            @php
+                //dump($moderatings);
+            @endphp
             <tbody>
                 @forelse($moderatings as $key => $moderating)
                     <tr id="row-{{ $moderating->id }}">

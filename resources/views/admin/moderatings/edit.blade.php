@@ -7,6 +7,13 @@
             {{ $moderatingList[0]->profile->last_name }}
             {{ $moderatingList[0]->profile->first_name }}
             {{ $moderatingList[0]->profile->father_name }}
+            user_id : {{ $moderatingList[0]->profile->user_id }}
+            id : {{ $moderatingList[0]->id }}
+            mod_user_id : {{ $moderatingList[0]->user_id }}
+
+            @php
+            //dump($moderatingList[0]);
+            @endphp
         </h2>
         <div class="container">
             <div class="row">
@@ -91,28 +98,28 @@
                 </div>
             </div>
         @endif
-        @if(isset($moderatingList[0]->characteristics))
+        @if(isset($moderatingList[0]->characteristic))
             <div class="container">
                 <div class="row">
                     <fieldset class="form-group border p-3 mb-4">
                         <legend class="w-auto px-3 reset" align="left">Навыки</legend>
                         <ul class="list-group list-group-flush">
                             <li class="list-group-item"><span
-                                        class="">Расположение: </span>{{ $moderatingList[0]->characteristics->location }}</li>
+                                        class="">Расположение: </span>{{ $moderatingList[0]->characteristic->location }}</li>
                             <li class="list-group-item"><span
-                                        class="">Рост:  </span>{{ $moderatingList[0]->scharacteristics->height }}</li>
+                                        class="">Рост:  </span>{{ $moderatingList[0]->characteristic->height }}</li>
                             <li class="list-group-item"><span
-                                        class="">Вес: </span>{{ $moderatingList[0]->characteristics->weight }}</li>
+                                        class="">Вес: </span>{{ $moderatingList[0]->characteristic->weight }}</li>
                             <li class="list-group-item"><span
-                                        class="">Группа здоровья: </span>{{ $moderatingList[0]->characteristics->health }}</li>
+                                        class="">Группа здоровья: </span>{{ $moderatingList[0]->characteristic->health }}</li>
                             <li class="list-group-item"><span
-                                        class="">Описание: </span>{{ $moderatingList[0]->characteristics->descripton }}</li>
+                                        class="">Описание: </span>{{ $moderatingList[0]->characteristic->description }}</li>
                         </ul>
                     </fieldset>
                 </div>
             </div>
         @endif
-        <form method="post" action="{{ route('admin.moderatings.update', ['moderating' => $moderatingList[0]]) }}">
+        <form method="post" action="{{ route('admin.moderatings.update', ['moderating' => $moderatingList[0]->id]) }}">
             @csrf
             @method('put')
             <div class="form-group">

@@ -20,7 +20,7 @@ class Moderating extends Model
     public const IS_APPROVED = 'IS_APPROVED';
     public const IS_REJECTED = 'IS_REJECTED';
 
-    public const REASON00 = 'нет';
+    public const REASON00 = '';
     public const REASON01 = 'анкета содержит некорректные данные';
     public const REASON02 = 'анкета создана автоматически';
     public const REASON03 = 'анкета содержит недопустимые материалы';

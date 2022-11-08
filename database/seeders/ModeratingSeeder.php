@@ -3,9 +3,8 @@
 namespace Database\Seeders;
 
 use App\Models\Moderating;
-use Faker\Factory;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class ModeratingSeeder extends Seeder
 {
@@ -42,28 +41,37 @@ class ModeratingSeeder extends Seeder
             Moderating::REASON05,
         ];
 
-        $faker = Factory::create('ru_RU');
-        $faker->addProvider(new \Faker\Provider\ru_RU\Person($faker));
+        //$faker = Factory::create('ru_RU');
+        //$faker->addProvider(new \Faker\Provider\ru_RU\Person($faker));
 
-        for ($i = 2; $i < 100; $i++) {
+//        for ($i = 2; $i < 100; $i++) {
+//
+//            $statusIndex = rand(0, 2);
+//
+//            if ($statusIndex === 2) {
+//                $moderatings[] = [
+//                    'user_id'       => $i,
+//                    'status'        => $status[$statusIndex],
+//                    'reason'        => $rejected[rand(1, 4)],
+//                    'created_at'    => now('Europe/Moscow')
+//                ];
+//            } else {
+//                $moderatings[] = [
+//                    'user_id'       => $i,
+//                    'status'        => $status[$statusIndex],
+//                    'reason'        => $rejected[0],
+//                    'created_at'    => now('Europe/Moscow')
+//                ];
+//            }
+//        }
 
-            $statusIndex = rand(0, 2);
-
-            if ($statusIndex === 2) {
-                $moderatings[] = [
-                    'user_id'       => $i,
-                    'status'        => $status[$statusIndex],
-                    'reason'        => $rejected[rand(1, 4)],
-                    'created_at'    => now('Europe/Moscow')
-                ];
-            } else {
-                $moderatings[] = [
-                    'user_id'       => $i,
-                    'status'        => $status[$statusIndex],
-                    'reason'        => $rejected[0],
-                    'created_at'    => now('Europe/Moscow')
-                ];
-            }
+        for ($i = 10; $i < 35; $i++) {
+            $moderatings[] = [
+                'user_id' => $i + 3,
+                'status' => $status[0],
+                'reason' => $rejected[0],
+                'created_at' => now('Europe/Moscow')
+            ];
         }
 
         return $moderatings;
