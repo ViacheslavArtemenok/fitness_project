@@ -51,7 +51,7 @@
             elements.forEach(function (e, k) {
                 e.addEventListener("click", function () {
                     const id = e.getAttribute('rel');
-                    send(`/admin/profiles/${id}`).then((result) => {
+                    send(`/admin/roles/${id}`).then((result) => {
                         const answer = JSON.parse(JSON.stringify(result));
                         let alertBlock = document.querySelector('.alert-message');
                         alertBlock.textContent = '';
