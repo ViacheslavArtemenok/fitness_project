@@ -26,14 +26,6 @@ class ModeratingController extends Controller
 
         $roles = Role::All('role')->toArray();
 
-//        $moderatings = User::query()
-//            ->where('role_id', 2)
-//            ->with('profile')
-//            ->with('moderating', function($query) {
-//                $query->where('status', 'IS_PENDING');
-//            })
-//            ->paginate(config('pagination.admin.moderatings'));
-
 //        $moderatings = Moderating::query()
 //            ->with('user', function($query) {
 //                $query->where('role_id', 2);
@@ -41,7 +33,6 @@ class ModeratingController extends Controller
 //            ->with('profile')
 //            ->where('status', Moderating::IS_PENDING)
 //            ->paginate(config('pagination.admin.moderatings'));
-
 
         $moderatings = Moderating::query()
             ->with('user')
@@ -106,22 +97,15 @@ class ModeratingController extends Controller
             Moderating::REASON05,
         ];
 
-        //dd($moderating->user_id);
-
-        //$role_id = User::whereId($moderating->user_id)->get('role_id')->toArray()[0]['role_id'];
-
         $role_id = User::whereId($moderating->user_id)->get('role_id')[0]->role_id;
-        //dd($role_id);
 
         $roles = Role::all('role')->toArray();
 
-        //dd($roles[$role_id - 1]['role']);
-        //dd($role_id);
-
         if ($roles[$role_id - 1]['role'] === 'IS_TRAINER') {
-            //тренера(users,profiles,skills,tags),
-            $moderatingList = User::query()
-                ->where('id', $moderating->user_id)
+            //тренер (users,profiles,skills,tags),
+            $moderatingList = Moderating::query()
+                ->whereId($moderating->id)
+                ->with('user')
                 ->with('profile')
                 ->with('skill')
                 ->with('tags')
@@ -129,18 +113,17 @@ class ModeratingController extends Controller
         }
 
         if ($roles[$role_id - 1]['role'] === 'IS_CLIENT') {
-            //клиента(users,profiles,characteristics)
-            $moderatingList = User::query()
-                ->where('id', $moderating->user_id)
+            //клиент (users,profiles,characteristics)
+            $moderatingList = Moderating::query()
+                ->whereId($moderating->id)
+                ->with('user')
                 ->with('profile')
                 ->with('characteristic')
                 ->get();
         }
 
-        //dd($moderatingList);
-
-        return view('admin.moderatings.edit', [
-            'moderatingList' => $moderatingList,
+        return view('admin.moderatings.read', [
+            'moderatingList' => $moderatingList[0],
             'reasons' => $reasons
         ]);
     }
@@ -165,31 +148,33 @@ class ModeratingController extends Controller
             Moderating::REASON05,
         ];
 
-        //dd($moderating);
-
         switch($request['submit_key']) {
             case 'IS_APPROVED': // нажата кнопка APPROVED
-                Moderating::where('user_id', $moderating->id)
+                Moderating::whereId($moderating->id)
                     ->update([
                         'reason' => Moderating::REASON00,
                         'status' => Moderating::IS_APPROVED
                     ]);
-                User::whereId($moderating->id)
+
+                User::whereId($moderating->user_id)
                     ->update([
                         'status' => User::ACTIVE
                     ]);
+
                 $message = __('messages.admin.moderatings.change.success');
                 break;
             case 'IS_REJECTED': // нажата кнопка REJECTED
-                Moderating::where('user_id', '=', $moderating->id)
+                Moderating::whereId($moderating->id)
                     ->update([
                         'reason' => $reasons[$request['reason']],
                         'status' => Moderating::IS_REJECTED
                     ]);
-                User::whereId($moderating->id)
+
+                User::whereId($moderating->user_id)
                     ->update([
                         'status' => User::BLOCKED
                     ]);
+
                 $message = __('messages.admin.moderatings.change.fail');
                 break;
         }

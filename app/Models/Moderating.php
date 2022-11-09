@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 
 class Moderating extends Model
 {
@@ -54,5 +55,37 @@ class Moderating extends Model
     public function profile(): HasOne
     {
         return $this->HasOne(Profile::class, 'user_id', 'user_id');
+    }
+
+    /**
+     *
+     * @return BelongsTo
+     */
+    public function skill(): HasOne
+    {
+        return $this->HasOne(Skill::class, 'user_id', 'user_id');
+    }
+
+    /**
+     * Получить tag
+     */
+    public function tags()
+    {
+        return $this->HasManyThrough(
+            Tag::class,
+            Relation::class,
+            'user_id',
+            'id',
+            'user_id',
+            'tag_id'
+        );
+    }
+
+    /**
+     * Получить characteristic
+     */
+    public function characteristic()
+    {
+        return $this->HasOne(Characteristic::class, 'user_id', 'user_id');
     }
 }

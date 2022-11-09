@@ -4,49 +4,42 @@
         <br>
         @include('inc.message')
         <h2>
-            {{ $moderatingList[0]->profile->last_name }}
-            {{ $moderatingList[0]->profile->first_name }}
-            {{ $moderatingList[0]->profile->father_name }}
-            user_id : {{ $moderatingList[0]->profile->user_id }}
-            id : {{ $moderatingList[0]->id }}
-            mod_user_id : {{ $moderatingList[0]->user_id }}
-
-            @php
-            //dump($moderatingList[0]);
-            @endphp
+            {{ $moderatingList->profile->last_name }}
+            {{ $moderatingList->profile->first_name }}
+            {{ $moderatingList->profile->father_name }}
         </h2>
         <div class="container">
             <div class="row">
                 <fieldset class="form-group border p-3 mb-4">
                     <legend class="w-auto px-3 reset" align="left">Пользователь</legend>
                     <ul class="list-group list-group-flush">
-                        <li class="list-group-item"><span class="">Никнейм: </span>{{ $moderatingList[0]->name }}
+                        <li class="list-group-item"><span class="">Никнейм: </span>{{ $moderatingList->user->name }}
                         </li>
-                        <li class="list-group-item"><span class="">Электр. почта: </span>{{ $moderatingList[0]->email }}
+                        <li class="list-group-item"><span class="">Электр. почта: </span>{{ $moderatingList->user->email }}
                         </li>
-                        <li class="list-group-item"><span class="">Телефон: </span> {{ $moderatingList[0]->phone }}
+                        <li class="list-group-item"><span class="">Телефон: </span> {{ $moderatingList->user->phone }}
                         </li>
                     </ul>
                 </fieldset>
             </div>
         </div>
-        @if(isset($moderatingList[0]->profile))
+        @if(isset($moderatingList->profile))
             <div class="container">
                 <div class="row">
                     <fieldset class="form-group border p-3 mb-4">
                         <legend class="w-auto px-3 reset" align="left">Профиль пользователя</legend>
                         <ul class="list-group list-group-flush">
                             <li class="list-group-item"><span
-                                        class="">Возраст: </span>{{ $moderatingList[0]->profile->age }}
+                                        class="">Возраст: </span>{{ $moderatingList->profile->age }}
                             </li>
                             <li class="list-group-item"><span
-                                        class="">Пол: </span>{{ $moderatingList[0]->profile->gender }}
+                                        class="">Пол: </span>{{ $moderatingList->profile->gender }}
                             </li>
                             <li class="list-group-item"><span class="">Аватар: </span>
                                 <div class="">
-                                    @if(isset($moderatingList[0]->profile->image))
+                                    @if(isset($moderatingList->profile->image))
                                         <img class="market_image"
-                                             src="{{ Storage::disk('public')->url($moderatingList[0]->profile->image) }}"
+                                             src="{{ Storage::disk('public')->url($moderatingList->profile->image) }}"
                                              alt="img" style="width: 100px">
                                     @endif
                                 </div>
@@ -56,38 +49,38 @@
                 </div>
             </div>
         @endif
-        @if(isset($moderatingList[0]->skill))
+        @if(isset($moderatingList->skill))
             <div class="container">
                 <div class="row">
                     <fieldset class="form-group border p-3 mb-4">
                         <legend class="w-auto px-3 reset" align="left">Навыки</legend>
                         <ul class="list-group list-group-flush">
                             <li class="list-group-item"><span
-                                        class="">Расположение: </span>{{ $moderatingList[0]->skill->location }}</li>
+                                        class="">Расположение: </span>{{ $moderatingList->skill->location }}</li>
                             <li class="list-group-item"><span
-                                        class="">Образование:  </span>{{ $moderatingList[0]->skill->education }}</li>
+                                        class="">Образование:  </span>{{ $moderatingList->skill->education }}</li>
                             <li class="list-group-item"><span
-                                        class="">Опыт: </span>{{ $moderatingList[0]->skill->experience }}</li>
+                                        class="">Опыт: </span>{{ $moderatingList->skill->experience }}</li>
                             <li class="list-group-item"><span
-                                        class="">Достижения: </span>{{ $moderatingList[0]->skill->achievements }}</li>
+                                        class="">Достижения: </span>{{ $moderatingList->skill->achievements }}</li>
                             <li class="list-group-item"><span
-                                        class="">Список навыков: </span>{{ $moderatingList[0]->skill->skills_list }}
+                                        class="">Список навыков: </span>{{ $moderatingList->skill->skills_list }}
                             </li>
                             <li class="list-group-item"><span
-                                        class="">Описание: </span>{{ $moderatingList[0]->skill->description }}</li>
+                                        class="">Описание: </span>{{ $moderatingList->skill->description }}</li>
                         </ul>
                     </fieldset>
                 </div>
             </div>
         @endif
-        @if(isset($moderatingList[0]->tags))
+        @if(isset($moderatingList->tags))
             <div class="container">
                 <div class="row">
                     <fieldset class="form-group border p-3 mb-4">
                         <legend class="w-auto px-3 reset" align="left">Тэги:</legend>
                         <ul class="list-group list-group-flush">
                             <li class="list-group-item">
-                                @forelse($moderatingList[0]->tags as $tag)
+                                @forelse($moderatingList->tags as $tag)
                                     <span class="">{{ $tag['tag'] }}</span><br>
                                 @empty
                                     <span class="">Тэгов нет</span>
@@ -98,28 +91,28 @@
                 </div>
             </div>
         @endif
-        @if(isset($moderatingList[0]->characteristic))
+        @if(isset($moderatingList->characteristic))
             <div class="container">
                 <div class="row">
                     <fieldset class="form-group border p-3 mb-4">
                         <legend class="w-auto px-3 reset" align="left">Навыки</legend>
                         <ul class="list-group list-group-flush">
                             <li class="list-group-item"><span
-                                        class="">Расположение: </span>{{ $moderatingList[0]->characteristic->location }}</li>
+                                        class="">Расположение: </span>{{ $moderatingList->characteristic->location }}</li>
                             <li class="list-group-item"><span
-                                        class="">Рост:  </span>{{ $moderatingList[0]->characteristic->height }}</li>
+                                        class="">Рост:  </span>{{ $moderatingList->characteristic->height }}</li>
                             <li class="list-group-item"><span
-                                        class="">Вес: </span>{{ $moderatingList[0]->characteristic->weight }}</li>
+                                        class="">Вес: </span>{{ $moderatingList->characteristic->weight }}</li>
                             <li class="list-group-item"><span
-                                        class="">Группа здоровья: </span>{{ $moderatingList[0]->characteristic->health }}</li>
+                                        class="">Группа здоровья: </span>{{ $moderatingList->characteristic->health }}</li>
                             <li class="list-group-item"><span
-                                        class="">Описание: </span>{{ $moderatingList[0]->characteristic->description }}</li>
+                                        class="">Описание: </span>{{ $moderatingList->characteristic->description }}</li>
                         </ul>
                     </fieldset>
                 </div>
             </div>
         @endif
-        <form method="post" action="{{ route('admin.moderatings.update', ['moderating' => $moderatingList[0]->id]) }}">
+        <form method="post" action="{{ route('admin.moderatings.update', ['moderating' => $moderatingList->id]) }}">
             @csrf
             @method('put')
             <div class="form-group">
