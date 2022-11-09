@@ -67,10 +67,15 @@ class TrainerReviewController extends Controller
      */
     public function edit(int $trainer_id): View|RedirectResponse
     {
-        return view('trainerReviews.edit', [
-            'trainer' => $this->trainerBuilder->getById($trainer_id),
-            'trainerBuilder' => $this->trainerBuilder,
-        ]);
+        if (Auth::user()->role_id === 3) {
+            return view('trainerReviews.edit', [
+                'trainer' => $this->trainerBuilder->getById($trainer_id),
+                'trainerBuilder' => $this->trainerBuilder,
+            ]);
+        } else {
+            return redirect()->route('trainers.show', ['id' => $trainer_id, 'city_id' => 0])
+                ->with('info', __('messages.reviews.create.client'));
+        }
     }
 
     /**
