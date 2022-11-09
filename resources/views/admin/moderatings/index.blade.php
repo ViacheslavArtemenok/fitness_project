@@ -36,12 +36,12 @@
             <thead>
                 <tr>
                     <th scope="col">#</th>
-                    <th scope="col">Идентификатор пользователя</th>
-                    <th scope="col">Роль пользователя</th>
-                    <th scope="col">Статус пользователя</th>
                     <th scope="col">Фамилия</th>
                     <th scope="col">Имя</th>
                     <th scope="col">Отчество</th>
+                    <th scope="col">Идентификатор пользователя</th>
+                    <th scope="col">Роль пользователя</th>
+                    <th scope="col">Статус пользователя</th>
                     <th scope="col">Статус</th>
                     <th scope="col">Управление</th>
                 </tr>
@@ -50,9 +50,6 @@
                 @forelse($moderatings as $key => $moderating)
                     <tr id="row-{{ $moderating->id }}">
                         <td>{{ $key + 1 }}</td>
-                        <td>{{ $moderating->user_id }}</td>
-                        <td>{!! !empty($moderating->user->role_id) ? $roles[$moderating->user->role_id - 1]['role'] : '' !!}</td>
-                        <td>{!! !empty($moderating->user->status) ? $moderating->user->status : '' !!}</td>
                         <td>
                             @if (isset($moderating->profile->last_name))
                                 {{ $moderating->profile->last_name }}
@@ -68,6 +65,9 @@
                                 {{ $moderating->profile->father_name }}
                             @endif
                         </td>
+                        <td>{{ $moderating->user_id }}</td>
+                        <td>{!! !empty($moderating->user->role_id) ? $roles[$moderating->user->role_id - 1]['role'] : '' !!}</td>
+                        <td>{!! !empty($moderating->user->status) ? $moderating->user->status : '' !!}</td>
                         <td>{{ $moderating->status }}</td>
                         <td>
                             <div style="">
