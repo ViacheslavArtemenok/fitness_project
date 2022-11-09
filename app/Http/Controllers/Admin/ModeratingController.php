@@ -26,20 +26,17 @@ class ModeratingController extends Controller
 
         $roles = Role::All('role')->toArray();
 
-//        $moderatings = User::query()
-//            ->where('role_id', 2)
-//            ->with('profile')
-//            ->with('moderating', function($query) {
-//                $query->where('status', 'IS_PENDING');
+//        $moderatings = Moderating::query()
+//            ->with('user', function($query) {
+//                $query->where('role_id', 2);
 //            })
+//            ->with('profile')
+//            ->where('status', Moderating::IS_PENDING)
 //            ->paginate(config('pagination.admin.moderatings'));
 
         $moderatings = Moderating::query()
-            ->with('user', function($query) {
-                $query->where('role_id', 2);
-            })
+            ->with('user')
             ->with('profile')
-            ->where('status', Moderating::IS_PENDING)
             ->paginate(config('pagination.admin.moderatings'));
 
         return view('admin.moderatings.index', [
@@ -100,27 +97,33 @@ class ModeratingController extends Controller
             Moderating::REASON05,
         ];
 
-        //if ($moderating->role_id === 2) {
-            //тренера(users,profiles,skills,tags),
-            $moderatingList = User::query()
-                ->where('id', $moderating->user_id)
+        $role_id = User::whereId($moderating->user_id)->get('role_id')[0]->role_id;
+
+        $roles = Role::all('role')->toArray();
+
+        if ($roles[$role_id - 1]['role'] === 'IS_TRAINER') {
+            //тренер (users,profiles,skills,tags),
+            $moderatingList = Moderating::query()
+                ->whereId($moderating->id)
+                ->with('user')
                 ->with('profile')
                 ->with('skill')
                 ->with('tags')
                 ->get();
-        //}
+        }
 
-//        if ($moderating->role_id === 3) {
-//            //клиента(users,profiles,characteristics)
-//            $moderatingList = User::query()
-//                ->where('id', $moderating->user_id)
-//                ->with('profile')
-//                ->with('characteristics')
-//                ->get();
-//        }
+        if ($roles[$role_id - 1]['role'] === 'IS_CLIENT') {
+            //клиент (users,profiles,characteristics)
+            $moderatingList = Moderating::query()
+                ->whereId($moderating->id)
+                ->with('user')
+                ->with('profile')
+                ->with('characteristic')
+                ->get();
+        }
 
-        return view('admin.moderatings.edit', [
-            'moderatingList' => $moderatingList,
+        return view('admin.moderatings.read', [
+            'moderatingList' => $moderatingList[0],
             'reasons' => $reasons
         ]);
     }
@@ -152,10 +155,12 @@ class ModeratingController extends Controller
                         'reason' => Moderating::REASON00,
                         'status' => Moderating::IS_APPROVED
                     ]);
-                User::whereId($moderating->id)
+
+                User::whereId($moderating->user_id)
                     ->update([
                         'status' => User::ACTIVE
                     ]);
+
                 $message = __('messages.admin.moderatings.change.success');
                 break;
             case 'IS_REJECTED': // нажата кнопка REJECTED
@@ -164,10 +169,12 @@ class ModeratingController extends Controller
                         'reason' => $reasons[$request['reason']],
                         'status' => Moderating::IS_REJECTED
                     ]);
-                User::whereId($moderating->id)
+
+                User::whereId($moderating->user_id)
                     ->update([
                         'status' => User::BLOCKED
                     ]);
+
                 $message = __('messages.admin.moderatings.change.fail');
                 break;
         }
