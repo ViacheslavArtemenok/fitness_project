@@ -14,17 +14,38 @@ class ModeratingController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param Request $request
      * @return View
      */
-    public function index()
+    public function index(Request $request)
     {
-        $statuses = [
-            Moderating::IS_PENDING,
-            Moderating::IS_REJECTED,
-            Moderating::IS_APPROVED
-        ];
+//        $moderatingStatuses = [
+//            Moderating::IS_PENDING,
+//            Moderating::IS_REJECTED,
+//            Moderating::IS_APPROVED
+//        ];
 
-        $roles = Role::All('role')->toArray();
+        $userRoles = Role::All('role')->toArray();
+
+        $moderatings = Moderating::query();
+
+        if ($request->has('ms')) {
+            $moderatings->where('status', $request->ms);
+        }
+
+        if ($request->has('us')) {
+            $moderatings->whereHas('user', function ($query) use ($request) {
+                $query->where('status', $request->us);
+            });
+        }
+
+        if ($request->has('ur')) {
+            $moderatings->whereHas('user', function ($query) use ($request) {
+                $query->where('role_id', $request->ur);
+            });
+        }
+
+        $moderatings = $moderatings->paginate(config('pagination.admin.moderatings'));;
 
 //        $moderatings = Moderating::query()
 //            ->with('user', function($query) {
@@ -34,15 +55,16 @@ class ModeratingController extends Controller
 //            ->where('status', Moderating::IS_PENDING)
 //            ->paginate(config('pagination.admin.moderatings'));
 
-        $moderatings = Moderating::query()
-            ->with('user')
-            ->with('profile')
-            ->paginate(config('pagination.admin.moderatings'));
+//        $moderatings = Moderating::query()
+//            ->with('user')
+//            ->with('profile')
+//            ->paginate(config('pagination.admin.moderatings'));
 
         return view('admin.moderatings.index', [
             'moderatings' => $moderatings,
-            'roles' => $roles,
-            'statuses' => $statuses
+            'userRoles' => $userRoles,
+            'moderatingStatuses' => Moderating::getArrayStatuses(),
+            'userStatuses' => User::getArrayStatuses()
         ]);
     }
 
