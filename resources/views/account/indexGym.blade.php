@@ -36,8 +36,55 @@
                 @endif
             </div>
         @endif
+            <h1>Индекс страница GYMS</h1>
+
         <hr class="featurette-divider">
-            {{dd($user)}}
+
+            <h2>User</h2>
+            <p>Логин - {{ $user->name }}</p>
+            <p>Телефон - {{ $user->phone }}</p>
+            <p>Почта пользователя - {{ $user->email }}</p>
+
+            <h2>Profile</h2>
+            <p>Имя - {{ $user->profile->first_name }}</p>
+            <p>Отчество - {{ $user->profile->father_name }}</p>
+            <p>Фамилия - {{ $user->profile->last_name }}</p>
+            <p>Возраст - {{ $user->profile->age }}</p>
+            <p>Пол - {{ $user->profile->gender }}</p>
+            <p>Фото - {{ $user->profile->image }}</p>
+            <hr>
+
+            Если у user несколько залов можно сделать foreach
+
+            <h2>Gym</h2>
+            <p>Название - {{ $user->gym->title }}</p>
+            <p>Основной телефон - {{ $user->gym->phone_main }}</p>
+            <p>Запасной телефон - {{ $user->gym->phone_second }}</p>
+            <p>Почта зала - {{ $user->gym->email }}</p>
+            <p>URL зала - {{ $user->gym->url }}</p>
+            <p>Описание - {{ $user->gym->description }}</p>
+
+            <h2>Gym_addresses</h2>
+
+            @foreach($user->gym->addresses as $address)
+                <p>Индекс - {{ $address->index }}</p>
+                <p>Регион - {{ $address->country }}</p>
+                <p>Город - {{ $address->city }}</p>
+                <p>Улица - {{ $address->street }}</p>
+                <p>Дом - {{ $address->house_number }}</p>
+                <p>Корпус - {{ $address->building }}</p>
+                <p>Этаж - {{ $address->floor }}</p>
+                <p>Номер помещения - {{ $address->apartment }}</p>
+                <hr>
+            @endforeach
+
+            <h2>Gym_images</h2>
+            @foreach($user->gym->images as $image)
+                <p>Фото - {{ $image->image }}</p>
+                <hr>
+            @endforeach
+
+
 {{--        @if ($user)--}}
 {{--            <div class="d-flex shadow mb-4 rounded-1 p-4">--}}
 {{--                <img class="m-2 rounded-2 border border-secondary border-2 border-opacity-10 avatar"--}}

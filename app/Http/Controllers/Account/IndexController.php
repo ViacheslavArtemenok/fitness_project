@@ -42,7 +42,7 @@ class IndexController extends Controller
                 break;
             case 4:
                 $user = User::query()
-                    ->with('profile', 'gym', 'gyms', 'moderating')
+                    ->with('profile', 'gym', 'moderating')
                     ->findOrFail($id);
                 $path = 'account.indexGym';
                 break;
