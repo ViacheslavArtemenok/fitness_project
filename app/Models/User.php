@@ -73,14 +73,19 @@ class User extends Authenticatable  implements MustVerifyEmail
         return $this->hasOne(Characteristic::class);
     }
 
-    public function tags(): BelongsToMany
+    public function gym(): HasOne
     {
-        return $this->belongsToMany(Tag::class, 'relations')->withTimestamps();
+        return $this->hasOne(Gym::class);
     }
 
     public function gyms(): BelongsToMany
     {
-        return $this->belongsToMany(GymReview::class, 'gym_reviews', 'client_id', 'gym_id');
+        return $this->belongsToMany(Gym::class, 'gym_reviews', 'client_id', 'gym_id')->withPivot('id', 'gym_id', 'title', 'description', 'score', 'status',)->withTimestamps();
+    }
+
+    public function tags(): BelongsToMany
+    {
+        return $this->belongsToMany(Tag::class, 'relations')->withTimestamps();
     }
 
     public function clients(): BelongsToMany
