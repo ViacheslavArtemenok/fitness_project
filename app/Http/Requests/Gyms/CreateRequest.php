@@ -29,7 +29,10 @@ class CreateRequest extends FormRequest
             'user_id' => ['required', 'integer'],
             'title' => ['required', 'string', 'min:3', 'max:250'],
             'phone_main' => ['required', 'string'],
-            'email' =>  ['required', 'email', 'min:5', 'max:255'],
+            'phone_second' => ['required', 'string'],
+            'url' => ['required', 'string'],
+            'email' => ['required', 'email', 'min:5', 'max:255'],
+            'description' =>  ['required', 'string', 'min:3', 'max:800'],
         ];
     }
 

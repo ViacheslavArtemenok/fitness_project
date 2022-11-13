@@ -27,7 +27,9 @@ class EditRequest extends FormRequest
     {
         return [
             'title' => ['required', 'string', 'min:3', 'max:250'],
-            'status' =>  ['required', 'string'],
+            'description' =>  ['required', 'string', 'min:3', 'max:800'],
+            'score' => ['required', 'numeric', 'min:1', 'max:5'],
+            'status' => ['required', Rule::in([GymReview::DRAFT, GymReview::ACTIVE, GymReview::BLOCKED])],
         ];
     }
 

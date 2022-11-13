@@ -26,23 +26,31 @@ class EditRequest extends FormRequest
     public function rules()
     {
         return [
-            'user_id' => ['required', 'integer'],
-            'title' => ['required', 'string', 'min:3', 'max:250'],
-            'phone_main' => ['required', 'email', 'min:5', 'max:255'],
-            'email' =>  ['required', 'string'],
+            'gym_id' => ['required', 'integer'],
+            'index' => ['required', 'integer'],
+            'country' => ['required', 'string'],
+            'city' => ['required', 'string'],
+            'street' => ['required', 'string'],
+            'house_number' => ['required', 'string'],
+            'house_number' => ['required', 'string'],
+            'building' => ['nullable', 'required', 'string'],
+            'floor' => ['required', 'integer'],
+            'apartment' => ['nullable', 'required', 'string'],
         ];
     }
 
     public function attributes(): array
     {
         return [
-            'user_id' => 'Идентификатор пользователя',
-            'title' => 'Наименование',
-            'phone_main' => 'Телефон основной',
-            'phone_second' => 'Телефон дополнительный',
-            'email' => 'E-mail',
-            'url' => 'URL',
-            'description' => 'Описание',
+            'gym_id' => 'Идентификатор тренажерного зала',
+            'index' => 'Индекс',
+            'country' => 'Страна',
+            'city' => 'Город',
+            'street' => 'Улица',
+            'house_number' => 'Номер дома',
+            'building' => 'Строение',
+            'floor' => 'Этаж',
+            'apartment' => 'Квартира',
         ];
     }
 }

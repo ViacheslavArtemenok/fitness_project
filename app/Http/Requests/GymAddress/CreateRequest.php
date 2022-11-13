@@ -32,7 +32,9 @@ class CreateRequest extends FormRequest
             'city' => ['required', 'string'],
             'street' => ['required', 'string'],
             'house_number' => ['required', 'string'],
+            'building' => ['nullable', 'required', 'string'],
             'floor' => ['required', 'integer'],
+            'apartment' => ['nullable', 'required', 'string'],
         ];
     }
 

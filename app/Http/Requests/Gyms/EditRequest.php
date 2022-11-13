@@ -26,28 +26,27 @@ class EditRequest extends FormRequest
     public function rules()
     {
         return [
-            'gym_id' => ['required', 'integer'],
-            'index' => ['required', 'integer'],
-            'country' => ['required', 'string'],
-            'city' => ['required', 'string'],
-            'street' => ['required', 'string'],
-            'house_number' => ['required', 'string'],
-            'floor' => ['required', 'integer'],
+            'user_id' => ['required', 'integer'],
+            'title' => ['required', 'string', 'min:3', 'max:250'],
+            'phone_main' => ['required', 'string'],
+            'phone_second' => ['required', 'string'],
+            'url' => ['required', 'string'],
+            'email' => ['required', 'email', 'min:5', 'max:255'],
+            'description' =>  ['required', 'string', 'min:3', 'max:800'],
+
         ];
     }
 
     public function attributes(): array
     {
         return [
-            'gym_id' => 'Идентификатор тренажерного зала',
-            'index' => 'Индекс',
-            'country' => 'Страна',
-            'city' => 'Город',
-            'street' => 'Улица',
-            'house_number' => 'Номер дома',
-            'building' => 'Строение',
-            'floor' => 'Этаж',
-            'apartment' => 'Квартира',
+            'user_id' => 'Идентификатор пользователя',
+            'title' => 'Наименование',
+            'phone_main' => 'Телефон основной',
+            'phone_second' => 'Телефон дополнительный',
+            'email' => 'E-mail',
+            'url' => 'URL',
+            'description' => 'Описание',
         ];
     }
 }
