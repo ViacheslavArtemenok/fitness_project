@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Tests\TestCase;
 
-class RoutTest extends TestCase
+class RouteTest extends TestCase
 {
 
 
