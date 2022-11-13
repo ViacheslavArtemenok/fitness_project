@@ -6,7 +6,7 @@
     </div>
     <div class="alert-message"></div>
     <div class="">
-        <span>Фильтровать по:</span>
+        <h4>Фильтровать по:</h4>
     </div>
     <form action="{{ route('admin.moderatings.index') }} ">
         <div class="row">
@@ -14,7 +14,7 @@
                 <label class="form-label" for="moderation-status">Статусу анкеты</label>
                 <select class="form-control" name="ms" id="moderation-status">
                     @foreach ($moderatingStatuses as $key => $status)
-                        <option {{ request()->ms === $status ? 'selected' : '' }} value="{{ $status }}">
+                        <option {{ (int)request()->ms === $key ? 'selected' : '' }} value="{{ $key }}">
                             {{ $status }}
                         </option>
                     @endforeach
@@ -34,7 +34,7 @@
                 <label class="form-label" for="user-status">Статусу пользователя</label>
                 <select class="form-control" name="us" id="user-status">
                     @foreach ($userStatuses as $key => $status)
-                        <option {{ request()->us === $status ? 'selected' : '' }} value="{{ $status }}">
+                        <option {{ (int)request()->us === $key ? 'selected' : '' }} value="{{ $key }}">
                             {{ $status }}
                         </option>
                     @endforeach

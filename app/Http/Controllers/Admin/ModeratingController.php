@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Services\Filters\ModeratingFilter;
 use App\Http\Controllers\Controller;
 use App\Models\Moderating;
 use App\Models\Role;
@@ -19,46 +20,12 @@ class ModeratingController extends Controller
      */
     public function index(Request $request)
     {
-//        $moderatingStatuses = [
-//            Moderating::IS_PENDING,
-//            Moderating::IS_REJECTED,
-//            Moderating::IS_APPROVED
-//        ];
-
         $userRoles = Role::All('role')->toArray();
 
-        $moderatings = Moderating::query();
-
-        if ($request->has('ms')) {
-            $moderatings->where('status', $request->ms);
-        }
-
-        if ($request->has('us')) {
-            $moderatings->whereHas('user', function ($query) use ($request) {
-                $query->where('status', $request->us);
-            });
-        }
-
-        if ($request->has('ur')) {
-            $moderatings->whereHas('user', function ($query) use ($request) {
-                $query->where('role_id', $request->ur);
-            });
-        }
-
-        $moderatings = $moderatings->paginate(config('pagination.admin.moderatings'));;
-
-//        $moderatings = Moderating::query()
-//            ->with('user', function($query) {
-//                $query->where('role_id', 2);
-//            })
-//            ->with('profile')
-//            ->where('status', Moderating::IS_PENDING)
-//            ->paginate(config('pagination.admin.moderatings'));
-
-//        $moderatings = Moderating::query()
-//            ->with('user')
-//            ->with('profile')
-//            ->paginate(config('pagination.admin.moderatings'));
+        $moderatings = Moderating::with('user');
+        $moderatings = (new ModeratingFilter($moderatings, $request))
+            ->apply()
+            ->paginate(config('pagination.admin.moderatings'));
 
         return view('admin.moderatings.index', [
             'moderatings' => $moderatings,
