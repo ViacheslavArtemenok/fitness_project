@@ -2,16 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use App\Queries\TrainerQueryBuilder;
+use App\Queries\GymQueryBuilder;
 use Illuminate\Support\Facades\Auth;
 
-class TrainerController extends Controller
+class GymController extends Controller
 {
     public function __construct()
     {
-        $this->trainerBuilder = new TrainerQueryBuilder;
+        $this->gymBuilder = new GymQueryBuilder;
     }
-    public function index(int $tag_id, int $city_id)
+    public function index(int $city_id)
     {
         if (Auth::user() && Auth::user()->role_id === 3 && $city_id === 0) {
             foreach (config('cities') as $key => $city) {
@@ -20,18 +20,14 @@ class TrainerController extends Controller
                 }
             }
         }
-        return view('trainers.index', [
-            'trainersList' => $this->trainerBuilder->getWithParamsPaginate(request()->firstName, request()->lastName, $city_id, $tag_id),
-            'trainerBuilder' => $this->trainerBuilder,
-            'tags' => $this->trainerBuilder->getAllTags(),
+        return view('gyms.index', [
+            'gymsList' => $this->gymBuilder->getWithParamsPaginate(request()->title, $city_id),
+            'gymBuilder' => $this->gymBuilder,
             'city_id' => $city_id,
-            'tag_id' => $tag_id,
         ]);
     }
-    /**
-     * Нужны два объекта TrainerQueryBuilder,
-     * иначе не работает
-     */
+
+    /*
     public function show(int $id, int $city_id)
     {
         if ($id === 0) {
@@ -61,5 +57,5 @@ class TrainerController extends Controller
             'review_id' => $review_id,
 
         ]);
-    }
+    }*/
 }

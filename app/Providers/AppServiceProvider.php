@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Queries\GymQueryBuilder;
 use App\Queries\TrainerQueryBuilder;
 use App\Services\UploadService;
 use Illuminate\Pagination\Paginator;
@@ -17,6 +18,7 @@ class AppServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->bind(TrainerQueryBuilder::class);
+        $this->app->bind(GymQueryBuilder::class);
         $this->app->bind(UploadService::class);
     }
 
