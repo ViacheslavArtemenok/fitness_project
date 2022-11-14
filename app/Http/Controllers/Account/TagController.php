@@ -3,17 +3,14 @@
 namespace App\Http\Controllers\Account;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Tags\CreateRequest;
-use App\Models\Relation;
 use App\Models\Tag;
 use App\Models\User;
-
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\View;
+use Illuminate\Contracts\Foundation\Application;
+use \Illuminate\Contracts\View\View;
+
 
 
 
@@ -47,7 +44,7 @@ class TagController extends Controller
     /**
      * Store a newly created resource in storage.
      * @param Request $request
-     * @return RedirectResponse
+     * @return void
      */
     public function store(Request $request): void
     {
@@ -69,16 +66,14 @@ class TagController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param int $id
-     * @return View
+     * @return Application|View|Factory
      */
-    public function edit(int $id)
+    public function edit(int $id): Application|Factory|View
     {
         $user = $this->model
             ->with('tags')
             ->findOrFail($id);
         $tags = Tag::all();
-        //        $tagsChecked = Relation::all()
-        //        ->where('user_id', $id);
         return view('account.tags.edit', ['tags' => $tags, 'tagsCheked' => $user->tags]);
     }
 

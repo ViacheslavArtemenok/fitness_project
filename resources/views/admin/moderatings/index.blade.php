@@ -3,32 +3,48 @@
     <h2>Модерировать анкету</h2>
     <div style="display: flex; justify-content: right;">
         {{-- <a href="{{ route('admin.profiles.create') }}" class="btn btn-primary">Добавить профиль</a> --}}
-    </div><br>
-    <div class="alert-message"></div><br>
-
-    <div class="form-group">
-        <span>Фильтровать по</span>
     </div>
-    <div class="form-group">
-        <label for="status">Статусу</label>
-        <select class="form-control" name="status" id="status">
-            @foreach ($statuses as $key => $status)
-                <option @if ($status === 0) selected @endif value="{{ $key }}">
-                    {{ $status }}
-                </option>
-            @endforeach
-        </select>
+    <div class="alert-message"></div>
+    <div class="">
+        <h4>Фильтровать по:</h4>
     </div>
-    <div class="form-group">
-        <label for="status">Роли</label>
-        <select class="form-control" name="status" id="status">
-            @foreach ($roles as $key => $role)
-                <option @if ($role === 0) selected @endif value="{{ $key }}">
-                    {{ $role['role'] }}
-                </option>
-            @endforeach
-        </select>
-    </div>
+    <form action="{{ route('admin.moderatings.index') }} ">
+        <div class="row">
+            <div class="col-md-3">
+                <label class="form-label" for="moderation-status">Статусу анкеты</label>
+                <select class="form-control" name="ms" id="moderation-status">
+                    @foreach ($moderatingStatuses as $key => $status)
+                        <option {{ (int)request()->ms === $key ? 'selected' : '' }} value="{{ $key }}">
+                            {{ $status }}
+                        </option>
+                    @endforeach
+                </select>
+            </div>
+            <div class="col-md-3">
+                <label class="form-label" for="role-status">Роли пользователя</label>
+                <select class="form-control" name="ur" id="role-status">
+                    @foreach ($userRoles as $key => $role)
+                        <option {{ (int)request()->ur === $key + 1 ? 'selected' : '' }} value="{{ $key + 1 }}">
+                            {{ $role['role'] }}
+                        </option>
+                    @endforeach
+                </select>
+            </div>
+            <div class="col-md-3">
+                <label class="form-label" for="user-status">Статусу пользователя</label>
+                <select class="form-control" name="us" id="user-status">
+                    @foreach ($userStatuses as $key => $status)
+                        <option {{ (int)request()->us === $key ? 'selected' : '' }} value="{{ $key }}">
+                            {{ $status }}
+                        </option>
+                    @endforeach
+                </select>
+            </div>
+            <div class="col-md-3 d-flex justify-content-center">
+                <button type="submit" class="btn btn-primary">Фильтровать</button>
+            </div>
+        </div>
+    </form>
     <br>
     <div class="table-responsive">
         @include('inc.message')
@@ -66,7 +82,7 @@
                             @endif
                         </td>
                         <td>{{ $moderating->user_id }}</td>
-                        <td>{!! !empty($moderating->user->role_id) ? $roles[$moderating->user->role_id - 1]['role'] : '' !!}</td>
+                        <td>{!! !empty($moderating->user->role_id) ? $userRoles[$moderating->user->role_id - 1]['role'] : '' !!}</td>
                         <td>{!! !empty($moderating->user->status) ? $moderating->user->status : '' !!}</td>
                         <td>{{ $moderating->status }}</td>
                         <td>
@@ -85,7 +101,7 @@
                 @endforelse
             </tbody>
         </table>
-        {{ $moderatings->links() }}
+        {{ $moderatings->appends(request()->input())->links() }}
     </div>
 @endsection
 

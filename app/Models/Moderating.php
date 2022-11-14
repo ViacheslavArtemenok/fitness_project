@@ -39,6 +39,15 @@ class Moderating extends Model
         'reason'
     ];
 
+    public static function getArrayStatuses()
+    {
+        return [
+            self::IS_PENDING,
+            self::IS_APPROVED,
+            self::IS_REJECTED
+        ];
+    }
+
     /**
      *
      * @return BelongsTo
