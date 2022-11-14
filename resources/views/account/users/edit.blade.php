@@ -4,6 +4,8 @@
         <x-account.trainer.menu></x-account.trainer.menu>
     @elseif(Auth::user()->role_id === 3)
         <x-account.client.menu></x-account.client.menu>
+    @elseif(Auth::user()->role_id === 4)
+        <x-account.gym.menu></x-account.gym.menu>
     @endif
     <div class="offset-2 col-8">
         <hr class="featurette-divider">

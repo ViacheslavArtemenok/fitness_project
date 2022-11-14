@@ -4,7 +4,7 @@
 @endsection
 @section('content')
     <div class="d-flex align-items-center justify-content-center body_back">
-        <h4 class="me-4"> {{ config('cities')[$city_id] }} </h4>
+        <h4 class="m-4"> {{ config('cities')[$city_id] }} </h4>
     </div>
     <div class="container marketing">
         <div class="row featurette">

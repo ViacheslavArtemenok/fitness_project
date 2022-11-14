@@ -9,6 +9,7 @@ use App\Http\Controllers\Account\SkillController as AccountSkillController;
 use App\Http\Controllers\Account\TagController as AccountTagController;
 use App\Http\Controllers\Account\CharacteristicController as AccountCharacteristicController;
 use App\Http\Controllers\Account\ModeratingController as AccountModeratingController;
+use App\Http\Controllers\Account\ReviewsController as AccountReviewsController;
 
 use App\Http\Controllers\Admin\IndexController as AdminIndexController;
 use App\Http\Controllers\Admin\ChangePasswordController as AdminChangePasswordController;
@@ -52,6 +53,8 @@ Route::middleware('auth')->group(function () {
         Route::resource('characteristics', AccountCharacteristicController::class);
         Route::get('moderating', AccountModeratingController::class)
             ->name('moderating');
+        Route::get('reviews/trainers', [AccountReviewsController::class, 'showTrainerReviews'])
+            ->name('reviews.trainers');
     });
 });
 
