@@ -92,7 +92,7 @@ class ProfileController extends Controller
      * @param EditRequest $request
      * @param Profile $profile
      * @param UploadService $uploadService
-     * @return Application|Factory|View|RedirectResponse
+     * @return RedirectResponse
      */
     public function update(EditRequest $request, Profile $profile, UploadService $uploadService): RedirectResponse
     {

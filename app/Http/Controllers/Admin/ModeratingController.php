@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Services\Filters\ModeratingFilter;
 use App\Http\Controllers\Controller;
 use App\Models\Moderating;
 use App\Models\Role;
@@ -14,35 +15,23 @@ class ModeratingController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param Request $request
      * @return View
      */
-    public function index()
+    public function index(Request $request)
     {
-        $statuses = [
-            Moderating::IS_PENDING,
-            Moderating::IS_REJECTED,
-            Moderating::IS_APPROVED
-        ];
+        $userRoles = Role::All('role')->toArray();
 
-        $roles = Role::All('role')->toArray();
-
-//        $moderatings = Moderating::query()
-//            ->with('user', function($query) {
-//                $query->where('role_id', 2);
-//            })
-//            ->with('profile')
-//            ->where('status', Moderating::IS_PENDING)
-//            ->paginate(config('pagination.admin.moderatings'));
-
-        $moderatings = Moderating::query()
-            ->with('user')
-            ->with('profile')
+        $moderatings = Moderating::with('user');
+        $moderatings = (new ModeratingFilter($moderatings, $request))
+            ->apply()
             ->paginate(config('pagination.admin.moderatings'));
 
         return view('admin.moderatings.index', [
             'moderatings' => $moderatings,
-            'roles' => $roles,
-            'statuses' => $statuses
+            'userRoles' => $userRoles,
+            'moderatingStatuses' => Moderating::getArrayStatuses(),
+            'userStatuses' => User::getArrayStatuses()
         ]);
     }
 

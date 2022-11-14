@@ -41,6 +41,9 @@ class IndexController extends Controller
                 $path = 'account.indexClient';
                 break;
             case 4:
+                $user = User::query()
+                    ->with('profile', 'gym', 'moderating')
+                    ->findOrFail($id);
                 $path = 'account.indexGym';
                 break;
         }
