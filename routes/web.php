@@ -21,6 +21,10 @@ use App\Http\Controllers\Admin\RelationController as AdminRelationController;
 use App\Http\Controllers\Admin\CharacteristicController as AdminCharacteristicController;
 use App\Http\Controllers\Admin\ModeratingController as AdminModeratingController;
 use App\Http\Controllers\Admin\RoleController as AdminRoleController;
+use App\Http\Controllers\Admin\GymController as AdminGymController;
+use App\Http\Controllers\Admin\GymAddressController as AdminGymAddressController;
+use App\Http\Controllers\Admin\GymImageController as AdminGymImageController;
+
 use App\Http\Controllers\GymController;
 use App\Http\Controllers\InfoController;
 use App\Http\Controllers\TrainerController;
@@ -109,5 +113,8 @@ Route::middleware('auth')->group(function () {
         Route::resource('characteristics', AdminCharacteristicController::class);
         Route::resource('moderatings', AdminModeratingController::class);
         Route::resource('roles', AdminRoleController::class);
+        Route::resource('gyms', AdminGymController::class);
+        Route::resource('gymAddresses', AdminGymAddressController::class);
+        Route::resource('gymImages', AdminGymImageController::class);
     });
 });
