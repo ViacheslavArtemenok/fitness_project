@@ -73,6 +73,7 @@
                                 <td>Город:</td>
                                 <td>{{ $trainer->skill->location }}</td>
                             </tr>
+                        </tbody>
                     </table>
                 </div>
                 <form class="w-100" method="POST"
