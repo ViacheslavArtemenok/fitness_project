@@ -13,13 +13,14 @@
                         <li class="nav-item mb-2"><a class="link-light text-white-50"
                                 href="{{ route('trainers.index', ['tag_id' => 0, 'city_id' => 0]) }}"
                                 class="nav-link p-0 text-muted">Тренеры</a></li>
+                        <li class="nav-item mb-2"><a class="link-light text-white-50"
+                                href="{{ route('gyms.index', ['city_id' => 0]) }}"
+                                class="nav-link p-0 text-muted">Фитнес-клубы</a></li>
                         <li class="nav-item mb-2"><a class="link-light text-white-50" href="#"
                                 class="nav-link p-0 text-muted">О
                                 нас</a></li>
                         <li class="nav-item mb-2"><a class="link-light text-white-50" href="#"
                                 class="nav-link p-0 text-muted">Контакты</a></li>
-                        <li class="nav-item mb-2"><a class="link-light text-white-50" href="#"
-                                class="nav-link p-0 text-muted">Фитнесс залы</a>
                         <li class="nav-item mb-2"><a class="link-light text-white-50" href="#"
                                 class="nav-link p-0 text-muted">Команда
                                 разработчиков</a>

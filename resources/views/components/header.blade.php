@@ -16,6 +16,10 @@
                         <a class="nav-link @if (request()->routeIs('trainers.*')) active @endif"
                             href="{{ route('trainers.index', ['tag_id' => 0, 'city_id' => 0]) }}">Тренеры</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link @if (request()->routeIs('gyms.*')) active @endif"
+                            href="{{ route('gyms.index', ['city_id' => 0]) }}">Фитнес-клубы</a>
+                    </li>
                     @auth
                         @if (Auth::user()->role_id === 1)
                             <li class="nav-item">
@@ -72,12 +76,9 @@
                             Город
                         </button>
                         <ul class="dropdown-menu overflow-scroll menu_height">
-                            <li>
-                                <form class="d-flex" role="search" method="GET" action="{{ request()->url() }}">
-                                    <input type="text" class="form-control form-control-sm ms-2 me-2"
-                                        placeholder="Введите название города" aria-label="Город" name="city">
-                                    <button class="btn btn-outline-success" type="submit" hidden>Поиск</button>
-                                </form>
+                            <li id="inputBox" class="ms-2 me-2">
+                                <input id="inputCity" type="text" class="form-control form-control-sm"
+                                    placeholder="Введите название города" aria-label="Город" name="city">
                             </li>
                             @foreach (config('cities') as $key => $city)
                                 @if (Auth::user() && Auth::user()->role_id === 3 && $key === 0)
@@ -85,21 +86,20 @@
                                             href="{{ route('trainers.index', ['tag_id' => 0, 'city_id' => $key]) }}">{{ $city }}</a>
                                     </li>
                                 @elseif ($key === 2)
-                                    <li><a class="dropdown-item"
+                                    <li class="city"><a class="dropdown-item"
                                             href="{{ route('trainers.index', ['tag_id' => 0, 'city_id' => $key]) }}">{{ $city }}</a>
                                     </li>
                                     <li>
                                         <hr class="dropdown-divider">
                                     </li>
                                 @else
-                                    <li><a class="dropdown-item"
+                                    <li class="city"><a class="dropdown-item"
                                             href="{{ route('trainers.index', ['tag_id' => 0, 'city_id' => $key]) }}">{{ $city }}</a>
                                     </li>
                                 @endif
                             @endforeach
                         </ul>
                     </div>
-
                     <form class="d-flex" role="search" method="GET" action="{{ request()->url() }}">
                         <div class="input-group me-2">
                             <input type="text" class="form-control" placeholder="Имя тренера" aria-label="Имя"
@@ -107,6 +107,44 @@
                             <span class="input-group-text"></span>
                             <input type="text" class="form-control" placeholder="Фамилия тренера"
                                 aria-label="Фамилия" name="lastName">
+                        </div>
+                        <button class="btn btn-outline-success" type="submit">Поиск</button>
+                    </form>
+                @elseif (request()->routeIs('gyms.index'))
+                    <div class="btn-group align-self-start mt-2 me-2 mb-2">
+                        <button type="button" class="btn btn-outline-success dropdown-toggle" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            Город
+                        </button>
+                        <ul class="dropdown-menu overflow-scroll menu_height">
+                            <li id="inputBox" class="ms-2 me-2">
+                                <input id="inputCity" type="text" class="form-control form-control-sm"
+                                    placeholder="Введите название города" aria-label="Город" name="city">
+                            </li>
+                            @foreach (config('cities') as $key => $city)
+                                @if (Auth::user() && Auth::user()->role_id === 3 && $key === 0)
+                                    <li hidden><a class="dropdown-item"
+                                            href="{{ route('gyms.index', ['city_id' => $key]) }}">{{ $city }}</a>
+                                    </li>
+                                @elseif ($key === 2)
+                                    <li class="city"><a class="dropdown-item"
+                                            href="{{ route('gyms.index', ['city_id' => $key]) }}">{{ $city }}</a>
+                                    </li>
+                                    <li>
+                                        <hr class="dropdown-divider">
+                                    </li>
+                                @else
+                                    <li class="city"><a class="dropdown-item"
+                                            href="{{ route('gyms.index', ['city_id' => $key]) }}">{{ $city }}</a>
+                                    </li>
+                                @endif
+                            @endforeach
+                        </ul>
+                    </div>
+                    <form class="d-flex" role="search" method="GET" action="{{ request()->url() }}">
+                        <div class="input-group me-2">
+                            <input type="text" class="form-control" placeholder="Название фитнес-клуба"
+                                aria-label="Имя" name="title">
                         </div>
                         <button class="btn btn-outline-success" type="submit">Поиск</button>
                     </form>

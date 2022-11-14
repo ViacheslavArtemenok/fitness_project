@@ -9,6 +9,7 @@ use App\Http\Controllers\Account\SkillController as AccountSkillController;
 use App\Http\Controllers\Account\TagController as AccountTagController;
 use App\Http\Controllers\Account\CharacteristicController as AccountCharacteristicController;
 use App\Http\Controllers\Account\ModeratingController as AccountModeratingController;
+use App\Http\Controllers\Account\ReviewsController as AccountReviewsController;
 
 use App\Http\Controllers\Admin\IndexController as AdminIndexController;
 use App\Http\Controllers\Admin\ChangePasswordController as AdminChangePasswordController;
@@ -20,7 +21,7 @@ use App\Http\Controllers\Admin\RelationController as AdminRelationController;
 use App\Http\Controllers\Admin\CharacteristicController as AdminCharacteristicController;
 use App\Http\Controllers\Admin\ModeratingController as AdminModeratingController;
 use App\Http\Controllers\Admin\RoleController as AdminRoleController;
-
+use App\Http\Controllers\GymController;
 use App\Http\Controllers\InfoController;
 use App\Http\Controllers\TrainerController;
 use App\Http\Controllers\SubscriptionController;
@@ -52,11 +53,14 @@ Route::middleware('auth')->group(function () {
         Route::resource('characteristics', AccountCharacteristicController::class);
         Route::get('moderating', AccountModeratingController::class)
             ->name('moderating');
+        Route::get('reviews/trainers', [AccountReviewsController::class, 'showTrainerReviews'])
+            ->name('reviews.trainers');
     });
 });
 
 require __DIR__ . '/auth.php';
-//Front routes
+
+//Front routes trainers
 Route::get('/trainers/{tag_id}/{city_id}', [TrainerController::class, 'index'])
     ->where('tag_id', '\d+')
     ->where('city_id', '\d+')
@@ -65,12 +69,21 @@ Route::get('/trainer/{id}/{city_id}', [TrainerController::class, 'show'])
     ->where('id', '\d+')
     ->where('city_id', '\d+')
     ->name('trainers.show');
-Route::get('/review/{review_id}/{client_id}/{trainer_id}/{city_id}', [TrainerController::class, 'review'])
+Route::get('/trainer/review/{review_id}/{client_id}/{trainer_id}/{city_id}', [TrainerController::class, 'review'])
     ->where('review_id', '\d+')
     ->where('client_id', '\d+')
     ->where('trainer_id', '\d+')
     ->where('city_id', '\d+')
     ->name('trainers.review');
+//Front routes gyms
+Route::get('/gyms/{city_id}', [GymController::class, 'index'])
+    ->where('city_id', '\d+')
+    ->name('gyms.index');
+Route::get('/gym/{id}/{city_id}', [GymController::class, 'show'])
+    ->where('id', '\d+')
+    ->where('city_id', '\d+')
+    ->name('gyms.show');
+
 Route::resource('subscriptions', SubscriptionController::class);
 
 Route::group(['middleware' => ['auth', 'is_activated']], function () {

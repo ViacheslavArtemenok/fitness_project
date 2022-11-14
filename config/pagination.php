@@ -14,4 +14,8 @@ return [
         'users' => 15,
         'reviews' => 9,
     ],
+    'gyms' => [
+        'units' => 15,
+        'reviews' => 9,
+    ],
 ];
