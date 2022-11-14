@@ -15,7 +15,7 @@ return [
         'reviews' => 9,
     ],
     'gyms' => [
-        'units' => 12,
+        'units' => 15,
         'reviews' => 9,
     ],
 ];
