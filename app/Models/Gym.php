@@ -35,14 +35,17 @@ class Gym extends Model
     {
         return $this->belongsTo(User::class);
     }
+
     public function addresses(): HasMany
     {
         return $this->hasMany(GymAddress::class);
     }
+
     public function images(): HasMany
     {
         return $this->hasMany(GymImage::class);
     }
+
     public function clients(): BelongsToMany
     {
         return $this->belongsToMany(User::class, 'gym_reviews', 'gym_id', 'client_id')->withPivot('id', 'client_id', 'title', 'description', 'score', 'status',)->withTimestamps();
