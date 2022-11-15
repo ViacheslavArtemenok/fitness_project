@@ -32,22 +32,21 @@ class EditRequest extends FormRequest
             'city' => ['required', 'string'],
             'street' => ['required', 'string'],
             'house_number' => ['required', 'string'],
-            'house_number' => ['required', 'string'],
-            'building' => ['nullable', 'required', 'string'],
+            'building' => ['nullable', 'string'],
             'floor' => ['required', 'integer'],
-            'apartment' => ['nullable', 'required', 'string'],
+            'apartment' => ['nullable', 'string'],
         ];
     }
 
     public function attributes(): array
     {
         return [
-            'gym_id' => 'Идентификатор тренажерного зала',
+            'gym_id' => 'Идентификатор зала',
             'index' => 'Индекс',
             'country' => 'Страна',
             'city' => 'Город',
             'street' => 'Улица',
-            'house_number' => 'Номер дома',
+            'house_number' => 'Дом',
             'building' => 'Строение',
             'floor' => 'Этаж',
             'apartment' => 'Квартира',

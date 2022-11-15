@@ -9,6 +9,9 @@ return [
         'relations' => 15,
         'characteristics' => 15,
         'moderatings' => 15,
+        'gyms' => 5,
+        'gymAddresses' => 15,
+        'gymImages' => 15,
     ],
     'trainers' => [
         'users' => 15,
