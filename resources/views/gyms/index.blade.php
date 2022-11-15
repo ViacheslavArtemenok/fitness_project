@@ -27,9 +27,9 @@
         <div class="trainers_box">
             @forelse($gymsList as $key => $gym)
                 <div class="item_box border border-success border-2">
-                    <img src="{{ $gym->images[0]->image }}"
+                    <img src="{{ Storage::disk('public')->url($gym->images[0]->image) }}"
                         class="bd-placeholder-img trainers_image border border-success border-1 shadow" alt="img">
-                    <h5 class="fw-normal trainers_name">{{ $gym->title }}</h5>
+                    <h5 class="fw-normal trainers_name mt-2">{{ $gym->title }}</h5>
                     <table class="table table-striped-columns mt-3 rounded-1 shadow">
                         <thead>
                             <tr>
