@@ -14,7 +14,7 @@
                 <tr>
                     <th scope="col">#</th>
                     <th scope="col">Идент пользов</th>
-                    <th scope="col">Никнейм</th>
+                    <th scope="col">Владелец</th>
                     <th scope="col">Организация</th>
                     <th scope="col">Телефон</th>
                     <th scope="col">Электронная почта</th>

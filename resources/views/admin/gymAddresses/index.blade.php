@@ -22,7 +22,7 @@
                     <th scope="col">Дом</th>
                     <th scope="col">Строение</th>
                     <th scope="col">Этаж</th>
-                    <th scope="col">Апартамент</th>
+                    <th scope="col">Квартира</th>
                     <th scope="col">Дата создания</th>
                     <th scope="col">Управление</th>
                 </tr>
@@ -35,7 +35,7 @@
                             {{ $gymAddress->gym_id }}
                         </td>
                         <td>
-                            {{--{{ $gymAddress->gym->title }}--}}
+                            {{ $gymAddress->gym->title }}
                         </td>
                         <td>
                             {{ $gymAddress->index }}
@@ -90,7 +90,7 @@
             elements.forEach(function (e, k) {
                 e.addEventListener("click", function () {
                     const id = e.getAttribute('rel');
-                    send(`/admin/gyms/${id}`).then((result) => {
+                    send(`/admin/gymAddresses/${id}`).then((result) => {
                         const answer = JSON.parse(JSON.stringify(result));
                         let alertBlock = document.querySelector('.alert-message');
                         alertBlock.textContent = '';

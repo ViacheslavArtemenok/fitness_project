@@ -1,0 +1,35 @@
+@extends('layouts.admin')
+@section('content')
+    <div class="offset-2 col-8">
+        <br>
+        <h2>Редактировать изображения</h2>
+
+        @include('inc.message')
+
+        <form method="post" action="{{ route('admin.gymImages.update', ['gymImage' => $gymImage]) }}"
+            enctype="multipart/form-data">
+            @csrf
+            @method('put')
+            <div class="form-group">
+                <label for="gym_id">Идент зала</label>
+                <input type="text" class="form-control" name="gym_id" id="gym_id" value="{{ $gymImage->gym_id }}" readonly>
+            </div>
+            <div class="form-group">
+                <label for="title">Название</label>
+                <input type="text" class="form-control" name="title" id="title" value="{{ $gymImage->gym->title }}" readonly>
+            </div>
+            <div class="form-group">
+                <label for="image">Изображение</label>
+                <input type="text" class="form-control" name="image" id="image" value="{{ $gymImage->image }}">
+            </div>
+            <br>
+            <button class="btn btn-success" type="submit">Сохранить</button>
+        </form>
+    </div>
+@endsection
+@push('js')
+    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+            crossorigin="anonymous"></script>
+    <script src="{{ asset('assets/js/mask/jquery.maskedinput.min.js') }}"></script>
+    <script src="{{ asset('assets/js/mask/main_mask.js') }}"></script>
+@endpush

@@ -28,7 +28,7 @@
                             {{ $gymImage->gym_id }}
                         </td>
                         <td>
-                            {{--{{ $gymImage->gym->title }}--}}
+                            {{ $gymImage->gym->title }}
                         </td>
                         <td>
                             {{ $gymImage->image }}
@@ -62,7 +62,7 @@
             elements.forEach(function (e, k) {
                 e.addEventListener("click", function () {
                     const id = e.getAttribute('rel');
-                    send(`/admin/gyms/${id}`).then((result) => {
+                    send(`/admin/gymImages/${id}`).then((result) => {
                         const answer = JSON.parse(JSON.stringify(result));
                         let alertBlock = document.querySelector('.alert-message');
                         alertBlock.textContent = '';

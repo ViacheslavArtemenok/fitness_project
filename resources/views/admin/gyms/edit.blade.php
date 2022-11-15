@@ -2,7 +2,7 @@
 @section('content')
     <div class="offset-2 col-8">
         <br>
-        <h2>Редактировать спорт зал</h2>
+        <h2>Редактировать спортивный зал</h2>
 
         @include('inc.message')
 
@@ -15,7 +15,7 @@
                 <input type="text" class="form-control" name="user_id" id="user_id" value="{{ $gym->user_id }}" readonly>
             </div>
             <div class="form-group">
-                <label for="userName">Никнейм</label>
+                <label for="userName">Владелец</label>
                 <input type="text" class="form-control" name="userName" id="userName"
                     value="{{ $gym->user->name }}">
             </div>

@@ -4,8 +4,12 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\GymAddress;
+use App\Http\Requests\GymAddress\EditRequest;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
+use Illuminate\Http\JsonResponse;
+use App\Services\UploadService;
+use Illuminate\Http\RedirectResponse;
 
 class GymAddressController extends Controller
 {
@@ -17,14 +21,13 @@ class GymAddressController extends Controller
     public function index(): View
     {
         $gymAddresses = GymAddress::query()
-            ->with('gyms')
+            ->with('gym')
             ->paginate(config('pagination.admin.gymAddresses'));
 
-//        $gymAddresses = Gym::query()
-//            ->with('addresses')
+//        $gymAddresses = GymAddress::query()
+//            ->with('gym')
+//            ->with('gymOwner')
 //            ->paginate(config('pagination.admin.gymAddresses'));
-
-        //dd($gymAddresses);
 
         return view('admin.gymAddresses.index', ['gymAddresses' => $gymAddresses]);
     }
@@ -64,34 +67,52 @@ class GymAddressController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param  GymAddress $gymAddress
+     * @return View
      */
-    public function edit($id)
+    public function edit(GymAddress $gymAddress): View
     {
-        //
+        return view('admin.gymAddresses.edit', ['gymAddress' => $gymAddress]);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param  EditRequest $request
+     * @param  GymAddress $gymAddress
+     * @param  UploadService $uploadService
+     * @return RedirectResponse
      */
-    public function update(Request $request, $id)
+    public function update(EditRequest $request, GymAddress $gymAddress, UploadService $uploadService): RedirectResponse
     {
-        //
+        $gymAddress = $gymAddress->fill($request->validated());
+
+        if($gymAddress->save()) {
+            return redirect()->route('admin.gymAddresses.index')
+                ->with('success',  __('messages.admin.gymAddresses.update.success'));
+        }
+
+        return back()->with('error', __('messages.admin.gymAddresses.update.fail'));
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param  GymAddress $gymAddress
+     * @return JsonResponse
      */
-    public function destroy($id)
+    public function destroy(GymAddress $gymAddress): JsonResponse
     {
-        //
+        try {
+            $deleted = $gymAddress->delete();
+            if ( $deleted === false) {
+                return \response()->json(['status' => 'error'], 400);
+            } else {
+                return \response()->json(['status' => 'ok']);
+            }
+        } catch (\Exception $e) {
+            \Log::error($e->getMessage().' '.$e->getCode());
+            return \response()->json(['status' => 'error'], 400);
+        }
     }
 }
