@@ -85,26 +85,28 @@
                                 <th scope="row">Email:</th>
                                 <td>{{ $user->email }}</td>
                             </tr>
-                            <tr>
-                                <th scope="row" class="w-25"></th>
-                                <td class="w-75"></td>
-                            </tr>
-                            <tr>
-                                <th scope="row" class="w-25">Фитнес-клуб:</th>
-                                <td class="w-75">{{ $user->gym->title }}</td>
-                            </tr>
-                            <tr>
-                                <th scope="row" class="w-25">Телефон:</th>
-                                <td class="w-75">{{ $user->gym->phone_main }}</td>
-                            </tr>
-                            <tr>
-                                <th scope="row" class="w-25">Телефон:</th>
-                                <td class="w-75">{{ $user->gym->phone_second }}</td>
-                            </tr>
-                            <tr>
-                                <th scope="row" class="w-25">Email:</th>
-                                <td class="w-75">{{ $user->gym->email }}</td>
-                            </tr>
+                            @if ($user->gym)
+                                <tr>
+                                    <th scope="row" class="w-25"></th>
+                                    <td class="w-75"></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row" class="w-25">Фитнес-клуб:</th>
+                                    <td class="w-75">{{ $user->gym->title }}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row" class="w-25">Телефон:</th>
+                                    <td class="w-75">{{ $user->gym->phone_main }}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row" class="w-25">Телефон:</th>
+                                    <td class="w-75">{{ $user->gym->phone_second }}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row" class="w-25">Email:</th>
+                                    <td class="w-75">{{ $user->gym->email }}</td>
+                                </tr>
+                            @endif
                         </tbody>
                     </table>
                     <!-- Описание -->
@@ -133,67 +135,72 @@
                 </div>
             </div>
             <!-- Галерея -->
-            <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="true">
-                <div class="carousel-indicators">
-                    @foreach ($user->gym->images as $key => $image)
-                        <button type="button" data-bs-target="#carouselExampleIndicators"
-                            data-bs-slide-to="{{ $key }}"
-                            @if ($key === 0) class="active" aria-current="true" @endif
-                            aria-label="Slide {{ $key + 1 }}"></button>
-                    @endforeach
-                </div>
-                <div class="carousel-inner">
-                    @foreach ($user->gym->images as $key => $image)
-                        <div class="carousel-item @if ($key === 0) active @endif">
-                            <img src="{{ $image->image }}" class="d-block w-100" alt="image">
-                        </div>
-                    @endforeach
-                </div>
-                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
-                    data-bs-slide="prev">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Предыдущий</span>
-                </button>
-                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators"
-                    data-bs-slide="next">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Следующий</span>
-                </button>
-            </div>
-            <!-- Адреса -->
-            <div class="w-100 p-3 mb-4 shadow rounded-1">
-                <h5 class="text-center mb-4">Адреса филиалов</h5>
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th scope="row">#</th>
-                            <th scope="row">Страна</th>
-                            <th scope="row">Индекс</th>
-                            <th scope="row">Город</th>
-                            <th scope="row">Улица</th>
-                            <th scope="row">Дом</th>
-                            <th scope="row">Строение</th>
-                            <th scope="row">Этаж</th>
-                            <th scope="row">Офис</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($user->gym->addresses as $key => $address)
-                            <tr>
-                                <td>{{ $key + 1 }}</td>
-                                <td>{{ $address->country }}</td>
-                                <td>{{ $address->index }}</td>
-                                <td>{{ $address->city }}</td>
-                                <td>{{ $address->street }}</td>
-                                <td>{{ $address->house_number }}</td>
-                                <td>{{ $address->building }}</td>
-                                <td>{{ $address->floor }}</td>
-                                <td>{{ $address->apartment }}</td>
-                            </tr>
+            @if (isset($user->gym->images))
+                <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="true">
+                    <div class="carousel-indicators">
+                        @foreach ($user->gym->images as $key => $image)
+                            <button type="button" data-bs-target="#carouselExampleIndicators"
+                                data-bs-slide-to="{{ $key }}"
+                                @if ($key === 0) class="active" aria-current="true" @endif
+                                aria-label="Slide {{ $key + 1 }}"></button>
                         @endforeach
-                    </tbody>
-                </table>
-            </div>
+                    </div>
+                    <div class="carousel-inner">
+                        @foreach ($user->gym->images as $key => $image)
+                            <div class="carousel-item @if ($key === 0) active @endif">
+                                <img src="{{ Storage::disk('public')->url($image->image) }}" class="d-block w-100"
+                                    alt="image">
+                            </div>
+                        @endforeach
+                    </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
+                        data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Предыдущий</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators"
+                        data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Следующий</span>
+                    </button>
+                </div>
+            @endif
+            <!-- Адреса -->
+            @if (isset($user->gym->addresses))
+                <div class="w-100 p-3 mb-4 shadow rounded-1">
+                    <h5 class="text-center mb-4">Адреса филиалов</h5>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="row">#</th>
+                                <th scope="row">Страна</th>
+                                <th scope="row">Индекс</th>
+                                <th scope="row">Город</th>
+                                <th scope="row">Улица</th>
+                                <th scope="row">Дом</th>
+                                <th scope="row">Строение</th>
+                                <th scope="row">Этаж</th>
+                                <th scope="row">Офис</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($user->gym->addresses as $key => $address)
+                                <tr>
+                                    <td>{{ $key + 1 }}</td>
+                                    <td>{{ $address->country }}</td>
+                                    <td>{{ $address->index }}</td>
+                                    <td>{{ $address->city }}</td>
+                                    <td>{{ $address->street }}</td>
+                                    <td>{{ $address->house_number }}</td>
+                                    <td>{{ $address->building }}</td>
+                                    <td>{{ $address->floor }}</td>
+                                    <td>{{ $address->apartment }}</td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            @endif
         @else
             <hr class="featurette-divider">
             <h1>Искомый контакт у нас не зарегистрирован...</h1>
