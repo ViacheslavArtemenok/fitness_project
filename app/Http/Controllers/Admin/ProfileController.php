@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\Profile;
+use App\Models\Role;
 use App\Models\User;
 
 use App\Http\Controllers\Controller;
@@ -36,13 +37,14 @@ class ProfileController extends Controller
      */
     public function create(): View
     {
+        $roles = Role::all();
         $users = User::leftJoin('profiles', function($join) {
                 $join->on('users.id', '=', 'profiles.user_id');
             })
             ->whereNull('profiles.user_id')
             ->get(['users.id', 'users.role_id', 'users.name']);
 
-        return view('admin.profiles.create', ['users' => $users]);
+        return view('admin.profiles.create', ['users' => $users, 'roles' => $roles]);
     }
 
     /**

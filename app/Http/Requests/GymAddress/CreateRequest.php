@@ -27,26 +27,26 @@ class CreateRequest extends FormRequest
     {
         return [
             'gym_id' => ['required', 'integer'],
-            'index' => ['required', 'integer'],
+            'index' => ['required', 'integer', 'digits:6'],
             'country' => ['required', 'string'],
             'city' => ['required', 'string'],
             'street' => ['required', 'string'],
-            'house_number' => ['required', 'string'],
-            'building' => ['nullable', 'required', 'string'],
+            'house_number' => ['required', 'integer', 'max:1000'],
+            'building' => ['nullable', 'string'],
             'floor' => ['required', 'integer'],
-            'apartment' => ['nullable', 'required', 'string'],
+            'apartment' => ['nullable', 'string'],
         ];
     }
 
     public function attributes(): array
     {
         return [
-            'gym_id' => 'Идентификатор тренажерного зала',
+            'gym_id' => 'Идентификатор зала',
             'index' => 'Индекс',
             'country' => 'Страна',
             'city' => 'Город',
             'street' => 'Улица',
-            'house_number' => 'Номер дома',
+            'house_number' => 'Дом',
             'building' => 'Строение',
             'floor' => 'Этаж',
             'apartment' => 'Квартира',

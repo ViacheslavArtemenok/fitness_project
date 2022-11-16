@@ -34,7 +34,7 @@ class CreateRequest extends FormRequest
     public function attributes(): array
     {
         return [
-            'gym_id' => 'Идентификатор тренажерного зала',
+            'gym_id' => 'Идентификатор зала',
             'image' => 'Изображение',
         ];
     }

@@ -27,11 +27,11 @@ class EditRequest extends FormRequest
     {
         return [
             'gym_id' => ['required', 'integer'],
-            'index' => ['required', 'integer'],
+            'index' => ['required', 'integer', 'digits:6'],
             'country' => ['required', 'string'],
             'city' => ['required', 'string'],
             'street' => ['required', 'string'],
-            'house_number' => ['required', 'string'],
+            'house_number' => ['required', 'integer', 'max:1000'],
             'building' => ['nullable', 'string'],
             'floor' => ['required', 'integer'],
             'apartment' => ['nullable', 'string'],

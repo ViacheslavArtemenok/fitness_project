@@ -55,12 +55,15 @@
             <div class="form-group">
                 <label for="status">Статус</label>
                 <select class="form-control" name="status" id="status">
-                    <option @if ($user->status === \App\Models\User::ACTIVE) selected @endif value="{{ \App\Models\User::ACTIVE }}">Active
+                    <option @if ($user->status === \App\Models\User::ACTIVE) selected @endif value="{{ \App\Models\User::ACTIVE }}">
+                        Active
                     </option>
                     <option @if ($user->status === \App\Models\User::DRAFT) selected @endif value="{{ \App\Models\User::DRAFT }}">
-                        Draft</option>
+                        Draft
+                    </option>
                     <option @if ($user->status === \App\Models\User::BLOCKED) selected @endif value="{{ \App\Models\User::BLOCKED }}">
-                        Blocked</option>
+                        Blocked
+                    </option>
                 </select>
             </div>
             <div class="form-group" hidden>
