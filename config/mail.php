@@ -32,6 +32,14 @@ return [
     |            "postmark", "log", "array", "failover"
     |
     */
+    'from' => [
+        'address' => env('MAIL_FROM_ADDRESS', 'noreply@example.com'),
+        'name' => env('MAIL_FROM_NAME', 'Example'),
+    ],
+
+
+
+
 
     'mailers' => [
         'smtp' => [
@@ -55,6 +63,7 @@ return [
 
         'postmark' => [
             'transport' => 'postmark',
+            'token' => env('POSTMARK_TOKEN'),
         ],
 
         'sendmail' => [

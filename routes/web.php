@@ -20,6 +20,7 @@ use App\Http\Controllers\Admin\ModeratingController as AdminModeratingController
 use App\Http\Controllers\Admin\RoleController as AdminRoleController;
 
 use App\Http\Controllers\InfoController;
+use App\Http\Controllers\MailSendController;
 use App\Http\Controllers\TrainerController;
 use App\Http\Controllers\SubscriptionController;
 use App\Http\Controllers\TrainerReviewController;
@@ -37,6 +38,8 @@ use App\Http\Controllers\TrainerReviewController;
 
 Route::get('/', InfoController::class)
     ->name('info');
+Route::get('/send', [MailSendController::class, 'index'])->name('send.index');
+Route::post('/send', [MailSendController::class, 'send'])->name('send.send');
 
 // Account routes
 Route::middleware('auth')->group(function () {
