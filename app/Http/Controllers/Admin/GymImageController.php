@@ -4,9 +4,10 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\GymImage;
-use Illuminate\Http\Request;
+use App\Models\Gym;
 use Illuminate\View\View;
 use App\Http\Requests\GymImage\EditRequest;
+use App\Http\Requests\GymImage\CreateRequest;
 use Illuminate\Http\JsonResponse;
 use App\Services\UploadService;
 use Illuminate\Http\RedirectResponse;
@@ -30,22 +31,32 @@ class GymImageController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return View
      */
-    public function create()
+    public function create(): View
     {
-        //
+        $gyms = Gym::query()->get(['id', 'title']);
+        return View('admin.gymImages.create', ['gyms' => $gyms]);
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param CreateRequest  $request
+     * @return RedirectResponse
      */
-    public function store(Request $request)
+    public function store(CreateRequest $request): RedirectResponse
     {
-        //
+        $gymImages = new GymImage(
+            $request->validated()
+        );
+
+        if($gymImages->save()) {
+            return redirect()->route('admin.gymImages.index')
+                ->with('success', __('messages.admin.gymImages.create.success'));
+        }
+
+        return back()->with('error', __('messages.admin.gymImages.create.fail'));
     }
 
     /**

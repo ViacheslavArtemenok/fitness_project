@@ -2,7 +2,7 @@
 @section('content')
     <h2>Изображения спортивных залов</h2>
     <div style="display: flex; justify-content: right;">
-        {{-- <a href="{{ route('admin.profiles.create') }}" class="btn btn-primary">Добавить профиль</a> --}}
+         <a href="{{ route('admin.gymImages.create') }}" class="btn btn-primary">Добавить изображение</a>
     </div>
     <div class="alert-message"></div>
     <br>
@@ -16,6 +16,7 @@
                     <th scope="col">Идент зала</th>
                     <th scope="col">Название</th>
                     <th scope="col">Изображение</th>
+                    <th scope="col">Ссылка</th>
                     <th scope="col">Дата создания</th>
                     <th scope="col">Управление</th>
                 </tr>
@@ -29,6 +30,9 @@
                         </td>
                         <td>
                             {{ $gymImage->gym->title }}
+                        </td>
+                        <td>
+                            <img style="width: 190px" src="{{ $gymImage->image }}" alt="{{ $gymImage->gym->title }}">
                         </td>
                         <td>
                             {{ $gymImage->image }}

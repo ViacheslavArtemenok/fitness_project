@@ -2,7 +2,7 @@
 @section('content')
     <h2>Адреса спортивных залов</h2>
     <div style="display: flex; justify-content: right;">
-        {{-- <a href="{{ route('admin.profiles.create') }}" class="btn btn-primary">Добавить профиль</a> --}}
+         <a href="{{ route('admin.gymAddresses.create') }}" class="btn btn-primary">Добавить адрес</a>
     </div>
     <div class="alert-message"></div>
     <br>

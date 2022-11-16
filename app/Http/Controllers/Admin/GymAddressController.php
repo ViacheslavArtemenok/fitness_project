@@ -4,8 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\GymAddress;
+use App\Models\Gym;
 use App\Http\Requests\GymAddress\EditRequest;
-use Illuminate\Http\Request;
+use App\Http\Requests\GymAddress\CreateRequest;
 use Illuminate\View\View;
 use Illuminate\Http\JsonResponse;
 use App\Services\UploadService;
@@ -35,22 +36,32 @@ class GymAddressController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return View
      */
-    public function create()
+    public function create(): View
     {
-        //
+        $gyms = Gym::query()->get(['id', 'title']);
+        return View('admin.gymAddresses.create', ['gyms' => $gyms]);
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param CreateRequest  $request
+     * @return RedirectResponse
      */
-    public function store(Request $request)
+    public function store(CreateRequest $request): RedirectResponse
     {
-        //
+        $gymAddress = new GymAddress(
+            $request->validated()
+        );
+
+        if($gymAddress->save()) {
+            return redirect()->route('admin.gymAddresses.index')
+                ->with('success', __('messages.admin.gymAddresses.create.success'));
+        }
+
+        return back()->with('error', __('messages.admin.gymAddresses.create.fail'));
     }
 
     /**
