@@ -10,10 +10,10 @@
             @csrf
             @if(isset($users))
             <div class="form-group">
-                <label for="userId">Пользователь : роль</label>
+                <label for="userId">Пользователь : id : роль</label>
                 <select class="form-control" name="user_id" id="userId">
                     @foreach($users as $user)
-                    <option value="{{ $user->id }}">{{ $user->name }} : {{ $user->role }}</option>
+                    <option value="{{ $user->id }}">{{ $user->name }} : {{ $user->role_id }} : {{ $roles[$user->role_id - 1]->role }}</option>
                     @endforeach
                 </select>
             </div>

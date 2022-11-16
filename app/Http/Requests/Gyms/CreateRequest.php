@@ -28,11 +28,11 @@ class CreateRequest extends FormRequest
         return [
             'user_id' => ['required', 'integer'],
             'title' => ['required', 'string', 'min:3', 'max:250'],
-            'phone_main' => ['required', 'string'],
-            'phone_second' => ['required', 'string'],
-            'url' => ['required', 'string'],
+            'phone_main' => ['required',  'regex:/\+7\s?[\(]{0,1}9[0-9]{2}[\)]{0,1}\s?\d{3}[-]{0,1}\d{2}[-]{0,1}\d{2}/','min:18'],
+            'phone_second' => ['required',  'regex:/\+7\s?[\(]{0,1}9[0-9]{2}[\)]{0,1}\s?\d{3}[-]{0,1}\d{2}[-]{0,1}\d{2}/','min:18'],
             'email' => ['required', 'email', 'min:5', 'max:255'],
-            'description' =>  ['required', 'string', 'min:3', 'max:800'],
+            'url' => ['nullable', 'string',  'min:3', 'max:800'],
+            'description' =>  ['required', 'string', 'min:3', 'max:800']
         ];
     }
 
@@ -41,10 +41,10 @@ class CreateRequest extends FormRequest
         return [
             'user_id' => 'Идентификатор пользователя',
             'title' => 'Наименование',
-            'phone_main' => 'Телефон основной',
-            'phone_second' => 'Телефон дополнительный',
-            'email' => 'E-mail',
-            'url' => 'URL',
+            'phone_main' => 'Телефон',
+            'phone_second' => 'Дополнительный телефон',
+            'email' => 'Электронная почта',
+            'url' => 'Фото',
             'description' => 'Описание',
         ];
     }

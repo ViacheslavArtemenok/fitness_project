@@ -36,7 +36,7 @@ class CreateRequest extends FormRequest
         }
         return [
             'name' => ['required', 'string', 'min:3', 'max:255'],
-            'email' => ['required', 'email', 'min:5', 'max:255'],
+            'email' => ['required', 'email', 'min:5', 'max:255', 'unique:users,email'],
             'phone' =>  ['required', 'string'],
             'password' => ['required_with:confirmPassword', 'string', 'same:confirmPassword', 'min:8'],
             'confirmPassword' => ['required', 'string', 'min:8'],
