@@ -43,12 +43,19 @@ class GymImageController extends Controller
      * Store a newly created resource in storage.
      *
      * @param CreateRequest  $request
+     * @param UploadService $uploadService
      * @return RedirectResponse
      */
-    public function store(CreateRequest $request): RedirectResponse
+    public function store(CreateRequest $request, UploadService $uploadService): RedirectResponse
     {
+        $validated = $request->validated();
+
+        if ($request->hasFile('image')) {
+            $validated['image'] = $uploadService->uploadImage($request->file('image'));
+        }
+
         $gymImages = new GymImage(
-            $request->validated()
+            $validated
         );
 
         if($gymImages->save()) {
@@ -92,6 +99,10 @@ class GymImageController extends Controller
     public function update(EditRequest $request, GymImage $gymImage, UploadService $uploadService): RedirectResponse
     {
         $gymImage = $gymImage->fill($request->validated());
+
+        if ($request->hasFile('image')) {
+            $gymImage['image'] = $uploadService->uploadImage($request->file('image'));
+        }
 
         if($gymImage->save()) {
             return redirect()->route('admin.gymImages.index')

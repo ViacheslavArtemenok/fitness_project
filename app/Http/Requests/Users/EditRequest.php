@@ -26,7 +26,7 @@ class EditRequest extends FormRequest
         return [
             'status' => ['required', 'string'],
             'name' => ['required', 'string', 'min:3', 'max:255'],
-            'email' => ['required', 'email', 'min:5', 'max:255', 'unique:users,email'],
+            'email' => ['required', 'email', 'min:5', 'max:255'],
             'phone' =>  ['required', 'string'],
             'password' => ['required', 'min:8', 'max:50'],
             'newPassword' => ['nullable', 'min:8', 'max:50', 'confirmed'],
