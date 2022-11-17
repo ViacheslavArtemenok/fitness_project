@@ -32,7 +32,7 @@
                             {{ $gymImage->gym->title }}
                         </td>
                         <td>
-                            <img style="width: 190px" src="{{ $gymImage->image }}" alt="{{ $gymImage->gym->title }}">
+                            <img style="width: 190px" src="{{ Storage::disk('public')->url($gymImage->image) }}" alt="{{ $gymImage->gym->title }}">
                         </td>
                         <td>
                             {{ $gymImage->image }}

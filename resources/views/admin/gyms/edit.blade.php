@@ -39,8 +39,8 @@
                 <input type="text" class="form-control" name="email" id="email" value="{{ $gym->email }}">
             </div>
             <div class="form-group">
-                <label for="image">Фото</label>
-                <input type="file" class="form-control" name="image" id="image">
+                <label for="url">Фото</label>
+                <input type="text" class="form-control" name="url" id="url" value="{{ $gym->url }}">
             </div>
             <div class="form-group">
                 <label for="description">Описание</label>

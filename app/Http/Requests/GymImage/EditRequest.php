@@ -26,7 +26,7 @@ class EditRequest extends FormRequest
     {
         return [
             'gym_id' => ['required', 'integer'],
-            'image' =>  ['required', 'string', 'min:3', 'max:250'],
+            'image' =>  ['required', 'image', 'mimes:jpg, png, jpeg']
         ];
     }
 
