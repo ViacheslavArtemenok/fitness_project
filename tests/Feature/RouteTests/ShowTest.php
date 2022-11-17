@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature\RoutTests;
+namespace Tests\Feature\RouteTests;
 
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -14,7 +14,7 @@ class ShowTest extends TestCase
      *
      * @return void
      */
-    public function test_acount_users_controller_show()
+    public function test_account_users_controller_show()
     {
         $user = User::factory()->create();
         $_GET = ['user' => 14];
