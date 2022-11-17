@@ -27,6 +27,7 @@ use App\Http\Controllers\Admin\GymImageController as AdminGymImageController;
 
 use App\Http\Controllers\GymController;
 use App\Http\Controllers\InfoController;
+use App\Http\Controllers\MailSendController;
 use App\Http\Controllers\TrainerController;
 use App\Http\Controllers\SubscriptionController;
 use App\Http\Controllers\TrainerReviewController;
@@ -116,5 +117,7 @@ Route::middleware('auth')->group(function () {
         Route::resource('gyms', AdminGymController::class);
         Route::resource('gymAddresses', AdminGymAddressController::class);
         Route::resource('gymImages', AdminGymImageController::class);
+        Route::get('/send', [MailSendController::class, 'index'])->name('send.index');
+        Route::post('/send', [MailSendController::class, 'send'])->name('send.send');
     });
 });

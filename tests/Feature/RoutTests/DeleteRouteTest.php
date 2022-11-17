@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature\NewTest;
+namespace Tests\Feature\RotuTests;
 
 use App\Models\Profile;
 use App\Models\Relation;
