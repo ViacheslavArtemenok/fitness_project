@@ -18,7 +18,7 @@ class ModeratingController extends Controller
      * @param Request $request
      * @return View
      */
-    public function index(Request $request)
+    public function index(Request $request): View
     {
         $userRoles = Role::All('role')->toArray();
 

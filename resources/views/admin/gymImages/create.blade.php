@@ -18,7 +18,7 @@
             </div>
             <div class="form-group">
                 <label for="image">Изображение</label>
-                <input type="text" class="form-control" name="image" id="image" value="{{ old('image') }}">
+                <input type="file" class="form-control" name="image" id="image">
             </div>
             <br>
             <button class="btn btn-success" type="submit">Сохранить</button>

@@ -29,7 +29,7 @@ class EditRequest extends FormRequest
             'phone_main' => ['required',  'regex:/\+7\s?[\(]{0,1}9[0-9]{2}[\)]{0,1}\s?\d{3}[-]{0,1}\d{2}[-]{0,1}\d{2}/','min:18'],
             'phone_second' => ['required',  'regex:/\+7\s?[\(]{0,1}9[0-9]{2}[\)]{0,1}\s?\d{3}[-]{0,1}\d{2}[-]{0,1}\d{2}/','min:18'],
             'email' => ['required', 'email', 'min:5', 'max:255'],
-            'image' => ['nullable', 'image',  'mimes:jpeg, png, jpg'],
+            'url' => ['nullable', 'string',  'min:3', 'max:800'],
             'description' =>  ['required', 'string', 'min:3', 'max:800']
         ];
     }
@@ -42,7 +42,7 @@ class EditRequest extends FormRequest
             'phone_main' => 'Телефон',
             'phone_second' => 'Дополнительный телефон',
             'email' => 'Электронная почта',
-            'image' => 'Фото',
+            'url' => 'Фото',
             'description' => 'Описание',
         ];
     }
