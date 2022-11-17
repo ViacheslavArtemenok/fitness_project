@@ -38,8 +38,6 @@ use App\Http\Controllers\TrainerReviewController;
 
 Route::get('/', InfoController::class)
     ->name('info');
-Route::get('/send', [MailSendController::class, 'index'])->name('send.index');
-Route::post('/send', [MailSendController::class, 'send'])->name('send.send');
 
 // Account routes
 Route::middleware('auth')->group(function () {
@@ -86,5 +84,7 @@ Route::middleware('auth')->group(function () {
         Route::resource('characteristics', AdminCharacteristicController::class);
         Route::resource('moderatings', AdminModeratingController::class);
         Route::resource('roles', AdminRoleController::class);
+        Route::get('/send', [MailSendController::class, 'index'])->name('send.index');
+        Route::post('/send', [MailSendController::class, 'send'])->name('send.send');
     });
 });
