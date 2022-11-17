@@ -3,9 +3,8 @@
 namespace Database\Seeders;
 
 use App\Models\Moderating;
-use Faker\Factory;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class ModeratingSeeder extends Seeder
 {
@@ -42,11 +41,7 @@ class ModeratingSeeder extends Seeder
             Moderating::REASON05,
         ];
 
-        $faker = Factory::create('ru_RU');
-        $faker->addProvider(new \Faker\Provider\ru_RU\Person($faker));
-
-        for ($i = 2; $i < 100; $i++) {
-
+        for ($i = 2; $i < 129; $i++) {
             $statusIndex = rand(0, 2);
 
             if ($statusIndex === 2) {

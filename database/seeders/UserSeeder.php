@@ -28,6 +28,12 @@ class UserSeeder extends Seeder
      */
     private function getData(): array
     {
+        $status = [
+            User::DRAFT,
+            User::ACTIVE,
+            User::BLOCKED
+        ];
+
         $users = [];
 
         $faker = Factory::create('ru_RU');
@@ -45,39 +51,41 @@ class UserSeeder extends Seeder
         ];
 
         for ($i = 1; $i < 100; $i++) {
-
             $users[] = [
                 'role_id'     => 2,
                 'name'        => $faker->userName(),
                 'email'       => $faker->email(),
                 'phone'       => '+7 ' . '(9' . rand(10, 99) . ') ' . rand(100, 999) . '-' . rand(10, 99) . '-' . rand(10, 99),
-                'status'      => User::ACTIVE,
+                'status'      => $status[1],
+                //'status'      => $status[rand(0, 2)],
                 'password'    => Hash::make('12345678'),
                 'email_verified_at' => now('Europe/Moscow'),
                 'created_at'  => now('Europe/Moscow')
             ];
         }
-        for ($i = 0; $i < 30; $i++) {
 
+        for ($i = 0; $i < 30; $i++) {
             $users[] = [
                 'role_id'     => 3,
                 'name'        => $faker->userName(),
                 'email'       => $faker->email(),
                 'phone'       => '+7 ' . '(9' . rand(10, 99) . ') ' . rand(100, 999) . '-' . rand(10, 99) . '-' . rand(10, 99),
-                'status'      => User::ACTIVE,
+                'status'      => $status[1],
+                //'status'      => $status[rand(0, 2)],
                 'password'    => Hash::make('12345678'),
                 'email_verified_at' => now('Europe/Moscow'),
                 'created_at'  => now('Europe/Moscow')
             ];
         }
-        for ($i = 0; $i < 20; $i++) {
 
+        for ($i = 0; $i < 20; $i++) {
             $users[] = [
                 'role_id'     => 4,
                 'name'        => $faker->userName(),
                 'email'       => $faker->email(),
                 'phone'       => '+7 ' . '(9' . rand(10, 99) . ') ' . rand(100, 999) . '-' . rand(10, 99) . '-' . rand(10, 99),
-                'status'      => User::ACTIVE,
+                'status'      => $status[1],
+                //'status'      => $status[rand(0, 2)],
                 'password'    => Hash::make('12345678'),
                 'email_verified_at' => now('Europe/Moscow'),
                 'created_at'  => now('Europe/Moscow')

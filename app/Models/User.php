@@ -6,19 +6,19 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Laravel\Sanctum\HasApiTokens;
 
-class User extends Authenticatable  implements MustVerifyEmail
+class User extends Authenticatable implements MustVerifyEmail
 {
     use HasApiTokens, HasFactory, Notifiable;
     use SoftDeletes;
 
     protected $dates = ['deleted_at'];
+
     // define status here
     public const DRAFT = 'DRAFT';
     public const ACTIVE = 'ACTIVE';
@@ -57,6 +57,15 @@ class User extends Authenticatable  implements MustVerifyEmail
         'email_verified_at' => 'datetime',
     ];
 
+    public static function getArrayStatuses()
+    {
+        return [
+            self::DRAFT,
+            self::ACTIVE,
+            self::BLOCKED
+        ];
+    }
+
     public function profile(): HasOne
     {
         return $this->hasOne(Profile::class);
@@ -72,14 +81,19 @@ class User extends Authenticatable  implements MustVerifyEmail
         return $this->hasOne(Characteristic::class);
     }
 
-    public function tags(): BelongsToMany
+    public function gym(): HasOne
     {
-        return $this->belongsToMany(Tag::class, 'relations')->withTimestamps();
+        return $this->hasOne(Gym::class);
     }
 
     public function gyms(): BelongsToMany
     {
-        return $this->belongsToMany(GymReview::class, 'gym_reviews', 'client_id', 'gym_id');
+        return $this->belongsToMany(Gym::class, 'gym_reviews', 'client_id', 'gym_id')->withPivot('id', 'gym_id', 'title', 'description', 'score', 'status',)->withTimestamps();
+    }
+
+    public function tags(): BelongsToMany
+    {
+        return $this->belongsToMany(Tag::class, 'relations')->withTimestamps();
     }
 
     public function clients(): BelongsToMany

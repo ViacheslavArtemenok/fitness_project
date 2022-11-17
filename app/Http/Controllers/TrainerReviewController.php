@@ -67,19 +67,14 @@ class TrainerReviewController extends Controller
      */
     public function edit(int $trainer_id): View|RedirectResponse
     {
-        if (Auth::user()) {
-            if (Auth::user()->role_id === 3 && Auth::user()->status === 'ACTIVE') {
-                return view('trainerReviews.edit', [
-                    'trainer' => $this->trainerBuilder->getById($trainer_id),
-                    'trainerBuilder' => $this->trainerBuilder,
-                ]);
-            } else {
-                return redirect()->route('account')
-                    ->with('info', __('messages.reviews.create.attention'));
-            }
+        if (Auth::user()->role_id === 3) {
+            return view('trainerReviews.edit', [
+                'trainer' => $this->trainerBuilder->getById($trainer_id),
+                'trainerBuilder' => $this->trainerBuilder,
+            ]);
         } else {
-            return redirect()->route('login')
-                ->with('info', __('messages.reviews.create.login'));
+            return redirect()->route('trainers.show', ['id' => $trainer_id, 'city_id' => 0])
+                ->with('info', __('messages.reviews.create.client'));
         }
     }
 

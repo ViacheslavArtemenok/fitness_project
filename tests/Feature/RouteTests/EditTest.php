@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature\RoutTests;
+namespace Tests\Feature\RouteTests;
 
 use App\Models\Profile;
 use App\Models\Skill;
@@ -24,14 +24,14 @@ class EditTest extends TestCase
         $response = $this->get(route('subscriptions.edit', $_GET));
         $response->assertOk();
     }
-    public function test_acount_profile_controller_edit()
+    public function test_account_profile_controller_edit()
     {
         $user = User::factory()->create();
         $_GET = ['profile' => 14];
         $response = $this->actingAs($user)->get(route('account.profiles.create', $_GET));
         $response->assertOk();
     }
-    public function test_acount_users_controller_edit()
+    public function test_account_users_controller_edit()
     {
         $user = User::factory()->create();
         $_GET = ['user' => 14];

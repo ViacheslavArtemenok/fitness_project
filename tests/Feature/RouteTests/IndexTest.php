@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature\RoutTests;
+namespace Tests\Feature\RouteTests;
 
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -83,20 +83,20 @@ class IndexTest extends TestCase
         $response = $this->actingAs($user)->get(route('admin.index', $_GET));
         $response->assertOk();
     }
-    public function test_acount_users_controller_index()
+    public function test_account_users_controller_index()
     {
         $user = User::factory()->create();
         $response = $this->actingAs($user)->get(route('account.users.index'));
         $response->assertOk();
     }
-    public function test_acount_profile_controller_index()
+    public function test_account_profile_controller_index()
     {
         $user = User::factory()->create();
         $_GET = ['profile' => 14];
         $response = $this->actingAs($user)->get(route('account.profiles.index', $_GET));
         $response->assertOk();
     }
-    public function test_acount_controller_index()
+    public function test_account_controller_index()
     {
         $user = User::factory()->create();
         $response = $this->actingAs($user)->get(route('account'));

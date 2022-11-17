@@ -96,6 +96,7 @@
                                 <td>Город:</td>
                                 <td>{{ $trainer->skill->location }}</td>
                             </tr>
+                        </tbody>
                     </table>
                     <h6 class="fw-normal">Категории тренировок:</h6>
                     <div class="flex-grow-1">

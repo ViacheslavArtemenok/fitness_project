@@ -26,7 +26,7 @@ class GymImagesSeeder extends Seeder
             for ($e = 0; $e < 6; $e++) {
                 $gym_images[] = [
                     'gym_id' => $i + 1,
-                    'image' => 'https://fitness-cccp.ru/wp-content/uploads/2017/05/' . rand(1, 24) . '-832x522.jpg',
+                    'image' => 'image/' . config('gymImages')[rand(0, count(config('gymImages')) - 1)],
                     'created_at' => now('Europe/Moscow')
                 ];
             }

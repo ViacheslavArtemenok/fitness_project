@@ -30,17 +30,20 @@ class IndexController extends Controller
                 break;
             case 2:
                 $user = User::query()
-                    ->with('profile', 'skill', 'tags', 'clients')
+                    ->with('profile', 'skill', 'tags', 'clients', 'moderating')
                     ->findOrFail($id);
                 $path = 'account.indexTrainer';
                 break;
             case 3:
                 $user = User::query()
-                    ->with('profile', 'characteristic', 'trainers')
+                    ->with('profile', 'characteristic', 'trainers', 'moderating')
                     ->findOrFail($id);
                 $path = 'account.indexClient';
                 break;
             case 4:
+                $user = User::query()
+                    ->with('profile', 'gym', 'moderating')
+                    ->findOrFail($id);
                 $path = 'account.indexGym';
                 break;
         }

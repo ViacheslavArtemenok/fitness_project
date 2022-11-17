@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Queries\TrainerQueryBuilder;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class TrainerController extends Controller
@@ -16,7 +15,7 @@ class TrainerController extends Controller
     {
         if (Auth::user() && Auth::user()->role_id === 3 && $city_id === 0) {
             foreach (config('cities') as $key => $city) {
-                if (Auth::user()->characteristic->location === $city) {
+                if (isset(Auth::user()->characteristic->location) && Auth::user()->characteristic->location === $city) {
                     $city_id = $key;
                 }
             }

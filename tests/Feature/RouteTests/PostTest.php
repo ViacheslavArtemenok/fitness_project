@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature\RoutTests;
+namespace Tests\Feature\RouteTests;
 
 use App\Models\Profile;
 use App\Models\Skill;
@@ -49,7 +49,7 @@ class PostTest extends TestCase
     //     $response = $this->actingAs($user)->post(route('account.users.store',$req));
     //     $response->assertRedirect(route('account.profiles.index'));
     // }
-    // public function test_acount_profile_controller_store(){
+    // public function test_account_profile_controller_store(){
     //     $user = User::factory()->create();
     //     $_GET = ['user_id' => 14];
     //     $img = UploadedFile::fake()->create('222222.jpg');
@@ -101,19 +101,19 @@ class PostTest extends TestCase
         $response = $this->actingAs($user)->post(route('admin.skills.store', $req, $_GET));
         $response->assertRedirect(route('admin.skills.index'));
     }
-        // public function test_admin_relations_controller_store(){
-        // // Не написана функция в самом контроллере
-        //         $user = User::factory()->create();
-        //         $_GET = ['user_id' => 14];
-        //         $user->role = 'IS_ADMIN';
-        //         $req = [
-        //             'user_id' => $user->id,
-        //             'tag_id' => rand(1, 22),
-        //             'created_at' => now('Europe/Moscow')
-        //     ];
-        //         $response = $this->actingAs($user)->post(route('admin.relations.store',$req , $_GET));
-        //         $response->assertRedirect(route('admin.relations.index'));
-        //     }
+    // public function test_admin_relations_controller_store(){
+    // // Не написана функция в самом контроллере
+    //         $user = User::factory()->create();
+    //         $_GET = ['user_id' => 14];
+    //         $user->role = 'IS_ADMIN';
+    //         $req = [
+    //             'user_id' => $user->id,
+    //             'tag_id' => rand(1, 22),
+    //             'created_at' => now('Europe/Moscow')
+    //     ];
+    //         $response = $this->actingAs($user)->post(route('admin.relations.store',$req , $_GET));
+    //         $response->assertRedirect(route('admin.relations.index'));
+    //     }
     // public function test_admin_user_controller_store(){
     //     // Проблемы в контроллере Тест не проходит
     //         $user = User::factory()->create();
