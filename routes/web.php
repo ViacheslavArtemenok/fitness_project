@@ -8,6 +8,7 @@ use App\Http\Controllers\Account\ProfileController as AccountProfileController;
 use App\Http\Controllers\Account\SkillController as AccountSkillController;
 use App\Http\Controllers\Account\TagController as AccountTagController;
 use App\Http\Controllers\Account\CharacteristicController as AccountCharacteristicController;
+use App\Http\Controllers\Account\GymController as AccountGymController;
 use App\Http\Controllers\Account\ModeratingController as AccountModeratingController;
 use App\Http\Controllers\Account\ReviewsController as AccountReviewsController;
 
@@ -56,6 +57,8 @@ Route::middleware('auth')->group(function () {
         Route::resource('skills', AccountSkillController::class);
         Route::resource('tags', AccountTagController::class);
         Route::resource('characteristics', AccountCharacteristicController::class);
+        Route::resource('gyms', AccountGymController::class);
+//        Route::resource('gym_addresses',)
         Route::get('moderating', AccountModeratingController::class)
             ->name('moderating');
         Route::get('reviews/trainers', [AccountReviewsController::class, 'showTrainerReviews'])
