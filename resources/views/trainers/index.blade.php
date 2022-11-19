@@ -46,8 +46,8 @@
             <h3>Результаты поиска: <span class="fw-lighter">{{ request()->firstName }}
                     {{ request()->lastName }}</span></h3>
             <a class="btn btn-outline-danger mt-3 mb-2 me-2"
-                href="{{ route('trainers.index', ['tag_id' => $tag_id, 'city_id' => $city_id]) }}">&#9668 &#9668
-                &#9668 Назад
+                href="{{ route('trainers.index', ['tag_id' => $tag_id, 'city_id' => $city_id]) }}">&#9668; &#9668;
+                &#9668; Назад
             </a>
         @endif
         <hr class="featurette-divider">

@@ -13,12 +13,14 @@ use stdClass;
 class MailSendController extends Controller
 {
 
-    public function index(){
+    public function index()
+    {
         return view('sendMail.sendMail');
     }
 
 
-    public function send(Request $request) {
+    public function send(Request $request)
+    {
         $request->validate([
             'message' => 'required|max:500',
         ]);
@@ -28,11 +30,11 @@ class MailSendController extends Controller
             $data->message = $request->message;
             if ($data->addressee === 'Тренерам') {
                 $users = User::where('role_id', 2)->get();
-            }elseif ($data->addressee === 'Админестраторам'){
+            } elseif ($data->addressee === 'Администраторам') {
                 $users = User::where('role_id', 1)->get();
-            }elseif($data->addressee === 'Представителям зала'){
+            } elseif ($data->addressee === 'Представителям зала') {
                 $users = User::where('role_id', 4)->get();
-            }elseif ($data->addressee === 'Клиентам сайта') {
+            } elseif ($data->addressee === 'Клиентам сайта') {
                 $users = User::where('role_id', 3)->get();
             }
             Mail::to($users)->send(new SendMail($data));

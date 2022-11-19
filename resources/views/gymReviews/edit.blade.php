@@ -1,6 +1,6 @@
 @extends('layouts.main')
 @section('title')
-    Новый отзыв - {{ $trainer->profile->first_name }} {{ $trainer->profile->last_name }}
+    Новый отзыв - {{ $gym->title }}
     @parent
 @endsection
 @section('content')
@@ -8,10 +8,10 @@
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb m-4">
                 <li class="breadcrumb-item"><a class="text-white-50 link-success"
-                        href="{{ route('trainers.index', ['tag_id' => 0, 'city_id' => 0]) }}">Тренеры</a></li>
+                        href="{{ route('gyms.index', ['city_id' => 0]) }}">Фитнес-клубы</a></li>
                 <li class="breadcrumb-item"><a class="text-white-50 link-success"
-                        href="{{ route('trainers.show', ['id' => $trainer->id, 'city_id' => 0]) }}">{{ $trainer->profile->first_name }}
-                        {{ $trainer->profile->last_name }}</a></li>
+                        href="{{ route('gyms.show', ['id' => $gym->id, 'city_id' => 0]) }}">{{ $gym->title }}
+                    </a></li>
                 <li class="breadcrumb-item text-white-50" aria-current="page">Новый отзыв</li>
             </ol>
         </nav>
@@ -21,22 +21,21 @@
         <div class="card">
             <div class="d-flex justify-content-between card-header">
                 <a class="btn btn-outline-danger m-2"
-                    href="{{ route('trainers.show', ['id' => $trainer->id, 'city_id' => 0]) }}">&#9668; &#9668;
+                    href="{{ route('gyms.show', ['id' => $gym->id, 'city_id' => 0]) }}">&#9668; &#9668;
                     &#9668; Назад
                 </a>
                 <h5 class="m-2">{{ __('Новый отзыв') }}</h5>
             </div>
             <div class="card-body d-flex flex-column justify-content-center align-items-stretch flex-wrap">
                 <div class="d-flex align-items-start justify-content-center text-center w-100 mt-3 mb-4 flex-wrap">
-                    <img class="shadow-lg rounded-start review_image mb-4"
-                        src="{{ Storage::disk('public')->url($trainer->profile->image) }}" alt="img">
+                    <img class="shadow-lg rounded-start gymReview_image mb-4"
+                        src="{{ Storage::disk('public')->url($gym->images[0]->image) }}" alt="img">
                     <table class="table table-striped-columns rounded-end shadow w-25">
                         <thead>
                             <tr>
                                 <th scope="col">&#10004;</th>
-                                <th scope="col">{{ $trainer->profile->first_name }}</th>
-                                <th scope="col">
-                                    {{ $trainer->profile->last_name }}</th>
+                                <th scope="col">Название:</th>
+                                <th scope="col"> {{ $gym->title }}</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -44,8 +43,8 @@
                                 <th scope="col">&#10004;</th>
                                 <th scope="col">Рейтинг:</th>
                                 <th scope="col">
-                                    @if (count($trainer->clients))
-                                        {{ $trainerBuilder->getScore($trainer->clients) }}
+                                    @if (count($gym->clients))
+                                        {{ $gymBuilder->getScore($gym->clients) }}
                                     @else
                                         Нет оценки
                                     @endif
@@ -58,31 +57,34 @@
                             </tr>
                             <tr>
                                 <th scope="row">&#10004;</th>
-                                <td>Возраст:</td>
-                                <td>{{ $trainer->profile->age }}
-                                    {{ $trainerBuilder->getUnitCase($trainer->profile->age) }}</td>
+                                <td>Телефон:</td>
+                                <td>{{ $gym->phone_main }}</td>
                             </tr>
                             <tr>
                                 <th scope="row">&#10004;</th>
-                                <td>Опыт:</td>
-                                <td>{{ $trainer->skill->experience }}
-                                    {{ $trainerBuilder->getUnitCase($trainer->skill->experience) }}</td>
+                                <td>Телефон:</td>
+                                <td>
+                                    @if ($gym->phone_second)
+                                        {{ $gym->phone_second }}
+                                    @else
+                                        {{ $gym->phone_main }}
+                                    @endif
+                                </td>
                             </tr>
                             <tr>
                                 <th scope="row">&#10004;</th>
-                                <td>Город:</td>
-                                <td>{{ $trainer->skill->location }}</td>
+                                <td>Email:</td>
+                                <td>{{ $gym->email }}</td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
-                <form class="w-100" method="POST"
-                    action="{{ route('trainerReviews.update', ['trainerReview' => $trainer->id]) }}">
+                <form class="w-100" method="POST" action="{{ route('gymReviews.update', ['gymReview' => $gym->id]) }}">
                     @csrf
                     @method('put')
                     <div class="d-flex flex-column justify-content-center align-items-center">
                         <input id="client_id" type="number" name="client_id" value="0" required hidden>
-                        <input id="trainer_id" type="number" name="trainer_id" value="0" required hidden>
+                        <input id="gym_id" type="number" name="gym_id" value="0" required hidden>
                         <input id="status" type="text" name="status" value="BLOCKED" required hidden>
 
                         <div class="w-75 mb-4">
@@ -142,7 +144,7 @@
                     орфографических и
                     синтаксических ошибок. Текст не должен содержать грубых, оскорбительных и нелитературных слов и
                     выражений, признаков разжигания ненависти, экстремизма и необоснованной клеветы, а также рекламы, или
-                    сторонней информации, не связанной с деятельностью фитнес-тренера.</p>
+                    сторонней информации, не связанной с деятельностью фитнес-клуба.</p>
             </div>
         </div>
     </div>
