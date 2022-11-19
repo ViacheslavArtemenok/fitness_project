@@ -72,7 +72,6 @@ class GymController extends Controller
     {
         return view('account.gyms.edit', [
             'gym' => $this->model
-                ->with('addresses', 'images')
                 ->where('user_id', $id)
                 ->firstOrFail()
         ]);
