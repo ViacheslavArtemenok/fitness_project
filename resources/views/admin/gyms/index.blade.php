@@ -1,8 +1,8 @@
 @extends('layouts.admin')
 @section('content')
-    <h2>Спортивные залы</h2>
+    <h2>Фитнес-клубы</h2>
     <div style="display: flex; justify-content: right;">
-         <a href="{{ route('admin.gyms.create') }}" class="btn btn-primary">Добавить спортивный зал</a>
+        <a href="{{ route('admin.gyms.create') }}" class="btn btn-primary">Добавить фитнес-клуб</a>
     </div>
     <div class="alert-message"></div>
     <br>
@@ -13,12 +13,12 @@
             <thead>
                 <tr>
                     <th scope="col">#</th>
-                    <th scope="col">Идент пользов</th>
+                    <th scope="col">id пользов</th>
                     <th scope="col">Владелец</th>
                     <th scope="col">Организация</th>
                     <th scope="col">Телефон</th>
                     <th scope="col">Электронная почта</th>
-                    <th scope="col">Фото</th>
+                    <th scope="col">Ссылка</th>
                     <th scope="col">Описание</th>
                     <th scope="col">Дата создания</th>
                     <th scope="col">Управление</th>
@@ -44,7 +44,7 @@
                             {{ $gym->email }}
                         </td>
                         <td>
-                            <img style="width: 190px" src="{{ $gym->url }}" alt="Фото зала">
+                            <a class="btn btn-sm btn-outline-primary" href="{{ $gym->url }}" target="blank">Сайт</a>
                         </td>
                         <td>
                             {{ $gym->description }}
@@ -55,8 +55,7 @@
                         <td>
                             <div style="">
                                 <a href="{{ route('admin.gyms.edit', ['gym' => $gym]) }}">Ред.</a>&nbsp;
-                                <a href="javascript:;" class="delete" rel="{{ $gym->id }}"
-                                 style="color: red;">Уд.</a>
+                                <a href="javascript:;" class="delete" rel="{{ $gym->id }}" style="color: red;">Уд.</a>
                             </div>
                         </td>
                     </tr>
@@ -73,10 +72,10 @@
 
 @push('js')
     <script type="text/javascript">
-        document.addEventListener("DOMContentLoaded", function () {
+        document.addEventListener("DOMContentLoaded", function() {
             let elements = document.querySelectorAll(".delete");
-            elements.forEach(function (e, k) {
-                e.addEventListener("click", function () {
+            elements.forEach(function(e, k) {
+                e.addEventListener("click", function() {
                     const id = e.getAttribute('rel');
                     send(`/admin/gyms/${id}`).then((result) => {
                         const answer = JSON.parse(JSON.stringify(result));
@@ -121,6 +120,7 @@
             let result = await response.json();
             return result;
         }
+
         function getHtml(message, type = 'success') {
             let alertContent;
             alertContent = `<div class="alert alert-${type} alert-dismissible fade show">
@@ -129,6 +129,7 @@
                                 </div>`;
             return alertContent;
         }
+
         function renderBlock(container, message, type = 'success', target = 'afterbegin') {
             container.insertAdjacentHTML(target, getHtml(message, type));
             return true;

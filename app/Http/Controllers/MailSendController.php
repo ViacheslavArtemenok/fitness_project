@@ -32,7 +32,7 @@ class MailSendController extends Controller
                 $users = User::where('role_id', 2)->get();
             } elseif ($data->addressee === 'Администраторам') {
                 $users = User::where('role_id', 1)->get();
-            } elseif ($data->addressee === 'Представителям зала') {
+            } elseif ($data->addressee === 'Представителям фитнес-клуба') {
                 $users = User::where('role_id', 4)->get();
             } elseif ($data->addressee === 'Клиентам сайта') {
                 $users = User::where('role_id', 3)->get();
