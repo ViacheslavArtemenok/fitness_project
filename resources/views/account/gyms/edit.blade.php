@@ -9,8 +9,7 @@
             <h2>Данные зала пусты</h2>
             }
         @endif
-        <form method="post" action="{{ route('account.gyms.update', ['gym' => $gym]) }}"
-              enctype="multipart/form-data">
+        <form method="post" action="{{ route('account.gyms.update', ['gym' => $gym]) }}" enctype="multipart/form-data">
             @csrf
             @method('put')
             <input type="text" name="user_id" id="user_id" value="{{ Auth::user()->id }}" hidden>

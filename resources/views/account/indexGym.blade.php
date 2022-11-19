@@ -181,6 +181,8 @@
                                 <th scope="row">Строение</th>
                                 <th scope="row">Этаж</th>
                                 <th scope="row">Офис</th>
+                                <th scope="row"></th>
+                                <th scope="row"></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -195,6 +197,20 @@
                                     <td>{{ $address->building }}</td>
                                     <td>{{ $address->floor }}</td>
                                     <td>{{ $address->apartment }}</td>
+                                    <td>
+                                        <a class="mb-2 me-1 btn btn-outline-success @if (request()->routeIs('account.gym_addresses.*')) active @endif"
+                                           href="{{ route('account.gym_addresses.edit', ['gym_address' => $address->id]) }}">
+                                         &#128736
+                                            Ред.
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <a href="javascript:;" class="mb-2 me-1 btn btn-outline-success delete @if (request()->routeIs('account.gym_addresses.*')) active @endif"
+                                           rel="{{  $address->id }}">
+                                            &#128465
+                                            Уд.
+                                        </a>
+                                    </td>
                                 </tr>
                             @endforeach
                         </tbody>
@@ -209,3 +225,34 @@
     </div>
     <hr class="featurette-divider">
 @endsection
+
+@push('js')
+    <script type="text/javascript">
+        document.addEventListener("DOMContentLoaded", function (){
+            let elements = document.querySelectorAll(".delete");
+            elements.forEach(function (e, k) {
+                e.addEventListener("click", function () {
+                    const id = e.getAttribute('rel');
+                    if (confirm(`Подтверждаете удаление записи с #id = ${id}?`)) {
+                        //send id on the server
+                        send(`/account/gym_addresses/${id}`).then(()=>{
+                            location.reload();
+                        })
+                    }else{
+                        alert("Удаление отменено")
+                    }
+                })
+            })
+        })
+        async function send(url) {
+            let response = await fetch(url, {
+                method: 'DELETE',
+                headers: {
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                }
+            })
+            let result = await response.json();
+            return result.ok;
+        }
+    </script>
+@endpush

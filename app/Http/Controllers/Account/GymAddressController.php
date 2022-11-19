@@ -3,10 +3,19 @@
 namespace App\Http\Controllers\Account;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use App\Http\Requests\GymAddress\CreateRequest;
+use App\Http\Requests\GymAddress\EditRequest;
+use App\Models\GymAddress;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\RedirectResponse;
 
-class Gym_AddressController extends Controller
+class GymAddressController extends Controller
 {
+    public function __construct()
+    {
+        $this->model = GymAddress::query();
+    }
     /**
      * Display a listing of the resource.
      *
@@ -20,22 +29,26 @@ class Gym_AddressController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return View
      */
-    public function create()
+    public function create():View
     {
-        //
+        return view('account.gym_addresses.create');
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param CreateRequest $request
+     * @return RedirectResponse
      */
-    public function store(Request $request)
+    public function store(CreateRequest $request): RedirectResponse
     {
-        //
+        if (GymAddress::create($request->validated())) {
+            return redirect()->route('account')
+                ->with('success', __('messages.account.gym_addresses.create.success'));
+        }
+        return back('error', __('messages.account.gym_addresses.create.fail'));
     }
 
     /**
@@ -55,31 +68,50 @@ class Gym_AddressController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(int $id): View
     {
-        //
+        return view('account.gym_addresses.edit', [
+            'gym_address' => $this->model
+                ->where('id', $id)
+                ->firstOrFail()
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param EditRequest $request
+     * @param GymAddress $gym_address
+     * @return RedirectResponse
      */
-    public function update(Request $request, $id)
+    public function update(EditRequest $request, GymAddress $gym_address): RedirectResponse
     {
-        //
+        if ($gym_address->fill($request->validated())->save()) {
+            return redirect()->route('account')
+                ->with('success', __('messages.account.gym_addresses.update.success'));
+        }
+        return back('error', __('messages.account.gym_addresses.update.fail'));
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param GymAddress $gym_address
+     * @return JsonResponse
      */
-    public function destroy($id)
+    public function destroy(GymAddress $gym_address): JsonResponse
     {
-        //
+        try {
+            $deleted = $gym_address->delete();
+            if($deleted === false) {
+                return \response()->json('error', 400);
+            }
+
+            return \response()->json('ok');
+
+        } catch(\Exception $e) {
+            \Log::error($e->getMessage());
+            return \response()->json('error', 400);
+        }
     }
 }
