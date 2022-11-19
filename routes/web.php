@@ -28,6 +28,7 @@ use App\Http\Controllers\Admin\GymAddressController as AdminGymAddressController
 use App\Http\Controllers\Admin\GymImageController as AdminGymImageController;
 
 use App\Http\Controllers\GymController;
+use App\Http\Controllers\GymReviewController;
 use App\Http\Controllers\InfoController;
 use App\Http\Controllers\MailSendController;
 use App\Http\Controllers\TrainerController;
@@ -64,6 +65,8 @@ Route::middleware('auth')->group(function () {
             ->name('moderating');
         Route::get('reviews/trainers', [AccountReviewsController::class, 'showTrainerReviews'])
             ->name('reviews.trainers');
+        Route::get('reviews/gyms', [AccountReviewsController::class, 'showGymReviews'])
+            ->name('reviews.gyms');
     });
 });
 
@@ -92,11 +95,18 @@ Route::get('/gym/{id}/{city_id}', [GymController::class, 'show'])
     ->where('id', '\d+')
     ->where('city_id', '\d+')
     ->name('gyms.show');
+Route::get('/gym/review/{review_id}/{client_id}/{gym_id}/{city_id}', [GymController::class, 'review'])
+    ->where('review_id', '\d+')
+    ->where('client_id', '\d+')
+    ->where('gym_id', '\d+')
+    ->where('city_id', '\d+')
+    ->name('gyms.review');
 
 Route::resource('subscriptions', SubscriptionController::class);
 
 Route::group(['middleware' => ['auth', 'is_activated']], function () {
     Route::resource('trainerReviews', TrainerReviewController::class);
+    Route::resource('gymReviews', GymReviewController::class);
 });
 
 //Admin routes

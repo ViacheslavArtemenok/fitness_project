@@ -234,6 +234,9 @@ margin: 0px 6px 36px;
 .review_image{
   max-width: 205px;
 }
+.gymReview_image{
+  max-width: 326px;
+}
 .review_number{
   max-width: 80px;
 }

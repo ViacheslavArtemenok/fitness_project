@@ -26,6 +26,8 @@ class GymReview extends Model
      * @var array<int, string>
      */
     protected $fillable = [
+        'client_id',
+        'gym_id',
         'title',
         'description',
         'score',

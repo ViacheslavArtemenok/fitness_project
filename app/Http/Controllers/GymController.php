@@ -27,35 +27,38 @@ class GymController extends Controller
         ]);
     }
 
-    /*
+
     public function show(int $id, int $city_id)
     {
         if ($id === 0) {
             return response('test', 200);
         }
-        $arr = $this->trainerBuilder->getReviewsPaginate($id);
-        return view('trainers.show', [
-            'trainer' => $arr['trainer'],
-            'reviews' => $arr['reviews'],
-            'trainerBuilder' => $this->trainerBuilder,
-            'trainer_id' => $id,
-            'city_id' => $city_id,
-        ]);
+        $arr = $this->gymBuilder->getReviewsPaginate($id);
+        if ($arr['gym']->user->status !== 'ACTIVE') {
+            abort(404);
+        } else {
+            return view('gyms.show', [
+                'gym' => $arr['gym'],
+                'reviewers' => $arr['reviewers'],
+                'gymBuilder' => $this->gymBuilder,
+                'gym_id' => $id,
+                'city_id' => $city_id,
+            ]);
+        }
     }
-    public function review(int $review_id, int $client_id, int $trainer_id, int $city_id)
+    public function review(int $review_id, int $client_id, int $gym_id, int $city_id)
     {
         if ($review_id === 0) {
             return response('test', 200);
         }
-        $arr = $this->trainerBuilder->getReview($trainer_id, $client_id);
-        return view('trainers.review', [
-            'trainer' => $arr['trainer'],
+        $arr = $this->gymBuilder->getReview($gym_id, $client_id);
+        return view('gyms.review', [
+            'gym' => $arr['gym'],
             'client' => $arr['client'],
-            'trainerBuilder' => $this->trainerBuilder,
-            'trainer_id' => $trainer_id,
+            'gymBuilder' => $this->gymBuilder,
             'city_id' => $city_id,
             'review_id' => $review_id,
 
         ]);
-    }*/
+    }
 }
