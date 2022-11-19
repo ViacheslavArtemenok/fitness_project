@@ -14,7 +14,7 @@
                     в письме, чтобы подтвердить ваш email...
                     Как всё будет готово, появится кнопка "Активировать", нажмите ее, наш
                     администратор проверит вашу анкету и выполнит активацию.</h6>
-                @if ($user->profile && $user->characteristic && Auth::user()->email_verified_at)
+                @if ($user->profile && $user->gym && Auth::user()->email_verified_at)
                     <a class="btn btn-outline-success btn-sm @if ($user->moderating and $user->moderating->status === 'IS_PENDING') disabled @endif"
                         href="{{ route('account.moderating', ['user_id' => $user->id]) }}">
                         @if ($user->moderating and $user->moderating->status === 'IS_PENDING')
