@@ -88,7 +88,7 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function gyms(): BelongsToMany
     {
-        return $this->belongsToMany(Gym::class, 'gym_reviews', 'client_id', 'gym_id')->withPivot('id', 'gym_id', 'title', 'description', 'score', 'status',)->withTimestamps();
+        return $this->belongsToMany(Gym::class, 'gym_reviews', 'client_id', 'gym_id')->withPivot('id', 'gym_id', 'title', 'description', 'score', 'status')->withTimestamps();
     }
 
     public function tags(): BelongsToMany
@@ -98,12 +98,12 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function clients(): BelongsToMany
     {
-        return $this->belongsToMany(User::class, 'trainer_reviews', 'trainer_id', 'client_id')->withPivot('id', 'client_id', 'title', 'description', 'score', 'status',)->withTimestamps();
+        return $this->belongsToMany(User::class, 'trainer_reviews', 'trainer_id', 'client_id')->withPivot('id', 'client_id', 'title', 'description', 'score', 'status')->withTimestamps();
     }
 
     public function trainers(): BelongsToMany
     {
-        return $this->belongsToMany(User::class, 'trainer_reviews', 'client_id', 'trainer_id')->withPivot('id', 'trainer_id', 'title', 'description', 'score', 'status',)->withTimestamps();
+        return $this->belongsToMany(User::class, 'trainer_reviews', 'client_id', 'trainer_id')->withPivot('id', 'trainer_id', 'title', 'description', 'score', 'status')->withTimestamps();
     }
 
     public function role(): BelongsTo

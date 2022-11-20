@@ -22,7 +22,9 @@ return new class extends Migration
             $table->string('email');
             $table->string('url');
             $table->text('description');
+
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+
             $table->timestamps();
             $table->softDeletes();
         });
