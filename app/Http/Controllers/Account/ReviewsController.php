@@ -28,8 +28,13 @@ class ReviewsController extends Controller
         ]);
     }
 
-    public function showGymReviews(Request $request): void
+    public function showGymReviews(): View
     {
-        //
+        $user = User::query()
+            ->with('gyms', 'moderating')
+            ->findOrFail(Auth::user()->id);
+        return view('account.reviews.reviewsGym', [
+            'user' => $user,
+        ]);
     }
 }

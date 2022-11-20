@@ -1,8 +1,8 @@
 @extends('layouts.admin')
 @section('content')
-    <h2>Адреса спортивных залов</h2>
+    <h2>Адреса фитнес-клубов</h2>
     <div style="display: flex; justify-content: right;">
-         <a href="{{ route('admin.gymAddresses.create') }}" class="btn btn-primary">Добавить адрес</a>
+        <a href="{{ route('admin.gymAddresses.create') }}" class="btn btn-primary">Добавить адрес</a>
     </div>
     <div class="alert-message"></div>
     <br>
@@ -13,7 +13,7 @@
             <thead>
                 <tr>
                     <th scope="col">#</th>
-                    <th scope="col">Идент зала</th>
+                    <th scope="col">id фитнес-клуба</th>
                     <th scope="col">Название</th>
                     <th scope="col">Индекс</th>
                     <th scope="col">Страна</th>
@@ -66,9 +66,10 @@
                         </td>
                         <td>
                             <div style="">
-                                <a href="{{ route('admin.gymAddresses.edit', ['gymAddress' => $gymAddress]) }}">Ред.</a>&nbsp;
+                                <a
+                                    href="{{ route('admin.gymAddresses.edit', ['gymAddress' => $gymAddress]) }}">Ред.</a>&nbsp;
                                 <a href="javascript:;" class="delete" rel="{{ $gymAddress->id }}"
-                                 style="color: red;">Уд.</a>
+                                    style="color: red;">Уд.</a>
                             </div>
                         </td>
                     </tr>
@@ -85,10 +86,10 @@
 
 @push('js')
     <script type="text/javascript">
-        document.addEventListener("DOMContentLoaded", function () {
+        document.addEventListener("DOMContentLoaded", function() {
             let elements = document.querySelectorAll(".delete");
-            elements.forEach(function (e, k) {
-                e.addEventListener("click", function () {
+            elements.forEach(function(e, k) {
+                e.addEventListener("click", function() {
                     const id = e.getAttribute('rel');
                     send(`/admin/gymAddresses/${id}`).then((result) => {
                         const answer = JSON.parse(JSON.stringify(result));
@@ -133,6 +134,7 @@
             let result = await response.json();
             return result;
         }
+
         function getHtml(message, type = 'success') {
             let alertContent;
             alertContent = `<div class="alert alert-${type} alert-dismissible fade show">
@@ -141,6 +143,7 @@
                                 </div>`;
             return alertContent;
         }
+
         function renderBlock(container, message, type = 'success', target = 'afterbegin') {
             container.insertAdjacentHTML(target, getHtml(message, type));
             return true;

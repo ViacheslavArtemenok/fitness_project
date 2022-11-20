@@ -56,7 +56,6 @@ class TrainerController extends Controller
             'trainer' => $arr['trainer'],
             'client' => $arr['client'],
             'trainerBuilder' => $this->trainerBuilder,
-            'trainer_id' => $trainer_id,
             'city_id' => $city_id,
             'review_id' => $review_id,
 

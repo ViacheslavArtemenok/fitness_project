@@ -11,12 +11,14 @@
             @csrf
             @method('put')
             <div class="form-group">
-                <label for="gym_id">Идент зала</label>
-                <input type="text" class="form-control" name="gym_id" id="gym_id" value="{{ $gymImage->gym_id }}" readonly>
+                <label for="gym_id">id фитнес-клуба</label>
+                <input type="text" class="form-control" name="gym_id" id="gym_id" value="{{ $gymImage->gym_id }}"
+                    readonly>
             </div>
             <div class="form-group">
                 <label for="title">Название</label>
-                <input type="text" class="form-control" name="title" id="title" value="{{ $gymImage->gym->title }}" readonly>
+                <input type="text" class="form-control" name="title" id="title" value="{{ $gymImage->gym->title }}"
+                    readonly>
             </div>
             <div class="form-group">
                 <label for="image">Изображение</label>
@@ -28,5 +30,4 @@
     </div>
 @endsection
 @push('js')
-
 @endpush

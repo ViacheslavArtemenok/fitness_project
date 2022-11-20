@@ -58,8 +58,8 @@
                         @endforelse
                     </div>
                     <a class="btn btn-outline-danger mt-3 mb-2 me-2"
-                        href="{{ route('trainers.index', ['tag_id' => 0, 'city_id' => $city_id]) }}">&#9668 &#9668
-                        &#9668 Назад
+                        href="{{ route('trainers.index', ['tag_id' => 0, 'city_id' => $city_id]) }}">&#9668; &#9668;
+                        &#9668; Назад
                     </a>
                     @if (!Auth::user() || Auth::user()->role_id === 3)
                         <a class="btn btn-outline-success mt-3 mb-2 me-2"
@@ -103,7 +103,7 @@
                     Отзывы
                 @endif
             </h2>
-            <div class="row g-5 py-5 row-cols-1 row-cols-lg-3">
+            <div id="reviews" class="row g-5 py-5 row-cols-1 row-cols-lg-3">
                 <!--Карточка отзыва -->
                 @forelse($reviews as $review)
                     @foreach ($review->trainers as $trainerR)

@@ -11,12 +11,14 @@
             @csrf
             @method('put')
             <div class="form-group">
-                <label for="gym_id">Идент зала</label>
-                <input type="text" class="form-control" name="gym_id" id="gym_id" value="{{ $gymAddress->gym_id }}" readonly>
+                <label for="gym_id">id фитнес-клуба</label>
+                <input type="text" class="form-control" name="gym_id" id="gym_id" value="{{ $gymAddress->gym_id }}"
+                    readonly>
             </div>
             <div class="form-group">
-                <label for="title">Название зала</label>
-                <input type="text" class="form-control" name="title" id="title" value="{{ $gymAddress->gym->title }}" readonly>
+                <label for="title">Название фитнес-клуба</label>
+                <input type="text" class="form-control" name="title" id="title"
+                    value="{{ $gymAddress->gym->title }}" readonly>
             </div>
             <div class="form-group">
                 <label for="index">Индекс</label>
@@ -36,11 +38,13 @@
             </div>
             <div class="form-group">
                 <label for="house_number">Дом</label>
-                <input type="text" class="form-control" name="house_number" id="house_number" value="{{ $gymAddress->house_number }}">
+                <input type="text" class="form-control" name="house_number" id="house_number"
+                    value="{{ $gymAddress->house_number }}">
             </div>
             <div class="form-group">
                 <label for="building">Строение</label>
-                <input type="text" class="form-control" name="building" id="building" value="{{ $gymAddress->building }}">
+                <input type="text" class="form-control" name="building" id="building"
+                    value="{{ $gymAddress->building }}">
             </div>
             <div class="form-group">
                 <label for="floor">Этаж</label>
@@ -48,7 +52,8 @@
             </div>
             <div class="form-group">
                 <label for="apartment">Квартира</label>
-                <input type="text" class="form-control" name="apartment" id="apartment" value="{{ $gymAddress->apartment }}">
+                <input type="text" class="form-control" name="apartment" id="apartment"
+                    value="{{ $gymAddress->apartment }}">
             </div>
             <br>
             <button class="btn btn-success" type="submit">Сохранить</button>
@@ -56,5 +61,4 @@
     </div>
 @endsection
 @push('js')
-
 @endpush
