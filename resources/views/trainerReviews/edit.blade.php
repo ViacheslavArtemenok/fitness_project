@@ -21,8 +21,8 @@
         <div class="card">
             <div class="d-flex justify-content-between card-header">
                 <a class="btn btn-outline-danger m-2"
-                    href="{{ route('trainers.show', ['id' => $trainer->id, 'city_id' => 0]) }}">&#9668 &#9668
-                    &#9668 Назад
+                    href="{{ route('trainers.show', ['id' => $trainer->id, 'city_id' => 0]) }}">&#9668; &#9668;
+                    &#9668; Назад
                 </a>
                 <h5 class="m-2">{{ __('Новый отзыв') }}</h5>
             </div>

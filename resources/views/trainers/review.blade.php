@@ -12,7 +12,7 @@
                 <li class="breadcrumb-item"><a class="text-white-50 link-success"
                         href="{{ route('trainers.index', ['tag_id' => 0, 'city_id' => $city_id]) }}">Тренеры</a></li>
                 <li class="breadcrumb-item"><a class="text-white-50 link-success"
-                        href="{{ route('trainers.show', ['id' => $trainer_id, 'city_id' => $city_id]) }}">{{ $trainer->profile->first_name }}
+                        href="{{ route('trainers.show', ['id' => $trainer->id, 'city_id' => $city_id]) }}">{{ $trainer->profile->first_name }}
                         {{ $trainer->profile->last_name }}</a></li>
                 <li class="breadcrumb-item text-white-50" aria-current="page">Отзыв</li>
             </ol>
@@ -60,8 +60,8 @@
                         @endforelse
                     </div>
                     <a class="btn btn-outline-danger mt-3 mb-2 me-2"
-                        href="{{ route('trainers.show', ['id' => $trainer_id, 'city_id' => $city_id]) }}">&#9668 &#9668
-                        &#9668 Назад
+                        href="{{ route('trainers.show', ['id' => $trainer->id, 'city_id' => $city_id]) }}">&#9668; &#9668;
+                        &#9668; Назад
                     </a>
                     @if (!Auth::user() || Auth::user()->role_id === 3)
                         <a class="btn btn-outline-success mt-3 mb-2 me-2"

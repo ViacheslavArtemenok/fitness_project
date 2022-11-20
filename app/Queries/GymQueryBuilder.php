@@ -102,44 +102,43 @@ final class GymQueryBuilder
         $result = round($sum / count($data), 1);
         return $result;
     }
-    /*
-     
+
     public function getReviewsPaginate(int $id): array
     {
         $arr = [];
-        $trainer = $this->getById($id);
-        foreach ($trainer->clients as $item) {
+        $gym = $this->getById($id);
+        foreach ($gym->clients as $item) {
             $arr[] = $item->id;
         }
         if (count($arr)) {
-            $reviews = $this->clientModel
+            $reviewers = $this->clientModel
                 ->where('role_id', 3)
                 ->whereIn('id', $arr)
-                ->with(['profile', 'trainers'])
+                ->with(['profile', 'gyms'])
                 ->paginate(6);
         } else {
-            $reviews = collect([]);
+            $reviewers = collect([]);
         }
         return [
-            'trainer' => $trainer,
-            'reviews' => $reviews
+            'gym' => $gym,
+            'reviewers' => $reviewers
         ];
     }
-    public function getReview(int $trainer_id, int $client_id): array
+    public function getReview(int $gym_id, int $client_id): array
     {
-        $trainer = $this->getById($trainer_id);
+        $gym = $this->getById($gym_id);
 
         $client = $this->clientModel
             ->where('role_id', 3)
-            ->with(['profile', 'trainers'])
+            ->with(['profile', 'gyms'])
             ->findOrFail($client_id);
 
         return [
-            'trainer' => $trainer,
+            'gym' => $gym,
             'client' => $client
         ];
     }
-*/
+
     public function create(object $obj, array $data): object
     {
         return $obj->create($data);
@@ -153,5 +152,26 @@ final class GymQueryBuilder
     public function delete(object $obj): bool
     {
         return $obj->delete();
+    }
+    public function getUnitCase($value)
+    {
+        $unit1 = 'год';
+        $unit2 = 'года';
+        $unit3 = 'лет';
+        $value = abs((int)$value);
+        if (($value % 100 >= 11) && ($value % 100 <= 19)) {
+            return $unit3;
+        } else {
+            switch ($value % 10) {
+                case 1:
+                    return $unit1;
+                case 2:
+                case 3:
+                case 4:
+                    return $unit2;
+                default:
+                    return $unit3;
+            }
+        }
     }
 }
