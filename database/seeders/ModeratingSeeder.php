@@ -41,7 +41,7 @@ class ModeratingSeeder extends Seeder
             Moderating::REASON05,
         ];
 
-        for ($i = 2; $i < 129; $i++) {
+        for ($i = 2; $i < 151; $i++) {
             $statusIndex = rand(0, 2);
 
             if ($statusIndex === 2) {

@@ -28,10 +28,10 @@ class CreateRequest extends FormRequest
         return [
             'user_id' => ['required', 'integer'],
             'title' => ['required', 'string', 'min:3', 'max:250'],
-            'phone_main' => ['required',  'regex:/\+7\s?[\(]{0,1}9[0-9]{2}[\)]{0,1}\s?\d{3}[-]{0,1}\d{2}[-]{0,1}\d{2}/','min:18'],
-            'phone_second' => ['required',  'regex:/\+7\s?[\(]{0,1}9[0-9]{2}[\)]{0,1}\s?\d{3}[-]{0,1}\d{2}[-]{0,1}\d{2}/','min:18'],
+            'phone_main' => ['required',  'regex:/\+7\s?[\(]{0,1}9[0-9]{2}[\)]{0,1}\s?\d{3}[-]{0,1}\d{2}[-]{0,1}\d{2}/', 'min:18'],
+            'phone_second' => ['nullable',  'regex:/\+7\s?[\(]{0,1}9[0-9]{2}[\)]{0,1}\s?\d{3}[-]{0,1}\d{2}[-]{0,1}\d{2}/', 'min:18'],
             'email' => ['required', 'email', 'min:5', 'max:255'],
-            'url' => ['nullable', 'string',  'min:3', 'max:800'],
+            'url' => ['required', 'string',  'min:3', 'max:800'],
             'description' =>  ['required', 'string', 'min:3', 'max:800']
         ];
     }
@@ -44,7 +44,7 @@ class CreateRequest extends FormRequest
             'phone_main' => 'Телефон',
             'phone_second' => 'Дополнительный телефон',
             'email' => 'Электронная почта',
-            'url' => 'Фото',
+            'url' => 'Ссылка на оригинальный сайт',
             'description' => 'Описание',
         ];
     }

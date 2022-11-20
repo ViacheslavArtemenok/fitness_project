@@ -3,26 +3,23 @@
 namespace App\Http\Controllers\Account;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Skills\CreateRequest;
-use App\Http\Requests\Skills\EditRequest;
-use App\Models\Skill;
-use Illuminate\Contracts\Foundation\Application;
-use Illuminate\Contracts\View\Factory;
+use App\Http\Requests\Gyms\CreateRequest;
+use App\Http\Requests\Gyms\EditRequest;
+use App\Models\Gym;
 use Illuminate\Contracts\View\View;
-use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 
-
-class SkillController extends Controller
+class GymController extends Controller
 {
+
     public function __construct()
     {
-        $this->model = Skill::query();
+        $this->model = Gym::query();
     }
     /**
      * Display a listing of the resource.
      *
-     * @return View
+     * @return \Illuminate\Http\Response
      */
     public function index()
     {
@@ -32,11 +29,11 @@ class SkillController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return Factory|View|Application
+     * @return View
      */
-    public function create(): View
+    public function create():View
     {
-        return view('account.skills.create');
+        return view('account.gyms.create');
     }
 
     /**
@@ -47,11 +44,11 @@ class SkillController extends Controller
      */
     public function store(CreateRequest $request): RedirectResponse
     {
-        if (Skill::create($request->validated())) {
+        if (Gym::create($request->validated())) {
             return redirect()->route('account')
-                ->with('success', __('messages.account.skills.create.success'));
+                ->with('success', __('messages.account.gyms.create.success'));
         }
-        return back('error', __('messages.account.skills.create.fail'));
+        return back('error', __('messages.account.gyms.create.fail'));
     }
 
     /**
@@ -73,9 +70,8 @@ class SkillController extends Controller
      */
     public function edit(int $id): View
     {
-
-        return view('account.skills.edit', [
-            'skill' => $this->model
+        return view('account.gyms.edit', [
+            'gym' => $this->model
                 ->where('user_id', $id)
                 ->firstOrFail()
         ]);
@@ -85,25 +81,25 @@ class SkillController extends Controller
      * Update the specified resource in storage.
      *
      * @param EditRequest $request
-     * @param Skill $skill
-     * @return View|Factory|RedirectResponse|Application
+     * @param Gym $gym
+     * @return RedirectResponse
      */
-    public function update(EditRequest $request, Skill $skill): RedirectResponse
+    public function update(EditRequest $request, Gym $gym): RedirectResponse
     {
-        if ($skill->fill($request->validated())->save()) {
+        if ($gym->fill($request->validated())->save()) {
             return redirect()->route('account')
-                ->with('success', __('messages.account.skills.update.success'));
+                ->with('success', __('messages.account.gyms.update.success'));
         }
-        return back('error', __('messages.account.skills.update.fail'));
+        return back('error', __('messages.account.gyms.update.fail'));
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param int $id
-     * @return JsonResponse
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
      */
-    public function destroy(int $id)
+    public function destroy($id)
     {
         //
     }

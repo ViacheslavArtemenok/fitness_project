@@ -9,9 +9,9 @@
         <form method="post" action="{{ route('admin.gymAddresses.store') }}" enctype="multipart/form-data">
             @csrf
             <div class="form-group">
-                <label for="gym_id">Идент зала : название</label>
+                <label for="gym_id">id фитнес-клуба : название</label>
                 <select class="form-control" name="gym_id" id="gym_id">
-                    @foreach($gyms as $gym)
+                    @foreach ($gyms as $gym)
                         <option value="{{ $gym->id }}">{{ $gym->id }} : {{ $gym->title }}</option>
                     @endforeach
                 </select>
@@ -34,7 +34,8 @@
             </div>
             <div class="form-group">
                 <label for="house_number">Дом</label>
-                <input type="text" class="form-control" name="house_number" id="house_number" value="{{ old('house_number') }}">
+                <input type="text" class="form-control" name="house_number" id="house_number"
+                    value="{{ old('house_number') }}">
             </div>
             <div class="form-group">
                 <label for="building">Строение</label>
@@ -54,5 +55,4 @@
     </div>
 @endsection
 @push('js')
-
 @endpush

@@ -9,9 +9,9 @@
         <form method="post" action="{{ route('admin.gymImages.store') }}" enctype="multipart/form-data">
             @csrf
             <div class="form-group">
-                <label for="gym_id">Идент зала : название</label>
+                <label for="gym_id">id фитнес-клуба : название</label>
                 <select class="form-control" name="gym_id" id="gym_id">
-                    @foreach($gyms as $gym)
+                    @foreach ($gyms as $gym)
                         <option value="{{ $gym->id }}">{{ $gym->id }} : {{ $gym->title }}</option>
                     @endforeach
                 </select>
@@ -26,5 +26,4 @@
     </div>
 @endsection
 @push('js')
-
 @endpush

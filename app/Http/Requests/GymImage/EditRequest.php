@@ -33,7 +33,7 @@ class EditRequest extends FormRequest
     public function attributes(): array
     {
         return [
-            'gym_id' => 'Идентификатор зала',
+            'gym_id' => 'Идентификатор фитнес-клуба',
             'image' => 'Изображение',
         ];
     }

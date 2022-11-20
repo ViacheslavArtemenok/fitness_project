@@ -23,6 +23,7 @@ class GymImageController extends Controller
     {
         $gymImages = GymImage::query()
             ->with('gym')
+            ->orderBy('gym_id', 'ASC')
             ->paginate(config('pagination.admin.gymImages'));
 
         return view('admin.gymImages.index', ['gymImages' => $gymImages]);

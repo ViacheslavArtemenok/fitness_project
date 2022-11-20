@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\Role;
 use App\Models\Skill;
 use App\Models\User;
 
@@ -40,13 +41,14 @@ class SkillController extends Controller
      */
     public function create(): View
     {
+        $roles = Role::all();
         $users = User::leftJoin('skills', function($join) {
             $join->on('users.id', '=', 'skills.user_id');
         })
             ->whereNull('skills.user_id')
             ->get(['users.id', 'users.role_id', 'users.name']);
 
-        return view('admin.skills.create', ['users' => $users]);
+        return view('admin.skills.create', ['users' => $users, 'roles' => $roles]);
     }
 
     /**

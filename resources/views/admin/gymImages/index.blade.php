@@ -1,8 +1,8 @@
 @extends('layouts.admin')
 @section('content')
-    <h2>Изображения спортивных залов</h2>
+    <h2>Изображения фитнес-клубов</h2>
     <div style="display: flex; justify-content: right;">
-         <a href="{{ route('admin.gymImages.create') }}" class="btn btn-primary">Добавить изображение</a>
+        <a href="{{ route('admin.gymImages.create') }}" class="btn btn-primary">Добавить изображение</a>
     </div>
     <div class="alert-message"></div>
     <br>
@@ -13,7 +13,7 @@
             <thead>
                 <tr>
                     <th scope="col">#</th>
-                    <th scope="col">Идент зала</th>
+                    <th scope="col">id фитнес-клуба</th>
                     <th scope="col">Название</th>
                     <th scope="col">Изображение</th>
                     <th scope="col">Ссылка</th>
@@ -32,7 +32,8 @@
                             {{ $gymImage->gym->title }}
                         </td>
                         <td>
-                            <img style="width: 190px" src="{{ Storage::disk('public')->url($gymImage->image) }}" alt="{{ $gymImage->gym->title }}">
+                            <img style="width: 190px" src="{{ Storage::disk('public')->url($gymImage->image) }}"
+                                alt="{{ $gymImage->gym->title }}">
                         </td>
                         <td>
                             {{ $gymImage->image }}
@@ -43,8 +44,7 @@
                         <td>
                             <div style="">
                                 <a href="{{ route('admin.gymImages.edit', ['gymImage' => $gymImage]) }}">Ред.</a>&nbsp;
-                                <a href="javascript:;" class="delete" rel="{{ $gymImage->id }}"
-                                 style="color: red;">Уд.</a>
+                                <a href="javascript:;" class="delete" rel="{{ $gymImage->id }}" style="color: red;">Уд.</a>
                             </div>
                         </td>
                     </tr>
@@ -61,10 +61,10 @@
 
 @push('js')
     <script type="text/javascript">
-        document.addEventListener("DOMContentLoaded", function () {
+        document.addEventListener("DOMContentLoaded", function() {
             let elements = document.querySelectorAll(".delete");
-            elements.forEach(function (e, k) {
-                e.addEventListener("click", function () {
+            elements.forEach(function(e, k) {
+                e.addEventListener("click", function() {
                     const id = e.getAttribute('rel');
                     send(`/admin/gymImages/${id}`).then((result) => {
                         const answer = JSON.parse(JSON.stringify(result));
@@ -109,6 +109,7 @@
             let result = await response.json();
             return result;
         }
+
         function getHtml(message, type = 'success') {
             let alertContent;
             alertContent = `<div class="alert alert-${type} alert-dismissible fade show">
@@ -117,6 +118,7 @@
                                 </div>`;
             return alertContent;
         }
+
         function renderBlock(container, message, type = 'success', target = 'afterbegin') {
             container.insertAdjacentHTML(target, getHtml(message, type));
             return true;

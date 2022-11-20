@@ -26,6 +26,8 @@ class CreateRequest extends FormRequest
     public function rules()
     {
         return [
+            'client_id' => ['required', 'integer'],
+            'gym_id' => ['required', 'integer'],
             'title' => ['required', 'string', 'min:3', 'max:250'],
             'description' =>  ['required', 'string', 'min:3', 'max:800'],
             'score' => ['required', 'numeric', 'min:1', 'max:5'],
@@ -36,11 +38,12 @@ class CreateRequest extends FormRequest
     public function attributes(): array
     {
         return [
+            'client_id' => 'Идентификатор пользователя',
+            'trainer_id' => 'Идентификатор клуба',
             'title' => 'Наименование',
             'description' => 'Описание',
             'status' => 'Статус',
-            'score' => 'Счет',
+            'score' => 'Рейтинг',
         ];
     }
-
 }
