@@ -27,8 +27,8 @@ class RoleSeeder extends Seeder
     {
         $roles = [];
 
-       // $faker = Factory::create('ru_RU');
-       // $faker->addProvider(new \Faker\Provider\ru_RU\Person($faker));
+        // $faker = Factory::create('ru_RU');
+        // $faker->addProvider(new \Faker\Provider\ru_RU\Person($faker));
 
         $roles[] = [
             'role'         => 'IS_ADMIN',
@@ -53,7 +53,7 @@ class RoleSeeder extends Seeder
 
         $roles[] = [
             'role'         => 'IS_GYM',
-            'title'        => 'Представитель спортзала',
+            'title'        => 'Представитель фитнес-клуба',
             'description'  => 'Вы представитель фитнес-клуба, ваша цель - рекламная интеграция и сотрудничество',
             'created_at'   => now('Europe/Moscow')
         ];

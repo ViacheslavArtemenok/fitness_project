@@ -111,6 +111,18 @@ class ModeratingController extends Controller
                 ->get();
         }
 
+        if ($roles[$role_id - 1]['role'] === 'IS_GYM') {
+            //владелец спортзала (gyms,gym_addresses,gym_images)
+            $moderatingList = Moderating::query()
+                ->whereId($moderating->id)
+                ->with('user')
+                ->with('profile')
+                ->with('gym')
+                ->with('gymAddresses')
+                ->get();
+            //dd($moderatingList);
+        }
+
         return view('admin.moderatings.read', [
             'moderatingList' => $moderatingList[0],
             'reasons' => $reasons

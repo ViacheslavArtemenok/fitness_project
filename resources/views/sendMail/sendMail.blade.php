@@ -31,7 +31,7 @@
                                 <select class="form-control" name="addressee">
                                     <option class="form-group">Админестраторам</option>
                                     <option class="form-group" selected>Тренерам</option>
-                                    <option class="form-group">Представителям зала</option>
+                                    <option class="form-group">Представителям фитнес-клуба</option>
                                     <option class="form-group">Клиентам сайта</option>
                                 </select>
                             </div>
@@ -55,14 +55,14 @@
                 <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree"
                     data-bs-parent="#accordionExample">
                     <div class="accordion-body">
-                        <form method="post" action="{{  route('admin.send.send')  }}">
+                        <form method="post" action="{{ route('admin.send.send') }}">
                             @csrf
                             <input type="hidden" name="telegramm" value="true">
                             <div class="form-group sendarea" placeholder="Кому">
                                 <select class="form-control" name="addressee">
                                     <option class="form-group">Админестраторам</option>
                                     <option class="form-group" selected>Тренерам</option>
-                                    <option class="form-group">Представителям зала</option>
+                                    <option class="form-group">Представителям фитнес-клуба</option>
                                     <option class="form-group">Клиентам сайта</option>
                                 </select>
                             </div>

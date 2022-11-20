@@ -6,8 +6,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
-use Illuminate\Database\Eloquent\Relations\HasManyThrough;
+
 
 class Moderating extends Model
 {
@@ -96,5 +97,28 @@ class Moderating extends Model
     public function characteristic()
     {
         return $this->HasOne(Characteristic::class, 'user_id', 'user_id');
+    }
+
+    /**
+     * Получить gym
+     */
+    public function gym()
+    {
+        return $this->HasOne(Gym::class, 'user_id', 'user_id');
+    }
+
+    /**
+     * Получить gymAddresses
+     */
+    public function gymAddresses()
+    {
+        return $this->hasManyThrough(
+            GymAddress::class,
+            Gym::class,
+            'id', // Внешний ключ в таблице `gyms` ...
+            'gym_id', // Внешний ключ в таблице `GymAddresses` ...
+            'id', // Локальный ключ в таблице `GymAddresses` ...
+            'user_id' // Локальный ключ в таблице `gyms` ...
+        );
     }
 }

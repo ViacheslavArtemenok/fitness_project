@@ -45,7 +45,7 @@ class GymAddress extends Model
             'user_id',
             'id',
             'gym_id',
-            'user_id',
+            'user_id'
             );
     }
 }

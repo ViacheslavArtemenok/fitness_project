@@ -41,7 +41,7 @@ class CreateRequest extends FormRequest
     public function attributes(): array
     {
         return [
-            'gym_id' => 'Идентификатор зала',
+            'gym_id' => 'Идентификатор фитнес-клуба',
             'index' => 'Индекс',
             'country' => 'Страна',
             'city' => 'Город',
