@@ -30,6 +30,7 @@ class GymSeeder extends Seeder
         ];
 
         $url = [
+            'https://zebra-butovo.ru',
             'https://arriba-fit.ru/fitness/trenazhernyj-zal',
             'https://spiritfitness.ru/portfolio/fitnes-zal-rodina-gym/',
             'https://limefitness.club/group/trenazhernyy-zal/personalnaya-trenirovka/',

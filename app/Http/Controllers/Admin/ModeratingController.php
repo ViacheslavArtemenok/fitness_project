@@ -77,14 +77,7 @@ class ModeratingController extends Controller
     {
         $moderatingList = '';
 
-        $reasons = [
-            Moderating::REASON00,
-            Moderating::REASON01,
-            Moderating::REASON02,
-            Moderating::REASON03,
-            Moderating::REASON04,
-            Moderating::REASON05,
-        ];
+        $reasons = Moderating::getArrayReasons();
 
         $role_id = User::whereId($moderating->user_id)->get('role_id')[0]->role_id;
 
@@ -119,8 +112,9 @@ class ModeratingController extends Controller
                 ->with('profile')
                 ->with('gym')
                 ->with('gymAddresses')
+                ->with('gymImages')
                 ->get();
-            //dd($moderatingList);
+            //dump($moderatingList);
         }
 
         return view('admin.moderatings.read', [
@@ -140,14 +134,7 @@ class ModeratingController extends Controller
     {
         $message = '';
 
-        $reasons = [
-            Moderating::REASON00,
-            Moderating::REASON01,
-            Moderating::REASON02,
-            Moderating::REASON03,
-            Moderating::REASON04,
-            Moderating::REASON05,
-        ];
+        $reasons = Moderating::getArrayReasons();
 
         switch($request['submit_key']) {
             case 'IS_APPROVED': // нажата кнопка APPROVED
