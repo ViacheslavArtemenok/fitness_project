@@ -84,8 +84,8 @@ class UserSeeder extends Seeder
                 'name'        => $faker->userName(),
                 'email'       => $faker->email(),
                 'phone'       => '+7 ' . '(9' . rand(10, 99) . ') ' . rand(100, 999) . '-' . rand(10, 99) . '-' . rand(10, 99),
-                'status'      => $status[1],
-                //'status'      => $status[rand(0, 2)],
+                //'status'      => $status[1],
+                'status'      => $status[rand(0, 1)],
                 'password'    => Hash::make('12345678'),
                 'email_verified_at' => now('Europe/Moscow'),
                 'created_at'  => now('Europe/Moscow')

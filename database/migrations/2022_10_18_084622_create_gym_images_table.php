@@ -18,8 +18,8 @@ return new class extends Migration
             $table->unsignedBigInteger('gym_id');
             $table->string('image', 255)->nullable();
 
-
             $table->foreign('gym_id')->references('id')->on('gyms')->onDelete('cascade');
+
             $table->timestamps();
             $table->softDeletes();
         });
