@@ -112,6 +112,27 @@
                 </div>
             </div>
         @endif
+        @if(isset($moderatingList->gym))
+            <div class="container">
+                <div class="row">
+                    <fieldset class="form-group border p-3 mb-4">
+                        <legend class="w-auto px-3 reset" align="left">Владелец : {{ $moderatingList->gym->title }}</legend>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item"><span
+                                        class="">Основной телефон: </span>{{ $moderatingList->gym->phone_main }}</li>
+                            <li class="list-group-item"><span
+                                        class="">Дополнительный телефон:  </span>{{ $moderatingList->gym->phone_second }}</li>
+                            <li class="list-group-item"><span
+                                        class="">Электронная почта: </span>{{ $moderatingList->gym->email }}</li>
+                            <li class="list-group-item"><span
+                                        class="">Ссылка: </span>{{ $moderatingList->gym->url }}</li>
+                            <li class="list-group-item"><span
+                                        class="">Описание: </span>{{ $moderatingList->gym->description }}</li>
+                        </ul>
+                    </fieldset>
+                </div>
+            </div>
+        @endif
         <form method="post" action="{{ route('admin.moderatings.update', ['moderating' => $moderatingList->id]) }}">
             @csrf
             @method('put')
