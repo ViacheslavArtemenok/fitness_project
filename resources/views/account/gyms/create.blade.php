@@ -1,8 +1,10 @@
 @extends('layouts.main')
 @section('content')
     <x-account.gym.menu></x-account.gym.menu>
+
     <div class="offset-2 col-8">
         <hr class="featurette-divider">
+        @if (Auth::user()->gym == null)
         <h2>Заполнение данных фитнес-клуба</h2>
         <form method="post" action="{{ route('account.gyms.store') }}" enctype="multipart/form-data">
             @csrf
@@ -61,6 +63,9 @@
             <br>
             <button class="btn btn-outline-success" type="submit">Сохранить</button>
         </form>
+        @else
+            <h2>Данные фитнес-клуба уже заполнены, дождитесь активации учетной записи</h2>
+        @endif
     </div>
     <hr class="featurette-divider">
 @endsection
