@@ -94,7 +94,7 @@
                             </a>
                         @endif
                     @else
-                        <a class="mb-2 me-1 btn btn-outline-success" href="{{ route('info') }}">
+                        <a class="mb-2 me-1 btn btn-outline-success" href="{{ route('info.home') }}">
                             <svg class="bi pe-none me-2" width="16" height="16"
                                 xmlns="http://www.w3.org/2000/svg">
                                 <path

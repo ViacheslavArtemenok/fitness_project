@@ -1,4 +1,7 @@
 @extends('layouts.main')
+@section('title')
+    Личный кабинет@parent
+@endsection
 @section('content')
     <x-account.trainer.menu></x-account.trainer.menu>
     <br>

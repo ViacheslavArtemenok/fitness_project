@@ -1,7 +1,7 @@
 @extends('layouts.main')
 @section('title')
-    Отзыв на тренера: @if (isset($trainer))
-        {{ $trainer->profile->first_name }} {{ $trainer->profile->father_name }} {{ $trainer->profile->last_name }}
+    Отзыв на фитнес-клуб: @if (isset($gym->title))
+        {{ $gym->title }}
     @endif
     @parent
 @endsection

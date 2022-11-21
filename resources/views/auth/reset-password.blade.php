@@ -12,7 +12,7 @@
                 {{ __('Создайте новый пароль') }}
             </div>
             <div class="card-body d-flex align-items-start flex-wrap">
-                <img class="w-25 me-4 align-self-center" src="/assets/images/reg.jpg" alt="img">
+                <img class="w-25 me-4 align-self-center" src="{{ asset('assets/images/reg.jpg') }}" alt="img">
                 <form class="flex-grow-1" method="POST" action="{{ route('password.update') }}">
                     @csrf
                     <!-- Password Reset Token -->

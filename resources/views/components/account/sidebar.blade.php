@@ -170,22 +170,22 @@
                 @endif
 
 
-                    <li>
-                        <a href="{{ route('account.tags.edit', ['tag' => Auth::user()->id]) }}"
-                            class="btn btn-toggle link-dark d-inline-flex align-items-center rounded border-0 collapsed text-white fw-normal">
-                            <svg class="bi pe-none me-2" width="16" height="16">
-                                <use xlink:href="#toggles2" />
-                            </svg>
-                            Редактировать тэги
-                        </a>
-                    </li>
+                <li>
+                    <a href="{{ route('account.tags.edit', ['tag' => Auth::user()->id]) }}"
+                        class="btn btn-toggle link-dark d-inline-flex align-items-center rounded border-0 collapsed text-white fw-normal">
+                        <svg class="bi pe-none me-2" width="16" height="16">
+                            <use xlink:href="#toggles2" />
+                        </svg>
+                        Редактировать тэги
+                    </a>
+                </li>
             @endif
 
             @if (Auth::user()->role === 'IS_CLIENT')
                 @if (isset(Auth::user()->skill->experience))
                     <li>
                         <a href="{{ route('account.characteristics.edit', ['characteristic' => Auth::user()->id]) }}"
-                           class="btn btn-toggle link-dark d-inline-flex align-items-center rounded border-0 collapsed text-white fw-normal">
+                            class="btn btn-toggle link-dark d-inline-flex align-items-center rounded border-0 collapsed text-white fw-normal">
                             <svg class="bi pe-none me-2" width="16" height="16">
                                 <use xlink:href="#collection" />
                             </svg>
@@ -195,7 +195,7 @@
                 @else
                     <li>
                         <a href="{{ route('account.characteristics.create') }}"
-                           class="btn btn-toggle link-dark d-inline-flex align-items-center rounded border-0 collapsed text-white fw-normal">
+                            class="btn btn-toggle link-dark d-inline-flex align-items-center rounded border-0 collapsed text-white fw-normal">
                             <svg class="bi pe-none me-2" width="16" height="16">
                                 <use xlink:href="#gear-fill" />
                             </svg>
@@ -204,10 +204,9 @@
                     </li>
                 @endif
             @endif
-
         @else
             <li>
-                <a href="{{ route('info') }}"
+                <a href="{{ route('info.home') }}"
                     class="btn btn-toggle link-dark d-inline-flex align-items-center rounded border-0 collapsed text-white fw-normal">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                         class="bi pe-none me-2" viewBox="0 0 16 16">

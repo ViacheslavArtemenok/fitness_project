@@ -46,8 +46,14 @@ use App\Http\Controllers\TrainerReviewController;
 |
 */
 
-Route::get('/', InfoController::class)
-    ->name('info');
+Route::get('/', [InfoController::class, 'home'])
+    ->name('info.home');
+Route::get('/about', [InfoController::class, 'about'])
+    ->name('info.about');
+Route::get('/contacts', [InfoController::class, 'contacts'])
+    ->name('info.contacts');
+Route::get('/developers', [InfoController::class, 'developers'])
+    ->name('info.developers');
 
 // Account routes
 Route::middleware('auth')->group(function () {

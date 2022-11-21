@@ -42,7 +42,7 @@
             </div>
             <br>
             <div class="form-group">
-                <label for="url">Веб</label>
+                <label for="url">Ссылка на оригинальный сайт</label>
                 <input type="url" class="form-control" name="url" id="url" value="{{ old('url') }}">
                 @error('url')
                     <span style="color: red">{{ $message }}</span>
