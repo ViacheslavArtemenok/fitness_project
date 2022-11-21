@@ -1,4 +1,7 @@
 @extends('layouts.main')
+@section('title')
+    Личный кабинет@parent
+@endsection
 @section('content')
     <x-account.gym.menu></x-account.gym.menu>
     <br>
@@ -181,8 +184,7 @@
                                 <th scope="row">Строение</th>
                                 <th scope="row">Этаж</th>
                                 <th scope="row">Офис</th>
-                                <th scope="row"></th>
-                                <th scope="row"></th>
+                                <th scope="row">Ред. Уд.</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -198,17 +200,14 @@
                                     <td>{{ $address->floor }}</td>
                                     <td>{{ $address->apartment }}</td>
                                     <td>
-                                        <a class="mb-2 me-1 btn btn-outline-success @if (request()->routeIs('account.gym_addresses.*')) active @endif"
-                                           href="{{ route('account.gym_addresses.edit', ['gym_address' => $address->id]) }}">
-                                         &#128736
-                                            Ред.
+                                        <a class="mb-2 me-1 btn btn-outline-primary @if (request()->routeIs('account.gym_addresses.*')) active @endif"
+                                            href="{{ route('account.gym_addresses.edit', ['gym_address' => $address->id]) }}">
+                                            &#128736;
                                         </a>
-                                    </td>
-                                    <td>
-                                        <a href="javascript:;" class="mb-2 me-1 btn btn-outline-success delete @if (request()->routeIs('account.gym_addresses.*')) active @endif"
-                                           rel="{{  $address->id }}">
-                                            &#128465
-                                            Уд.
+                                        <a href="javascript:;"
+                                            class="mb-2 me-1 btn btn-outline-danger delete @if (request()->routeIs('account.gym_addresses.*')) active @endif"
+                                            rel="{{ $address->id }}">
+                                            &#128465;
                                         </a>
                                     </td>
                                 </tr>
@@ -228,17 +227,18 @@
 
 @push('js')
     <script type="text/javascript">
-        document.addEventListener("DOMContentLoaded", function (){
+        document.addEventListener("DOMContentLoaded", function() {
             let elements = document.querySelectorAll(".delete");
-            elements.forEach(function (e, k) {
-                e.addEventListener("click", function () {
+            elements.forEach(function(e, k) {
+                e.addEventListener("click", function() {
                     const id = e.getAttribute('rel');
-                    if (confirm(`Подтверждаете удаление записи с #id = ${id}?`)) {
+                    if (confirm(`Подтверждаете удаление записи?`)) {
+                        //скрываем от пользователя id записи в целях безопасности
                         //send id on the server
-                        send(`/account/gym_addresses/${id}`).then(()=>{
+                        send(`/account/gym_addresses/${id}`).then(() => {
                             location.reload();
                         })
-                    }else{
+                    } else {
                         alert("Удаление отменено")
                     }
                 })

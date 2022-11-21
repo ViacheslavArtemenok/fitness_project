@@ -13,7 +13,7 @@
                 {{ __('Забыли свой пароль? Просто сообщите нам свой email, и мы вышлем вам по электронной почте ссылку для сброса старого пароля и выбора нового.') }}
             </div>
             <div class="card-body d-flex align-items-start flex-wrap">
-                <img class="w-25 me-4 align-self-center" src="/assets/images/reg.jpg" alt="img">
+                <img class="w-25 me-4 align-self-center" src="{{ asset('assets/images/reg.jpg') }}" alt="img">
                 <form class="flex-grow-1" method="POST" action="{{ route('password.email') }}">
                     @csrf
 

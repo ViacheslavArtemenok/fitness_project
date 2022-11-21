@@ -1,7 +1,8 @@
 <header class="header_line">
     <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
         <div class="container-fluid">
-            <a class="navbar-brand" href="{{ url('/') }}">AggFitness</a>
+            <img class="logo_image_header me-1" src="{{ asset('assets/images/favicon.png') }}" alt="logo"><a
+                class="navbar-brand" href="{{ url('/') }}">AggFitness</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
                 aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -9,8 +10,8 @@
             <div class="collapse navbar-collapse" id="navbarCollapse">
                 <ul class="navbar-nav me-auto mb-2 mb-md-0">
                     <li class="nav-item">
-                        <a class="nav-link @if (request()->routeIs('info')) active @endif" aria-current="page"
-                            href="{{ route('info') }}">Главная</a>
+                        <a class="nav-link @if (request()->routeIs('info.home')) active @endif" aria-current="page"
+                            href="{{ route('info.home') }}">Главная</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link @if (request()->routeIs('trainers.*')) active @endif"
@@ -19,6 +20,18 @@
                     <li class="nav-item">
                         <a class="nav-link @if (request()->routeIs('gyms.*')) active @endif"
                             href="{{ route('gyms.index', ['city_id' => 0]) }}">Фитнес-клубы</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link @if (request()->routeIs('info.about')) active @endif"
+                            href="{{ route('info.about') }}">О проекте</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link @if (request()->routeIs('info.contacts')) active @endif"
+                            href="{{ route('info.contacts') }}">Контакты</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link @if (request()->routeIs('info.developers')) active @endif"
+                            href="{{ route('info.developers') }}"> Команда разработчиков</a>
                     </li>
                     @auth
                         @if (Auth::user()->role_id === 1)
@@ -112,8 +125,8 @@
                     </form>
                 @elseif (request()->routeIs('gyms.index'))
                     <div class="btn-group align-self-start mt-2 me-2 mb-2">
-                        <button type="button" class="btn btn-outline-success dropdown-toggle" data-bs-toggle="dropdown"
-                            aria-expanded="false">
+                        <button type="button" class="btn btn-outline-success dropdown-toggle"
+                            data-bs-toggle="dropdown" aria-expanded="false">
                             Город
                         </button>
                         <ul class="dropdown-menu overflow-scroll menu_height">

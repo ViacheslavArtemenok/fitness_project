@@ -1,6 +1,7 @@
 @extends('layouts.main')
 @section('title')
     Фитнес-клуб: @if (isset($gym->title))
+        {{ $gym->title }}
     @endif
     @parent
 @endsection

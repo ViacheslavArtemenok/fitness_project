@@ -4,8 +4,9 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" href="assets/images/favicon.png" type="image/png">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>AggTrainers: @section('title') @show
+    <title>AggFitness @section('title') @show
     </title>
 
     <link href="{{ asset('assets/css/bootstrap.min.css') }}" rel="stylesheet">
@@ -42,7 +43,7 @@
         crossorigin="anonymous"></script>
     <script src="{{ asset('assets/js/mask/jquery.maskedinput.min.js') }}"></script>
     <script src="{{ asset('assets/js/mask/main_mask.js') }}"></script>
-@stack('js')
+    @stack('js')
 </body>
 
 </html>

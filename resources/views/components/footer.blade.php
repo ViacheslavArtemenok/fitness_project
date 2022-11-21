@@ -4,10 +4,9 @@
         <footer class="py-5 footer_design">
             <div class="row">
                 <div class="col-6 col-md-2 mb-3">
-                    <h5>AggFitness</h5>
                     <a class="mb-2 btn btn-outline-success" href="#">&#8593 &#8593 &#8593</a>
                     <ul class="nav flex-column">
-                        <li class="nav-item mb-2"><a class="link-light text-white-50" href="{{ route('info') }}"
+                        <li class="nav-item mb-2"><a class="link-light text-white-50" href="{{ route('info.home') }}"
                                 class="nav-link p-0 text-muted">Главная</a>
                         </li>
                         <li class="nav-item mb-2"><a class="link-light text-white-50"
@@ -16,18 +15,16 @@
                         <li class="nav-item mb-2"><a class="link-light text-white-50"
                                 href="{{ route('gyms.index', ['city_id' => 0]) }}"
                                 class="nav-link p-0 text-muted">Фитнес-клубы</a></li>
-                        <li class="nav-item mb-2"><a class="link-light text-white-50" href="#"
-                                class="nav-link p-0 text-muted">О
-                                нас</a></li>
-                        <li class="nav-item mb-2"><a class="link-light text-white-50" href="#"
-                                class="nav-link p-0 text-muted">Контакты</a></li>
-                        <li class="nav-item mb-2"><a class="link-light text-white-50" href="#"
-                                class="nav-link p-0 text-muted">Команда
+                        <li class="nav-item mb-2"><a class="link-light text-white-50" href="{{ route('info.about') }}"
+                                class="nav-link p-0 text-muted">О проекте</a></li>
+                        <li class="nav-item mb-2"><a class="link-light text-white-50"
+                                href="{{ route('info.contacts') }}" class="nav-link p-0 text-muted">Контакты</a></li>
+                        <li class="nav-item mb-2"><a class="link-light text-white-50"
+                                href="{{ route('info.developers') }}" class="nav-link p-0 text-muted">Команда
                                 разработчиков</a>
                         </li>
                     </ul>
                 </div>
-
                 <div class="col-md-5 offset-md-1 mb-3">
                     <h5>Подпишитесь на нашу рассылку</h5>
                     <p>Узнайте первым о наших скидках и акциях</p>
@@ -45,6 +42,7 @@
                         <p>Укажите номер телефона, чтобы мы убедились, что вы не робот. Рассылка будет приходить только
                             на ваш email.</p>
                     </div>
+                    <img class="logo_image" src="{{ asset('assets/images/logo.png') }}" alt="logo">
                 </div>
             </div>
             <div class="d-flex flex-column flex-sm-row justify-content-between py-4 my-4 border-top">
