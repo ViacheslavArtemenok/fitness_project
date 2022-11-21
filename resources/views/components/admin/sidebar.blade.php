@@ -139,7 +139,7 @@
             </li>
             <li class="nav-item">
                 <a class="nav-link @if (request()->routeIs('admin.moderatings.*')) active @endif"
-                   href="{{ route('admin.moderatings.index') }}">
+                   href="{{ route('admin.moderatings.index') . "?ms=1&ur=2&us=1" }}">
                     <span data-feather="file" class="align-text-bottom">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                              class="bi bi-person-lines-fill" viewBox="0 0 16 16">

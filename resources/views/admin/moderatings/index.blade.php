@@ -41,7 +41,7 @@
                 </select>
             </div>
             <div class="col-md-3 d-flex justify-content-center">
-                <button type="submit" class="btn btn-primary">Фильтровать</button>
+                <button type="submit" class="btn btn-primary mt-4">Фильтровать</button>
             </div>
         </div>
     </form>

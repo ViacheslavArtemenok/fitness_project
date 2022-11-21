@@ -73,7 +73,7 @@
                 </div>
             </div>
         @endif
-        @if(isset($moderatingList->tags))
+        @if(collect($moderatingList->tags)->isNotEmpty())
             <div class="container">
                 <div class="row">
                     <fieldset class="form-group border p-3 mb-4">
@@ -129,6 +129,66 @@
                             <li class="list-group-item"><span
                                         class="">Описание: </span>{{ $moderatingList->gym->description }}</li>
                         </ul>
+
+                        {{--@if(collect($moderatingList->gym->addresses)->isNotEmpty())--}}
+                            @forelse($moderatingList->gym->addresses as $key => $address)
+                                <ul class="list-group list-group-flush">
+                                    {{ $key + 1 }})
+                                    <li class="list-group-item">
+                                        <span class="">Индекс: </span>{{ $address->index }}
+                                    </li>
+                                    <li class="list-group-item">
+                                        <span class="">Страна:  </span>{{ $address->country }}
+                                    </li>
+                                    <li class="list-group-item">
+                                        <span class="">Город: </span>{{ $address->city }}
+                                    </li>
+                                    <li class="list-group-item">
+                                        <span class="">Улица: </span>{{ $address->street }}
+                                    </li>
+                                    <li class="list-group-item">
+                                        <span class="">Номер дома: </span>{{ $address->house_number }}
+                                    </li>
+                                    <li class="list-group-item">
+                                        <span class="">Строение: </span>{{ $address->building }}
+                                    </li>
+                                    <li class="list-group-item">
+                                        <span class="">Этаж: </span>{{ $address->floor }}
+                                    </li>
+                                    <li class="list-group-item">
+                                        <span class="">Квартира: </span>{{ $address->apartment }}
+                                    </li>
+                                </ul>
+                            @empty
+                                Записей не найдено
+                            @endforelse
+                        {{--@endif--}}
+                        <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+                            {{--<div class="carousel-indicators">--}}
+                                {{--<button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>--}}
+                                {{--<button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>--}}
+                                {{--<button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>--}}
+                            {{--</div>--}}
+                            <div class="carousel-inner">
+                                @forelse($moderatingList->gym->images as $key => $image)
+                                    <div class="carousel-item @if($key === 0 ) active @endif">
+                                        <img src="{{ Storage::disk('public')->url($image->image) }}" class="d-block w-100" alt="...">
+                                    </div>
+                                @empty
+                                    <div class="carousel-item">
+                                        Записей не найдено
+                                    </div>
+                                @endforelse
+                            </div>
+                            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Previous</span>
+                            </button>
+                            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Next</span>
+                            </button>
+                        </div>
                     </fieldset>
                 </div>
             </div>

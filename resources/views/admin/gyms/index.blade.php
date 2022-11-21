@@ -44,7 +44,7 @@
                             {{ $gym->email }}
                         </td>
                         <td>
-                            <a class="btn btn-sm btn-outline-primary" href="{{ $gym->url }}" target="blank">Сайт</a>
+                            <a class="link-primary" href="{{ $gym->url }}" target="blank">Сайт</a>
                         </td>
                         <td>
                             {{ $gym->description }}
