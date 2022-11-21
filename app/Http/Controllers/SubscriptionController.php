@@ -41,7 +41,7 @@ class SubscriptionController extends Controller
         try {
             $result = Subscription::create($request->validated());
             if ($result) {
-                return redirect()->route('info')
+                return redirect()->route('info.home')
                     ->with('success', __('messages.subscriptions.create.success'));
             }
             return back()->with('error', __('messages.subscriptions.create.fail'));

@@ -1,6 +1,10 @@
 @extends('layouts.main')
+@section('title')
+    Личный кабинет@parent
+@endsection
 @section('content')
-    <x-account.gym.menu></x-account.gym.menu>
+    <x-account.gym.menu>
+    </x-account.gym.menu>
     <br>
     <div class="container marketing">
         @if (Auth::user()->status === 'BLOCKED')
@@ -9,12 +13,16 @@
             <div class="d-flex flex-column align-items-center p-3 shadow rounded-1 mb-4">
                 <h6 class="text-center text-secondary"><span class="text-danger">Ваш профиль еще не активирован!</span>
                     Заполните поля с данными профиля,
-                    анкеты в разделе "Редактировать", при регистрации вам было
+                    анкеты в разделе "Инструменты", при регистрации вам было
                     отправлено письмо на ваш email. Пройдите по ссылке
                     в письме, чтобы подтвердить ваш email...
                     Как всё будет готово, появится кнопка "Активировать", нажмите ее, наш
                     администратор проверит вашу анкету и выполнит активацию.</h6>
-                @if ($user->profile && $user->gym && Auth::user()->email_verified_at)
+                @if ($user->profile &&
+                    $user->gym &&
+                    isset($user->gym->images[0]) &&
+                    isset($user->gym->addresses[0]) &&
+                    Auth::user()->email_verified_at)
                     <a class="btn btn-outline-success btn-sm @if ($user->moderating and $user->moderating->status === 'IS_PENDING') disabled @endif"
                         href="{{ route('account.moderating', ['user_id' => $user->id]) }}">
                         @if ($user->moderating and $user->moderating->status === 'IS_PENDING')
@@ -181,8 +189,10 @@
                                 <th scope="row">Строение</th>
                                 <th scope="row">Этаж</th>
                                 <th scope="row">Офис</th>
-                                <th scope="row"></th>
-                                <th scope="row"></th>
+                                <th scope="row">Ред. @if (count($user->gym->addresses) > 1)
+                                        Уд.
+                                    @endif
+                                </th>
                             </tr>
                         </thead>
                         <tbody>
@@ -198,18 +208,16 @@
                                     <td>{{ $address->floor }}</td>
                                     <td>{{ $address->apartment }}</td>
                                     <td>
-                                        <a class="mb-2 me-1 btn btn-outline-success @if (request()->routeIs('account.gym_addresses.*')) active @endif"
-                                           href="{{ route('account.gym_addresses.edit', ['gym_address' => $address->id]) }}">
-                                         &#128736
-                                            Ред.
+                                        <a class="mb-2 me-1 btn btn-outline-primary"
+                                            href="{{ route('account.gym_addresses.edit', ['gym_address' => $address->id]) }}">
+                                            &#128736;
                                         </a>
-                                    </td>
-                                    <td>
-                                        <a href="javascript:;" class="mb-2 me-1 btn btn-outline-success delete @if (request()->routeIs('account.gym_addresses.*')) active @endif"
-                                           rel="{{  $address->id }}">
-                                            &#128465
-                                            Уд.
-                                        </a>
+                                        @if (count($user->gym->addresses) > 1)
+                                            <a href="javascript:;" class="mb-2 me-1 btn btn-outline-danger delete"
+                                                rel="{{ $address->id }}">
+                                                &#128465;
+                                            </a>
+                                        @endif
                                     </td>
                                 </tr>
                             @endforeach
@@ -228,17 +236,18 @@
 
 @push('js')
     <script type="text/javascript">
-        document.addEventListener("DOMContentLoaded", function (){
+        document.addEventListener("DOMContentLoaded", function() {
             let elements = document.querySelectorAll(".delete");
-            elements.forEach(function (e, k) {
-                e.addEventListener("click", function () {
+            elements.forEach(function(e, k) {
+                e.addEventListener("click", function() {
                     const id = e.getAttribute('rel');
-                    if (confirm(`Подтверждаете удаление записи с #id = ${id}?`)) {
+                    if (confirm(`Подтверждаете удаление записи?`)) {
+                        //скрываем от пользователя id записи в целях безопасности
                         //send id on the server
-                        send(`/account/gym_addresses/${id}`).then(()=>{
+                        send(`/account/gym_addresses/${id}`).then(() => {
                             location.reload();
                         })
-                    }else{
+                    } else {
                         alert("Удаление отменено")
                     }
                 })

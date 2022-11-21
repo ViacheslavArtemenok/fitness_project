@@ -1,4 +1,7 @@
 @extends('layouts.main')
+@section('title')
+    Личный кабинет@parent
+@endsection
 @section('content')
     <x-account.client.menu></x-account.client.menu>
     <br>
@@ -9,7 +12,7 @@
             <div class="d-flex flex-column align-items-center p-3 shadow rounded-1 mb-4">
                 <h6 class="text-center text-secondary"><span class="text-danger">Ваш профиль еще не активирован!</span>
                     Заполните поля с данными профиля,
-                    анкеты в разделе "Редактировать", при регистрации вам было
+                    анкеты в разделе "Инструменты", при регистрации вам было
                     отправлено письмо на ваш email. Пройдите по ссылке
                     в письме, чтобы подтвердить ваш email...
                     Как всё будет готово, появится кнопка "Активировать", нажмите ее, наш

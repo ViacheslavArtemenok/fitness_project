@@ -23,10 +23,27 @@ class GymSeeder extends Seeder
     public function getData(): array
     {
         $title = [
-            'зал',
-            'спортзал',
-            'клуб',
-            'физкультурная секция'
+            'Arriba-fit',
+            'Spiritfitness',
+            'Limefitness',
+            'Fly-fitness',
+            'Xfit',
+            'Pluzhnikfitness',
+            'Fitcitrus',
+            'Sportres',
+            'Sky-fitnes',
+            'Desire-fitness',
+            'Orange-fit',
+            'Luxembourg-paris-hotel',
+            'Cosmosgroup',
+            'WorldClass',
+            'Neptun',
+            'F-fitness',
+            'Zdravsoyuz',
+            'Zebra',
+            'Crocusfitness',
+            'DDX-Fitness'
+
         ];
 
         $url = [
@@ -47,7 +64,18 @@ class GymSeeder extends Seeder
             'https://special.worldclass-kgd.ru/trenazhernyy-zal/soft-fitnes-trenirovki-dlya-nachinayushchih',
             'https://sport.neptun.spb.ru/trenazhyernyy-zal.php',
             'https://www.f-fitness.ru/timetable/nasledie/bolshoj-zal-aerobiki',
-            'https://www.здравсоюз.рф'
+            'https://www.здравсоюз.рф',
+            'https://zebra-butovo.ru',
+            'https://crocusfitness.com/crocus-city',
+            'https://www.ddxfitness.ru/'
+        ];
+        $domain = [
+            '@gmail.com',
+            '@yandex.ru',
+            '@mail.ru',
+            '@rambler.ru',
+            '@bk.ru',
+            '@inbox.ru',
         ];
 
         $gyms = [];
@@ -55,22 +83,20 @@ class GymSeeder extends Seeder
         $faker = Factory::create('ru_RU');
         $faker->addProvider(new \Faker\Provider\ru_RU\Person($faker));
 
-        for ($i = 0; $i < 20; $i++) {
+        for ($i = 0; $i < count($title); $i++) {
             if ($i > 2 && $i % 3 == 0) {
                 $phone_second = null;
             } else {
                 $phone_second = '+7 ' . '(9' . rand(10, 99) . ') ' . rand(100, 999) . '-' . rand(10, 99) . '-' . rand(10, 99);
             }
-
             $gyms[] = [
                 'user_id' => $i + 131,
                 //'title'   => $faker->company(),
-                'title' => $title[rand(0, count($title) - 1)],
+                'title' => $title[$i],
                 'phone_main' => '+7 ' . '(9' . rand(10, 99) . ') ' . rand(100, 999) . '-' . rand(10, 99) . '-' . rand(10, 99),
                 'phone_second' => $phone_second,
-                'email' => $faker->email(),
-                //'url' => 'https://zebra-butovo.ru',
-                'url' => $url[rand(0, count($url) - 1)],
+                'email' => mb_strtolower($title[$i] . $domain[rand(0, count($domain) - 1)]),
+                'url' => $url[$i],
                 'description'          => $faker->text(400),
                 'created_at'     => now('Europe/Moscow')
             ];

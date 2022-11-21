@@ -2,7 +2,7 @@
     <div class="dropdown p-3 d-flex justify-content-center flex-grow-1">
         <button class="btn btn-outline-success dropdown-toggle" type="button" data-bs-toggle="dropdown"
             aria-expanded="false">
-            Редактировать
+            Инструменты
         </button>
         <div class="tags_box body_back dropdown-menu">
             <div class="container">
@@ -97,7 +97,7 @@
                             </a>
                         @endif
                     @else
-                        <a class="mb-2 me-1 btn btn-outline-success" href="{{ route('info') }}">
+                        <a class="mb-2 me-1 btn btn-outline-success" href="{{ route('info.home') }}">
                             <svg class="bi pe-none me-2" width="16" height="16"
                                 xmlns="http://www.w3.org/2000/svg">
                                 <path

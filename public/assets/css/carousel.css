@@ -247,5 +247,12 @@ margin: 0px 6px 36px;
 .sendarea {
     padding: 15px 0px;
 }
+.logo_image {
+  width: 220px;
+  height: auto;
+}
 
-
+.logo_image_header {
+  width: 50px;
+  height: auto;
+}
