@@ -25,13 +25,12 @@ class GymImageController extends Controller
      *
      * @return View
      */
-    public function index():View
+    public function index(): View
     {
         $gymImages = GymImage::query()
             ->with('gym')
             ->where('gym_id', Auth::user()->gym->id)
-            ->paginate(4)
-        ;
+            ->paginate(9);
         return view('account.gym_images.index', ['gymImages' => $gymImages]);
     }
 
@@ -122,13 +121,12 @@ class GymImageController extends Controller
     {
         try {
             $deleted = $gym_image->delete();
-            if($deleted === false) {
+            if ($deleted === false) {
                 return \response()->json('error', 400);
             }
 
             return \response()->json('ok');
-
-        } catch(\Exception $e) {
+        } catch (\Exception $e) {
             \Log::error($e->getMessage());
             return \response()->json('error', 400);
         }
