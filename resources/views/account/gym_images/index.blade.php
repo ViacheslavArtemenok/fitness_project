@@ -20,12 +20,13 @@
                                     &#128736;
                                     Заменить
                                 </a>
-                                <a href="javascript:;" class="mb-2 me-1 btn btn-outline-danger delete"
-                                    rel="{{ $gymImage->id }}">
-                                    &#128465;
-                                    Удалить
-                                </a>
-
+                                @if (count($gymImages) > 1)
+                                    <a href="javascript:;" class="mb-2 me-1 btn btn-outline-danger delete"
+                                        rel="{{ $gymImage->id }}">
+                                        &#128465;
+                                        Удалить
+                                    </a>
+                                @endif
                             </div>
                         </div>
                     </div>
