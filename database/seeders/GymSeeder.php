@@ -39,7 +39,7 @@ class GymSeeder extends Seeder
             'WorldClass',
             'Neptun',
             'F-fitness',
-            'Здравсоюз',
+            'Zdravsoyuz',
             'Zebra',
             'Crocusfitness',
             'DDX-Fitness'
@@ -68,6 +68,14 @@ class GymSeeder extends Seeder
             'https://crocusfitness.com/crocus-city',
             'https://www.ddxfitness.ru/'
         ];
+        $domain = [
+            '@gmail.com',
+            '@yandex.ru',
+            '@mail.ru',
+            '@rambler.ru',
+            '@bk.ru',
+            '@inbox.ru',
+        ];
 
         $gyms = [];
 
@@ -86,7 +94,7 @@ class GymSeeder extends Seeder
                 'title' => $title[$i],
                 'phone_main' => '+7 ' . '(9' . rand(10, 99) . ') ' . rand(100, 999) . '-' . rand(10, 99) . '-' . rand(10, 99),
                 'phone_second' => $phone_second,
-                'email' => $title[$i] . '@gmail.com',
+                'email' => mb_strtolower($title[$i] . $domain[rand(0, count($domain) - 1)]),
                 'url' => $url[$i],
                 'description'          => $faker->text(400),
                 'created_at'     => now('Europe/Moscow')
