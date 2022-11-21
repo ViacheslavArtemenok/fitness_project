@@ -47,7 +47,7 @@ class PutPatchTest extends TestCase
     {
         $user = User::factory()->create();
         $facker = Factory::create();
-        $updateObjects = Profile::latest()->take(1)->get();
+        $updateObjects = Profile::take(1)->get();
         foreach ($updateObjects as $updateObject) {
             $_POST = [
                 'user' => $updateObject->id,
@@ -57,9 +57,10 @@ class PutPatchTest extends TestCase
                 'role_id'        => 1,
                 'status'      => User::ACTIVE,
                 'password'    => 12345678,
-                'email_verified_at' => now('Europe/Moscow'),
-                'created_at'  => now('Europe/Moscow')
+                // 'email_verified_at' => now('Europe/Moscow'),
+                // 'created_at'  => now('Europe/Moscow')
             ];
+            $updateObject->phone = '+7 ' . '(9' . rand(10, 99) . ') ' . rand(100, 999) . '-' . rand(10, 99) . '-' . rand(10, 99);;
         }
         $response = $this->actingAs($user)->put(route('account.users.update', $_POST));
         $response->assertRedirect(route('account'));
