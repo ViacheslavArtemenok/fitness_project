@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\Gym;
 use App\Services\Filters\ModeratingFilter;
 use App\Http\Controllers\Controller;
 use App\Models\Moderating;
@@ -110,11 +111,13 @@ class ModeratingController extends Controller
                 ->whereId($moderating->id)
                 ->with('user')
                 ->with('profile')
-                ->with('gym')
-                ->with('gymAddresses')
-                ->with('gymImages')
+                ->with('gym', function ($query) {
+                    $query->with('addresses');
+                    $query->with('images');
+                })
+                //->with('gymAddresses')
+                //->with('gymImages')
                 ->get();
-            //dump($moderatingList);
         }
 
         return view('admin.moderatings.read', [
