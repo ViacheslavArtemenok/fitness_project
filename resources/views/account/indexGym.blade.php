@@ -3,7 +3,8 @@
     Личный кабинет@parent
 @endsection
 @section('content')
-    <x-account.gym.menu></x-account.gym.menu>
+    <x-account.gym.menu>
+    </x-account.gym.menu>
     <br>
     <div class="container marketing">
         @if (Auth::user()->status === 'BLOCKED')
@@ -12,12 +13,16 @@
             <div class="d-flex flex-column align-items-center p-3 shadow rounded-1 mb-4">
                 <h6 class="text-center text-secondary"><span class="text-danger">Ваш профиль еще не активирован!</span>
                     Заполните поля с данными профиля,
-                    анкеты в разделе "Редактировать", при регистрации вам было
+                    анкеты в разделе "Инструменты", при регистрации вам было
                     отправлено письмо на ваш email. Пройдите по ссылке
                     в письме, чтобы подтвердить ваш email...
                     Как всё будет готово, появится кнопка "Активировать", нажмите ее, наш
                     администратор проверит вашу анкету и выполнит активацию.</h6>
-                @if ($user->profile && $user->gym && Auth::user()->email_verified_at)
+                @if ($user->profile &&
+                    $user->gym &&
+                    isset($user->gym->images[0]) &&
+                    isset($user->gym->addresses[0]) &&
+                    Auth::user()->email_verified_at)
                     <a class="btn btn-outline-success btn-sm @if ($user->moderating and $user->moderating->status === 'IS_PENDING') disabled @endif"
                         href="{{ route('account.moderating', ['user_id' => $user->id]) }}">
                         @if ($user->moderating and $user->moderating->status === 'IS_PENDING')
@@ -184,7 +189,10 @@
                                 <th scope="row">Строение</th>
                                 <th scope="row">Этаж</th>
                                 <th scope="row">Офис</th>
-                                <th scope="row">Ред. Уд.</th>
+                                <th scope="row">Ред. @if (count($user->gym->addresses) > 1)
+                                        Уд.
+                                    @endif
+                                </th>
                             </tr>
                         </thead>
                         <tbody>
@@ -200,15 +208,16 @@
                                     <td>{{ $address->floor }}</td>
                                     <td>{{ $address->apartment }}</td>
                                     <td>
-                                        <a class="mb-2 me-1 btn btn-outline-primary @if (request()->routeIs('account.gym_addresses.*')) active @endif"
+                                        <a class="mb-2 me-1 btn btn-outline-primary"
                                             href="{{ route('account.gym_addresses.edit', ['gym_address' => $address->id]) }}">
                                             &#128736;
                                         </a>
-                                        <a href="javascript:;"
-                                            class="mb-2 me-1 btn btn-outline-danger delete @if (request()->routeIs('account.gym_addresses.*')) active @endif"
-                                            rel="{{ $address->id }}">
-                                            &#128465;
-                                        </a>
+                                        @if (count($user->gym->addresses) > 1)
+                                            <a href="javascript:;" class="mb-2 me-1 btn btn-outline-danger delete"
+                                                rel="{{ $address->id }}">
+                                                &#128465;
+                                            </a>
+                                        @endif
                                     </td>
                                 </tr>
                             @endforeach

@@ -2,7 +2,7 @@
     <div class="dropdown p-3 d-flex justify-content-center flex-grow-1">
         <button class="btn btn-outline-success dropdown-toggle" type="button" data-bs-toggle="dropdown"
             aria-expanded="false">
-            Редактировать
+            Инструменты
         </button>
         <div class="tags_box body_back dropdown-menu">
             <div class="container">
