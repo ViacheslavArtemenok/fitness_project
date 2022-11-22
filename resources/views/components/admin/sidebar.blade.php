@@ -193,7 +193,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link @if (request()->routeIs('admin.users.*')) active @endif"
+                <a class="nav-link @if (request()->routeIs('admin.send.*')) active @endif"
                    href="{{ route('admin.send.index') }}">
                     <span data-feather="folder" class="align-text-bottom">
                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
