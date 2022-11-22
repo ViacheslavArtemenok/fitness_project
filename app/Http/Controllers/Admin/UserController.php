@@ -18,12 +18,16 @@ class UserController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param  Request  $request
      * @return View
      */
-    public function index(): View
+    public function index(Request $request): View
     {
         $users = User::query()
             ->with(['profile', 'role'])
+            ->when($request->has('trashed'), function ($query) {
+                $query->onlyTrashed();
+            })
             ->paginate(config('pagination.admin.users'));
 
         return view('admin.users.index', [
@@ -143,5 +147,21 @@ class UserController extends Controller
             \Log::error($e->getMessage() . ' ' . $e->getCode());
             return \response()->json(['status' => 'error'], 400);
         }
+    }
+
+    public function restore($id): RedirectResponse
+    {
+        $user = User::onlyTrashed()->findOrFail($id);
+        $user->restore();
+
+        return redirect()->route('admin.users.index');
+    }
+
+    public function forceDelete($id): RedirectResponse
+    {
+        $user = User::onlyTrashed()->findOrFail($id);
+        $user->forceDelete();
+
+        return redirect()->route('admin.users.index');
     }
 }
