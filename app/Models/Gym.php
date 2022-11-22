@@ -48,6 +48,6 @@ class Gym extends Model
 
     public function clients(): BelongsToMany
     {
-        return $this->belongsToMany(User::class, 'gym_reviews', 'gym_id', 'client_id')->withPivot('id', 'client_id', 'title', 'description', 'score', 'status',)->withTimestamps();
+        return $this->belongsToMany(User::class, 'gym_reviews', 'gym_id', 'client_id')->withPivot('id', 'client_id', 'title', 'description', 'score', 'status')->withTimestamps();
     }
 }
