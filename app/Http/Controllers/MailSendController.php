@@ -37,7 +37,13 @@ class MailSendController extends Controller
             } elseif ($data->addressee === 'Клиентам сайта') {
                 $users = User::where('role_id', 3)->get();
             }
-            Mail::to($users)->send(new SendMail($data));
+            dispatch(new App\Jobs\SendEmailJob(
+                [
+                    'users' => $users,
+                    'data' => $data,
+                ]
+            ));
+            //Mail::to($users)->send(new SendMail($data));
         } elseif ($request->telegramm) {
             $client = new Client();
             try {
