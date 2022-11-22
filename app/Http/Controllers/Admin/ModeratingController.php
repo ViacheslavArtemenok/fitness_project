@@ -122,6 +122,7 @@ class ModeratingController extends Controller
 
         return view('admin.moderatings.read', [
             'moderatingList' => $moderatingList[0],
+            'roles' => $roles,
             'reasons' => $reasons
         ]);
     }
