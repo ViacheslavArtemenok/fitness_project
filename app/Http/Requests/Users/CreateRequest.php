@@ -36,8 +36,8 @@ class CreateRequest extends FormRequest
         }
         return [
             'name' => ['required', 'string', 'min:3', 'max:255'],
-            'email' => ['required', 'email', 'min:5', 'max:255', 'unique:users,email'],
-            'phone' =>  ['required', 'string'],
+            'email' => ['required', 'unique:users,email', 'email', 'min:5', 'max:255'],
+            'phone' =>  ['required', 'unique:users,phone', 'regex:/\+7\s?[\(]{0,1}9[0-9]{2}[\)]{0,1}\s?\d{3}[-]{0,1}\d{2}[-]{0,1}\d{2}/'],
             'password' => ['required_with:confirmPassword', 'string', 'same:confirmPassword', 'min:8'],
             'confirmPassword' => ['required', 'string', 'min:8'],
             'role_id' => ['required', 'integer', Rule::in($arr)],

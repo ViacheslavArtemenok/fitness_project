@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Users;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class EditRequest extends FormRequest
 {
@@ -26,8 +27,19 @@ class EditRequest extends FormRequest
         return [
             'status' => ['nullable', 'string'],
             'name' => ['required', 'string', 'min:3', 'max:255'],
-            'email' => ['required', 'email', 'min:5', 'max:255'],
-            'phone' =>  ['required', 'string'],
+            'email' => [
+                'required',
+                Rule::unique('users')
+                    ->ignore($this->user),
+                'min:5',
+                'max:255'
+            ],
+            'phone' =>  [
+                'nullable',
+                Rule::unique('users')
+                    ->ignore($this->user),
+                'regex:/\+7\s?[\(]{0,1}9[0-9]{2}[\)]{0,1}\s?\d{3}[-]{0,1}\d{2}[-]{0,1}\d{2}/'
+            ],
             'password' => ['required', 'min:8', 'max:50'],
             'newPassword' => ['nullable', 'min:8', 'max:50', 'confirmed'],
         ];

@@ -2,23 +2,24 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Models\User;
-use App\Http\Requests\Users\EditRequest;
-use App\Http\Requests\Users\CreateRequest;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Users\CreateRequest;
+use App\Http\Requests\Users\EditRequest;
 use App\Models\Role;
-use Illuminate\Http\RedirectResponse;
+use App\Models\User;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\View\View;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\View\View;
 
 class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @param  Request  $request
+     * @param  Request $request
      * @return View
      */
     public function index(Request $request): View
@@ -50,7 +51,7 @@ class UserController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  CreateRequest  $request
+     * @param  CreateRequest $request
      * @return RedirectResponse
      */
     public function store(CreateRequest $request): RedirectResponse
@@ -80,7 +81,7 @@ class UserController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -105,8 +106,8 @@ class UserController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  EditRequest  $request
-     * @param  User  $user
+     * @param  EditRequest $request
+     * @param  User $user
      * @return RedirectResponse
      */
     public function update(Request $requestRole, EditRequest $request, User $user): RedirectResponse
@@ -121,7 +122,7 @@ class UserController extends Controller
 
         if ($user->save()) {
             return redirect()->route('admin.users.index')
-                ->with('success',  __('messages.admin.users.update.success'));
+                ->with('success', __('messages.admin.users.update.success'));
         }
 
         return back()->with('error', __('messages.admin.users.update.fail'));
@@ -137,18 +138,31 @@ class UserController extends Controller
     public function destroy(User $user): JsonResponse
     {
         try {
-            $deleted = $user->delete();
+            $deleted = false;
+
+            if ($user->id != Auth::id()) {
+                $deleted = $user->delete();
+            }
+
             if ($deleted === false) {
                 return \response()->json(['status' => 'error'], 400);
             } else {
                 return \response()->json(['status' => 'ok']);
             }
+
         } catch (\Exception $e) {
             \Log::error($e->getMessage() . ' ' . $e->getCode());
             return \response()->json(['status' => 'error'], 400);
         }
     }
 
+    /**
+     * Restore User by Id.
+     *
+     * @param int $id
+     *
+     * @return RedirectResponse
+     */
     public function restore($id): RedirectResponse
     {
         $user = User::onlyTrashed()->findOrFail($id);
@@ -156,13 +170,20 @@ class UserController extends Controller
 
         if ($restore === false) {
             return redirect()->route('admin.users.index', ['trashed'])
-                ->with('error',  __('messages.admin.users.restore.fail'));
+                ->with('error', __('messages.admin.users.restore.fail'));
         } else {
             return redirect()->route('admin.users.index', ['trashed'])
-                ->with('success',  __('messages.admin.users.restore.success'));
+                ->with('success', __('messages.admin.users.restore.success'));
         }
     }
 
+    /**
+     * Force delete User by Id.
+     *
+     * @param int $id
+     *
+     * @return RedirectResponse
+     */
     public function forceDelete($id): RedirectResponse
     {
         try {
@@ -171,15 +192,15 @@ class UserController extends Controller
 
             if ($deleted === false) {
                 return redirect()->route('admin.users.index', ['trashed'])
-                    ->with('error',  __('messages.admin.users.destroy.fail'));
+                    ->with('error', __('messages.admin.users.destroy.fail'));
             } else {
                 return redirect()->route('admin.users.index', ['trashed'])
-                    ->with('success',  __('messages.admin.users.destroy.success'));
+                    ->with('success', __('messages.admin.users.destroy.success'));
             }
         } catch (\Exception $e) {
             \Log::error($e->getMessage() . ' ' . $e->getCode());
             return redirect()->route('admin.users.index', ['trashed'])
-                ->with('error',  __('messages.admin.users.destroy.fail'));
+                ->with('error', __('messages.admin.users.destroy.fail'));
         }
     }
 }
