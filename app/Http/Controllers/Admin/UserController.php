@@ -29,7 +29,8 @@ class UserController extends Controller
             ->when($request->has('trashed'), function ($query) {
                 $query->onlyTrashed();
             })
-            ->paginate(config('pagination.admin.users'));
+            ->get();
+            //->paginate(config('pagination.admin.users'));
 
         return view('admin.users.index', [
             'users' => $users
