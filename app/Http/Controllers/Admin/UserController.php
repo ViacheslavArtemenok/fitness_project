@@ -152,16 +152,34 @@ class UserController extends Controller
     public function restore($id): RedirectResponse
     {
         $user = User::onlyTrashed()->findOrFail($id);
-        $user->restore();
+        $restore = $user->restore();
 
-        return redirect()->route('admin.users.index');
+        if ($restore === false) {
+            return redirect()->route('admin.users.index', ['trashed'])
+                ->with('error',  __('messages.admin.users.restore.fail'));
+        } else {
+            return redirect()->route('admin.users.index', ['trashed'])
+                ->with('success',  __('messages.admin.users.restore.success'));
+        }
     }
 
     public function forceDelete($id): RedirectResponse
     {
-        $user = User::onlyTrashed()->findOrFail($id);
-        $user->forceDelete();
+        try {
+            $user = User::onlyTrashed()->findOrFail($id);
+            $deleted = $user->forceDelete();
 
-        return redirect()->route('admin.users.index');
+            if ($deleted === false) {
+                return redirect()->route('admin.users.index', ['trashed'])
+                    ->with('error',  __('messages.admin.users.destroy.fail'));
+            } else {
+                return redirect()->route('admin.users.index', ['trashed'])
+                    ->with('success',  __('messages.admin.users.destroy.success'));
+            }
+        } catch (\Exception $e) {
+            \Log::error($e->getMessage() . ' ' . $e->getCode());
+            return redirect()->route('admin.users.index', ['trashed'])
+                ->with('error',  __('messages.admin.users.destroy.fail'));
+        }
     }
 }
