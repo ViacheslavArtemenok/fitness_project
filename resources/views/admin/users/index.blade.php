@@ -1,9 +1,16 @@
 @extends('layouts.admin')
 @section('content')
     <h2>Список пользователей</h2>
-    <div style="display: flex; justify-content: right;">
+    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+        @php
+            $count = \app\Models\User::onlyTrashed()->count()
+        @endphp
+        <a href="{{ route('admin.users.index') . '?trashed' }}" class="btn btn-outline-primary">
+            Удаленные пользователи {{ ($count > 0)? '(' . $count . ')' : '' }}
+        </a>
         <a href="{{ route('admin.users.create') }}" class="btn btn-primary">Добавить пользователя</a>
-    </div><br>
+    </div>
+    <br>
     <div class="alert-message"></div><br>
     <div class="table-responsive">
         @include('inc.message')
@@ -51,10 +58,17 @@
                         <td>{{ $user->created_at }}</td>
                         <td>{{ $user->email_verified_at }}</td>
                         <td>
-                            <div style="">
-                                <a href="{{ route('admin.users.edit', ['user' => $user]) }}">Ред.</a>&nbsp;
-                                <a href="javascript:;" class="delete" rel="{{ $user->id }}" style="color: red;">Уд.</a>
-                            </div>
+                            @if($user->trashed())
+                                <div style="">
+                                    <a href="{{ route('admin.users.restore', $user->id) }}">Вост.</a>&nbsp;
+                                    <a href="{{ route('admin.users.force_delete', $user->id) }}" style="color: red;">Уд.</a>
+                                </div>
+                            @else
+                                <div style="">
+                                    <a href="{{ route('admin.users.edit', ['user' => $user]) }}">Ред.</a>&nbsp;
+                                    <a href="javascript:;" class="delete" rel="{{ $user->id }}" style="color: red;">Уд.</a>
+                                </div>
+                            @endif
                         </td>
                     </tr>
                 @empty

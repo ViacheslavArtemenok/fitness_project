@@ -39,7 +39,7 @@ return new class extends Migration
             )
                 ->default(Moderating::REASON00);
 
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
 
             $table->timestamps();
             $table->softDeletes();

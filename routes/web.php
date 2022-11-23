@@ -9,8 +9,8 @@ use App\Http\Controllers\Account\SkillController as AccountSkillController;
 use App\Http\Controllers\Account\TagController as AccountTagController;
 use App\Http\Controllers\Account\CharacteristicController as AccountCharacteristicController;
 use App\Http\Controllers\Account\GymController as AccountGymController;
-use \App\Http\Controllers\Account\GymImageController as AccountGymImageController;
-use \App\Http\Controllers\Account\GymAddressController as AccountGymAddressController;
+use App\Http\Controllers\Account\GymImageController as AccountGymImageController;
+use App\Http\Controllers\Account\GymAddressController as AccountGymAddressController;
 use App\Http\Controllers\Account\ModeratingController as AccountModeratingController;
 use App\Http\Controllers\Account\ReviewsController as AccountReviewsController;
 
@@ -130,6 +130,9 @@ Route::middleware('auth')->group(function () {
 
         Route::resource('profiles', AdminProfileController::class);
         Route::resource('skills', AdminSkillController::class);
+
+        Route::get('users/{id}/restore', [AdminUserController::class, 'restore'])->name('users.restore');
+        Route::get('users/{id}/force_delete', [AdminUserController::class, 'forceDelete'])->name('users.force_delete');
         Route::resource('users', AdminUserController::class);
         Route::resource('tags', AdminTagController::class);
         Route::resource('relations', AdminRelationController::class)->parameters(['relations' => 'trainer']);
