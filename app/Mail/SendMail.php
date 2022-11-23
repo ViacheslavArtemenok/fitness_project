@@ -26,7 +26,7 @@ class SendMail extends Mailable
     }
     public function build()
 {
-    return $this->subject('Форма обратной связи')->view('sendMail.sendMail', ['data' => $this->data]);
+    return $this->subject('Форма обратной связи')->view('sendMail.mail', ['data' => $this->data]);
 }
     /**
      * Get the message envelope.
@@ -48,7 +48,7 @@ class SendMail extends Mailable
     public function content()
     {
         return new Content(
-            view: 'sendMail.sendMail',
+            view: 'sendMail.mail',
         );
     }
 

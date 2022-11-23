@@ -1,8 +1,17 @@
-@extends('layouts.main')
+@extends('layouts.admin')
 @section('title')
     Рассылка сообщений @parent
 @endsection
 @section('content')
+<style>
+    .sendDiv{
+    min-height: 750px;
+    padding: 150px 0px;
+}
+.sendarea {
+    padding: 15px 0px;
+}
+</style>
     <div class="container marketing sendDiv">
         <div class="accordion" id="accordionExample">
             <div class="accordion-item">
@@ -30,7 +39,7 @@
                                 <textarea class="form-control" name="message" placeholder="Ваше сообщение" required maxlength="500" rows="3">{{ old('message') ?? '' }}</textarea>
                             </div>
                             <div class="form-group sendarea">
-                                <button type="submit" class="btn btn-primary">Отправить</button>
+                                <button type="submit" class="btn btn-outline-success">Отправить</button>
                             </div>
                         </form>
                     </div>
@@ -61,7 +70,7 @@
                                 <textarea class="form-control" name="message" placeholder="Ваше сообщение" required maxlength="500" rows="3">{{ old('message') ?? '' }}</textarea>
                             </div>
                             <div class="form-group sendarea">
-                                <button type="submit" class="btn btn-primary">Отправить</button>
+                                <button type="submit" class="btn btn-outline-success">Отправить</button>
                             </div>
                         </form>
                     </div>

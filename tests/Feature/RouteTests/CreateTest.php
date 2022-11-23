@@ -70,4 +70,12 @@ class CreateTest extends TestCase
         $response = $this->get(route('subscriptions.create'));
         $response->assertOk();
     }
+        // GET|HEAD        gymReviews/create .................................................. gymReviews.create › GymReviewController@create
+        public function test_gymReview_controller_create()
+        {
+            $user = User::factory()->create();
+            $user->status ='ACTIVE';
+            $response = $this->actingAs($user)->get(route('gymReviews.create'));
+            $response->assertOk();
+        }
 }
