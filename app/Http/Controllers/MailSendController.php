@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Jobs\SendEmailJob;
 use App\Mail\SendMail;
 use App\Models\User;
 use GuzzleHttp\Client;
@@ -37,7 +38,7 @@ class MailSendController extends Controller
             } elseif ($data->addressee === 'Клиентам сайта') {
                 $users = User::where('role_id', 3)->get();
             }
-            dispatch(new App\Jobs\SendEmailJob(
+            dispatch(new SendEmailJob(
                 [
                     'users' => $users,
                     'data' => $data,
