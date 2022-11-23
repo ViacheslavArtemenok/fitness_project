@@ -15,32 +15,17 @@ class DevTest extends TestCase
      *
      * @return void
      */
-    public function test_example()
+    // GET|HEAD        gym/review/{review_id}/{client_id}/{gym_id}/{city_id} .......................... gyms.review › GymController@review
+    public function test_gym_controller_review()
     {
-        $users = User::all();
-        foreach ($users as $user) {
-            // dd($user);
-            $this->assertDatabaseHas('users', [
-                'email' => $user->email,
-            ]);
-
-        }
-
-    }
-    public function test_example2()
-    {
-        $profiles = Profile::all();
-        foreach ($profiles as $profile) {
-            $users = $profile->user()->get();
-            foreach ($users as $user){
-                $this->assertDatabaseHas('users', [
-                    'id' => $profile->user_id,
-                    'email' => $user->email,
-                ]);
-            }
-
-
-        }
-
+        $user = User::factory()->create();
+        $_GET = [
+            'review_id' => 1,
+            'client_id' => 1,
+            'gym_id' => 1,
+            'city_id' => 1
+        ];
+        $response = $this->actingAs($user)->get(route('gyms.review', $_GET));
+        $response->assertOk();
     }
 }
