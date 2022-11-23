@@ -27,7 +27,7 @@ class EditRequest extends FormRequest
             'user_id' => ['required', 'integer'],
             'location' => ['required', 'string', 'min:3', 'max:120'],
             'education' =>  ['required', 'string', 'min:3', 'max:600'],
-            'experience' => ['required', 'numeric', 'min:1'],
+            'experience' => ['required', 'numeric', 'min:1', 'max:127'],
             'achievements' =>  ['required', 'string', 'min:3', 'max:800'],
             'skills_list' =>  ['required', 'string', 'min:3', 'max:800'],
             'description' =>  ['required', 'string', 'min:3', 'max:800'],

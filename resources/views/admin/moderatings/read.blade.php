@@ -11,13 +11,18 @@
         <div class="container">
             <div class="row">
                 <fieldset class="form-group border p-3 mb-4">
-                    <legend class="w-auto px-3 reset" align="left">Пользователь</legend>
+                    <legend class="w-auto px-3 reset" align="left">
+                        Роль : {{ $roles[$moderatingList->user->role_id - 1]['role'] }}
+                    </legend>
                     <ul class="list-group list-group-flush">
-                        <li class="list-group-item"><span class="">Никнейм: </span>{{ $moderatingList->user->name }}
+                        <li class="list-group-item">
+                            <span class="">Никнейм: </span>{{ $moderatingList->user->name }}
                         </li>
-                        <li class="list-group-item"><span class="">Электр. почта: </span>{{ $moderatingList->user->email }}
+                        <li class="list-group-item">
+                            <span class="">Электр. почта: </span>{{ $moderatingList->user->email }}
                         </li>
-                        <li class="list-group-item"><span class="">Телефон: </span> {{ $moderatingList->user->phone }}
+                        <li class="list-group-item">
+                            <span class="">Телефон: </span> {{ $moderatingList->user->phone }}
                         </li>
                     </ul>
                 </fieldset>
@@ -27,15 +32,18 @@
             <div class="container">
                 <div class="row">
                     <fieldset class="form-group border p-3 mb-4">
-                        <legend class="w-auto px-3 reset" align="left">Профиль пользователя</legend>
+                        <legend class="w-auto px-3 reset" align="left">
+                            Профиль пользователя
+                        </legend>
                         <ul class="list-group list-group-flush">
-                            <li class="list-group-item"><span
-                                        class="">Возраст: </span>{{ $moderatingList->profile->age }}
+                            <li class="list-group-item">
+                                <span class="">Возраст: </span>{{ $moderatingList->profile->age }}
                             </li>
-                            <li class="list-group-item"><span
-                                        class="">Пол: </span>{{ $moderatingList->profile->gender }}
+                            <li class="list-group-item">
+                                <span class="">Пол: </span>{{ $moderatingList->profile->gender }}
                             </li>
-                            <li class="list-group-item"><span class="">Аватар: </span>
+                            <li class="list-group-item">
+                                <span class="">Аватар: </span>
                                 <div class="">
                                     @if(isset($moderatingList->profile->image))
                                         <img class="market_image"
@@ -55,25 +63,25 @@
                     <fieldset class="form-group border p-3 mb-4">
                         <legend class="w-auto px-3 reset" align="left">Навыки</legend>
                         <ul class="list-group list-group-flush">
-                            <li class="list-group-item"><span
-                                        class="">Расположение: </span>{{ $moderatingList->skill->location }}</li>
-                            <li class="list-group-item"><span
-                                        class="">Образование:  </span>{{ $moderatingList->skill->education }}</li>
-                            <li class="list-group-item"><span
-                                        class="">Опыт: </span>{{ $moderatingList->skill->experience }}</li>
-                            <li class="list-group-item"><span
-                                        class="">Достижения: </span>{{ $moderatingList->skill->achievements }}</li>
-                            <li class="list-group-item"><span
-                                        class="">Список навыков: </span>{{ $moderatingList->skill->skills_list }}
+                            <li class="list-group-item">
+                                <span class="">Расположение: </span>{{ $moderatingList->skill->location }}</li>
+                            <li class="list-group-item">
+                                <span class="">Образование:  </span>{{ $moderatingList->skill->education }}</li>
+                            <li class="list-group-item">
+                                <span class="">Опыт: </span>{{ $moderatingList->skill->experience }}</li>
+                            <li class="list-group-item">
+                                <span class="">Достижения: </span>{{ $moderatingList->skill->achievements }}</li>
+                            <li class="list-group-item">
+                                <span class="">Список навыков: </span>{{ $moderatingList->skill->skills_list }}
                             </li>
-                            <li class="list-group-item"><span
-                                        class="">Описание: </span>{{ $moderatingList->skill->description }}</li>
+                            <li class="list-group-item">
+                                <span class="">Описание: </span>{{ $moderatingList->skill->description }}</li>
                         </ul>
                     </fieldset>
                 </div>
             </div>
         @endif
-        @if(isset($moderatingList->tags))
+        @if(collect($moderatingList->tags)->isNotEmpty())
             <div class="container">
                 <div class="row">
                     <fieldset class="form-group border p-3 mb-4">
@@ -97,16 +105,16 @@
                     <fieldset class="form-group border p-3 mb-4">
                         <legend class="w-auto px-3 reset" align="left">Навыки</legend>
                         <ul class="list-group list-group-flush">
-                            <li class="list-group-item"><span
-                                        class="">Расположение: </span>{{ $moderatingList->characteristic->location }}</li>
-                            <li class="list-group-item"><span
-                                        class="">Рост:  </span>{{ $moderatingList->characteristic->height }}</li>
-                            <li class="list-group-item"><span
-                                        class="">Вес: </span>{{ $moderatingList->characteristic->weight }}</li>
-                            <li class="list-group-item"><span
-                                        class="">Группа здоровья: </span>{{ $moderatingList->characteristic->health }}</li>
-                            <li class="list-group-item"><span
-                                        class="">Описание: </span>{{ $moderatingList->characteristic->description }}</li>
+                            <li class="list-group-item">
+                                <span class="">Расположение: </span>{{ $moderatingList->characteristic->location }}</li>
+                            <li class="list-group-item">
+                                <span class="">Рост: </span>{{ $moderatingList->characteristic->height }}</li>
+                            <li class="list-group-item">
+                                <span class="">Вес: </span>{{ $moderatingList->characteristic->weight }}</li>
+                            <li class="list-group-item">
+                                <span class="">Группа здоровья: </span>{{ $moderatingList->characteristic->health }}</li>
+                            <li class="list-group-item">
+                                <span class="">Описание: </span>{{ $moderatingList->characteristic->description }}</li>
                         </ul>
                     </fieldset>
                 </div>
@@ -116,19 +124,87 @@
             <div class="container">
                 <div class="row">
                     <fieldset class="form-group border p-3 mb-4">
-                        <legend class="w-auto px-3 reset" align="left">Владелец : {{ $moderatingList->gym->title }}</legend>
+                        <legend class="w-auto px-3 reset" align="left">
+                            Владелец : {{ $moderatingList->gym->title }}</legend>
                         <ul class="list-group list-group-flush">
-                            <li class="list-group-item"><span
-                                        class="">Основной телефон: </span>{{ $moderatingList->gym->phone_main }}</li>
-                            <li class="list-group-item"><span
-                                        class="">Дополнительный телефон:  </span>{{ $moderatingList->gym->phone_second }}</li>
-                            <li class="list-group-item"><span
-                                        class="">Электронная почта: </span>{{ $moderatingList->gym->email }}</li>
-                            <li class="list-group-item"><span
-                                        class="">Ссылка: </span>{{ $moderatingList->gym->url }}</li>
-                            <li class="list-group-item"><span
-                                        class="">Описание: </span>{{ $moderatingList->gym->description }}</li>
+                            <li class="list-group-item">
+                                <span class="">Основной телефон: </span>{{ $moderatingList->gym->phone_main }}</li>
+                            <li class="list-group-item">
+                                <span class="">Дополнительный телефон:  </span>{{ $moderatingList->gym->phone_second }}
+                            </li>
+                            <li class="list-group-item">
+                                <span class="">Электронная почта: </span>{{ $moderatingList->gym->email }}</li>
+                            <li class="list-group-item">
+                                <span class="">Ссылка: </span>{{ $moderatingList->gym->url }}</li>
+                            <li class="list-group-item">
+                                <span class="">Описание: </span>{{ $moderatingList->gym->description }}</li>
                         </ul>
+
+                        {{--@if(collect($moderatingList->gym->addresses)->isNotEmpty())--}}
+                        <table class="table table-striped table-sm">
+                            <thead>
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Индекс</th>
+                                    <th scope="col">Страна</th>
+                                    <th scope="col">Город</th>
+                                    <th scope="col">Улица</th>
+                                    <th scope="col">Номер дома</th>
+                                    <th scope="col">Строение</th>
+                                    <th scope="col">Этаж</th>
+                                    <th scope="col">Квартира</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            @forelse($moderatingList->gym->addresses as $key => $address)
+                                <tr id="row-{{ $address->id }}">
+                                    <td>{{ $key + 1 }}</td>
+                                    <td>{{ $address->index }}</td>
+                                    <td>{{ $address->country }}</td>
+                                    <td>{{ $address->city }}</td>
+                                    <td>{{ $address->street }}</td>
+                                    <td>{{ $address->house_number }}</td>
+                                    <td>{{ $address->building }}</td>
+                                    <td>{{ $address->floor }}</td>
+                                    <td>{{ $address->apartment }}</td>
+                                </tr>
+                            @empty
+                                <tr>
+                                    <td colspan="9">Записей не найдено</td>
+                                </tr>
+                            @endforelse
+                            </tbody>
+                        </table>
+                        {{--@endif--}}
+                        <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+                            {{--<div class="carousel-indicators">--}}
+                            {{--<button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>--}}
+                            {{--<button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>--}}
+                            {{--<button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>--}}
+                            {{--</div>--}}
+                            <div class="carousel-inner">
+                                @forelse($moderatingList->gym->images as $key => $image)
+                                    <div class="carousel-item @if($key === 0 ) active @endif">
+                                        <img src="{{ Storage::disk('public')->url($image->image) }}"
+                                             class="d-block w-100" alt="...">
+                                    </div>
+                                @empty
+                                    <div class="carousel-item">
+                                        Записей не найдено
+                                    </div>
+                                @endforelse
+                            </div>
+                            <button class="carousel-control-prev" type="button"
+                                    data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Previous</span>
+                            </button>
+                            <button class="carousel-control-next" type="button"
+                                    data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Next</span>
+                            </button>
+                        </div>
                     </fieldset>
                 </div>
             </div>

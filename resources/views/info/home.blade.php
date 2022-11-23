@@ -13,7 +13,8 @@
             @forelse($promoList as $key => $promoItem)
                 <div class="carousel-item @if ($key === 0) active @endif">
                     <div class="dark_glass">
-                        <img src="/assets/images/slider-image{{ $key + 1 }}.jpg" alt="img" class="promo_image">
+                        <img src="{{ asset('assets/images/slider-image' . $key + 1 . '.jpg') }}" alt="img"
+                            class="promo_image">
                     </div>
                     <svg class="bd-placeholder-img" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"
                         preserveAspectRatio="xMidYMid slice" focusable="false">
@@ -56,7 +57,7 @@
                         target="_blank">Подробнее</a>
                 </div>
                 <div class="col-md-5">
-                    <img class="market_image" src="/assets/images/market_{{ $key + 1 }}.jpg" alt="img">
+                    <img class="market_image" src="{{ asset('assets/images/market_' . $key + 1 . '.jpg') }}" alt="img">
                 </div>
             </div>
             <hr class="featurette-divider">

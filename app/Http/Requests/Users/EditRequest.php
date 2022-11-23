@@ -36,6 +36,7 @@ class EditRequest extends FormRequest
     public function attributes(): array
     {
         return [
+            'status' => 'Статус',
             'name' => 'Никнейм',
             'email' => 'Электронная почта',
             'phone' => 'Телефон',

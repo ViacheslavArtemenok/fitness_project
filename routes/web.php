@@ -9,7 +9,8 @@ use App\Http\Controllers\Account\SkillController as AccountSkillController;
 use App\Http\Controllers\Account\TagController as AccountTagController;
 use App\Http\Controllers\Account\CharacteristicController as AccountCharacteristicController;
 use App\Http\Controllers\Account\GymController as AccountGymController;
-use \App\Http\Controllers\Account\GymAddressController as AccountGymAddressController;
+use App\Http\Controllers\Account\GymImageController as AccountGymImageController;
+use App\Http\Controllers\Account\GymAddressController as AccountGymAddressController;
 use App\Http\Controllers\Account\ModeratingController as AccountModeratingController;
 use App\Http\Controllers\Account\ReviewsController as AccountReviewsController;
 
@@ -46,8 +47,14 @@ use App\Http\Controllers\TrainerReviewController;
 |
 */
 
-Route::get('/', InfoController::class)
-    ->name('info');
+Route::get('/', [InfoController::class, 'home'])
+    ->name('info.home');
+Route::get('/about', [InfoController::class, 'about'])
+    ->name('info.about');
+Route::get('/contacts', [InfoController::class, 'contacts'])
+    ->name('info.contacts');
+Route::get('/developers', [InfoController::class, 'developers'])
+    ->name('info.developers');
 
 // Account routes
 Route::middleware('auth')->group(function () {
@@ -60,6 +67,7 @@ Route::middleware('auth')->group(function () {
         Route::resource('tags', AccountTagController::class);
         Route::resource('characteristics', AccountCharacteristicController::class);
         Route::resource('gyms', AccountGymController::class);
+        Route::resource('gym_images', AccountGymImageController::class);
         Route::resource('gym_addresses', AccountGymAddressController::class);
         Route::get('moderating', AccountModeratingController::class)
             ->name('moderating');
@@ -122,6 +130,9 @@ Route::middleware('auth')->group(function () {
 
         Route::resource('profiles', AdminProfileController::class);
         Route::resource('skills', AdminSkillController::class);
+
+        Route::get('users/{id}/restore', [AdminUserController::class, 'restore'])->name('users.restore');
+        Route::get('users/{id}/force_delete', [AdminUserController::class, 'forceDelete'])->name('users.force_delete');
         Route::resource('users', AdminUserController::class);
         Route::resource('tags', AdminTagController::class);
         Route::resource('relations', AdminRelationController::class)->parameters(['relations' => 'trainer']);
