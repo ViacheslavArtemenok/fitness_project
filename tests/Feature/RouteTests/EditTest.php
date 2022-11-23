@@ -103,4 +103,17 @@ class EditTest extends TestCase
         $response = $this->actingAs($user)->get(route('account.users.edit', $user));
         $response->assertOk();
     }
+        // GET|HEAD        gymReviews/{gymReview}/edit ............................................ gymReviews.edit › GymReviewController@edit
+        public function test_gymReviews_controller_edit()
+        {
+            $users = User::take(1)->get();
+            foreach($users as $user){
+            $user->status ='ACTIVE';
+            $user->role_id = 3;
+            $_GET = [
+                'gymReview' => 1,
+            ];
+            $response = $this->actingAs($user)->get(route('gymReviews.edit', $_GET));
+            $response->assertOk();}
+        }
 }

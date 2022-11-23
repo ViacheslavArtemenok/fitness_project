@@ -1,8 +1,17 @@
-@extends('layouts.main')
+@extends('layouts.admin')
 @section('title')
-    Список тренеров @parent
+    Рассылка сообщений @parent
 @endsection
 @section('content')
+<style>
+    .sendDiv{
+    min-height: 750px;
+    padding: 150px 0px;
+}
+.sendarea {
+    padding: 15px 0px;
+}
+</style>
     <div class="container marketing sendDiv">
         <div class="accordion" id="accordionExample">
             <div class="accordion-item">
@@ -20,7 +29,7 @@
                             <input type="hidden" name="email" value="true">
                             <div class="form-group sendarea" placeholder="Кому">
                                 <select class="form-control" name="addressee">
-                                    <option class="form-group">Админестраторам</option>
+                                    <option class="form-group">Администраторам</option>
                                     <option class="form-group" selected>Тренерам</option>
                                     <option class="form-group">Представителям фитнес-клуба</option>
                                     <option class="form-group">Клиентам сайта</option>
@@ -30,7 +39,7 @@
                                 <textarea class="form-control" name="message" placeholder="Ваше сообщение" required maxlength="500" rows="3">{{ old('message') ?? '' }}</textarea>
                             </div>
                             <div class="form-group sendarea">
-                                <button type="submit" class="btn btn-primary">Отправить</button>
+                                <button type="submit" class="btn btn-outline-success">Отправить</button>
                             </div>
                         </form>
                     </div>
@@ -51,7 +60,7 @@
                             <input type="hidden" name="telegramm" value="true">
                             <div class="form-group sendarea" placeholder="Кому">
                                 <select class="form-control" name="addressee">
-                                    <option class="form-group">Админестраторам</option>
+                                    <option class="form-group">Администраторам</option>
                                     <option class="form-group" selected>Тренерам</option>
                                     <option class="form-group">Представителям фитнес-клуба</option>
                                     <option class="form-group">Клиентам сайта</option>
@@ -61,7 +70,7 @@
                                 <textarea class="form-control" name="message" placeholder="Ваше сообщение" required maxlength="500" rows="3">{{ old('message') ?? '' }}</textarea>
                             </div>
                             <div class="form-group sendarea">
-                                <button type="submit" class="btn btn-primary">Отправить</button>
+                                <button type="submit" class="btn btn-outline-success">Отправить</button>
                             </div>
                         </form>
                     </div>

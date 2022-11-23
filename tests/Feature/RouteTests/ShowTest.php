@@ -83,4 +83,26 @@ class ShowTest extends TestCase
         $response = $this->get(route('trainers.show', $_GET));
         $response->assertOk();
     }
+        // GET|HEAD        gymReviews/{gymReview} ................................................. gymReviews.show › GymReviewController@show
+        public function test_gymReviews_controller_show()
+        {
+            $user = User::factory()->create();
+            $user->status ='ACTIVE';
+            $_GET = [
+                'gymReview' => 1,
+            ];
+            $response = $this->actingAs($user)->get(route('gymReviews.show', $_GET));
+            $response->assertOk();
+        }
+            // GET|HEAD        gym/{id}/{city_id} ................................................................. gyms.show › GymController@show
+    public function test_gym_controller_show()
+    {
+        $user = User::factory()->create();
+        $_GET = [
+            'id' => 1,
+            'city_id' => 1
+        ];
+        $response = $this->actingAs($user)->get(route('gyms.show', $_GET));
+        $response->assertOk();
+    }
 }
