@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\RouteTests;
 
+use App\Models\GymReview;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -102,4 +103,38 @@ class IndexTest extends TestCase
         $response = $this->actingAs($user)->get(route('account'));
         $response->assertOk();
     }
+    // GET|HEAD        gyms/{city_id} ................................................................... gyms.index › GymController@index
+    public function test_gymReviews_controller_index()
+    {
+        $users = User::take(1)->get();
+        foreach($users as $user){
+            $user->status ='ACTIVE';
+        $_GET = [
+            'city_id' => 1,
+        ];
+        $response = $this->actingAs($user)->get(route('gymReviews.index', $_GET));
+        $response->assertOk();}
+    }
+        // GET|HEAD        gymReviews ........................................................... gymReviews.index › GymReviewController@index
+        public function test_gymReview_controller_index()
+        {
+            $user = User::factory()->create();
+            $user->status ='ACTIVE';
+            $response = $this->actingAs($user)->get(route('gymReviews.index'));
+            $response->assertOk();
+        }
+        public function test_gym_controller_review()
+        {
+            $user = User::factory()->create();
+            $gymReviews = GymReview::take(1)->get();
+            foreach ($gymReviews as $gymReview ){
+            $_GET = [
+                'review_id' => $gymReview->id,
+                'client_id' => $gymReview->client_id,
+                'gym_id' => $gymReview->gym_id,
+                'city_id' => 1
+            ];}
+            $response = $this->actingAs($user)->get(route('gyms.review', $_GET));
+            $response->assertOk();
+        }
 }

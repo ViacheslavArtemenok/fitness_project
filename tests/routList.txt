@@ -24,15 +24,10 @@ PUT|PATCH       account/profiles/{profile} account.profiles.update › Accoun…
 
 
 
-  GET|HEAD        gym/{id}/{city_id} ................................................................. gyms.show › GymController@show
-  GET|HEAD        gymReviews ........................................................... gymReviews.index › GymReviewController@index
-  POST            gymReviews ........................................................... gymReviews.store › GymReviewController@store
-  GET|HEAD        gymReviews/create .................................................. gymReviews.create › GymReviewController@create
-  GET|HEAD        gymReviews/{gymReview} ................................................. gymReviews.show › GymReviewController@show
+
+
   PUT|PATCH       gymReviews/{gymReview} ............................................. gymReviews.update › GymReviewController@update
   DELETE          gymReviews/{gymReview} ........................................... gymReviews.destroy › GymReviewController@destroy
-  GET|HEAD        gymReviews/{gymReview}/edit ............................................ gymReviews.edit › GymReviewController@edit
-  GET|HEAD        gyms/{city_id} ................................................................... gyms.index › GymController@index
 
 
 
