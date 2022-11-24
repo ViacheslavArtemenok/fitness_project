@@ -231,6 +231,91 @@
         </div>
     </div>
 
+    <x-admin.table id="user_table">
+        <x-slot name="heading">
+            <x-admin.table.th scope="col">#</x-admin.table.th>
+            <x-admin.table.th scope="col">Фамилия</x-admin.table.th>
+            <x-admin.table.th scope="col">Имя</x-admin.table.th>
+            <x-admin.table.th scope="col">Отчество</x-admin.table.th>
+            <x-admin.table.th scope="col">Никнейм</x-admin.table.th>
+            <x-admin.table.th scope="col">Элект почта</x-admin.table.th>
+            <x-admin.table.th scope="col">Телефон</x-admin.table.th>
+            <x-admin.table.th scope="col">Роль</x-admin.table.th>
+            <x-admin.table.th scope="col">Статус</x-admin.table.th>
+            <x-admin.table.th scope="col">Дата добавления</x-admin.table.th>
+            <x-admin.table.th scope="col">Дата проверки эл. почты</x-admin.table.th>
+            <x-admin.table.th scope="col">Управление</x-admin.table.th>
+        </x-slot>
+        @forelse($users as $user)
+            <x-admin.table.tr id="row-{{ $user->id }}">
+                <x-admin.table.td/>
+                <x-admin.table.td>{{ $user->profile->last_name ?? ''}}</x-admin.table.td>
+                <x-admin.table.td>{{ $user->profile->first_name ?? ''}}</x-admin.table.td>
+                <x-admin.table.td>{{ $user->profile->father_name ?? ''}}</x-admin.table.td>
+                <x-admin.table.td>{{ $user->name ?? ''}}</x-admin.table.td>
+                <x-admin.table.td>{{ $user->email ?? ''}}</x-admin.table.td>
+                <x-admin.table.td>{{ $user->phone ?? ''}}</x-admin.table.td>
+                <x-admin.table.td>{{ $user->role->title ?? ''}}</x-admin.table.td>
+                <x-admin.table.td>{{ $user->status ?? ''}}</x-admin.table.td>
+                <x-admin.table.td>{{ $user->created_at ?? ''}}</x-admin.table.td>
+                <x-admin.table.td>{{ $user->email_verified_at ?? ''}}</x-admin.table.td>
+
+                <x-admin.table.td>
+                    @if($user->trashed())
+                        <div style="">
+                            <a class="text-decoration-none" href="{{ route('admin.users.restore', $user->id) }}"
+                               title="Восстановить">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                     class="bi bi-arrow-counterclockwise" viewBox="0 0 16 16">
+                                    <path fill-rule="evenodd"
+                                          d="M8 3a5 5 0 1 1-4.546 2.914.5.5 0 0 0-.908-.417A6 6 0 1 0 8 2v1z"/>
+                                    <path d="M8 4.466V.534a.25.25 0 0 0-.41-.192L5.23 2.308a.25.25 0 0 0 0 .384l2.36 1.966A.25.25 0 0 0 8 4.466z"/>
+                                </svg>
+                            </a>
+                            <a class="text-decoration-none"
+                               href="{{ route('admin.users.force_delete', $user->id) }}" style="color: red;"
+                               title="Очистить корзину">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                     class="bi bi-trash3-fill" viewBox="0 0 16 16">
+                                    <path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5Zm-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5ZM4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06Zm6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528ZM8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5Z"/>
+                                </svg>
+                            </a>
+                        </div>
+                    @else
+                        <div style="">
+
+                            <x-admin.link class="text-decoration-none" title="Отправить письмо">
+                                <x-admin.icon.mail/>
+                            </x-admin.link>
+
+                            <a class="text-decoration-none"
+                               href="{{ route('admin.users.edit', ['user' => $user]) }}"
+                               title="Редактировать пользователя">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                     class="bi bi-pencil-square" viewBox="0 0 16 16">
+                                    <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+                                    <path fill-rule="evenodd"
+                                          d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
+                                </svg>
+                            </a>
+                            <a href="javascript:;" class="delete text-decoration-none" rel="{{ $user->id }}"
+                               style="color: red;" title="Удалить в корзину">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                     class="bi bi-trash3" viewBox="0 0 16 16">
+                                    <path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5ZM11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H2.506a.58.58 0 0 0-.01 0H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1h-.995a.59.59 0 0 0-.01 0H11Zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5h9.916Zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47ZM8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5Z"/>
+                                </svg>
+                            </a>
+                        </div>
+                    @endif
+                </x-admin.table.td>
+            </x-admin.table.tr>
+        @empty
+            <span>
+                  Записей не найдено
+            </span>
+        @endforelse
+    </x-admin.table>
+
 @endsection
 
 @push('js')
