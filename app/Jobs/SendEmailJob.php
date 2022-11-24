@@ -2,6 +2,7 @@
 
 namespace App\Jobs;
 
+use App\Models\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
@@ -33,6 +34,18 @@ class SendEmailJob implements ShouldQueue
      */
     public function handle()
     {
-        Mail::to($this->details['users'])->send(new SendMail($this->details['data']));
+        if ($this->details->addressee === 'Тренерам') {
+            $users = User::where('role_id', 2)->get();
+        } elseif ($this->details->addressee === 'Администраторам') {
+            $users = User::where('role_id', 1)->get();
+        } elseif ($this->details->addressee === 'Представителям фитнес-клуба') {
+            $users = User::where('role_id', 4)->get();
+        } elseif ($this->details->addressee === 'Клиентам сайта') {
+            $users = User::where('role_id', 3)->get();
+        }
+
+        foreach ($users as $user) {
+            Mail::to($user)->send(new SendMail($this->details));
+        }
     }
 }
