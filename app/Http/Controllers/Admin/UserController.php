@@ -140,10 +140,10 @@ class UserController extends Controller
     {
         try {
             $deleted = false;
-            $recycledUserCount = User::onlyTrashed()->count();
 
             if ($user->id != Auth::id()) {
                 $deleted = $user->delete();
+                $recycledUserCount = User::onlyTrashed()->count();
             } else {
                 return \response()->json(['success' => false, 'message' => 'attempt to delete current user'], 400);
             }
