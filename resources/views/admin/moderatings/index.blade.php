@@ -40,7 +40,7 @@
                     @endforeach
                 </select>
             </div>
-            <div class="col-md-3 d-flex justify-content-center">
+            <div class="col-md-3 d-flex justify-content-end">
                 <button type="submit" class="btn btn-primary mt-4">Фильтровать</button>
             </div>
         </div>
