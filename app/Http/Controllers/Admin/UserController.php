@@ -24,6 +24,7 @@ class UserController extends Controller
      */
     public function index(Request $request): View
     {
+        $recycledUserCount = User::onlyTrashed()->count();
         $users = User::query()
             ->with(['profile', 'role'])
             ->when($request->has('trashed'), function ($query) {
@@ -33,7 +34,8 @@ class UserController extends Controller
             //->paginate(config('pagination.admin.users'));
 
         return view('admin.users.index', [
-            'users' => $users
+            'users' => $users,
+            'recycled' => $recycledUserCount
         ]);
     }
 
@@ -145,15 +147,20 @@ class UserController extends Controller
                 $deleted = $user->delete();
                 $recycledUserCount = User::onlyTrashed()->count();
             } else {
-                return \response()->json(['success' => false, 'message' => 'attempt to delete current user'], 400);
+                return \response()->json([
+                    'success' => false,
+                    'message' => __('messages.admin.users.destroy.current')
+                ], 400);
             }
 
             if ($deleted === false) {
                 return \response()->json(['status' => 'error'], 400);
-                //return \response()->json(['success' => false, 'message' => 'attempt to delete current user'], 400);
             } else {
-                //return \response()->json(['status' => 'ok']);
-                return \response()->json(['success' => true, 'message' => 'Record successful delete', 'recycled' => $recycledUserCount], 200);
+                return \response()->json([
+                    'success' => true,
+                    'message' => __('messages.admin.users.destroy.recycle'),
+                    'recycled' => $recycledUserCount
+                ], 200);
             }
 
         } catch (\Exception $e) {
