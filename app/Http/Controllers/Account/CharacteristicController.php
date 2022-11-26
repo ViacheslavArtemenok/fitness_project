@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Account;
 
+use App\Events\AccountEvent;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Characteristics\CreateRequest;
 use App\Http\Requests\Characteristics\EditRequest;
@@ -89,12 +90,14 @@ class CharacteristicController extends Controller
      * Update the specified resource in storage.
      *
      * @param EditRequest $request
-     * @param Skill $skill
-     * @return View|Factory|RedirectResponse|Application
+     * @param Characteristic $characteristic
+     * @return RedirectResponse
      */
     public function update(EditRequest $request, Characteristic $characteristic): RedirectResponse
     {
         if ($characteristic->fill($request->validated())->save()) {
+            $user = $characteristic->user;
+            AccountEvent::dispatch($user);
             return redirect()->route('account')
                 ->with('success', __('messages.account.characteristics.update.success'));
         }
