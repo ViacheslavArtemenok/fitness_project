@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Account;
 
+use App\Events\AccountEvent;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\GymImage\CreateRequest;
 use App\Http\Requests\GymImage\EditRequest;
@@ -105,6 +106,8 @@ class GymImageController extends Controller
             $validated['image'] = $uploadService->uploadImage($request->file('image'));
         }
         if ($gym_image->fill($validated)->save()) {
+            $user = $gym_image->user;
+            AccountEvent::dispatch($user);
             return redirect()->route('account')
                 ->with('success', __('messages.account.gym_images.update.success'));
         }

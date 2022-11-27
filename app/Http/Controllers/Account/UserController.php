@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Account;
 
+use App\Events\AccountEvent;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Users\EditRequest;
 use App\Models\Profile;
@@ -94,10 +95,13 @@ class UserController extends Controller
             }
             unset($data['newPassword']);
             if ($user->fill($data)->save()) {
+                AccountEvent::dispatch($user);
                 return redirect()->route('account')
                     ->with('success', __('messages.account.users.update.success'));
             }
         }
+//        event(new AccountEvent($user));
+//        AccountEvent::dispatch($user);
         return back()->with('error', __('messages.account.users.update.fail'));
     }
 

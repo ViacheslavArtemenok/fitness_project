@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Account;
 
+use App\Events\AccountEvent;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Gyms\CreateRequest;
 use App\Http\Requests\Gyms\EditRequest;
@@ -87,6 +88,8 @@ class GymController extends Controller
     public function update(EditRequest $request, Gym $gym): RedirectResponse
     {
         if ($gym->fill($request->validated())->save()) {
+            $user = $gym->user;
+            AccountEvent::dispatch($user);
             return redirect()->route('account')
                 ->with('success', __('messages.account.gyms.update.success'));
         }
