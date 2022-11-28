@@ -33,6 +33,7 @@
                                     <option class="form-group" selected>Тренерам</option>
                                     <option class="form-group">Представителям фитнес-клуба</option>
                                     <option class="form-group">Клиентам сайта</option>
+                                    <option class="form-group">Подписавшимся</option>
                                 </select>
                             </div>
                             <div class="form-group sendarea">
