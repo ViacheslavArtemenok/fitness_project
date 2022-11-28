@@ -106,7 +106,7 @@ class GymImageController extends Controller
             $validated['image'] = $uploadService->uploadImage($request->file('image'));
         }
         if ($gym_image->fill($validated)->save()) {
-            $user = $gym_image->user;
+            $user = $gym_image->gym->user;
             AccountEvent::dispatch($user);
             return redirect()->route('account')
                 ->with('success', __('messages.account.gym_images.update.success'));
