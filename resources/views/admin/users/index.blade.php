@@ -138,8 +138,8 @@
                     emptyTable: "Нет данных в таблице",
                     paginate: {
                         first: "Первая",
-                        previous: "Предыдущая",
-                        next: "Последующая",
+                        previous: "&nbsp;<&nbsp;",
+                        next: "&nbsp;>&nbsp;",
                         last: "Последняя"
                     }
                 },
