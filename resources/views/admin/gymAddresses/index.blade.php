@@ -35,7 +35,7 @@
                             {{ $gymAddress->gym_id }}
                         </td>
                         <td>
-                            {{ $gymAddress->gym->title }}
+                            {{ $gymAddress->gym->title ?? '' }}
                         </td>
                         <td>
                             {{ $gymAddress->index }}

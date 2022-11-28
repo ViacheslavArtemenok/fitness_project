@@ -92,6 +92,8 @@
             crossorigin="anonymous"></script>
 
     <script type="text/javascript">
+        const userUrl = '{{ route('admin.users.index') }}';
+
         function getHtml(message, type = 'success') {
             let alertContent;
             alertContent = `<div class="alert alert-${type} alert-dismissible fade show">
@@ -114,15 +116,13 @@
 
         }
 
-        const userUrl = '{{ route('admin.users.index') }}';
-
         $(document).ready(function () {
             let table = $('#user_table').DataTable({
                 processing: true,
                 dom: '<"row" <"col-sm-12 col-md-5"l><"col-sm-12 col-md-7 text-end"i>>rt<"row" <"col-sm-12 col-md-5"l><"col-sm-12 col-md-7"p>><"clear">',
                 searching: true,
                 lengthMenu: [5, 10, 15, 20],
-                iDisplayLength: 5,
+                iDisplayLength: {{ config('pagination.admin.users') }},
                 order: [[1, 'asc']],
                 responsive: true,
                 language: {
