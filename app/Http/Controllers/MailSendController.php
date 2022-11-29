@@ -30,7 +30,6 @@ class MailSendController extends Controller
 
             $obMailService = new MailService();
             $users = $obMailService->getUsers($request->addressee);
-
             foreach ($users as $user) {
                 dispatch(new SendEmailJob(
                     [
