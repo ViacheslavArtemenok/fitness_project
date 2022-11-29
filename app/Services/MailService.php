@@ -4,10 +4,11 @@ namespace App\Services;
 
 use App\Models\Subscription;
 use App\Models\User;
+use Illuminate\Database\Eloquent\Collection;
 
 class MailService
 {
-    public function getUsers($type): string
+    public function getUsers($type): Collection
     {
         if ($type === 'Тренерам') {
             $users = User::where('role_id', 2)->get();

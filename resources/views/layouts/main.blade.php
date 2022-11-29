@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="ru">
 
 <head>
     <meta charset="utf-8">
@@ -18,7 +18,7 @@
     <link href="{{ asset('assets/css/account.css') }}" rel="stylesheet">
 </head>
 
-<body class="body_back" id="top" data-spy="scroll" data-target=".navbar-collapse" data-offset="50">
+<body class="bg-dark" id="top" data-spy="scroll" data-target=".navbar-collapse" data-offset="50">
     <!-- PRE LOADER -->
     <section class="preloader">
         <div class="spinner">
@@ -27,9 +27,9 @@
     </section>
     <x-header></x-header>
     <main class="main_back">
+        <x-marketing></x-marketing>
         @yield('content')
     </main>
-
     <x-footer></x-footer>
     <!-- SCRIPTS -->
     <script src="{{ asset('assets/js/bootstrap.bundle.min.js') }}"></script>

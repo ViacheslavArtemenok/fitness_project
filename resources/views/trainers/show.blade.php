@@ -6,9 +6,9 @@
     @parent
 @endsection
 @section('content')
-    <div class="d-flex align-items-center body_back">
+    <div class="d-flex align-items-center body_back border-top border-1 border-success">
         <nav aria-label="breadcrumb">
-            <ol class="breadcrumb m-4">
+            <ol class="breadcrumb m-3">
                 <li class="breadcrumb-item"><a class="text-white-50 link-success"
                         href="{{ route('trainers.index', ['tag_id' => 0, 'city_id' => $city_id]) }}">Тренеры</a></li>
                 <li class="breadcrumb-item text-white-50" aria-current="page"> {{ $trainer->profile->first_name }}
@@ -20,8 +20,12 @@
         <hr class="featurette-divider">
         @if ($trainer)
             <div class="row featurette">
-                <div class="col-md-7 order-md-2">
-                    <h2 class="featurette-heading fw-normal lh-1">{{ $trainer->profile->first_name }}
+                <div class="col-md-3">
+                    <img class="small_market_image" src="{{ Storage::disk('public')->url($trainer->profile->image) }}"
+                        alt="img">
+                </div>
+                <div class="col-md-7">
+                    <h2 class="lh-1">{{ $trainer->profile->first_name }}
                         {{ $trainer->profile->father_name }}
                         {{ $trainer->profile->last_name }}</h2>
                     <div class="d-flex">
@@ -68,26 +72,25 @@
                             &#9650;</a>
                     @endif
                 </div>
-                <div class="col-md-5">
-                    <img class="market_image" src="{{ Storage::disk('public')->url($trainer->profile->image) }}"
-                        alt="img">
-                </div>
             </div>
 
-            <hr class="featurette-divider">
 
-            <div class="row featurette">
+            <div class="row featurette mt-4">
                 <div class="bg-light p-3 ps-4 rounded-1 shadow">
                     <h3>Образование</h3>
                     <p>{{ $trainer->skill->education }}</p>
                     <h3>Навыки</h3>
-                    @foreach (explode('. ', $trainer->skill->skills_list) as $item)
-                        <p>&bull; {{ rtrim($item, '.') }}</p>
-                    @endforeach
+                    <ul class="lh-4">
+                        @foreach (explode('. ', $trainer->skill->skills_list) as $item)
+                            <li>{{ rtrim($item, '.') }}</li>
+                        @endforeach
+                    </ul>
                     <h3>Достижения</h3>
-                    @foreach (explode('. ', $trainer->skill->achievements) as $item)
-                        <p>&bull; {{ rtrim($item, '.') }}</p>
-                    @endforeach
+                    <ul class="lh-4">
+                        @foreach (explode('. ', $trainer->skill->achievements) as $item)
+                            <li>{{ rtrim($item, '.') }}</li>
+                        @endforeach
+                    </ul>
                     <h3>О себе</h3>
                     <p>{{ $trainer->skill->description }}</p>
                 </div>
@@ -110,11 +113,11 @@
                         @if ($trainerR->id === $trainer_id && $trainerR->pivot->status === 'ACTIVE')
                             <div class="feature col">
                                 <div class="p-3 bg-light rounded-1 shadow">
-                                    <div class="d-flex shadow mb-2 rounded-1">
+                                    <div class="d-flex flex-wrap shadow mb-2 rounded-1">
                                         <img class="m-2 w-25 rounded-2 border border-secondary border-2 border-opacity-10"
                                             src="{{ Storage::disk('public')->url($review->profile->image) }}"
                                             alt="img">
-                                        <div class="d-flex flex-column align-self-center">
+                                        <div class="d-flex flex-column align-self-center p-2">
                                             <h6>{{ $review->profile->first_name }}
                                                 {{ $review->profile->last_name }}</h6>
                                             <h6>{{ $review->profile->age }}

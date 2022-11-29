@@ -25,7 +25,8 @@
 
     <script src="{{ asset('assets/js/bootstrap.bundle.min.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/feather.min.js"></script>
-
+    <script src="{{ asset('assets/js/tooltip.js') }}"></script>
     @stack('js')
 </body>
+
 </html>

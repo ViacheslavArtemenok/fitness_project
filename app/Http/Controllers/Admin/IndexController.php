@@ -15,6 +15,10 @@ class IndexController extends Controller
      */
     public function __invoke(Request $request)
     {
-        return view('admin.index');
+        return view('admin.index', [
+            'messages' => config('messages'),
+            'menuList' => config('admin.menuList'),
+            'valueList' => config('admin.values'),
+        ]);
     }
 }

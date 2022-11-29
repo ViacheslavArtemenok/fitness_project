@@ -3,7 +3,7 @@
     Список фитнес-клубов @parent
 @endsection
 @section('content')
-    <div class="d-flex align-items-center justify-content-center body_back">
+    <div class="d-flex align-items-center justify-content-center bg-dark">
         <h4 class="m-4"> {{ config('cities')[$city_id] }} </h4>
     </div>
     <div class="container marketing">
@@ -29,7 +29,7 @@
                 @if ($gym->user->status === 'ACTIVE')
                     <div class="item_box border border-success border-2">
                         <img src="{{ Storage::disk('public')->url($gym->images[0]->image) }}"
-                            class="bd-placeholder-img trainers_image border border-success border-1 shadow" alt="img">
+                            class="bd-placeholder-img index_image border border-success border-1 shadow" alt="img">
                         <h5 class="fw-normal trainers_name mt-2">{{ $gym->title }}</h5>
                         <table class="table table-striped-columns mt-3 rounded-1 shadow">
                             <thead>

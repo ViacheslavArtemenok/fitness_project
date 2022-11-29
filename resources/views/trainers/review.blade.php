@@ -6,9 +6,9 @@
     @parent
 @endsection
 @section('content')
-    <div class="d-flex align-items-center body_back">
+    <div class="d-flex align-items-center body_back border-top border-1 border-success">
         <nav aria-label="breadcrumb">
-            <ol class="breadcrumb m-4">
+            <ol class="breadcrumb m-3">
                 <li class="breadcrumb-item"><a class="text-white-50 link-success"
                         href="{{ route('trainers.index', ['tag_id' => 0, 'city_id' => $city_id]) }}">Тренеры</a></li>
                 <li class="breadcrumb-item"><a class="text-white-50 link-success"
@@ -22,8 +22,12 @@
         <hr class="featurette-divider">
         @if ($trainer && $client)
             <div class="row featurette">
-                <div class="col-md-7 order-md-2">
-                    <h2 class="featurette-heading fw-normal lh-1">{{ $trainer->profile->first_name }}
+                <div class="col-md-3">
+                    <img class="small_market_image" src="{{ Storage::disk('public')->url($trainer->profile->image) }}"
+                        alt="img">
+                </div>
+                <div class="col-md-7">
+                    <h2 class="lh-1">{{ $trainer->profile->first_name }}
                         {{ $trainer->profile->father_name }}
                         {{ $trainer->profile->last_name }}</h2>
                     <div class="d-flex">
@@ -70,10 +74,6 @@
                             &#9650;</a>
                     @endif
                 </div>
-                <div class="col-md-5">
-                    <img class="market_image" src="{{ Storage::disk('public')->url($trainer->profile->image) }}"
-                        alt="img">
-                </div>
             </div>
 
 
@@ -88,10 +88,10 @@
                                 <h3>Описание</h3>
                                 <h5 class="fw-normal">{{ $review->pivot->description }}</h5>
                                 <p class="fw-bold">{{ $review->pivot->created_at->format('d.m.Y (H:i)') }}</p>
-                                <div class="d-flex shadow mb-2 rounded-1 w-50">
+                                <div class="d-flex flex-wrap shadow mb-2 rounded-1 w-50">
                                     <img class="m-2 w-25 rounded-2 border border-secondary border-2 border-opacity-10"
                                         src="{{ Storage::disk('public')->url($client->profile->image) }}" alt="img">
-                                    <div class="d-flex flex-grow-1 align-self-center justify-content-center">
+                                    <div class="d-flex flex-grow-1 align-self-center justify-content-center p-2">
                                         <h5 class="fw-semibold">{{ $client->profile->first_name }}
                                             {{ $client->profile->last_name }},
                                             {{ $client->profile->age }}
@@ -109,10 +109,10 @@
                                 <h3>Описание</h3>
                                 <h5 class="fw-normal">{{ $review->pivot->description }}</h5>
                                 <p class="fw-bold">{{ $review->pivot->created_at->format('d.m.Y (H:i)') }}</p>
-                                <div class="d-flex shadow mb-2 rounded-1 w-50">
+                                <div class="d-flex flex-wrap shadow mb-2 rounded-1 w-50">
                                     <img class="m-2 w-25 rounded-2 border border-secondary border-2 border-opacity-10"
                                         src="{{ Storage::disk('public')->url($client->profile->image) }}" alt="img">
-                                    <div class="d-flex flex-grow-1 align-self-center justify-content-center">
+                                    <div class="d-flex flex-grow-1 align-self-center justify-content-center p-2">
                                         <h5 class="fw-semibold">{{ $client->profile->first_name }}
                                             {{ $client->profile->last_name }},
                                             {{ $client->profile->age }}
@@ -130,10 +130,10 @@
                                 <h3>Описание</h3>
                                 <h5 class="fw-normal">{{ $review->pivot->description }}</h5>
                                 <p class="fw-bold">{{ $review->pivot->created_at->format('d.m.Y (H:i)') }}</p>
-                                <div class="d-flex shadow mb-2 rounded-1 w-50">
+                                <div class="d-flex flex-wrap shadow mb-2 rounded-1 w-50">
                                     <img class="m-2 w-25 rounded-2 border border-secondary border-2 border-opacity-10"
                                         src="{{ Storage::disk('public')->url($client->profile->image) }}" alt="img">
-                                    <div class="d-flex flex-grow-1 align-self-center justify-content-center">
+                                    <div class="d-flex flex-grow-1 align-self-center justify-content-center p-2">
                                         <h5 class="fw-semibold">{{ $client->profile->first_name }}
                                             {{ $client->profile->last_name }},
                                             {{ $client->profile->age }}
