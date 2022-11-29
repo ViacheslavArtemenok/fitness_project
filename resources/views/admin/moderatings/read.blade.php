@@ -213,8 +213,8 @@
             @csrf
             @method('put')
             <div class="form-group">
-                <label for="reason">Причина</label>
-                <select class="form-control" name="reason" id="reason">
+                <label for="reason">Причина {{ $moderatingList->reason }}</label>
+                <select id="select_failure" class="form-control" name="reason" id="reason">
                     @foreach ($reasons as $key => $reason)
                         <option @if ($reason === 0) selected @endif value="{{ $key }}">
                             {{ $reason }}
@@ -223,11 +223,32 @@
                 </select>
             </div>
             <br>
-            <button class="btn btn-success" type="submit" name="submit_key" value="IS_APPROVED">Одобрить</button>
-            <button class="btn btn-danger" type="submit" name="submit_key" value="IS_REJECTED">Отклонить</button>
+            <button id="approved_button" class="btn btn-success" type="submit" name="submit_key" value="IS_APPROVED">Одобрить</button>
+            <button id="rejected_button" class="btn btn-danger disabled" type="submit" name="submit_key" value="IS_REJECTED">Отклонить</button>
         </form>
     </div>
     <br>
 @endsection
 @push('js')
+    <script type="application/javascript">
+        document.addEventListener("DOMContentLoaded", function() {
+            const select = document.getElementById('select_failure');
+            const approvedButton = document.getElementById('approved_button');
+            const rejectedButton = document.getElementById('rejected_button');
+
+            select.addEventListener('change', function(){
+                if (this.value > 0) {
+                    approvedButton.classList.add('disabled');
+
+                    if (rejectedButton.classList.contains('disabled') === true) {
+                        rejectedButton.classList.toggle('disabled');
+                    }
+
+                } else {
+                    approvedButton.classList.toggle('disabled');
+                    rejectedButton.classList.add('disabled');
+                }
+            });
+        });
+    </script>
 @endpush

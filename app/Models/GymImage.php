@@ -26,6 +26,6 @@ class GymImage extends Model
 
     public function gym(): BelongsTo
     {
-        return $this->belongsTo(Gym::class);
+        return $this->belongsTo(Gym::class)->withTrashed();
     }
 }

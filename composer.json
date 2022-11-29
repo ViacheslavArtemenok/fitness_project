@@ -5,7 +5,7 @@
     "keywords": ["framework", "laravel"],
     "license": "MIT",
     "require": {
-        "php": "^8.0.2",
+        "php": "^8.1",
         "coconutcraig/laravel-postmark": "^3.0",
         "dyrynda/laravel-cascade-soft-deletes": "^4.2",
         "guzzlehttp/guzzle": "^7.5",
@@ -18,7 +18,7 @@
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.7",
         "brianium/paratest": "^6.6",
-        "fakerphp/faker": "^1.9.1",
+        "fakerphp/faker": "^1.20.0",
         "laravel/breeze": "^1.14",
         "laravel/pint": "^1.2",
         "laravel/sail": "^1.0.1",
