@@ -3,8 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Jobs\SendEmailJob;
-use App\Mail\SendMail;
-use App\Models\User;
+use App\Services\MailService;
 use GuzzleHttp\Client;
 use GuzzleHttp\RequestOptions;
 use Illuminate\Http\Request;
@@ -27,10 +26,19 @@ class MailSendController extends Controller
         ]);
         if ($request->email) {
             $data = new stdClass();
-            $data->addressee = $request->addressee;
             $data->message = $request->message;
 
-            dispatch(new SendEmailJob($data));
+            $obMailService = new MailService();
+            $users = $obMailService->getUsers($request->addressee);
+
+            foreach ($users as $user) {
+                dispatch(new SendEmailJob(
+                    [
+                        'user' => $user,
+                        'data' => $data
+                    ]
+                ));
+            }
         } elseif ($request->telegramm) {
             $client = new Client();
             try {

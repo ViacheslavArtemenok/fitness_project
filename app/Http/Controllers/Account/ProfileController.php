@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Account;
 
+use App\Events\AccountEvent;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Profiles\CreateRequest;
 use App\Http\Requests\Profiles\EditRequest;
@@ -101,6 +102,8 @@ class ProfileController extends Controller
             $validated['image'] = $uploadService->uploadImage($request->file('image'));
         }
         if ($profile->fill($validated)->save()) {
+            $user = $profile->user;
+            AccountEvent::dispatch($user);
             return redirect()->route('account')
                 ->with('success', __('messages.account.profiles.update.success'));
         }
