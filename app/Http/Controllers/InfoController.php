@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Tag;
 use Illuminate\Http\Request;
 
 class InfoController extends Controller
@@ -15,8 +16,9 @@ class InfoController extends Controller
     public function home()
     {
         return view('info.home', [
-            'promoList' => config('promo.promoList'),
-            'marketList' => config('promo.marketList')
+            'dataHome' => config('promo.home'),
+            'contacts' => config('promo.contacts.main.hrefList'),
+            'tags' => Tag::all(),
         ]);
     }
     public function about()

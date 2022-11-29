@@ -6,9 +6,9 @@
     @parent
 @endsection
 @section('content')
-    <div class="d-flex align-items-center body_back">
+    <div class="d-flex align-items-center body_back border-top border-1 border-success">
         <nav aria-label="breadcrumb">
-            <ol class="breadcrumb m-4">
+            <ol class="breadcrumb m-3">
                 <li class="breadcrumb-item"><a class="text-white-50 link-success"
                         href="{{ route('gyms.index', ['city_id' => $city_id]) }}">Фитнес-клубы</a></li>
                 <li class="breadcrumb-item text-white-50" aria-current="page"> {{ $gym->title }} </li>
@@ -19,7 +19,11 @@
         <hr class="featurette-divider">
         @if ($gym)
             <div class="row featurette">
-                <div class="col-md-7 order-md-2">
+                <div class="col-md-5 mb-2">
+                    <img class="market_image" src="{{ Storage::disk('public')->url($gym->images[0]->image) }}"
+                        alt="img">
+                </div>
+                <div class="col-md-7">
                     <h2 class="fw-normal lh-1">{{ $gym->title }} </h2>
                     <div class="d-flex">
                         <h4>Рейтинг: @if (count($gym->clients))
@@ -56,10 +60,6 @@
                         &#9658; &#9658;
                         &#9658;
                     </a>
-                </div>
-                <div class="col-md-5">
-                    <img class="market_image" src="{{ Storage::disk('public')->url($gym->images[0]->image) }}"
-                        alt="img">
                 </div>
             </div>
 
@@ -99,7 +99,7 @@
                     </div>
                     <div class="w-100 p-3 mb-4 shadow rounded-1">
                         <h5 class="text-center mb-4">Адреса филиалов</h5>
-                        <table class="table">
+                        <table class="table addresses_hide">
                             <thead>
                                 <tr>
                                     <th scope="row">#</th>
@@ -114,21 +114,44 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($gym->addresses as $key => $address)
-                                    <tr>
-                                        <td>{{ $key + 1 }}</td>
-                                        <td>{{ $address->country }}</td>
-                                        <td>{{ $address->index }}</td>
-                                        <td>{{ $address->city }}</td>
-                                        <td>{{ $address->street }}</td>
-                                        <td>{{ $address->house_number }}</td>
-                                        <td>{{ $address->building }}</td>
-                                        <td>{{ $address->floor }}</td>
-                                        <td>{{ $address->apartment }}</td>
-                                    </tr>
-                                @endforeach
+                                @if (isset($gym->addresses[0]))
+                                    @foreach ($gym->addresses as $key => $address)
+                                        <tr>
+                                            <td>{{ $key + 1 }}</td>
+                                            <td>{{ $address->country }}</td>
+                                            <td>{{ $address->index }}</td>
+                                            <td>{{ $address->city }}</td>
+                                            <td>{{ $address->street }}</td>
+                                            <td>{{ $address->house_number }}</td>
+                                            <td>{{ $address->building }}</td>
+                                            <td>{{ $address->floor }}</td>
+                                            <td>{{ $address->apartment }}</td>
+                                        </tr>
+                                    @endforeach
+                                @endif
                             </tbody>
                         </table>
+                        <ul class="list-group addresses_show">
+                            @if (isset($gym->addresses[0]))
+                                @foreach ($gym->addresses as $key => $address)
+                                    <li class="list-group-item">
+                                        {{ $key + 1 }}.
+                                        {{ $address->country }},
+                                        {{ $address->index }},
+                                        г.{{ $address->city }},
+                                        ул.{{ $address->street }},
+                                        д.{{ $address->house_number }},
+                                        @if ($address->building)
+                                            корп.{{ $address->building }},
+                                        @endif
+                                        эт.{{ $address->floor }},
+                                        @if ($address->apartment)
+                                            офис {{ $address->apartment }}
+                                        @endif
+                                    </li>
+                                @endforeach
+                            @endif
+                        </ul>
                     </div>
                 </div>
             </div>
@@ -151,11 +174,11 @@
                         @if ($gymReview->id === $gym_id && $gymReview->pivot->status === 'ACTIVE')
                             <div class="feature col">
                                 <div class="p-3 bg-light rounded-1 shadow">
-                                    <div class="d-flex shadow mb-2 rounded-1">
+                                    <div class="d-flex flex-wrap shadow mb-2 rounded-1">
                                         <img class="m-2 w-25 rounded-2 border border-secondary border-2 border-opacity-10"
                                             src="{{ Storage::disk('public')->url($reviewer->profile->image) }}"
                                             alt="img">
-                                        <div class="d-flex flex-column align-self-center">
+                                        <div class="d-flex flex-column align-self-center p-2">
                                             <h6>{{ $reviewer->profile->first_name }}
                                                 {{ $reviewer->profile->last_name }}</h6>
                                             <h6>{{ $reviewer->profile->age }}

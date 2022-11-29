@@ -140,7 +140,7 @@ body {
   background-color: #212529;
 }
 .header_line {
-  border-bottom: 2px solid #198754;
+  border-bottom: 1px solid #198754;
 }
 .main_back{
   background-color: #dddddd;
@@ -153,6 +153,10 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+.glass{
+  background-color: rgba(0, 0, 0, 0.753);
+  z-index: 30;
 }
 .promo_image{
   width: 100%;
@@ -174,6 +178,24 @@ body {
 .exit_back{
   background-color: #941818;
 }
+.small_market_image{
+  max-width: 300px;
+  height: auto;
+  box-shadow: 0px 0px 20px #212529;
+  border-radius: 4px;
+ }
+@media (max-width: 1410px) {
+  .small_market_image {
+    max-width: 220px;
+    margin: 0px 32px 32px 0px;
+  }
+}
+@media (max-width: 1000px) {
+  .small_market_image {
+    max-width: 160px;
+    margin: 0px 32px 32px 0px;
+  }
+}
 .market_image{
   max-width: 500px;
   height: auto;
@@ -190,7 +212,7 @@ body {
     max-width: 250px;
   }
 }
-.trainers_image{
+.index_image{
   width: 170px;
   height: auto;
   border-radius: 3px;
@@ -234,8 +256,28 @@ margin: 0px 6px 36px;
 .review_image{
   max-width: 205px;
 }
+@media (max-width: 540px) {
+  .review_image{
+    max-width: 180px;
+  }
+}
 .gymReview_image{
   max-width: 326px;
+}
+@media (max-width: 540px) {
+  .gymReview_image{
+    max-width: 180px;
+  }
+}
+@media (max-width: 770px) {
+.addresses_hide{
+  display: none;
+}
+}
+@media (min-width: 770px) {
+  .addresses_show{
+    display: none;
+  }
 }
 .review_number{
   max-width: 80px;
@@ -255,4 +297,51 @@ margin: 0px 6px 36px;
 .logo_image_header {
   width: 50px;
   height: auto;
+}
+.about_height{
+  max-height: 180px;
+}
+.partners_scroll{
+  max-height: 192px; 
+  overflow-y:scroll;
+}
+.social_network{
+   max-width: 200px;
+}
+.social_network_scroll{
+  overflow-y: scroll;
+  max-height: 88px;
+}
+.marketing_height{
+  height: 200px;
+}
+.met_box{
+  max-width: 276px;
+}
+.met_width{
+  min-width: 210px;
+}
+.scale{
+  max-width: 150px;
+  height: auto;
+  cursor: pointer;
+}
+.scale_image{
+  max-width: inherit;
+  height: auto;
+}
+.scale_selector{
+  margin: -8px 0px 0px 0px;
+}
+.news_image{
+  width: 180px;
+  height: auto;
+}
+.news_height{
+  height: 240px;
+}
+@media (max-width: 991px) {
+  .news_height{
+      overflow-y:scroll;
+  }
 }

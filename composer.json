@@ -12,6 +12,7 @@
         "laravel/framework": "^9.19",
         "laravel/sanctum": "^3.0",
         "laravel/tinker": "^2.7",
+        "predis/predis": "^2.0",
         "wildbit/swiftmailer-postmark": "^3.4"
     },
     "require-dev": {
