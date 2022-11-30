@@ -1,8 +1,7 @@
 @extends('layouts.admin')
 @section('content')
-    @include('inc.message')
-    <x-admin.iconsMenu>
-    </x-admin.iconsMenu>
+    <x-admin.iconsMenu/>
+<div class="admin_header">
     <div class="p-4 p-md-5 mb-0 text-bg-dark w-100" style="background-image: url('assets/images/admin_index.jpg');">
         <div class="col-md-6 px-0">
             <h1 class="display-5">Панель управления</h1>
@@ -11,6 +10,7 @@
             <p class="lead mb-0"><a href="{{ route('info.about') }}" class="text-white fw-bold">Подробнее...</a></p>
         </div>
     </div>
+</div>
     <div class="container px-4 py-5" id="icon-grid">
         <h2 class="pb-2 border-bottom border-primary">Инструменты</h2>
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4 py-5">
