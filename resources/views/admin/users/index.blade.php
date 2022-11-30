@@ -1,14 +1,5 @@
 @extends('layouts.admin')
 @section('content')
-    <style type="text/css">
-        table {
-            table-layout: fixed;
-            width:100%
-        }
-        td {
-            word-wrap:break-word;
-        }
-    </style>
     <h2>Список пользователей</h2>
     <div class="d-grid gap-2 d-md-flex justify-content-md-end">
         <x-admin.link href="{{ route('admin.users.index') . '?trashed' }}" class="btn btn-outline-primary">
