@@ -3,7 +3,8 @@
     <h2>Список пользователей</h2>
     <div class="d-grid gap-2 d-md-flex justify-content-md-end">
         <x-admin.link href="{{ route('admin.users.index') . '?trashed' }}" class="btn btn-outline-primary">
-            Удаленные пользователи <span id="recycled-user-count">{{ ($recycled > 0)? '(' . $recycled . ')' : '' }}</span>
+            Удаленные пользователи <span
+                id="recycled-user-count">{{ ($recycled > 0)? '(' . $recycled . ')' : '' }}</span>
         </x-admin.link>
         <x-admin.link href="{{ route('admin.users.create') }}" class="btn btn-primary">
             Добавить пользователя
@@ -44,12 +45,14 @@
                 <x-admin.table.td>
                     @if($user->trashed())
                         <div class="text-center">
-                            <x-admin.link class="text-decoration-none" href="{{ route('admin.users.restore', $user->id) }}"
+                            <x-admin.link class="text-decoration-none"
+                                          href="{{ route('admin.users.restore', $user->id) }}"
                                           title="Восстановить">
                                 <x-admin.icon.restore/>
                             </x-admin.link>
 
-                            <x-admin.link class="text-decoration-none" href="{{ route('admin.users.force_delete', $user->id) }}"
+                            <x-admin.link class="text-decoration-none"
+                                          href="{{ route('admin.users.force_delete', $user->id) }}"
                                           style="color: red;" title="Очистить корзину">
                                 <x-admin.icon.fulltrash/>
                             </x-admin.link>
@@ -65,7 +68,8 @@
                                 <x-admin.icon.edit/>
                             </x-admin.link>
                             @if ($user->id !=  \Illuminate\Support\Facades\Auth::id())
-                                <x-admin.link href="javascript:;" class="delete text-decoration-none" rel="{{ $user->id }}"
+                                <x-admin.link href="javascript:;" class="delete text-decoration-none"
+                                              rel="{{ $user->id }}"
                                               style="color: red;" title="Удалить в корзину">
                                     <x-admin.icon.trash/>
                                 </x-admin.link>
@@ -80,9 +84,7 @@
             </span>
         @endforelse
     </x-admin.table>
-
 @endsection
-
 @push('js')
     <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
     <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
@@ -113,11 +115,21 @@
             let $itemRemove = Array.from(document.getElementsByClassName(className));
 
             $itemRemove.forEach(item => item.remove());
-
         }
 
-        $(document).ready(function () {
-            let table = $('#user_table').DataTable({
+        async function send(url) {
+            let response = await fetch(url, {
+                method: 'DELETE',
+                headers: {
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                }
+            })
+
+            return await response.json();
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            let table = new DataTable('#user_table', {
                 processing: true,
                 dom: '<"row" <"col-sm-12 col-md-5"l><"col-sm-12 col-md-7 text-end"i>>rt<"row" <"col-sm-12 col-md-5"l><"col-sm-12 col-md-7"p>><"clear">',
                 searching: true,
@@ -164,35 +176,34 @@
                 });
             }).draw();
 
-            $('#tableSearchText').on('keyup', function () {
-                table.search( this.value ).draw();
-            });
+            document
+                .querySelector('#tableSearchText')
+                .addEventListener('keyup', function () {
+                    table.search(this.value).draw();
+                });
 
-            $(document).on('click', '.delete', function (event) {
-                const id = $(event.currentTarget).attr('rel');
-                $.ajax({
-                    url: userUrl + '/' + id,
-                    type: 'DELETE',
-                    DataType: 'json',
-                    headers: {
-                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-                    },
-                    success: function (response) {
-                        let alertBlock = document.querySelector('.alert-message');
-                        if (response.success === true) {
+            let elements = document.querySelectorAll(".delete");
+            elements.forEach(function (e, k) {
+                e.addEventListener("click", function () {
+                    const id = e.getAttribute('rel');
+                    send(userUrl + `/${id}`).then((result) => {
+                        const answer = JSON.parse(JSON.stringify(result));
+                        const alertBlock = document.querySelector('.alert-message');
+
+                        if (answer.success === true) {
                             table.row('#row-' + id).remove().draw(false);
-                            renderBlock(alertBlock, response.message, 'success', 'beforeend');
-                            setTimeout(function() {
+                            renderBlock(alertBlock, answer.message, 'success', 'beforeend');
+                            setTimeout(function () {
                                 delAlert('alert-dismissible');
                             }, 2000);
                         } else {
-                            renderBlock(alertBlock, response.message, 'warning', 'beforeend');
-                            setTimeout(function() {
+                            renderBlock(alertBlock, answer.message, 'warning', 'beforeend');
+                            setTimeout(function () {
                                 delAlert('alert-dismissible');
                             }, 2000);
                         }
-                        document.getElementById('recycled-user-count').innerHTML = '(' + response.recycled + ')';
-                    }
+                        document.getElementById('recycled-user-count').innerHTML = '(' + answer.recycled + ')';
+                    });
                 });
             });
         });
