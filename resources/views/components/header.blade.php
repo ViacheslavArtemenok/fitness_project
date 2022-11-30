@@ -1,4 +1,4 @@
-<header class="header_line">
+<header>
     <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
         <div class="container-fluid">
             <img class="logo_image_header me-1" src="{{ asset('assets/images/favicon.png') }}" alt="logo"><a
@@ -13,26 +13,43 @@
                         <a class="nav-link @if (request()->routeIs('info.home')) active @endif" aria-current="page"
                             href="{{ route('info.home') }}">Главная</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link @if (request()->routeIs('trainers.*')) active @endif"
-                            href="{{ route('trainers.index', ['tag_id' => 0, 'city_id' => 0]) }}">Тренеры</a>
+                    <li class="dropdown nav-item">
+                        <a class="nav-link" href="#" role="button" id="dropdownMenuLink"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            Меню
+                        </a>
+                        <ul class="dropdown-menu bg-dark border border-success px-2">
+                            <li class="nav-item">
+                                <a class="nav-link @if (request()->routeIs('trainers.*')) active @endif"
+                                    href="{{ route('trainers.index', ['tag_id' => 0, 'city_id' => 0]) }}">Тренеры</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link @if (request()->routeIs('gyms.*')) active @endif"
+                                    href="{{ route('gyms.index', ['city_id' => 0]) }}">Фитнес-клубы</a>
+                            </li>
+                        </ul>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link @if (request()->routeIs('gyms.*')) active @endif"
-                            href="{{ route('gyms.index', ['city_id' => 0]) }}">Фитнес-клубы</a>
+                    <li class="dropdown nav-item">
+                        <a class="nav-link" href="#" role="button" id="dropdownMenuLink"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            Инфо
+                        </a>
+                        <ul class="dropdown-menu bg-dark border border-success px-2">
+                            <li class="nav-item">
+                                <a class="nav-link @if (request()->routeIs('info.about')) active @endif"
+                                    href="{{ route('info.about') }}">О проекте</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link @if (request()->routeIs('info.contacts')) active @endif"
+                                    href="{{ route('info.contacts') }}">Контакты</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link @if (request()->routeIs('info.developers')) active @endif"
+                                    href="{{ route('info.developers') }}">Разработчики</a>
+                            </li>
+                        </ul>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link @if (request()->routeIs('info.about')) active @endif"
-                            href="{{ route('info.about') }}">О проекте</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link @if (request()->routeIs('info.contacts')) active @endif"
-                            href="{{ route('info.contacts') }}">Контакты</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link @if (request()->routeIs('info.developers')) active @endif"
-                            href="{{ route('info.developers') }}"> Команда разработчиков</a>
-                    </li>
+
                     @auth
                         @if (Auth::user()->role_id === 1)
                             <li class="nav-item">
@@ -47,19 +64,27 @@
                         @endif
                     @endauth
                     @guest
-                        @if (Route::has('login'))
-                            <li class="nav-item">
-                                <a class="nav-link @if (request()->routeIs('login')) active @endif"
-                                    href="{{ route('login') }}">{{ __('Вход') }}</a>
-                            </li>
-                        @endif
+                        <li class="dropdown nav-item">
+                            <a class="nav-link" href="#" role="button" id="dropdownMenuLink"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                                Аутентификация
+                            </a>
+                            <ul class="dropdown-menu bg-dark border border-success px-2">
+                                @if (Route::has('login'))
+                                    <li class="nav-item">
+                                        <a class="nav-link @if (request()->routeIs('login')) active @endif"
+                                            href="{{ route('login') }}">{{ __('Вход') }}</a>
+                                    </li>
+                                @endif
 
-                        @if (Route::has('register'))
-                            <li class="nav-item">
-                                <a class="nav-link @if (request()->routeIs('register')) active @endif"
-                                    href="{{ route('register') }}">{{ __('Регистрация') }}</a>
-                            </li>
-                        @endif
+                                @if (Route::has('register'))
+                                    <li class="nav-item">
+                                        <a class="nav-link @if (request()->routeIs('register')) active @endif"
+                                            href="{{ route('register') }}">{{ __('Регистрация') }}</a>
+                                    </li>
+                                @endif
+                            </ul>
+                        </li>
                     @else
                         <li class="nav-item dropdown">
                             <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
@@ -83,7 +108,7 @@
                     @endguest
                 </ul>
                 @if (request()->routeIs('trainers.index'))
-                    <div class="btn-group align-self-start me-2 mb-2">
+                    <div class="btn-group align-self-start mt-2 me-2 mb-2">
                         <button type="button" class="btn btn-outline-success dropdown-toggle" data-bs-toggle="dropdown"
                             aria-expanded="false">
                             Город
@@ -124,7 +149,7 @@
                         <button class="btn btn-outline-success" type="submit">Поиск</button>
                     </form>
                 @elseif (request()->routeIs('gyms.index'))
-                    <div class="btn-group align-self-start mt-2 me-2 mb-2">
+                    <div class="btn-group align-self-start  mt-2 me-2 mb-2">
                         <button type="button" class="btn btn-outline-success dropdown-toggle"
                             data-bs-toggle="dropdown" aria-expanded="false">
                             Город

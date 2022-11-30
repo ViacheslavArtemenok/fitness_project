@@ -4,9 +4,9 @@
     @parent
 @endsection
 @section('content')
-    <div class="d-flex align-items-center body_back">
+    <div class="d-flex align-items-center body_back border-top border-1 border-success">
         <nav aria-label="breadcrumb">
-            <ol class="breadcrumb m-4">
+            <ol class="breadcrumb m-3">
                 <li class="breadcrumb-item"><a class="text-white-50 link-success"
                         href="{{ route('gyms.index', ['city_id' => 0]) }}">Фитнес-клубы</a></li>
                 <li class="breadcrumb-item"><a class="text-white-50 link-success"

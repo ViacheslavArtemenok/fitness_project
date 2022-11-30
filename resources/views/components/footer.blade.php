@@ -20,8 +20,7 @@
                         <li class="nav-item mb-2"><a class="link-light text-white-50"
                                 href="{{ route('info.contacts') }}" class="nav-link p-0 text-muted">Контакты</a></li>
                         <li class="nav-item mb-2"><a class="link-light text-white-50"
-                                href="{{ route('info.developers') }}" class="nav-link p-0 text-muted">Команда
-                                разработчиков</a>
+                                href="{{ route('info.developers') }}" class="nav-link p-0 text-muted">Разработчики</a>
                         </li>
                     </ul>
                 </div>

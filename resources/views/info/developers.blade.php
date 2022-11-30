@@ -1,5 +1,5 @@
 @extends('layouts.main') @section('title')
-    Команда разработки @parent
+    Разработчики @parent
     @endsection @section('content')
     <div class="container marketing">
         <hr class="featurette-divider">

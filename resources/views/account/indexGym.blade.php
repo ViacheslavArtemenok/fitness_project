@@ -11,13 +11,17 @@
             <h3 class="text-center text-danger mb-4">Личный кабинет заблокирован по решению администрации сайта</h3>
         @elseif(Auth::user()->status === 'DRAFT')
             <div class="d-flex flex-column align-items-center p-3 shadow rounded-1 mb-4">
-                <h6 class="text-center text-secondary"><span class="text-danger">Ваш профиль еще не активирован!</span>
-                    Заполните поля с данными профиля,
-                    анкеты в разделе "Инструменты", при регистрации вам было
-                    отправлено письмо на ваш email. Пройдите по ссылке
-                    в письме, чтобы подтвердить ваш email...
-                    Как всё будет готово, появится кнопка "Активировать", нажмите ее, наш
-                    администратор проверит вашу анкету и выполнит активацию.</h6>
+                @if ($user->moderating and $user->moderating->status === 'IS_PENDING')
+                    <h6 class="text-center text-secondary">Новые данные отправлены на модерацию и ожидают проверки...</h6>
+                @else
+                    <h6 class="text-center text-secondary"><span class="text-danger">Ваш профиль еще не активирован!</span>
+                        Заполните поля с данными профиля,
+                        анкеты в разделе "Инструменты", при регистрации вам было
+                        отправлено письмо на ваш email. Пройдите по ссылке
+                        в письме, чтобы подтвердить ваш email...
+                        Как всё будет готово, появится кнопка "Активировать", нажмите ее, наш
+                        администратор проверит вашу анкету и выполнит активацию.</h6>
+                @endif
                 @if ($user->profile &&
                     $user->gym &&
                     isset($user->gym->images[0]) &&
@@ -26,7 +30,7 @@
                     <a class="btn btn-outline-success btn-sm @if ($user->moderating and $user->moderating->status === 'IS_PENDING') disabled @endif"
                         href="{{ route('account.moderating', ['user_id' => $user->id]) }}">
                         @if ($user->moderating and $user->moderating->status === 'IS_PENDING')
-                            Отправлено на активацию&nbsp;&nbsp;&#9203;
+                            Отправлено на модерацию&nbsp;&nbsp;&#9203;
                         @else
                             Активировать&nbsp;&nbsp;&#10004;
                         @endif

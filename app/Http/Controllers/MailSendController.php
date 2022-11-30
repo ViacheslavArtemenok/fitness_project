@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Jobs\SendEmailJob;
+
 use App\Services\MailService;
+
 use GuzzleHttp\Client;
 use GuzzleHttp\RequestOptions;
 use Illuminate\Http\Request;
@@ -30,7 +32,6 @@ class MailSendController extends Controller
 
             $obMailService = new MailService();
             $users = $obMailService->getUsers($request->addressee);
-
             foreach ($users as $user) {
                 dispatch(new SendEmailJob(
                     [
@@ -39,6 +40,7 @@ class MailSendController extends Controller
                     ]
                 ));
             }
+
         } elseif ($request->telegramm) {
             $client = new Client();
             try {
