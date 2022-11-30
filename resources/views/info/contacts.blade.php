@@ -24,16 +24,11 @@
                 </table>
 
                 <div class="d-flex w-25 rounded-3 ms-4 mb-4">
-                    <a class="rounded-1 me-4" href="https://vk.com" target="blank">
-                        <img src="{{ asset('/assets/images/vk.png') }}" alt="vk">
-                    </a>
-                    <a class="rounded-circle me-4" href="https://t.me/+q_Y07WN_gPgyYzYy" target="blank">
-                        <img src="{{ asset('/assets/images/tg.png') }}" alt="tg">
-                    </a>
-                    <a class="rounded-circle me-4" href="https://github.com/ViacheslavArtemenok/fitness_project/tree/dev"
-                        target="blank">
-                        <img src="{{ asset('/assets/images/git.png') }}" alt="git">
-                    </a>
+                    @foreach ($main['hrefList'] as $key => $item)
+                        <a class="rounded-1 me-4" href="{{ $item['url'] }}" target="blank">
+                            <img src="{{ asset($item['img']) }}" alt="{{ $item['alt'] }}">
+                        </a>
+                    @endforeach
                 </div>
             </div>
             <div class="col-md-5 p-2 shadow-lg">

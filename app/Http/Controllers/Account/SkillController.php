@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Account;
 
+use App\Events\AccountEvent;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Skills\CreateRequest;
 use App\Http\Requests\Skills\EditRequest;
@@ -91,6 +92,8 @@ class SkillController extends Controller
     public function update(EditRequest $request, Skill $skill): RedirectResponse
     {
         if ($skill->fill($request->validated())->save()) {
+            $user = $skill->user;
+            AccountEvent::dispatch($user);
             return redirect()->route('account')
                 ->with('success', __('messages.account.skills.update.success'));
         }

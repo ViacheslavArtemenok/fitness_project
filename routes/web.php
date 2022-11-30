@@ -131,8 +131,12 @@ Route::middleware('auth')->group(function () {
         Route::resource('profiles', AdminProfileController::class);
         Route::resource('skills', AdminSkillController::class);
 
-        Route::get('users/{id}/restore', [AdminUserController::class, 'restore'])->name('users.restore');
-        Route::get('users/{id}/force_delete', [AdminUserController::class, 'forceDelete'])->name('users.force_delete');
+        Route::get('users/{id}/restore', [AdminUserController::class, 'restore'])
+            ->where('id', '\d+')
+            ->name('users.restore');
+        Route::get('users/{id}/force_delete', [AdminUserController::class, 'forceDelete'])
+            ->where('id', '\d+')
+            ->name('users.force_delete');
         Route::resource('users', AdminUserController::class);
         Route::resource('tags', AdminTagController::class);
         Route::resource('relations', AdminRelationController::class)->parameters(['relations' => 'trainer']);

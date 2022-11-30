@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Dyrynda\Database\Support\CascadeSoftDeletes;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -16,8 +17,19 @@ class User extends Authenticatable implements MustVerifyEmail
 {
     use HasApiTokens, HasFactory, Notifiable;
     use SoftDeletes;
+    use CascadeSoftDeletes;
 
     protected $dates = ['deleted_at'];
+
+    protected $cascadeDeletes = [
+        'profile',
+        'skill',
+        'characteristic',
+        'trainers',
+        'gym',
+        'gyms',
+        'moderating'
+        ];
 
     // define status here
     public const DRAFT = 'DRAFT';
@@ -68,7 +80,7 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function profile(): HasOne
     {
-        return $this->hasOne(Profile::class);
+        return $this->hasOne(Profile::class)->withTrashed();
     }
 
     public function skill(): HasOne

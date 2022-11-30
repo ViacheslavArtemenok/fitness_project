@@ -10,18 +10,22 @@
             <h3 class="text-center text-danger mb-4">Личный кабинет заблокирован по решению администрации сайта</h3>
         @elseif(Auth::user()->status === 'DRAFT')
             <div class="d-flex flex-column align-items-center p-3 shadow rounded-1 mb-4">
-                <h6 class="text-center text-secondary"><span class="text-danger">Ваш профиль еще не активирован!</span>
-                    Заполните поля с данными профиля,
-                    анкеты в разделе "Инструменты", при регистрации вам было
-                    отправлено письмо на ваш email. Пройдите по ссылке
-                    в письме, чтобы подтвердить ваш email...
-                    Как всё будет готово, появится кнопка "Активировать", нажмите ее, наш
-                    администратор проверит вашу анкету и выполнит активацию.</h6>
+                @if ($user->moderating and $user->moderating->status === 'IS_PENDING')
+                    <h6 class="text-center text-secondary">Новые данные отправлены на модерацию и ожидают проверки...</h6>
+                @else
+                    <h6 class="text-center text-secondary"><span class="text-danger">Ваш профиль еще не активирован!</span>
+                        Заполните поля с данными профиля,
+                        анкеты в разделе "Инструменты", при регистрации вам было
+                        отправлено письмо на ваш email. Пройдите по ссылке
+                        в письме, чтобы подтвердить ваш email...
+                        Как всё будет готово, появится кнопка "Активировать", нажмите ее, наш
+                        администратор проверит вашу анкету и выполнит активацию.</h6>
+                @endif
                 @if ($user->profile && $user->skill && Auth::user()->email_verified_at)
                     <a class="btn btn-outline-success btn-sm @if ($user->moderating and $user->moderating->status === 'IS_PENDING') disabled @endif"
                         href="{{ route('account.moderating', ['user_id' => $user->id]) }}">
                         @if ($user->moderating and $user->moderating->status === 'IS_PENDING')
-                            Отправлено на активацию&nbsp;&nbsp;&#9203;
+                            Отправлено на модерацию&nbsp;&nbsp;&#9203;
                         @else
                             Активировать&nbsp;&nbsp;&#10004;
                         @endif
@@ -48,7 +52,7 @@
                 <div class="d-flex flex-column flex-grow-1 ps-4 pt-1">
                     <div class="d-flex">
                         <h5 class="fw-bold">
-                            @if ($user->profile)
+                            @if ($user->profile && $user->moderating->status === 'IS_APPROVED')
                                 {{ $user->profile->first_name }}
                                 {{ $user->profile->father_name }}
                                 {{ $user->profile->last_name }}
@@ -85,20 +89,20 @@
                                     <td>Нет оценки</td>
                                 @endif
                             </tr>
-                            @if ($user->skill)
+                            @if ($user->skill && $user->moderating->status === 'IS_APPROVED')
                                 <tr>
                                     <th scope="row">Город:</th>
                                     <td>{{ $user->skill->location }}</td>
                                 </tr>
                             @endif
-                            @if ($user->profile)
+                            @if ($user->profile && $user->moderating->status === 'IS_APPROVED')
                                 <tr>
                                     <th scope="row">Возраст:</th>
                                     <td>{{ $user->profile->age }} {{ $trainerBuilder->getUnitCase($user->profile->age) }}
                                     </td>
                                 </tr>
                             @endif
-                            @if ($user->skill)
+                            @if ($user->skill && $user->moderating->status === 'IS_APPROVED')
                                 <tr>
                                     <th scope="row">Опыт:</th>
                                     <td>{{ $user->skill->experience }}
@@ -123,14 +127,14 @@
                             </a>
                         @empty
                             <a class="btn btn-secondary btn-sm mb-2 me-2"
-                                href="{{ route('account.tags.create', ['user_id' => $user->id]) }}">
+                                href="{{ route('account.tags.edit', ['tag' => Auth::user()->id]) }}">
                                 Профиль тренировок не указан
                             </a>
                         @endforelse
                     </div>
                 </div>
             </div>
-            @if ($user->skill)
+            @if ($user->skill && $user->moderating->status === 'IS_APPROVED')
                 <div class="shadow skill_bottom p-4 rounded">
                     <table class="table">
                         <thead>

@@ -11,7 +11,7 @@
             @method('put')
             <div class="form-group">
                 <label for="role">Роль</label>
-                <input type="text" class="form-control" name="role" id="role" value="{{ $role->role }}">
+                <input type="text" class="form-control" name="role" id="role" value="{{ $role->role }}" readonly>
             </div>
             <div class="form-group">
                 <label for="title">Название</label>

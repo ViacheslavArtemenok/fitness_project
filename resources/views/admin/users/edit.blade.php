@@ -39,8 +39,8 @@
                 <input type="text" class="form-control" name="email" id="email" value="{{ $user->email }}">
             </div>
             <div class="form-group">
-                <label for="phone">Телефон</label>
-                <input type="text" class="form-control" name="phone" id="phone" value="{{ $user->phone }}">
+                <label for="phone_mask">Телефон</label>
+                <input type="text" class="form-control" name="phone" id="phone_mask" value="{{ $user->phone }}">
             </div>
             <div class="form-group">
                 <label for="role_id">Роль</label>
@@ -76,4 +76,8 @@
     </div>
 @endsection
 @push('js')
+    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+            crossorigin="anonymous"></script>
+    <script src="{{ asset('assets/js/mask/jquery.maskedinput.min.js') }}"></script>
+    <script src="{{ asset('assets/js/mask/main_mask.js') }}"></script>
 @endpush

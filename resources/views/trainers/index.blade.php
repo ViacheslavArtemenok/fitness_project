@@ -3,7 +3,7 @@
     Список тренеров @parent
 @endsection
 @section('content')
-    <div class="d-flex align-items-center justify-content-center body_back">
+    <div class="d-flex align-items-center justify-content-center bg-dark">
         <div class="dropdown p-3 d-flex justify-content-center flex-grow-1">
             <button class="btn btn-outline-success dropdown-toggle" type="button" data-bs-toggle="dropdown"
                 aria-expanded="false">
@@ -56,7 +56,7 @@
             @forelse($trainersList as $key => $trainer)
                 <div class="item_box border border-success border-2">
                     <img src="{{ Storage::disk('public')->url($trainer->profile->image) }}"
-                        class="bd-placeholder-img trainers_image border border-success border-1 shadow" alt="img">
+                        class="bd-placeholder-img index_image border border-success border-1 shadow" alt="img">
                     <h3 class="fw-normal trainers_name">{{ $trainer->profile->first_name }}
                         {{ $trainer->profile->last_name }}</h3>
                     <table class="table table-striped-columns mt-3 rounded-1 shadow">
@@ -128,4 +128,4 @@
         @endif
         <hr class="featurette-divider">
     </div>
-@endsection;
+@endsection

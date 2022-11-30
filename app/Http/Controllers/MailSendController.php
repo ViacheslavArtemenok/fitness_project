@@ -3,8 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Jobs\SendEmailJob;
-use App\Mail\SendMail;
-use App\Models\User;
+
+use App\Services\MailService;
+
 use GuzzleHttp\Client;
 use GuzzleHttp\RequestOptions;
 use Illuminate\Http\Request;
@@ -27,24 +28,19 @@ class MailSendController extends Controller
         ]);
         if ($request->email) {
             $data = new stdClass();
-            $data->addressee = $request->addressee;
             $data->message = $request->message;
-            if ($data->addressee === 'Тренерам') {
-                $users = User::where('role_id', 2)->get();
-            } elseif ($data->addressee === 'Администраторам') {
-                $users = User::where('role_id', 1)->get();
-            } elseif ($data->addressee === 'Представителям фитнес-клуба') {
-                $users = User::where('role_id', 4)->get();
-            } elseif ($data->addressee === 'Клиентам сайта') {
-                $users = User::where('role_id', 3)->get();
+
+            $obMailService = new MailService();
+            $users = $obMailService->getUsers($request->addressee);
+            foreach ($users as $user) {
+                dispatch(new SendEmailJob(
+                    [
+                        'user' => $user,
+                        'data' => $data
+                    ]
+                ));
             }
-            dispatch(new SendEmailJob(
-                [
-                    'users' => $users,
-                    'data' => $data,
-                ]
-            ));
-            //Mail::to($users)->send(new SendMail($data));
+
         } elseif ($request->telegramm) {
             $client = new Client();
             try {

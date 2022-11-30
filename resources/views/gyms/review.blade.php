@@ -6,9 +6,9 @@
     @parent
 @endsection
 @section('content')
-    <div class="d-flex align-items-center body_back">
+    <div class="d-flex align-items-center body_back border-top border-1 border-success">
         <nav aria-label="breadcrumb">
-            <ol class="breadcrumb m-4">
+            <ol class="breadcrumb m-3">
                 <li class="breadcrumb-item"><a class="text-white-50 link-success"
                         href="{{ route('gyms.index', ['city_id' => $city_id]) }}">Фитнес-клубы</a></li>
                 <li class="breadcrumb-item"><a class="text-white-50 link-success"
@@ -22,7 +22,11 @@
         <hr class="featurette-divider">
         @if ($gym && $client)
             <div class="row featurette">
-                <div class="col-md-7 order-md-2">
+                <div class="col-md-5 mb-2">
+                    <img class="market_image" src="{{ Storage::disk('public')->url($gym->images[0]->image) }}"
+                        alt="img">
+                </div>
+                <div class="col-md-7">
                     <h2 class="fw-normal lh-1">{{ $gym->title }} </h2>
                     <div class="d-flex">
                         <h4>Рейтинг: @if (count($gym->clients))
@@ -60,10 +64,6 @@
                         &#9658;
                     </a>
                 </div>
-                <div class="col-md-5">
-                    <img class="market_image" src="{{ Storage::disk('public')->url($gym->images[0]->image) }}"
-                        alt="img">
-                </div>
             </div>
 
             <hr class="featurette-divider">
@@ -81,10 +81,10 @@
                                 <h3>Описание</h3>
                                 <h5 class="fw-normal">{{ $review->pivot->description }}</h5>
                                 <p class="fw-bold">{{ $review->pivot->created_at->format('d.m.Y (H:i)') }}</p>
-                                <div class="d-flex shadow mb-2 rounded-1 w-50">
+                                <div class="d-flex flex-wrap shadow mb-2 rounded-1 w-50">
                                     <img class="m-2 w-25 rounded-2 border border-secondary border-2 border-opacity-10"
                                         src="{{ Storage::disk('public')->url($client->profile->image) }}" alt="img">
-                                    <div class="d-flex flex-grow-1 align-self-center justify-content-center">
+                                    <div class="d-flex flex-grow-1 align-self-center justify-content-center p-2">
                                         <h5 class="fw-semibold">{{ $client->profile->first_name }}
                                             {{ $client->profile->last_name }},
                                             {{ $client->profile->age }}
@@ -102,10 +102,10 @@
                                 <h3>Описание</h3>
                                 <h5 class="fw-normal">{{ $review->pivot->description }}</h5>
                                 <p class="fw-bold">{{ $review->pivot->created_at->format('d.m.Y (H:i)') }}</p>
-                                <div class="d-flex shadow mb-2 rounded-1 w-50">
+                                <div class="d-flex flex-wrap shadow mb-2 rounded-1 w-50">
                                     <img class="m-2 w-25 rounded-2 border border-secondary border-2 border-opacity-10"
                                         src="{{ Storage::disk('public')->url($client->profile->image) }}" alt="img">
-                                    <div class="d-flex flex-grow-1 align-self-center justify-content-center">
+                                    <div class="d-flex flex-grow-1 align-self-center justify-content-center p-2">
                                         <h5 class="fw-semibold">{{ $client->profile->first_name }}
                                             {{ $client->profile->last_name }},
                                             {{ $client->profile->age }}
@@ -123,10 +123,10 @@
                                 <h3>Описание</h3>
                                 <h5 class="fw-normal">{{ $review->pivot->description }}</h5>
                                 <p class="fw-bold">{{ $review->pivot->created_at->format('d.m.Y (H:i)') }}</p>
-                                <div class="d-flex shadow mb-2 rounded-1 w-50">
+                                <div class="d-flex flex-wrap shadow mb-2 rounded-1 w-50">
                                     <img class="m-2 w-25 rounded-2 border border-secondary border-2 border-opacity-10"
                                         src="{{ Storage::disk('public')->url($client->profile->image) }}" alt="img">
-                                    <div class="d-flex flex-grow-1 align-self-center justify-content-center">
+                                    <div class="d-flex flex-grow-1 align-self-center justify-content-center p-2">
                                         <h5 class="fw-semibold">{{ $client->profile->first_name }}
                                             {{ $client->profile->last_name }},
                                             {{ $client->profile->age }}

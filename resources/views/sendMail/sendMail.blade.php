@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 @section('title')
-    Список тренеров @parent
+    Рассылка сообщений @parent
 @endsection
 @section('content')
 <style>
@@ -29,10 +29,11 @@
                             <input type="hidden" name="email" value="true">
                             <div class="form-group sendarea" placeholder="Кому">
                                 <select class="form-control" name="addressee">
-                                    <option class="form-group">Админестраторам</option>
+                                    <option class="form-group">Администраторам</option>
                                     <option class="form-group" selected>Тренерам</option>
                                     <option class="form-group">Представителям фитнес-клуба</option>
                                     <option class="form-group">Клиентам сайта</option>
+                                    <option class="form-group">Подписавшимся</option>
                                 </select>
                             </div>
                             <div class="form-group sendarea">
@@ -60,7 +61,7 @@
                             <input type="hidden" name="telegramm" value="true">
                             <div class="form-group sendarea" placeholder="Кому">
                                 <select class="form-control" name="addressee">
-                                    <option class="form-group">Админестраторам</option>
+                                    <option class="form-group">Администраторам</option>
                                     <option class="form-group" selected>Тренерам</option>
                                     <option class="form-group">Представителям фитнес-клуба</option>
                                     <option class="form-group">Клиентам сайта</option>
