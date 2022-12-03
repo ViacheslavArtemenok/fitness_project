@@ -19,4 +19,15 @@ class Subscription extends Model
         'phone',
         'status',
     ];
+
+    public const IS_SUBSCRIBED = 'subscribed';
+    public const IS_UNSUBSCRIBED = 'unsubscribed';
+
+    public static function getArrayStatuses()
+    {
+        return [
+            self::IS_SUBSCRIBED,
+            self::IS_UNSUBSCRIBED
+        ];
+    }
 }
