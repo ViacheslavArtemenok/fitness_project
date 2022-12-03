@@ -12,6 +12,7 @@ return [
         'gyms' => 5,
         'gymAddresses' => 15,
         'gymImages' => 15,
+        'subscriptions' => 10,
     ],
     'trainers' => [
         'users' => 15,

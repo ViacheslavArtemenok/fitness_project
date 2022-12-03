@@ -1,13 +1,14 @@
 @extends('layouts.admin')
 @section('content')
-    <h2>Список пользователей</h2>
+    <h2>
+        {{ config('admin.menuList.subscriptions.description') }}
+    </h2>
     <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-        <x-admin.link href="{{ route('admin.users.index') . '?trashed' }}" class="btn btn-outline-primary">
-            Удаленные пользователи <span
-                id="recycled-user-count">{{ ($recycled > 0)? '(' . $recycled . ')' : '' }}</span>
-        </x-admin.link>
-        <x-admin.link href="{{ route('admin.users.create') }}" class="btn btn-primary">
-            Добавить пользователя
+        <x-admin.link href="{{ route('admin.subscriptions.index') . '?trashed' }}" class="btn btn-outline-primary">
+            Удаленные подписчики
+            <span id="recycled-user-count">
+                {{ ($recycled > 0)? '(' . $recycled . ')' : '' }}
+            </span>
         </x-admin.link>
     </div>
     <br>
@@ -16,63 +17,44 @@
     <x-admin.table id="user_table">
         <x-slot name="heading">
             <x-admin.table.th scope="col">#</x-admin.table.th>
-            <x-admin.table.th scope="col">Фамилия</x-admin.table.th>
-            <x-admin.table.th scope="col">Имя</x-admin.table.th>
-            <x-admin.table.th scope="col">Отчество</x-admin.table.th>
-            <x-admin.table.th scope="col">Никнейм</x-admin.table.th>
-            <x-admin.table.th scope="col">Элект почта</x-admin.table.th>
             <x-admin.table.th scope="col">Телефон</x-admin.table.th>
-            <x-admin.table.th scope="col">Роль</x-admin.table.th>
+            <x-admin.table.th scope="col">Электронная почта</x-admin.table.th>
             <x-admin.table.th scope="col">Статус</x-admin.table.th>
-            <x-admin.table.th scope="col">Дата добавления</x-admin.table.th>
-            <x-admin.table.th scope="col">Дата проверки эл. почты</x-admin.table.th>
+            <x-admin.table.th scope="col">Дата подписки</x-admin.table.th>
             <x-admin.table.th scope="col">Управление</x-admin.table.th>
         </x-slot>
-        @forelse($users as $user)
-            <x-admin.table.tr id="row-{{ $user->id }}">
+        @forelse($subscriptions as $subscription)
+            <x-admin.table.tr id="row-{{ $subscription->id }}">
                 <x-admin.table.th scope="row"/>
-                <x-admin.table.td>{{ $user->profile->last_name ?? ''}}</x-admin.table.td>
-                <x-admin.table.td>{{ $user->profile->first_name ?? ''}}</x-admin.table.td>
-                <x-admin.table.td>{{ $user->profile->father_name ?? ''}}</x-admin.table.td>
-                <x-admin.table.td>{{ $user->name ?? ''}}</x-admin.table.td>
-                <x-admin.table.td>{{ $user->email ?? ''}}</x-admin.table.td>
-                <x-admin.table.td>{{ $user->phone ?? ''}}</x-admin.table.td>
-                <x-admin.table.td>{{ $user->role->title ?? ''}}</x-admin.table.td>
-                <x-admin.table.td>{{ $user->status ?? ''}}</x-admin.table.td>
-                <x-admin.table.td>{{ $user->created_at ?? ''}}</x-admin.table.td>
-                <x-admin.table.td>{{ $user->email_verified_at ?? ''}}</x-admin.table.td>
+                <x-admin.table.td>{{ $subscription->phone ?? ''}}</x-admin.table.td>
+                <x-admin.table.td>{{ $subscription->email ?? ''}}</x-admin.table.td>
+                <x-admin.table.td>{{ $subscription->status ?? ''}}</x-admin.table.td>
+                <x-admin.table.td>{{ $subscription->created_at ?? ''}}</x-admin.table.td>
                 <x-admin.table.td>
-                    @if($user->trashed())
+                    @if($subscription->trashed())
                         <div class="text-center">
                             <x-admin.link class="text-decoration-none"
-                                          href="{{ route('admin.users.restore', $user->id) }}"
+                                          href="{{ route('admin.subscriptions.restore', $subscription->id) }}"
                                           title="Восстановить">
                                 <x-admin.icon.restore/>
                             </x-admin.link>
-
                             <x-admin.link class="text-decoration-none"
-                                          href="{{ route('admin.users.force_delete', $user->id) }}"
+                                          href="{{ route('admin.subscriptions.force_delete', $subscription->id) }}"
                                           style="color: red;" title="Очистить корзину">
                                 <x-admin.icon.fulltrash/>
                             </x-admin.link>
                         </div>
                     @else
                         <div class="text-center">
-                            <x-admin.link class="text-decoration-none" title="Отправить письмо">
-                                <x-admin.icon.mail/>
-                            </x-admin.link>
-
                             <x-admin.link class="text-decoration-none" title="Редактировать пользователя"
-                                          href="{{ route('admin.users.edit', ['user' => $user]) }}">
+                                          href="{{ route('admin.subscriptions.edit', ['subscription' => $subscription]) }}">
                                 <x-admin.icon.edit/>
                             </x-admin.link>
-                            @if ($user->id !=  \Illuminate\Support\Facades\Auth::id())
-                                <x-admin.link href="javascript:;" class="delete text-decoration-none"
-                                              rel="{{ $user->id }}"
-                                              style="color: red;" title="Удалить в корзину">
-                                    <x-admin.icon.trash/>
-                                </x-admin.link>
-                            @endif
+                            <x-admin.link href="javascript:;" class="delete text-decoration-none"
+                                          rel="{{ $subscription->id }}"
+                                          style="color: red;" title="Удалить в корзину">
+                                <x-admin.icon.trash/>
+                            </x-admin.link>
                         </div>
                     @endif
                 </x-admin.table.td>
@@ -93,7 +75,7 @@
             crossorigin="anonymous"></script>
 
     <script type="text/javascript">
-        const userUrl = '{{ route('admin.users.index') }}';
+        const userUrl = '{{ route('admin.subscriptions.index') }}';
 
         function getHtml(message, type = 'success') {
             let alertContent;
@@ -133,7 +115,7 @@
                 dom: '<"row" <"col-sm-12 col-md-5"l><"col-sm-12 col-md-7 text-end"i>>rt<"row" <"col-sm-12 col-md-5"l><"col-sm-12 col-md-7"p>><"clear">',
                 searching: true,
                 lengthMenu: [5, 10, 15, 20],
-                iDisplayLength: {{ config('pagination.admin.users') }},
+                iDisplayLength: {{ config('pagination.admin.subscriptions') }},
                 order: [[1, 'asc']],
                 responsive: true,
                 language: {
@@ -163,9 +145,12 @@
                     {
                         searchable: false,
                         orderable: false,
-                        targets: 11,
+                        targets: 5,
                     }
-                ]
+                ],
+                initComplete: function(settings, json) {
+                    deleteRowListener();
+                }
             });
 
             table.on('order.dt search.dt', function () {
@@ -181,30 +166,38 @@
                     table.search(this.value).draw();
                 });
 
-            let elements = document.querySelectorAll(".delete");
-            elements.forEach(function (e, k) {
-                e.addEventListener('click', function () {
-                    const id = e.getAttribute('rel');
-                    send(userUrl + `/${id}`).then((result) => {
-                        const answer = JSON.parse(JSON.stringify(result));
-                        const alertBlock = document.querySelector('.alert-message');
+            table.on( 'draw', function () {
+                table.off('draw');
+                deleteRowListener();
+            });
 
-                        if (answer.success === true) {
-                            table.row('#row-' + id).remove().draw(false);
-                            renderBlock(alertBlock, answer.message, 'success', 'beforeend');
-                            setTimeout(function () {
-                                delAlert('alert-dismissible');
-                            }, 2000);
-                        } else {
-                            renderBlock(alertBlock, answer.message, 'warning', 'beforeend');
-                            setTimeout(function () {
-                                delAlert('alert-dismissible');
-                            }, 2000);
-                        }
-                        document.getElementById('recycled-user-count').innerHTML = '(' + answer.recycled + ')';
+            function deleteRowListener() {
+                let elements = document.querySelectorAll(".delete");
+                console.log(elements);
+                elements.forEach(function (e, k) {
+                    e.addEventListener('click', function () {
+                        const id = e.getAttribute('rel');
+                        send(userUrl + `/${id}`).then((result) => {
+                            const answer = JSON.parse(JSON.stringify(result));
+                            const alertBlock = document.querySelector('.alert-message');
+
+                            if (answer.success === true) {
+                                table.row('#row-' + id).remove().draw(false);
+                                renderBlock(alertBlock, answer.message, 'success', 'beforeend');
+                                setTimeout(function () {
+                                    delAlert('alert-dismissible');
+                                }, 2000);
+                            } else {
+                                renderBlock(alertBlock, answer.message, 'warning', 'beforeend');
+                                setTimeout(function () {
+                                    delAlert('alert-dismissible');
+                                }, 2000);
+                            }
+                            document.getElementById('recycled-user-count').innerHTML = '(' + answer.recycled + ')';
+                        });
                     });
                 });
-            });
+            }
         });
     </script>
 @endpush
