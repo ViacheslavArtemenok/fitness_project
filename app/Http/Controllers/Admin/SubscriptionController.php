@@ -4,9 +4,11 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Subscription;
+use App\Http\Requests\Subscriptions\EditRequest;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\View\View;
 
 class SubscriptionController extends Controller
 {
@@ -67,24 +69,35 @@ class SubscriptionController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int $id
-     * @return \Illuminate\Http\Response
+     * @param  Subscription $subscription
+     * @return View
      */
-    public function edit($id)
+    public function edit(Subscription $subscription): View
     {
-        //
+        return view('admin.subscriptions.edit', [
+            'subscription' => $subscription
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request $request
-     * @param  int $id
-     * @return \Illuminate\Http\Response
+     * @param  EditRequest $request
+     * @param  Subscription $subscription
+     * @return RedirectResponse
      */
-    public function update(Request $request, $id)
+    public function update(EditRequest $request, Subscription $subscription): RedirectResponse
     {
-        //
+        $subscription = $subscription->fill(
+            $request->validated()
+        );
+
+        if ($subscription->save()) {
+            return redirect()->route('admin.subscriptions.index')
+                ->with('success', __('messages.admin.subscriptions.update.success'));
+        }
+
+        return back()->with('error', __('messages.admin.subscriptions.update.fail'));
     }
 
     /**

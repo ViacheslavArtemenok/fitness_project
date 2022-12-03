@@ -181,28 +181,28 @@
                     table.search(this.value).draw();
                 });
 
-            let elements = document.querySelectorAll(".delete");
-            elements.forEach(function (e, k) {
-                e.addEventListener('click', function () {
-                    const id = e.getAttribute('rel');
-                    send(userUrl + `/${id}`).then((result) => {
-                        const answer = JSON.parse(JSON.stringify(result));
-                        const alertBlock = document.querySelector('.alert-message');
+            table.on('click', 'td a.delete', function () {
+                const tr = $(this).closest('tr');
+                const data = table.row(tr).data();
+                const id = data['DT_RowId'].split('-').slice(-1)[0];
 
-                        if (answer.success === true) {
-                            table.row('#row-' + id).remove().draw(false);
-                            renderBlock(alertBlock, answer.message, 'success', 'beforeend');
-                            setTimeout(function () {
-                                delAlert('alert-dismissible');
-                            }, 2000);
-                        } else {
-                            renderBlock(alertBlock, answer.message, 'warning', 'beforeend');
-                            setTimeout(function () {
-                                delAlert('alert-dismissible');
-                            }, 2000);
-                        }
-                        document.getElementById('recycled-user-count').innerHTML = '(' + answer.recycled + ')';
-                    });
+                send(userUrl + `/${id}`).then((result) => {
+                    const answer = JSON.parse(JSON.stringify(result));
+                    const alertBlock = document.querySelector('.alert-message');
+
+                    if (answer.success === true) {
+                        table.row('#row-' + id).remove().draw(false);
+                        renderBlock(alertBlock, answer.message, 'success', 'beforeend');
+                        setTimeout(function () {
+                            delAlert('alert-dismissible');
+                        }, 2000);
+                    } else {
+                        renderBlock(alertBlock, answer.message, 'warning', 'beforeend');
+                        setTimeout(function () {
+                            delAlert('alert-dismissible');
+                        }, 2000);
+                    }
+                    document.getElementById('recycled-user-count').innerHTML = '(' + answer.recycled + ')';
                 });
             });
         });

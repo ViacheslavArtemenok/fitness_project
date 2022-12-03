@@ -14,7 +14,7 @@
     <br>
     <div id="alert-message" class="alert-message" role="alert"></div><br>
     @include('inc.message')
-    <x-admin.table id="user_table">
+    <x-admin.table id="subscription_table">
         <x-slot name="heading">
             <x-admin.table.th scope="col">#</x-admin.table.th>
             <x-admin.table.th scope="col">Телефон</x-admin.table.th>
@@ -46,12 +46,11 @@
                         </div>
                     @else
                         <div class="text-center">
-                            <x-admin.link class="text-decoration-none" title="Редактировать пользователя"
+                            <x-admin.link class="text-decoration-none" title="Редактировать подписку"
                                           href="{{ route('admin.subscriptions.edit', ['subscription' => $subscription]) }}">
                                 <x-admin.icon.edit/>
                             </x-admin.link>
                             <x-admin.link href="javascript:;" class="delete text-decoration-none"
-                                          rel="{{ $subscription->id }}"
                                           style="color: red;" title="Удалить в корзину">
                                 <x-admin.icon.trash/>
                             </x-admin.link>
@@ -110,7 +109,7 @@
         }
 
         document.addEventListener('DOMContentLoaded', function () {
-            let table = new DataTable('#user_table', {
+            let table = new DataTable('#subscription_table', {
                 processing: true,
                 dom: '<"row" <"col-sm-12 col-md-5"l><"col-sm-12 col-md-7 text-end"i>>rt<"row" <"col-sm-12 col-md-5"l><"col-sm-12 col-md-7"p>><"clear">',
                 searching: true,
@@ -147,10 +146,7 @@
                         orderable: false,
                         targets: 5,
                     }
-                ],
-                initComplete: function(settings, json) {
-                    deleteRowListener();
-                }
+                ]
             });
 
             table.on('order.dt search.dt', function () {
@@ -166,38 +162,30 @@
                     table.search(this.value).draw();
                 });
 
-            table.on( 'draw', function () {
-                table.off('draw');
-                deleteRowListener();
-            });
+            table.on('click', 'td a.delete', function () {
+                const tr = $(this).closest('tr');
+                const data = table.row(tr).data();
+                const id = data['DT_RowId'].split('-').slice(-1)[0];
 
-            function deleteRowListener() {
-                let elements = document.querySelectorAll(".delete");
-                console.log(elements);
-                elements.forEach(function (e, k) {
-                    e.addEventListener('click', function () {
-                        const id = e.getAttribute('rel');
-                        send(userUrl + `/${id}`).then((result) => {
-                            const answer = JSON.parse(JSON.stringify(result));
-                            const alertBlock = document.querySelector('.alert-message');
+                send(userUrl + `/${id}`).then((result) => {
+                    const answer = JSON.parse(JSON.stringify(result));
+                    const alertBlock = document.querySelector('.alert-message');
 
-                            if (answer.success === true) {
-                                table.row('#row-' + id).remove().draw(false);
-                                renderBlock(alertBlock, answer.message, 'success', 'beforeend');
-                                setTimeout(function () {
-                                    delAlert('alert-dismissible');
-                                }, 2000);
-                            } else {
-                                renderBlock(alertBlock, answer.message, 'warning', 'beforeend');
-                                setTimeout(function () {
-                                    delAlert('alert-dismissible');
-                                }, 2000);
-                            }
-                            document.getElementById('recycled-user-count').innerHTML = '(' + answer.recycled + ')';
-                        });
-                    });
+                    if (answer.success === true) {
+                        table.row('#row-' + id).remove().draw(false);
+                        renderBlock(alertBlock, answer.message, 'success', 'beforeend');
+                        setTimeout(function () {
+                            delAlert('alert-dismissible');
+                        }, 2000);
+                    } else {
+                        renderBlock(alertBlock, answer.message, 'warning', 'beforeend');
+                        setTimeout(function () {
+                            delAlert('alert-dismissible');
+                        }, 2000);
+                    }
+                    document.getElementById('recycled-user-count').innerHTML = '(' + answer.recycled + ')';
                 });
-            }
+            });
         });
     </script>
 @endpush
