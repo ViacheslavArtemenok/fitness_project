@@ -59,14 +59,6 @@
                         <form method="post" action="{{ route('admin.send.send') }}">
                             @csrf
                             <input type="hidden" name="telegramm" value="true">
-                            <div class="form-group sendarea" placeholder="Кому">
-                                <select class="form-control" name="addressee">
-                                    <option class="form-group">Администраторам</option>
-                                    <option class="form-group" selected>Тренерам</option>
-                                    <option class="form-group">Представителям фитнес-клуба</option>
-                                    <option class="form-group">Клиентам сайта</option>
-                                </select>
-                            </div>
                             <div class="form-group sendarea">
                                 <textarea class="form-control" name="message" placeholder="Ваше сообщение" required maxlength="500" rows="3">{{ old('message') ?? '' }}</textarea>
                             </div>
