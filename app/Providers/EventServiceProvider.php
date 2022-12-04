@@ -23,6 +23,14 @@ class EventServiceProvider extends ServiceProvider
         AccountEvent::class => [
             AccountUpdateListener::class
         ],
+
+        \SocialiteProviders\Manager\SocialiteWasCalled::class => [
+            // ... other providers
+            \SocialiteProviders\VKontakte\VKontakteExtendSocialite::class.'@handle',
+            \SocialiteProviders\GitHub\GitHubExtendSocialite::class.'@handle',
+            \SocialiteProviders\Yandex\YandexExtendSocialite::class.'@handle',
+            \SocialiteProviders\Mailru\MailruExtendSocialite::class.'@handle',
+        ],
     ];
 
     /**
