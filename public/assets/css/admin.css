@@ -13,6 +13,13 @@
 .content {
     margin-bottom: 3rem;
 }
+/*table {*/
+    /*table-layout: fixed;*/
+    /*width:100%*/
+/*}*/
+/*td {*/
+    /*word-wrap:break-word;*/
+/*}*/
 .link {
     display: block;
     text-decoration: none;
@@ -23,5 +30,14 @@
     content: "";
     margin-top: -90px;
     height: 90px;
+    visibility: hidden;
+}
+.admin_header__image {
+    background-image: url("../../assets/images/admin_index.jpg");
+}
+.admin_header:before {
+    display: block;
+    content: "";
+    height: 1rem;
     visibility: hidden;
 }
