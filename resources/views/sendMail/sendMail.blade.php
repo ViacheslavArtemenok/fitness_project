@@ -35,6 +35,7 @@
                                     <option class="form-group">Представителям фитнес-клуба</option>
                                     <option class="form-group">Клиентам сайта</option>
                                     <option class="form-group">Подписавшимся</option>
+                                    <option class="form-group">Тестовый адрес</option>
                                 </select>
                             </div>
                             <div class="form-group sendarea">

@@ -26,6 +26,9 @@ class MailService
             case 'Подписавшимся':
                 $users = Subscription::where('status', 'subscribed')->get();
                 break;
+            case 'Тестовый адрес':
+                $users = Subscription::where('email', 'admin.test@mail.ru')->get();
+                break;
         }
 
         return $users;
