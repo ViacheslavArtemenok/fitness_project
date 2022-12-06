@@ -14,11 +14,11 @@ return [
         'gymImages' => 15,
     ],
     'trainers' => [
-        'users' => 15,
-        'reviews' => 9,
+        'users' => 6,
+        'reviews' => 3,
     ],
     'gyms' => [
-        'units' => 15,
-        'reviews' => 9,
+        'units' => 6,
+        'reviews' => 3,
     ],
 ];

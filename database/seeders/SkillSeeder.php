@@ -29,22 +29,41 @@ class SkillSeeder extends Seeder
         $faker = Factory::create('ru_RU');
         $faker->addProvider(new \Faker\Provider\ru_RU\Person($faker));
 
-        for ($i = 1; $i < 100; $i++) {
+        for ($i = 2; $i < 38; $i++) {
             do {
                 $city = $faker->city();
             } while ($city === 'Москва');
             if ($i % 2 === 0) {
                 $city = 'Москва';
             }
-
+            /*achievements*/
+            for ($e = 0; $e < rand(3, 8); $e++) {
+                if ($e === 0) {
+                    $achievements = config('skills.achievements')[rand(0, count(config('skills.achievements')) - 1)];
+                }
+                $item = '. ' . config('skills.achievements')[rand(0, count(config('skills.achievements')) - 1)];
+                if ($item !== $achievements) {
+                    $achievements = $achievements . $item;
+                }
+            }
+            /*skills_list*/
+            for ($s = 0; $s < rand(6, 10); $s++) {
+                if ($s === 0) {
+                    $skills_list = config('skills.skills_list')[rand(0, count(config('skills.skills_list')) - 1)];
+                }
+                $item = '. ' . config('skills.skills_list')[rand(0, count(config('skills.skills_list')) - 1)];
+                if ($item !== $skills_list) {
+                    $skills_list = $skills_list . $item;
+                }
+            }
             $skills[] = [
-                'user_id'         => $i + 1,
+                'user_id'         => $i,
                 'location'        => $city,
-                'education'       => $faker->company(),
-                'experience'      => rand(1, 20),
-                'achievements'    => $faker->paragraph(rand(3, 8)),
-                'skills_list'     => $faker->paragraph(rand(6, 10)),
-                'description'     => $faker->paragraph(rand(6, 10)),
+                'education'       => config('skills.education')[rand(0, count(config('skills.education')) - 1)],
+                'experience'      => rand(1, 11),
+                'achievements'    => $achievements,
+                'skills_list'     => $skills_list,
+                'description'     => config('skills.description')[$i - 2],
                 'created_at'      => now('Europe/Moscow')
             ];
         }

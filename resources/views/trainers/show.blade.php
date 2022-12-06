@@ -124,8 +124,8 @@
                                                 {{ $trainerBuilder->getUnitCase($review->profile->age) }}</h6>
                                         </div>
                                     </div>
-                                    <h4>{{ mb_substr($trainerR->pivot->title, 0, 20) . '...' }}</h4>
-                                    <p>{{ mb_substr($trainerR->pivot->description, 0, 90) . '...' }}</p>
+                                    <h4>{{ mb_substr($trainerR->pivot->title, 0, 18) . '...' }}</h4>
+                                    <p>{{ mb_substr($trainerR->pivot->description, 0, 80) . '...' }}</p>
                                     <p>{{ $trainerR->pivot->created_at->format('d.m.Y (H:i)') }}</p>
                                     <a href="{{ route('trainers.review', [
                                         'review_id' => $trainerR->pivot->id,

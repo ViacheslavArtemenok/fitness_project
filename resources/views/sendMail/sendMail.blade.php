@@ -3,15 +3,16 @@
     Рассылка сообщений @parent
 @endsection
 @section('content')
-<style>
-    .sendDiv{
-    min-height: 750px;
-    padding: 150px 0px;
-}
-.sendarea {
-    padding: 15px 0px;
-}
-</style>
+    <style>
+        .sendDiv {
+            min-height: 750px;
+            padding: 150px 0px;
+        }
+
+        .sendarea {
+            padding: 15px 0px;
+        }
+    </style>
     <div class="container marketing sendDiv">
         <div class="accordion" id="accordionExample">
             <div class="accordion-item">

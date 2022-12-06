@@ -33,7 +33,7 @@ class MailSendController extends Controller
             foreach ($users as $user) {
                 dispatch(new SendEmailJob(
                     [
-                        'user' => $user,
+                        'user' => $user->email,
                         'data' => $data
                     ]
                 ));

@@ -41,12 +41,14 @@ class ModeratingSeeder extends Seeder
             Moderating::REASON05,
         ];
 
-        for ($i = 2; $i < 151; $i++) {
-            $statusIndex = rand(0, 2);
+        for ($i = 2; $i < 74; $i++) {
+            //$statusIndex = rand(0, 2);
+            $statusIndex = 1;
 
             if ($statusIndex === 2) {
                 $moderatings[] = [
                     'user_id'       => $i,
+                    'status'        => $status[2],
                     'status'        => $status[$statusIndex],
                     'reason'        => $rejected[rand(1, 4)],
                     'created_at'    => now('Europe/Moscow')

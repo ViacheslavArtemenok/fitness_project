@@ -31,13 +31,13 @@ class TrainerReviewsSeeder extends Seeder
         $faker = Factory::create('ru_RU');
         $faker->addProvider(new \Faker\Provider\ru_RU\Person($faker));
 
-        for ($i = 2; $i < 101; $i++) {
+        for ($i = 2; $i < 38; $i++) {
             for ($e = 0; $e < rand(4, 12); $e++) {
                 $trainerReviews[] = [
-                    'client_id' => rand(101, 130),
+                    'client_id' => rand(38, 55),
                     'trainer_id' => $i,
-                    'title' => $faker->paragraph(1),
-                    'description' => $faker->paragraph(rand(15, 40)),
+                    'title' => config('trainerReviews')[rand(0, count(config('trainerReviews')) - 1)]['title'],
+                    'description' => config('trainerReviews')[rand(0, count(config('trainerReviews')) - 1)]['description'],
                     'score' => rand(4, 5),
                     'status' => TrainerReview::ACTIVE,
                     'created_at'  => now('Europe/Moscow')

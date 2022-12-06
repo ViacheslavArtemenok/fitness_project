@@ -51,7 +51,7 @@
                     <p class="lead">Email: {{ $gym->email }}</p>
 
                     <a class="btn btn-outline-danger mt-3 mb-2 me-2"
-                        href="{{ route('gyms.index', ['city_id' => $city_id]) }}">&#9668; &#9668;
+                        href="{{ route('gyms.show', ['id' => $gym->id, 'city_id' => $city_id]) }}">&#9668; &#9668;
                         &#9668; Назад
                     </a>
                     @if (!Auth::user() || Auth::user()->role_id === 3)

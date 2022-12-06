@@ -26,10 +26,10 @@ class RelationSeeder extends Seeder
     {
         $relations = [];
 
-        for ($i = 1; $i < 100; $i++) {
-            for ($e = 0; $e < rand(1, 6); $e++) {
+        for ($i = 2; $i < 38; $i++) {
+            for ($e = 0; $e < rand(4, 8); $e++) {
                 $relations[] = [
-                    'user_id' => $i + 1,
+                    'user_id' => $i,
                     'tag_id' => rand(1, 22),
                     'created_at' => now('Europe/Moscow')
                 ];

@@ -24,84 +24,96 @@ class ProfileSeeder extends Seeder
      */
     private function getData(): array
     {
+        $counter_t_f = 0;
+        $counter_t_m = 0;
+        $counter_c_f = 0;
+        $counter_c_m = 0;
+        $counter_g_f = 0;
+        $counter_g_m = 0;
         $profiles = [];
 
         $faker = Factory::create('ru_RU');
         $faker->addProvider(new \Faker\Provider\ru_RU\Person($faker));
 
-        for ($i = 1; $i < 100; $i++) {
+        for ($i = 2; $i < 38; $i++) {
             if ($i > 2 && $i % 3 === 0) {
                 $profiles[] = [
-                    'user_id' => $i + 1,
+                    'user_id' => $i,
                     'first_name' => $faker->firstNameFemale(),
                     'last_name' => $faker->lastName('female'),
-                    'father_name' => 'Петровна',
+                    'father_name' => config('profiles.female')[rand(0, count(config('profiles.female')) - 1)],
                     'age' => rand(25, 45),
                     'gender' => 'female',
-                    'image' => 'image/R7iVXGJGksz1PIwveeXXu8EecSM3vY4qHs9vkS6r.jpg',
+                    'image' => 'image/' . config('photos.trainers.female')[$counter_t_f],
                     'created_at' => now('Europe/Moscow'),
                 ];
+                $counter_t_f++;
             } else {
                 $profiles[] = [
-                    'user_id' => $i + 1,
+                    'user_id' => $i,
                     'first_name' => $faker->firstNameMale(),
                     'last_name' => $faker->lastName('male'),
-                    'father_name' => 'Александрович',
+                    'father_name' => config('profiles.male')[rand(0, count(config('profiles.male')) - 1)],
                     'age' => rand(25, 45),
                     'gender' => 'male',
-                    'image' => 'image/neGE3GlAMl3E5GhNvHxDrK2B2eyzgKTQttg2Ks4b.jpg',
+                    'image' => 'image/' . config('photos.trainers.male')[$counter_t_m],
                     'created_at' => now('Europe/Moscow'),
                 ];
+                $counter_t_m++;
             }
         }
-        for ($i = 100; $i < 130; $i++) {
+        for ($i = 38; $i < 56; $i++) {
             if ($i % 3 === 0) {
                 $profiles[] = [
-                    'user_id' => $i + 1,
+                    'user_id' => $i,
                     'first_name' => $faker->firstNameFemale(),
                     'last_name' => $faker->lastName('female'),
-                    'father_name' => 'Петровна',
+                    'father_name' => config('profiles.female')[rand(0, count(config('profiles.female')) - 1)],
                     'age' => rand(25, 45),
                     'gender' => 'female',
-                    'image' => 'image/SEYY9Sj7295UdmyOVOt3prX5Zqj35tn1Q07XhDL8.jpg',
+                    'image' => 'image/' . config('photos.clients.female')[$counter_c_f],
                     'created_at' => now('Europe/Moscow'),
                 ];
+                $counter_c_f++;
             } else {
                 $profiles[] = [
-                    'user_id' => $i + 1,
+                    'user_id' => $i,
                     'first_name' => $faker->firstNameMale(),
                     'last_name' => $faker->lastName('male'),
-                    'father_name' => 'Александрович',
+                    'father_name' => config('profiles.male')[rand(0, count(config('profiles.male')) - 1)],
                     'age' => rand(25, 45),
                     'gender' => 'male',
-                    'image' => 'image/8o9a6Xu8VR1dAFOSJyiMZlC1mXJEoCtzOn0OAFVG.jpg',
+                    'image' => 'image/' . config('photos.clients.male')[$counter_c_m],
                     'created_at' => now('Europe/Moscow'),
                 ];
+                $counter_c_m++;
             }
         }
-        for ($i = 130; $i < 150; $i++) {
+        for ($i = 56; $i < 74; $i++) {
             if ($i % 3 === 0) {
                 $profiles[] = [
-                    'user_id' => $i + 1,
+                    'user_id' => $i,
                     'first_name' => $faker->firstNameFemale(),
                     'last_name' => $faker->lastName('female'),
-                    'father_name' => 'Петровна',
+                    'father_name' => config('profiles.female')[rand(0, count(config('profiles.female')) - 1)],
                     'age' => rand(25, 45),
                     'gender' => 'female',
-                    'image' => 'image/sXtimN1wYkOdaoJb4RluXwT0tM1CvhsRDFNuv5LF.jpg',
+                    'image' => 'image/' . config('photos.gyms.female')[$counter_g_f],
                     'created_at' => now('Europe/Moscow'),
                 ];
+                $counter_g_f++;
             } else {
                 $profiles[] = [
-                    'user_id' => $i + 1,
+                    'user_id' => $i,
                     'first_name' => $faker->firstNameMale(),
                     'last_name' => $faker->lastName('male'),
-                    'father_name' => 'Александрович',
-                    'age' => rand(25, 45),
+                    'father_name' => config('profiles.male')[rand(0, count(config('profiles.male')) - 1)],
+                    'age' => rand(29, 42),
                     'gender' => 'male',
-                    'image' => 'image/6KvCAw7UE8n5YnwthXH8dWYkD6AeWOsvnQdBtcet.jpg',
+                    'image' => 'image/' . config('photos.gyms.male')[$counter_g_m],
                     'created_at' => now('Europe/Moscow'),
                 ];
+                $counter_g_m++;
             }
         }
 

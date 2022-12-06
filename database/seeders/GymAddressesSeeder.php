@@ -24,7 +24,7 @@ class GymAddressesSeeder extends Seeder
         $gym_addresses = [];
         $faker = Factory::create('ru_RU');
         $faker->addProvider(new \Faker\Provider\ru_RU\Person($faker));
-        for ($i = 0; $i < 20; $i++) {
+        for ($i = 0; $i < 18; $i++) {
             do {
                 $city = $faker->city();
             } while ($city === 'Москва');
@@ -50,7 +50,7 @@ class GymAddressesSeeder extends Seeder
                     'index' => rand(100000, 999999),
                     'country' => 'Россия',
                     'city' => $city,
-                    'street' => $faker->streetName(),
+                    'street' => config('streets')[rand(0, count(config('streets')) - 1)],
                     'house_number' => rand(1, 200),
                     'building' => $building,
                     'floor' => rand(1, 30),

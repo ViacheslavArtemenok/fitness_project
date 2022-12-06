@@ -29,13 +29,13 @@ class GymReviewsSeeder extends Seeder
 
         $faker = Factory::create('ru_RU');
         $faker->addProvider(new \Faker\Provider\ru_RU\Person($faker));
-        for ($i = 0; $i < 20; $i++) {
+        for ($i = 0; $i < 18; $i++) {
             for ($e = 0; $e < rand(6, 25); $e++) {
                 $gymReviews[] = [
-                    'client_id' => rand(101, 130),
+                    'client_id' => rand(38, 55),
                     'gym_id' => $i + 1,
-                    'title' => $faker->paragraph(1),
-                    'description' => $faker->paragraph(rand(15, 40)),
+                    'title' => config('gymReviews')[rand(0, count(config('gymReviews')) - 1)]['title'],
+                    'description' => config('gymReviews')[rand(0, count(config('gymReviews')) - 1)]['description'],
                     'score' => rand(4, 5),
                     'status' => 'ACTIVE',
                     'created_at'  => now('Europe/Moscow')

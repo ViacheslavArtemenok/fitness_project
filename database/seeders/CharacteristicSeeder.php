@@ -32,7 +32,7 @@ class CharacteristicSeeder extends Seeder
         $faker = Factory::create('ru_RU');
         $faker->addProvider(new \Faker\Provider\ru_RU\Person($faker));
 
-        for ($i = 100; $i < 130; $i++) {
+        for ($i = 38; $i < 56; $i++) {
             do {
                 $city = $faker->city();
             } while ($city === 'Москва');
@@ -41,12 +41,14 @@ class CharacteristicSeeder extends Seeder
             }
 
             $characteristics[] = [
-                'user_id'         => $i + 1,
+                'user_id'         => $i,
                 'location'        => $city,
                 'height'      => rand(155, 198),
                 'weight'    => rand(60, 110),
                 'health' => $healthGroups[rand(0, 2)],
-                'description'     => $faker->paragraph(rand(1, 2)),
+                'description'     => 'С детства занимаюсь различными танцами, много времени посвящаю спорту. 
+                Также увлекаюсь бегом, лыжами, театральным искусством: не только посещаю спектакли, 
+                но и играю в любительских спектаклях, люблю этюды и акробатические номера.',
                 'created_at'      => now('Europe/Moscow')
             ];
         }
