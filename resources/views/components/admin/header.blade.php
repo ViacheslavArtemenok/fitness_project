@@ -1,7 +1,7 @@
 <header class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
     <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3 fs-6" href="{{ route('info.home') }}">AggFitness</a>
 
-    @if (request()->routeIs('admin.users.*'))
+    @if (request()->routeIs('admin.users.*') || request()->routeIs('admin.subscriptions.index'))
         <input id="tableSearchText" class="form-control form-control-dark w-100 rounded-0 border-0" type="text"
             placeholder="Поиск" aria-label="Search">
     @else

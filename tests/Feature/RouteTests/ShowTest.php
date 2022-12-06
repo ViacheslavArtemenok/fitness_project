@@ -99,7 +99,7 @@ class ShowTest extends TestCase
     {
         $user = User::factory()->create();
         $_GET = [
-            'id' => 1,
+            'id' => 5,
             'city_id' => 1
         ];
         $response = $this->actingAs($user)->get(route('gyms.show', $_GET));

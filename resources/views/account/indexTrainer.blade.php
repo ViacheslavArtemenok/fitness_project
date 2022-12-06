@@ -52,7 +52,7 @@
                 <div class="d-flex flex-column flex-grow-1 ps-4 pt-1">
                     <div class="d-flex">
                         <h5 class="fw-bold">
-                            @if ($user->profile && $user->moderating->status === 'IS_APPROVED')
+                            @if ($user->profile && isset($user->moderating->status) && $user->moderating->status === 'IS_APPROVED')
                                 {{ $user->profile->first_name }}
                                 {{ $user->profile->father_name }}
                                 {{ $user->profile->last_name }}
@@ -89,20 +89,20 @@
                                     <td>Нет оценки</td>
                                 @endif
                             </tr>
-                            @if ($user->skill && $user->moderating->status === 'IS_APPROVED')
+                            @if ($user->skill && isset($user->moderating->status) && $user->moderating->status === 'IS_APPROVED')
                                 <tr>
                                     <th scope="row">Город:</th>
                                     <td>{{ $user->skill->location }}</td>
                                 </tr>
                             @endif
-                            @if ($user->profile && $user->moderating->status === 'IS_APPROVED')
+                            @if ($user->profile && isset($user->moderating->status) && $user->moderating->status === 'IS_APPROVED')
                                 <tr>
                                     <th scope="row">Возраст:</th>
                                     <td>{{ $user->profile->age }} {{ $trainerBuilder->getUnitCase($user->profile->age) }}
                                     </td>
                                 </tr>
                             @endif
-                            @if ($user->skill && $user->moderating->status === 'IS_APPROVED')
+                            @if ($user->skill && isset($user->moderating->status) && $user->moderating->status === 'IS_APPROVED')
                                 <tr>
                                     <th scope="row">Опыт:</th>
                                     <td>{{ $user->skill->experience }}
@@ -134,7 +134,7 @@
                     </div>
                 </div>
             </div>
-            @if ($user->skill && $user->moderating->status === 'IS_APPROVED')
+            @if ($user->skill && isset($user->moderating->status) && $user->moderating->status === 'IS_APPROVED')
                 <div class="shadow skill_bottom p-4 rounded">
                     <table class="table">
                         <thead>

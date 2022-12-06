@@ -57,7 +57,7 @@
                 <div class="d-flex flex-column flex-grow-1 ps-4 pt-1">
                     <div class="d-flex">
                         <h5 class="fw-bold">
-                            @if ($user->profile && $user->moderating->status === 'IS_APPROVED')
+                            @if ($user->profile && isset($user->moderating->status) && $user->moderating->status === 'IS_APPROVED')
                                 {{ $user->profile->first_name }}
                                 {{ $user->profile->father_name }}
                                 {{ $user->profile->last_name }}
@@ -81,7 +81,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @if ($user->profile && $user->moderating->status === 'IS_APPROVED')
+                            @if ($user->profile && isset($user->moderating->status) && $user->moderating->status === 'IS_APPROVED')
                                 <tr>
                                     <th scope="row">Возраст:</th>
                                     <td>{{ $user->profile->age }}
@@ -97,7 +97,7 @@
                                 <th scope="row">Email:</th>
                                 <td>{{ $user->email }}</td>
                             </tr>
-                            @if ($user->gym && $user->moderating->status === 'IS_APPROVED')
+                            @if ($user->gym && isset($user->moderating->status) && $user->moderating->status === 'IS_APPROVED')
                                 <tr>
                                     <th scope="row" class="w-25"></th>
                                     <td class="w-75"></td>
@@ -122,7 +122,7 @@
                         </tbody>
                     </table>
                     <!-- Описание -->
-                    @if ($user->gym && $user->moderating->status === 'IS_APPROVED')
+                    @if ($user->gym && isset($user->moderating->status) && $user->moderating->status === 'IS_APPROVED')
                         <div class="w-75 p-4 mb-4 shadow rounded-1">
                             <table class="table">
                                 <thead>
@@ -147,7 +147,7 @@
                 </div>
             </div>
             <!-- Галерея -->
-            @if (isset($user->gym->images) && $user->moderating->status === 'IS_APPROVED')
+            @if (isset($user->gym->images) && isset($user->moderating->status) && $user->moderating->status === 'IS_APPROVED')
                 <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="true">
                     <div class="carousel-indicators">
                         @foreach ($user->gym->images as $key => $image)
@@ -178,7 +178,7 @@
                 </div>
             @endif
             <!-- Адреса -->
-            @if (isset($user->gym->addresses) && $user->moderating->status === 'IS_APPROVED')
+            @if (isset($user->gym->addresses) && isset($user->moderating->status) && $user->moderating->status === 'IS_APPROVED')
                 <div class="w-100 p-3 mb-4 shadow rounded-1">
                     <h5 class="text-center mb-4">Адреса филиалов</h5>
                     <table class="table">
