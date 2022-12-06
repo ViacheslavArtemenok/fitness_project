@@ -12,8 +12,7 @@
             <div class="card-header">
                 {{ __('Авторизация') }}
             </div>
-            <div class="card-body
-                    d-flex align-items-start flex-wrap">
+            <div class="card-body d-flex align-items-start flex-wrap">
                 <img class="w-25 me-4 align-self-center" src="{{ asset('assets/images/reg.jpg') }}" alt="img">
                 <form class="flex-grow-1" method="POST" action="{{ route('login') }}">
                     @csrf
@@ -71,14 +70,19 @@
                         </div>
                     </div>
                 </form>
-                <div>
-                    <a href="{{ route('social.auth.redirect', ['driver'=>'vkontakte']) }}"><strong>Вход через VK</strong></a>
-                    <br>
-                    <a href="{{ route('social.auth.redirect', ['driver'=>'github']) }}"><strong>Вход через GitHub</strong></a>
-                    <br>
-                    <a href="{{ route('social.auth.redirect', ['driver'=>'yandex']) }}"><strong>Вход через Yandex</strong></a>
-                    <br>
-                    <a href="{{ route('social.auth.redirect', ['driver'=>'mailru']) }}"><strong>Вход через Mailru</strong></a>
+                <div class="d-flex flex-column p-3 me-3 shadow rounded-2">
+                    <a class="social_blue rounded-circle mb-3"
+                        href="{{ route('social.auth.redirect', ['driver' => 'mailru']) }}"><img
+                            src="{{ asset('assets/images/mailru.png') }}" alt="img"></a>
+                    <a class="social_dark rounded-circle mb-3"
+                        href="{{ route('social.auth.redirect', ['driver' => 'github']) }}"><img
+                            src="{{ asset('assets/images/git.png') }}" alt="img"></a>
+                    <a class="social_blue rounded-1 mb-3"
+                        href="{{ route('social.auth.redirect', ['driver' => 'vkontakte']) }}"><img
+                            src="{{ asset('assets/images/vk.png') }}" alt="img"></a>
+                    <a class="social_red rounded-1 mb-0"
+                        href="{{ route('social.auth.redirect', ['driver' => 'yandex']) }}"><img
+                            src="{{ asset('assets/images/ya.png') }}" alt="img"></a>
                 </div>
             </div>
         </div>
