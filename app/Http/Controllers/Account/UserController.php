@@ -100,8 +100,6 @@ class UserController extends Controller
                     ->with('success', __('messages.account.users.update.success'));
             }
         }
-//        event(new AccountEvent($user));
-//        AccountEvent::dispatch($user);
         return back()->with('error', __('messages.account.users.update.fail'));
     }
 

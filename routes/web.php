@@ -37,6 +37,8 @@ use App\Http\Controllers\TrainerController;
 use App\Http\Controllers\SubscriptionController;
 use App\Http\Controllers\TrainerReviewController;
 
+use \App\Http\Controllers\SocialProvidersController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -158,4 +160,14 @@ Route::middleware('auth')->group(function () {
             ->name('subscriptions.force_delete');
         Route::resource('subscriptions', AdminSubscriptionController::class);
     });
+});
+
+//SocialProviders routes
+Route::group(['middleware'=>'guest'], function (){
+    Route::get('/auth/redirect/{driver}', [SocialProvidersController::class, 'redirect'])
+        ->where('driver', '\w+')
+    ->name('social.auth.redirect');
+
+    Route::get('/auth/callback/{driver}', [SocialProvidersController::class, 'callback'])
+        ->where('driver', '\w+');
 });

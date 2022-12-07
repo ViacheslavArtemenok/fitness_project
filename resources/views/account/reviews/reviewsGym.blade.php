@@ -25,8 +25,8 @@
                                 <tr>
                                     <th scope="row">{{ $key + 1 }}</th>
                                     <td>{{ $review->title }}</td>
-                                    <td>{{ mb_substr($review->pivot->title, 0, 30) . '...' }}</td>
-                                    <td>{{ mb_substr($review->pivot->description, 0, 55) . '...' }}</td>
+                                    <td>{{ mb_substr($review->pivot->title, 0, 26) . '...' }}</td>
+                                    <td>{{ mb_substr($review->pivot->description, 0, 45) . '...' }}</td>
                                     <td>{{ $review->pivot->created_at->format('d.m.Y') }}</td>
                                     <td>
                                         @if ($review->pivot->status === 'ACTIVE')
