@@ -9,11 +9,11 @@
             @method('put')
             <div class="form-group">
                 <label for="phone_mask">Телефон</label>
-                <input type="text" class="form-control" name="phone" id="phone_mask" value="{{ $subscription->phone }}">
+                <input type="text" class="form-control" name="phone" id="phone_mask" value="{{ $subscription->phone }}" readonly>
             </div>
             <div class="form-group">
                 <label for="email">Электронная почта</label>
-                <input type="text" class="form-control" name="email" id="email" value="{{ $subscription->email }}">
+                <input type="text" class="form-control" name="email" id="email" value="{{ $subscription->email }}" readonly>
             </div>
             <div class="form-group">
                 <label for="status">Статус</label>
