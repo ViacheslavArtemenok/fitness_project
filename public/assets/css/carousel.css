@@ -351,6 +351,12 @@ margin: 0px 6px 36px;
 .social_blue:hover{
 box-shadow: 0px 0px 16px #0d6efd;
 }
+.social_green{
+  transition: all 0.25s;
+}
+.social_green:hover{
+box-shadow: 0px 0px 16px #198754;
+}
 .social_dark{
   transition: all 0.25s;
 }

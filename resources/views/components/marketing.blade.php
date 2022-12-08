@@ -23,7 +23,8 @@
                         <div class="carousel-caption text-start">
                             <h1>{{ $promoItem['title'] }}</h1>
                             <p>{{ $promoItem['description'] }}</p>
-                            <a class="btn btn-lg btn-outline-success" href="{{ $promoItem['url'] }}">Подробнее</a>
+                            <a class="btn btn-lg btn-outline-success" href="{{ $promoItem['url'] }}">Подробнее
+                                &raquo;</a>
                         </div>
                     </div>
                 </div>
@@ -62,7 +63,7 @@
                                         <ul class="d-flex justify-content-between list-unstyled mt-auto">
                                             <li class="d-flex align-items-center">
                                                 <a class="btn btn-sm btn-outline-success"
-                                                    href="{{ $marketItem['url'] }}" target="blank">Подробнее</a>
+                                                    href="{{ $marketItem['url'] }}" target="blank">Подробнее &raquo;</a>
                                             </li>
                                             <li class="d-flex align-items-center">
                                                 <img width="48" src="{{ asset('assets/images/favicon.png') }}"

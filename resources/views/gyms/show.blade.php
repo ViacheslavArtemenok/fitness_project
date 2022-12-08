@@ -195,7 +195,7 @@
                                         'city_id' => $city_id,
                                     ]) }}"
                                         class="btn btn-outline-secondary align-items-center">
-                                        Подробнее
+                                        Подробнее &raquo;
                                     </a>
                                 </div>
                             </div>

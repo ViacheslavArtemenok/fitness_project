@@ -25,7 +25,7 @@
 
                 <div class="d-flex w-25 rounded-3 ms-4 mb-4">
                     @foreach ($main['hrefList'] as $key => $item)
-                        <a class="rounded-1 me-4" href="{{ $item['url'] }}" target="blank">
+                        <a class="rounded-circle me-4 social_dark" href="{{ $item['url'] }}" target="blank">
                             <img src="{{ asset($item['img']) }}" alt="{{ $item['alt'] }}">
                         </a>
                     @endforeach
