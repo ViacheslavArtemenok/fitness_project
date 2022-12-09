@@ -9,6 +9,7 @@ use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use App\Mail\SendMail;
+use Illuminate\Support\Facades\Mail as FacadesMail;
 use Mail;
 
 class SendEmailJob implements ShouldQueue
@@ -34,6 +35,6 @@ class SendEmailJob implements ShouldQueue
      */
     public function handle()
     {
-        Mail::to($this->details['user'])->send(new SendMail($this->details['data']));
+        FacadesMail::to($this->details['user'])->send(new SendMail($this->details['data']));
     }
 }
