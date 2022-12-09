@@ -49,13 +49,13 @@
         @endif
         <hr class="featurette-divider">
         @if ($user)
-            <div class="d-flex shadow mb-4 rounded-1 p-4">
+            <div class="d-flex flex-wrap shadow mb-4 rounded-1 p-4">
                 <img class="m-2 rounded-2 border border-secondary border-2 border-opacity-10 avatar"
                     src="@if (isset($user->profile->image)) {{ Storage::disk('public')->url($user->profile->image) }} @else /assets/images/user.jpg @endif"
                     alt="img">
                 <!--Блок с личными данными-->
                 <div class="d-flex flex-column flex-grow-1 ps-4 pt-1">
-                    <div class="d-flex">
+                    <div class="d-flex flex-wrap">
                         <h5 class="fw-bold">
                             @if ($user->profile && isset($user->moderating->status) && $user->moderating->status === 'IS_APPROVED')
                                 {{ $user->profile->first_name }}
@@ -74,7 +74,7 @@
                                 alt="img">
                         </div>
                     </div>
-                    <table class="table w-50">
+                    <table class="table">
                         <thead>
                             <tr>
 
@@ -99,53 +99,53 @@
                             </tr>
                             @if ($user->gym && isset($user->moderating->status) && $user->moderating->status === 'IS_APPROVED')
                                 <tr>
-                                    <th scope="row" class="w-25"></th>
-                                    <td class="w-75"></td>
+                                    <th scope="row"></th>
+                                    <td></td>
                                 </tr>
                                 <tr>
-                                    <th scope="row" class="w-25">Фитнес-клуб:</th>
-                                    <td class="w-75">{{ $user->gym->title }}</td>
+                                    <th scope="row">Фитнес-клуб:</th>
+                                    <td>{{ $user->gym->title }}</td>
                                 </tr>
                                 <tr>
-                                    <th scope="row" class="w-25">Телефон:</th>
-                                    <td class="w-75">{{ $user->gym->phone_main }}</td>
+                                    <th scope="row">Телефон:</th>
+                                    <td>{{ $user->gym->phone_main }}</td>
                                 </tr>
                                 <tr>
-                                    <th scope="row" class="w-25">Телефон:</th>
-                                    <td class="w-75">{{ $user->gym->phone_second }}</td>
+                                    <th scope="row">Телефон:</th>
+                                    <td>{{ $user->gym->phone_second }}</td>
                                 </tr>
                                 <tr>
-                                    <th scope="row" class="w-25">Email:</th>
-                                    <td class="w-75">{{ $user->gym->email }}</td>
+                                    <th scope="row">Email:</th>
+                                    <td>{{ $user->gym->email }}</td>
                                 </tr>
                             @endif
                         </tbody>
                     </table>
-                    <!-- Описание -->
-                    @if ($user->gym && isset($user->moderating->status) && $user->moderating->status === 'IS_APPROVED')
-                        <div class="w-75 p-4 mb-4 shadow rounded-1">
-                            <table class="table">
-                                <thead>
-                                    <tr>
-
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <th scope="row" class="w-25">Ссылка:</th>
-                                        <td class="w-75"><a class="btn btn-outline-primary btn-sm" target="blank"
-                                                href="{{ $user->gym->url }}">{{ $user->gym->title }}</a></td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row" class="w-25">Описание:</th>
-                                        <td class="w-75">{{ $user->gym->description }}</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    @endif
                 </div>
             </div>
+            <!-- Описание -->
+            @if ($user->gym && isset($user->moderating->status) && $user->moderating->status === 'IS_APPROVED')
+                <div class="p-4 mb-4 shadow rounded-1">
+                    <table class="table">
+                        <thead>
+                            <tr>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th scope="row" class="about_self">Ссылка:</th>
+                                <td><a class="btn btn-outline-primary btn-sm" target="blank"
+                                        href="{{ $user->gym->url }}">{{ $user->gym->title }}</a></td>
+                            </tr>
+                            <tr>
+                                <th scope="row" class="about_self">Описание:</th>
+                                <td>{{ $user->gym->description }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            @endif
             <!-- Галерея -->
             @if (isset($user->gym->images) && isset($user->moderating->status) && $user->moderating->status === 'IS_APPROVED')
                 <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="true">
@@ -178,10 +178,12 @@
                 </div>
             @endif
             <!-- Адреса -->
-            @if (isset($user->gym->addresses) && isset($user->moderating->status) && $user->moderating->status === 'IS_APPROVED')
-                <div class="w-100 p-3 mb-4 shadow rounded-1">
+            @if (isset($user->gym->addresses) &&
+                isset($user->moderating->status) &&
+                $user->moderating->status === 'IS_APPROVED')
+                <div class="p-3 mb-4 shadow rounded-1">
                     <h5 class="text-center mb-4">Адреса филиалов</h5>
-                    <table class="table">
+                    <table class="table addresses_hide">
                         <thead>
                             <tr>
                                 <th scope="row">#</th>
@@ -227,6 +229,25 @@
                             @endforeach
                         </tbody>
                     </table>
+                    <ul class="list-group addresses_show">
+                        @foreach ($user->gym->addresses as $key => $address)
+                            <li class="list-group-item">
+                                {{ $key + 1 }}.
+                                {{ $address->country }},
+                                {{ $address->index }},
+                                г.{{ $address->city }},
+                                ул.{{ $address->street }},
+                                д.{{ $address->house_number }},
+                                @if ($address->building)
+                                    корп.{{ $address->building }},
+                                @endif
+                                эт.{{ $address->floor }},
+                                @if ($address->apartment)
+                                    офис {{ $address->apartment }}
+                                @endif
+                            </li>
+                        @endforeach
+                    </ul>
                 </div>
             @endif
         @else

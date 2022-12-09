@@ -16,7 +16,7 @@
                         @foreach ($main['list'] as $key => $item)
                             <tr>
                                 <th class="fs-5"><span class="text-success">&#10004;</span></th>
-                                <th class="fs-5">{{ $key }}</th>
+                                <th class="fs-5 contacts_hide">{{ $key }}</th>
                                 <td class="fs-5">{{ $item }}</td>
                             </tr>
                         @endforeach

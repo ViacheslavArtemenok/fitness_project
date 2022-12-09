@@ -58,7 +58,7 @@
                     </div>
                     <div class="row mb-0">
                         <div class="col-md-8 offset-md-4">
-                            <button type="submit" class="btn btn-outline-success">
+                            <button type="submit" class="btn btn-outline-success mb-1">
                                 {{ __('Войти') }}
                             </button>
 

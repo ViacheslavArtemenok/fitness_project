@@ -3,7 +3,6 @@
     Рассылка сообщений @parent
 @endsection
 @section('content')
-
     <style>
         .sendDiv {
             min-height: 750px;
@@ -17,11 +16,12 @@
 
     <div class="container marketing sendDiv">
         @if (Session::has('time'))
-
-        <div>Время рассылки {{Session::get('time')}} секунды</div>
-
+            <div class="bg-dark p-4 col-md-5 text-center mb-3 shadow rounded-2">
+                <p class="text-success m-0">Время выполнения: <span class="text-light">{{ Session::get('time') }}</span> сек.
+                </p>
+            </div>
         @endif
-        <div class="accordion" id="accordionExample">
+        <div class="accordion shadow rounded-2" id="accordionExample">
 
             <div class="accordion-item">
                 <h2 class="accordion-header" id="headingTwo">

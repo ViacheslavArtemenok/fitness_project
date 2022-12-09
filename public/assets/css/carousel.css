@@ -269,6 +269,19 @@ margin: 0px 6px 36px;
     max-width: 180px;
   }
 }
+.about_self{
+ min-width: 160px;
+}
+@media (max-width: 590px) {
+  .about_self{
+    display: none;
+  }
+}
+@media (max-width: 520px) {
+  .contacts_hide{
+    display: none;
+  }
+  }
 @media (max-width: 770px) {
 .addresses_hide{
   display: none;
