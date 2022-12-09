@@ -50,7 +50,7 @@
     <div class="container pt-4" id="custom-cards">
         <div class="row row-cols-1 row-cols-lg-3 align-items-stretch g-4 pt-4 pb-5">
             @forelse(config('promo.home.marketList') as $keyMain => $marketItemMain)
-                <div id="carouselExampleSlidesOnly" class="col carousel slide m-0" data-bs-ride="carousel">
+                <div id="carouselExampleSlidesOnly" class="col carousel slide m-0 pb-2" data-bs-ride="carousel">
                     <div class="carousel-inner rounded-4 marketing_height">
                         @forelse($marketItemMain as $key => $marketItem)
                             <div class="border border-success border-black carousel-item card card-cover h-100 overflow-hidden text-bg-dark rounded-4 shadow-lg @if ($key === 0) active @endif"

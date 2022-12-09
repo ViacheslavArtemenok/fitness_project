@@ -44,13 +44,13 @@
         @endif
         <hr class="featurette-divider">
         @if ($user)
-            <div class="d-flex shadow mb-4 rounded-1 p-4">
+            <div class="d-flex flex-wrap shadow mb-4 rounded-1 p-4">
                 <img class="m-2 rounded-2 border border-secondary border-2 border-opacity-10 avatar"
                     src="@if (isset($user->profile->image)) {{ Storage::disk('public')->url($user->profile->image) }} @else /assets/images/user.jpg @endif"
                     alt="img">
                 <!--Блок с личными данными-->
-                <div class="d-flex flex-column flex-grow-1 ps-4 pt-1">
-                    <div class="d-flex">
+                <div class="d-flex flex-column flex-grow-1 p-4">
+                    <div class="d-flex flex-wrap">
                         <h5 class="fw-bold">
                             @if ($user->profile && isset($user->moderating->status) && $user->moderating->status === 'IS_APPROVED')
                                 {{ $user->profile->first_name }}
@@ -69,7 +69,7 @@
                                 alt="img">
                         </div>
                     </div>
-                    <table class="table w-50">
+                    <table class="table">
                         <thead>
                             <tr>
 
@@ -112,26 +112,26 @@
                             </tr>
                         </tbody>
                     </table>
-                    @if ($user->characteristic && isset($user->moderating->status) && $user->moderating->status === 'IS_APPROVED')
-                        <div class="w-75 p-4 mb-4 shadow rounded-1">
-                            <table class="table">
-                                <thead>
-                                    <tr>
-
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <th scope="row" class="w-25">О себе:</th>
-                                        <td class="w-75">{{ $user->characteristic->description }}</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    @endif
                 </div>
             </div>
-            <div class="w-100 p-3 mb-4 shadow rounded-1">
+            @if ($user->characteristic && isset($user->moderating->status) && $user->moderating->status === 'IS_APPROVED')
+                <div class="p-4 mb-4 shadow rounded-1">
+                    <table class="table">
+                        <thead>
+                            <tr>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th scope="row" class="about_self">О себе:</th>
+                                <td>{{ $user->characteristic->description }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            @endif
+            <div class="p-3 mb-4 shadow rounded-1">
                 <h6>Группы здоровья</h6>
                 <p>А – Возможны занятия физической культурой без ограничений и участие в соревнованиях.</p>
                 <p>B – Возможны занятия физической культурой с незначительными ограничениями физических нагрузок

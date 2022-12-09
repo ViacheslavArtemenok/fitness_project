@@ -40,14 +40,12 @@ class MailSendController extends Controller
                         'data' => $data
                     ]
                 ));
-                $time = microtime(true)- $start;
-                $userTime = round($time, 1);
-                $request->session()->put('time', $userTime);
+                $time = microtime(true) - $start;
+                $request->session()->put('time', $time);
 
                 // Mail::to($this->details['user'])->send(new SendMail($this->details['data']));
                 // Mail::to($user)->send(new SendMail($data));
             }
-
         } elseif ($request->telegramm) {
             $client = new Client();
             try {

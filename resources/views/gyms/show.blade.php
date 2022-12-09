@@ -64,7 +64,7 @@
             </div>
 
             <hr class="featurette-divider">
-
+            <!--Слайдер-->
             <div class="row featurette">
                 <div class="bg-light p-3 ps-4 rounded-1 shadow">
                     <h3 class="mb-2">О клубе</h3>
@@ -74,7 +74,8 @@
                             @foreach ($gym->images as $key => $image)
                                 <button type="button" data-bs-target="#carouselExampleIndicators"
                                     data-bs-slide-to="{{ $key }}"
-                                    @if ($key === 0) class="active" aria-current="true" @endif
+                                    class="bg-dark @if ($key === 0) active @endif"
+                                    @if ($key === 0) aria-current="true" @endif
                                     aria-label="Slide {{ $key + 1 }}"></button>
                             @endforeach
                         </div>
@@ -88,12 +89,12 @@
                         </div>
                         <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
                             data-bs-slide="prev">
-                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="carousel-control-prev-icon bg-dark rounded-2" aria-hidden="true"></span>
                             <span class="visually-hidden">Предыдущий</span>
                         </button>
                         <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators"
                             data-bs-slide="next">
-                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="carousel-control-next-icon bg-dark rounded-2" aria-hidden="true"></span>
                             <span class="visually-hidden">Следующий</span>
                         </button>
                     </div>

@@ -3,7 +3,8 @@
     Личный кабинет@parent
 @endsection
 @section('content')
-    <x-account.trainer.menu></x-account.trainer.menu>
+    <x-account.trainer.menu>
+    </x-account.trainer.menu>
     <br>
     <div class="container marketing">
         @if (Auth::user()->status === 'BLOCKED')
@@ -44,13 +45,13 @@
         @endif
         <hr class="featurette-divider">
         @if ($user)
-            <div class="d-flex shadow mb-4 rounded-1 p-4">
+            <div class="d-flex flex-wrap shadow mb-4 rounded-1 p-4">
                 <img class="m-2 rounded-2 border border-secondary border-2 border-opacity-10 avatar"
                     src="@if (isset($user->profile->image)) {{ Storage::disk('public')->url($user->profile->image) }} @else /assets/images/user.jpg @endif"
                     alt="img">
                 <!--Блок с личными данными-->
-                <div class="d-flex flex-column flex-grow-1 ps-4 pt-1">
-                    <div class="d-flex">
+                <div class="d-flex flex-column flex-grow-1 p-4">
+                    <div class="d-flex flex-wrap">
                         <h5 class="fw-bold">
                             @if ($user->profile && isset($user->moderating->status) && $user->moderating->status === 'IS_APPROVED')
                                 {{ $user->profile->first_name }}
@@ -69,7 +70,7 @@
                                 alt="img">
                         </div>
                     </div>
-                    <table class="table w-50">
+                    <table class="table">
                         <thead>
                             <tr>
 
@@ -136,32 +137,32 @@
             </div>
             @if ($user->skill && isset($user->moderating->status) && $user->moderating->status === 'IS_APPROVED')
                 <div class="shadow skill_bottom p-4 rounded">
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th class="text-center">Образование</th>
-                                <th class="text-center">Навыки</th>
-                                <th class="text-center">Достижения</th>
-                                <th class="text-center w-25">О себе</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>{{ $user->skill->education }}</td>
-                                <td>
-                                    @foreach (explode('. ', $user->skill->skills_list) as $item)
-                                        <div>&bull; {{ rtrim($item, '.') }}</div>
-                                    @endforeach
-                                </td>
-                                <td>
-                                    @foreach (explode('. ', $user->skill->achievements) as $item)
-                                        <div>&bull; {{ rtrim($item, '.') }}</div>
-                                    @endforeach
-                                </td>
-                                <td>{{ $user->skill->description }}</td>
-                            </tr>
-                        </tbody>
-                    </table>
+                    <div class="mb-4">
+                        <h6 class="me-4">Образование:</h6>
+                        <h6 class="fw-normal">{{ $user->skill->education }}</h6>
+                    </div>
+                    <div class="mb-4">
+                        <h6 class="me-4">О себе:</h6>
+                        <h6 class="fw-normal">{{ $user->skill->description }}</h6>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-4">
+                            <h6 class="me-4">Достижения:</h6>
+                            <h6 class="fw-normal">
+                                @foreach (explode('. ', $user->skill->achievements) as $item)
+                                    <div>&bull; {{ rtrim($item, '.') }}</div>
+                                @endforeach
+                            </h6>
+                        </div>
+                        <div class="col-md-6 mb-4">
+                            <h6 class="me-4">Навыки:</h6>
+                            <h6 class="fw-normal">
+                                @foreach (explode('. ', $user->skill->skills_list) as $item)
+                                    <div>&bull; {{ rtrim($item, '.') }}</div>
+                                @endforeach
+                            </h6>
+                        </div>
+                    </div>
                 </div>
             @else
                 <hr class="featurette-divider">
