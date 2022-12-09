@@ -41,7 +41,8 @@ class MailSendController extends Controller
                     ]
                 ));
                 $time = microtime(true) - $start;
-                $request->session()->put('time', $time);
+                $userTime = round($time, 4);
+                $request->session()->put('time', $userTime);
 
                 // Mail::to($this->details['user'])->send(new SendMail($this->details['data']));
                 // Mail::to($user)->send(new SendMail($data));
