@@ -12,8 +12,15 @@
     padding: 15px 0px;
 }
 </style>
+<div class="alert-message"></div>
     <div class="container marketing sendDiv">
+        @if (Session::has('time'))
+
+        <div>Время рассылки {{Session::get('time')}} секунды</div>
+
+        @endif
         <div class="accordion" id="accordionExample">
+
             <div class="accordion-item">
                 <h2 class="accordion-header" id="headingTwo">
                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
