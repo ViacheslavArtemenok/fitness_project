@@ -27,6 +27,7 @@ use App\Http\Controllers\Admin\RoleController as AdminRoleController;
 use App\Http\Controllers\Admin\GymController as AdminGymController;
 use App\Http\Controllers\Admin\GymAddressController as AdminGymAddressController;
 use App\Http\Controllers\Admin\GymImageController as AdminGymImageController;
+use App\Http\Controllers\Admin\SubscriptionController as AdminSubscriptionController;
 
 use App\Http\Controllers\GymController;
 use App\Http\Controllers\GymReviewController;
@@ -35,6 +36,8 @@ use App\Http\Controllers\MailSendController;
 use App\Http\Controllers\TrainerController;
 use App\Http\Controllers\SubscriptionController;
 use App\Http\Controllers\TrainerReviewController;
+
+use \App\Http\Controllers\SocialProvidersController;
 
 /*
 |--------------------------------------------------------------------------
@@ -148,5 +151,23 @@ Route::middleware('auth')->group(function () {
         Route::resource('gymImages', AdminGymImageController::class);
         Route::get('/send', [MailSendController::class, 'index'])->name('send.index');
         Route::post('/send', [MailSendController::class, 'send'])->name('send.send');
+
+        Route::get('subscriptions/{id}/restore', [AdminSubscriptionController::class, 'restore'])
+            ->where('id', '\d+')
+            ->name('subscriptions.restore');
+        Route::get('subscriptions/{id}/force_delete', [AdminSubscriptionController::class, 'forceDelete'])
+            ->where('id', '\d+')
+            ->name('subscriptions.force_delete');
+        Route::resource('subscriptions', AdminSubscriptionController::class);
     });
+});
+
+//SocialProviders routes
+Route::group(['middleware'=>'guest'], function (){
+    Route::get('/auth/redirect/{driver}', [SocialProvidersController::class, 'redirect'])
+        ->where('driver', '\w+')
+    ->name('social.auth.redirect');
+
+    Route::get('/auth/callback/{driver}', [SocialProvidersController::class, 'callback'])
+        ->where('driver', '\w+');
 });

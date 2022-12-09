@@ -1,5 +1,5 @@
 <!-- FOOTER -->
-<div class="footer_box">
+<div class="border-top border-2 border-success">
     <div class="container">
         <footer class="py-5 footer_design">
             <div class="row">

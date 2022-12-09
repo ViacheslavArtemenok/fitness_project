@@ -12,13 +12,14 @@ return [
         'gyms' => 5,
         'gymAddresses' => 15,
         'gymImages' => 15,
+        'subscriptions' => 10,
     ],
     'trainers' => [
-        'users' => 15,
-        'reviews' => 9,
+        'users' => 6,
+        'reviews' => 3,
     ],
     'gyms' => [
-        'units' => 15,
-        'reviews' => 9,
+        'units' => 6,
+        'reviews' => 3,
     ],
 ];

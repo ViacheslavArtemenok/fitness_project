@@ -75,7 +75,7 @@ return [
             ],
             [
                 'title' => 'Наши клиенты',
-                'subtitle' => 'Новые акции и предложения',
+                'subtitle' => 'Новые эмоции',
                 'description' => 'Авторизуйтесь на сайте и получите доступ к отзывам или фитнес-услугам
                 по максимуму',
                 'url' => 'login'
@@ -323,11 +323,26 @@ return [
         'main' => [
             'title' => 'Разработчики',
             'list' => [
-                'Арсеньев Юрий',
-                'Серов Алексей',
-                'Конаков Анатолий',
-                'Морозов Александр',
-                'Артемёнок Вячеслав',
+                [
+                    'name' => 'Арсеньев Юрий',
+                    'url' => 'https://github.com/zaqw60',
+                ],
+                [
+                    'name' => 'Серов Алексей',
+                    'url' => 'https://github.com/alexinbox80',
+                ],
+                [
+                    'name' => 'Конаков Анатолий',
+                    'url' => 'https://github.com/Veedok',
+                ],
+                [
+                    'name' => 'Морозов Александр',
+                    'url' => 'https://github.com/alex-l-morozov',
+                ],
+                [
+                    'name' => 'Артемёнок Вячеслав',
+                    'url' => 'https://github.com/ViacheslavArtemenok',
+                ],
             ],
             'sourceCount' => 12
         ],

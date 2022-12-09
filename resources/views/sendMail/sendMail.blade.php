@@ -3,16 +3,18 @@
     Рассылка сообщений @parent
 @endsection
 @section('content')
-<style>
-    .sendDiv{
-    min-height: 750px;
-    padding: 150px 0px;
-}
-.sendarea {
-    padding: 15px 0px;
-}
-</style>
-<div class="alert-message"></div>
+
+    <style>
+        .sendDiv {
+            min-height: 750px;
+            padding: 150px 0px;
+        }
+
+        .sendarea {
+            padding: 15px 0px;
+        }
+    </style>
+
     <div class="container marketing sendDiv">
         @if (Session::has('time'))
 
@@ -41,6 +43,7 @@
                                     <option class="form-group">Представителям фитнес-клуба</option>
                                     <option class="form-group">Клиентам сайта</option>
                                     <option class="form-group">Подписавшимся</option>
+                                    <option class="form-group">Тестовый адрес</option>
                                 </select>
                             </div>
                             <div class="form-group sendarea">
@@ -66,14 +69,6 @@
                         <form method="post" action="{{ route('admin.send.send') }}">
                             @csrf
                             <input type="hidden" name="telegramm" value="true">
-                            <div class="form-group sendarea" placeholder="Кому">
-                                <select class="form-control" name="addressee">
-                                    <option class="form-group">Администраторам</option>
-                                    <option class="form-group" selected>Тренерам</option>
-                                    <option class="form-group">Представителям фитнес-клуба</option>
-                                    <option class="form-group">Клиентам сайта</option>
-                                </select>
-                            </div>
                             <div class="form-group sendarea">
                                 <textarea class="form-control" name="message" placeholder="Ваше сообщение" required maxlength="500" rows="3">{{ old('message') ?? '' }}</textarea>
                             </div>

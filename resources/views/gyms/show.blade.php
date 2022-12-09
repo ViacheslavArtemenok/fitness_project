@@ -67,8 +67,8 @@
 
             <div class="row featurette">
                 <div class="bg-light p-3 ps-4 rounded-1 shadow">
-                    <h3>О клубе</h3>
-                    <p>{{ $gym->description }}</p>
+                    <h3 class="mb-2">О клубе</h3>
+                    <h6 class="fw-normal mb-3">{{ $gym->description }}</h6>
                     <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="true">
                         <div class="carousel-indicators">
                             @foreach ($gym->images as $key => $image)
@@ -185,8 +185,8 @@
                                                 {{ $gymBuilder->getUnitCase($reviewer->profile->age) }}</h6>
                                         </div>
                                     </div>
-                                    <h4>{{ mb_substr($gymReview->pivot->title, 0, 20) . '...' }}</h4>
-                                    <p>{{ mb_substr($gymReview->pivot->description, 0, 90) . '...' }}</p>
+                                    <h4>{{ mb_substr($gymReview->pivot->title, 0, 18) . '...' }}</h4>
+                                    <p>{{ mb_substr($gymReview->pivot->description, 0, 80) . '...' }}</p>
                                     <p>{{ $gymReview->pivot->created_at->format('d.m.Y (H:i)') }}</p>
                                     <a href="{{ route('gyms.review', [
                                         'review_id' => $gymReview->pivot->id,
@@ -195,7 +195,7 @@
                                         'city_id' => $city_id,
                                     ]) }}"
                                         class="btn btn-outline-secondary align-items-center">
-                                        Подробнее
+                                        Подробнее &raquo;
                                     </a>
                                 </div>
                             </div>

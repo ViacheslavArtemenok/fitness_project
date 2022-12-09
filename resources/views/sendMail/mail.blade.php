@@ -14,33 +14,33 @@
 </head>
 
 <body>
-    <div class="body_back w-100 rounded-1" style="margin: 0px auto;">
+    <div class="bg-dark w-100 rounded-1" style="margin: 0px auto;">
         <div class="p-4 text-center">
             <h5 class="text-success">Спасибо, что остаетесь с нами!</h5>
         </div>
-        <div class="footer_box p-4">
+        <div class="border-top border-2 border-success p-4">
             <div class="d-flex justify-content-between flex-wrap">
                 <ul class="nav flex-column">
                     <li class="nav-item mb-2"><a class="link-light text-white-50" href="{{ route('info.home') }}"
-                            class="nav-link p-0 text-muted">Главная</a>
+                            class="nav-link p-0 text-muted" target="blank">Главная</a>
                     </li>
                     <li class="nav-item mb-2"><a class="link-light text-white-50"
                             href="{{ route('trainers.index', ['tag_id' => 0, 'city_id' => 0]) }}"
-                            class="nav-link p-0 text-muted">Тренеры</a></li>
+                            class="nav-link p-0 text-muted" target="blank">Тренеры</a></li>
                     <li class="nav-item mb-2"><a class="link-light text-white-50"
-                            href="{{ route('gyms.index', ['city_id' => 0]) }}"
-                            class="nav-link p-0 text-muted">Фитнес-клубы</a>
+                            href="{{ route('gyms.index', ['city_id' => 0]) }}" class="nav-link p-0 text-muted"
+                            target="blank">Фитнес-клубы</a>
                     </li>
                 </ul>
                 <img class="logo_image" src="{{ asset('assets/images/logo.png') }}" alt="logo">
                 <ul class="nav flex-column">
                     <li class="nav-item mb-2"><a class="link-light text-white-50" href="{{ route('info.about') }}"
-                            class="nav-link p-0 text-muted">О проекте</a></li>
+                            class="nav-link p-0 text-muted" target="blank">О проекте</a></li>
                     <li class="nav-item mb-2"><a class="link-light text-white-50" href="{{ route('info.contacts') }}"
-                            class="nav-link p-0 text-muted">Контакты</a>
+                            class="nav-link p-0 text-muted" target="blank">Контакты</a>
                     </li>
                     <li class="nav-item mb-2"><a class="link-light text-white-50" href="{{ route('info.developers') }}"
-                            class="nav-link p-0 text-muted">Разработчики</a>
+                            class="nav-link p-0 text-muted" target="blank">Разработчики</a>
                     </li>
                 </ul>
             </div>

@@ -66,7 +66,7 @@ final class TrainerQueryBuilder
             ->where('role_id', 2)
             ->where('status', 'ACTIVE')
             ->with(['profile', 'skill', 'tags', 'clients'])
-            ->paginate(config('trainers.users'));
+            ->paginate(config('pagination.trainers.users'));
     }
 
     public function getWithParamsPaginate(string $firstName = null, string $lastName = null, int $city_id, int $tag_id): mixed
@@ -87,7 +87,7 @@ final class TrainerQueryBuilder
                 ->where('status', 'ACTIVE')
                 ->whereIn('id', $trainers->arr)
                 ->with(['profile', 'skill', 'tags', 'clients'])
-                ->paginate(config('trainers.users'));
+                ->paginate(config('pagination.trainers.users'));
         } elseif ($this->checker) { //Поиск не дал результатов
             return collect([]);
         } else return $this->getAllPaginate(); //Запрос без параметров - все тренеры
@@ -130,7 +130,7 @@ final class TrainerQueryBuilder
                 ->where('role_id', 3)
                 ->whereIn('id', $arr)
                 ->with(['profile', 'trainers'])
-                ->paginate(6);
+                ->paginate(config('pagination.trainers.reviews'));
         } else {
             $reviews = collect([]);
         }

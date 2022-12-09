@@ -59,7 +59,7 @@ final class GymQueryBuilder
     {
         return $this->gymModel
             ->with(['user', 'addresses', 'images', 'clients'])
-            ->paginate(config('gyms.units'));
+            ->paginate(config('pagination.gyms.units'));
     }
 
     public function getWithParamsPaginate(string $title = null, int $city_id): mixed
@@ -76,7 +76,7 @@ final class GymQueryBuilder
             return  $this->gymModel
                 ->whereIn('id', $gyms->arr)
                 ->with(['user', 'addresses', 'images', 'clients'])
-                ->paginate(config('gyms.units'));
+                ->paginate(config('pagination.gyms.units'));
         } elseif ($this->checker) { //Поиск не дал результатов
             return collect([]);
         } else return $this->getAllPaginate(); //Запрос без параметров - все тренеры
@@ -115,7 +115,7 @@ final class GymQueryBuilder
                 ->where('role_id', 3)
                 ->whereIn('id', $arr)
                 ->with(['profile', 'gyms'])
-                ->paginate(6);
+                ->paginate(config('pagination.gyms.reviews'));
         } else {
             $reviewers = collect([]);
         }

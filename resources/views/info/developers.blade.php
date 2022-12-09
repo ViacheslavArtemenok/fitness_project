@@ -7,10 +7,10 @@
             <div class="col-md-7 order-md-2">
                 <h2 class="fw-normal lh-1 mb-4">{{ $main['title'] }}</h2>
                 @foreach ($main['list'] as $key => $item)
-                    <div class="d-flex align-items-end shadow-lg p-3 w-50">
+                    <div class="d-flex align-items-center shadow-lg p-3 w-50">
                         <img class="rounded-circle shadow-lg mb-2"
                             src="{{ asset('assets/images/hacker_' . $key + 1 . '.png') }}" alt="img">
-                        <h5 class="fw-normal ms-4"> {{ $item }}</h5>
+                        <a href="{{ $item['url'] }}" class="fw-normal fs-5 ms-4" target="blank"> {{ $item['name'] }}</a>
                     </div>
                 @endforeach
             </div>
