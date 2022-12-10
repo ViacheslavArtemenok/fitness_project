@@ -79,6 +79,10 @@
             <br>
             <button class="btn btn-outline-success" type="submit">Сохранить</button>
         </form>
+        <div class="p-4 my-4 shadow rounded">
+            <h6>Изображение должно быть квадратным, иметь размеры не более 600х600 и не менее 400х400 пикселей, не более
+                200 КБ по объему памяти, быть в профиль и на уровне плеч.</h6>
+        </div>
     </div>
     <hr class="featurette-divider">
 @endsection

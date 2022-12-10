@@ -54,6 +54,10 @@
 body {
   background: #dddddd;
   }
+.img_edit{
+  max-width: 240px;
+  height: auto;
+}
 .avatar{
   max-height: 240px;
   width: auto;

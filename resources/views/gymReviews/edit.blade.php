@@ -35,7 +35,7 @@
                             <tr>
                                 <th scope="col">&#10004;</th>
                                 <th scope="col">Название:</th>
-                                <th scope="col"> {{ $gym->title }}</th>
+                                <th scope="col" class="text-nowrap"> {{ $gym->title }}</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -58,12 +58,12 @@
                             <tr>
                                 <th scope="row">&#10004;</th>
                                 <td>Телефон:</td>
-                                <td>{{ $gym->phone_main }}</td>
+                                <td class="text-nowrap">{{ $gym->phone_main }}</td>
                             </tr>
                             <tr>
                                 <th scope="row">&#10004;</th>
                                 <td>Телефон:</td>
-                                <td>
+                                <td class="text-nowrap">
                                     @if ($gym->phone_second)
                                         {{ $gym->phone_second }}
                                     @else
@@ -74,7 +74,7 @@
                             <tr>
                                 <th scope="row">&#10004;</th>
                                 <td>Email:</td>
-                                <td>{{ $gym->email }}</td>
+                                <td class="text-nowrap">{{ $gym->email }}</td>
                             </tr>
                         </tbody>
                     </table>

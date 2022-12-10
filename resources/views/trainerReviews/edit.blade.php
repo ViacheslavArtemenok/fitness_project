@@ -34,8 +34,8 @@
                         <thead>
                             <tr>
                                 <th scope="col">&#10004;</th>
-                                <th scope="col">{{ $trainer->profile->first_name }}</th>
-                                <th scope="col">
+                                <th scope="col" class="text-nowrap">{{ $trainer->profile->first_name }}</th>
+                                <th scope="col" class="text-nowrap">
                                     {{ $trainer->profile->last_name }}</th>
                             </tr>
                         </thead>
@@ -71,7 +71,7 @@
                             <tr>
                                 <th scope="row">&#10004;</th>
                                 <td>Город:</td>
-                                <td>{{ $trainer->skill->location }}</td>
+                                <td class="text-nowrap">{{ $trainer->skill->location }}</td>
                             </tr>
                         </tbody>
                     </table>

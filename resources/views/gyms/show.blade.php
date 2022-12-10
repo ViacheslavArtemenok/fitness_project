@@ -20,8 +20,7 @@
         @if ($gym)
             <div class="row featurette">
                 <div class="col-md-5 mb-2">
-                    <img class="market_image" src="{{ Storage::disk('public')->url($gym->images[0]->image) }}"
-                        alt="img">
+                    <img class="w-100" src="{{ Storage::disk('public')->url($gym->images[0]->image) }}" alt="img">
                 </div>
                 <div class="col-md-7">
                     <h2 class="fw-normal lh-1">{{ $gym->title }} </h2>
