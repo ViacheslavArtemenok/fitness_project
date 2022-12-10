@@ -112,7 +112,7 @@
                             @endif
                             <tr>
                                 <th scope="row">Телефон:</th>
-                                <td>{{ $user->phone }}</td>
+                                <td class="text-nowrap">{{ $user->phone }}</td>
                             </tr>
                             <tr>
                                 <th scope="row">Email:</th>
