@@ -1,0 +1,17 @@
+
+docker-compose -f docker-compose.prod.yml --env-file .env.prod build
+
+docker-compose -f docker-compose.prod.yml --env-file .env.prod up -d
+
+docker-compose -f docker-compose.prod.yml --env-file .env.prod ps
+docker-compose -f docker-compose.prod.yml --env-file .env.prod logs
+
+docker-compose -f docker-compose.prod.yml --env-file .env.prod exec app php artisan key:generate
+docker-compose -f docker-compose.prod.yml --env-file .env.prod exec app php artisan config:cache
+docker-compose -f docker-compose.prod.yml --env-file .env.prod exec app php artisan migrate:rollback
+docker-compose -f docker-compose.prod.yml --env-file .env.prod exec app php artisan migrate --seed
+
+http://aggfitness.tk
+
+docker-compose -f docker-compose.prod.yml --env-file .env.prod stop
+docker-compose -f docker-compose.prod.yml --env-file .env.prod rm

@@ -1,70 +1,71 @@
-# For more information: https://laravel.com/docs/sail
 version: '3'
 services:
-    laravel.prod:
+#Laravel App
+    app:
         build:
             context: ./docker/own
             dockerfile: Dockerfile
             args:
                 WWWGROUP: '${WWWGROUP}'
-        image: laravel/app
-        extra_hosts:
-            - 'host.docker.internal:host-gateway'
-        ports:
-            - '${APP_PORT:-80}:80'
+                TIMEZONE: '${APP_TIMEZONE}'
+        image: hakase-labs/laravel
+        container_name: app
+        restart: unless-stopped
+        tty: true
         environment:
-            WWWUSER: '${WWWUSER}'
-            LARAVEL_SAIL: 1
-            XDEBUG_MODE: '${SAIL_XDEBUG_MODE:-off}'
-            XDEBUG_CONFIG: '${SAIL_XDEBUG_CONFIG:-client_host=host.docker.internal}'
+            SERVICE_NAME: app
+            SERVICE_TAGS: dev
+        working_dir: /var/www/html
         volumes:
-            - '.:/var/www/html'
+            - ./:/var/www/html
         networks:
-            - sail
-        depends_on:
-            - mysql
-            - nginx
-    mysql:
+            - mynet
+
+#Nginx Service
+    nginx:
+         image: nginx
+         container_name: nginx
+         restart: unless-stopped
+         tty: true
+         environment:
+              NGINX_HOST: '${APP_SERVER_NAME}'
+              NGINX_HTTP_PORT: '${NGINX_HTTP_PORT}'
+              NGINX_HTTPS_PORT: '${NGINX_HTTPS_PORT}'
+         ports:
+              - '${FORWARD_HTTP_PORT:-80}:80'
+              - '${FORWARD_HTTPS_PORT:-443}:443'
+         volumes:
+              - ./:/var/www/html
+              - ./docker/own/nginx/conf.d/default.conf:/etc/nginx/templates/default.conf.template
+              - ./docker/own/nginx/ssl/:/etc/nginx/ssl/
+         networks:
+              - mynet
+
+#MySQL Service
+    db:
         image: 'mysql/mysql-server:8.0'
+        container_name: mysql
+        restart: unless-stopped
+        tty: true
         ports:
             - '${FORWARD_DB_PORT:-3306}:3306'
         environment:
-            MYSQL_ROOT_PASSWORD: '${DB_PASSWORD}'
-            MYSQL_ROOT_HOST: "%"
             MYSQL_DATABASE: '${DB_DATABASE}'
             MYSQL_USER: '${DB_USERNAME}'
             MYSQL_PASSWORD: '${DB_PASSWORD}'
-            MYSQL_ALLOW_EMPTY_PASSWORD: 1
+            MYSQL_ROOT_PASSWORD: '${DB_PASSWORD}'
         volumes:
-            - 'sail-mysql:/var/lib/mysql'
+            - mysqldata:/var/lib/mysql/
             - './vendor/laravel/sail/database/mysql/create-testing-database.sh:/docker-entrypoint-initdb.d/10-create-testing-database.sh'
         networks:
-            - sail
-        healthcheck:
-            test: ["CMD", "mysqladmin", "ping", "-p${DB_PASSWORD}"]
-            retries: 3
-            timeout: 5s
-    nginx:
-        # используем последний стабильный образ nginx
-        image: 'nginx:latest'
-        # маршрутизируем порты
-        ports:
-            - "8080:80"
-            #- "443:443"
-        # монтируем директории, слева директории на основной машине, справа - куда они монтируются в контейнере
-        volumes:
-            - ./docker/own/nginx.conf:/etc/nginx/templates
-            - .:/var/www/html
-        environment:
-            NGINX_HOST: '${APP_SERVER_NAME}'
-            NGINX_PORT: '${APP_PORT}'
-        networks:
-            - sail
+            - mynet
 
+#Docker Networks
 networks:
-    sail:
+    mynet:
         driver: bridge
 
+#Volumes
 volumes:
-    sail-mysql:
-        driver: local
+    mysqldata:
+          driver: local
