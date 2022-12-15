@@ -28,14 +28,16 @@ class AccountUpdateListener
      */
     public function handle($event): void
     {
-//        if (isset($event->user) && $event->user instanceof User){
+        if (isset($event->user) && $event->user instanceof User){
             $event->user->status = 'DRAFT';
             $event->user->save();
-            $moderating = Moderating::query()
-            ->where('user_id', $event->user->id)
-            ->first();
-            $moderating->status = 'IS_PENDING';
-            $moderating->save();
-//        }
+            if ($event->user->moderating) {
+                $moderating = Moderating::query()
+                    ->where('user_id', $event->user->id)
+                    ->first();
+                $moderating->status = 'IS_PENDING';
+                $moderating->save();
+            }
+        }
     }
 }
