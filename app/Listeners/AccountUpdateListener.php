@@ -31,7 +31,7 @@ class AccountUpdateListener
         if (isset($event->user) && $event->user instanceof User){
             $event->user->status = 'DRAFT';
             $event->user->save();
-            if ($event->user->moderating) {
+            if (isset($event->user->moderating)) {
                 $moderating = Moderating::query()
                     ->where('user_id', $event->user->id)
                     ->first();
